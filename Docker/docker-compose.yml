@@ -1,6 +1,97 @@
-version: '3.8'
+version: '3.7'
+
 services:
-  example:
-    build: .
+  # 1. Reverse Proxy (Traefik) - Handles SSL/HTTPS automatically
+  traefik:
+    image: traefik:v2.10
+    command:
+      - "--api.insecure=true"        # Dashboard available at :8080 (optional)
+      - "--providers.docker"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge=true"
+      - "--certificatesresolvers.myresolver.acme.httpchallenge.entrypoint=web"
+      # CHANGE 'YOUR_EMAIL' TO YOUR REAL EMAIL FOR LET'S ENCRYPT
+      - "--certificatesresolvers.myresolver.acme.email=your_email@example.com"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
     ports:
-      - "5000:5000"
+      - 80:80
+      - 443:443
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - traefik-data:/letsencrypt
+    restart: unless-stopped
+
+  # 2. Database (PostgreSQL for high performance)
+  db:
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=nextcloud
+      - POSTGRES_PASSWORD=change_this_strong_password_123
+      - POSTGRES_DB=nextcloud
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  # 3. Redis Cache (Required for Talk & Performance)
+  redis:
+    image: redis:alpine
+    command: --save 60 1 --loglevel warning
+    volumes:
+      - redis-data:/data
+    restart: unless-stopped
+
+  # 4. Nextcloud App (The Core Application)
+  nextcloud:
+    image: nextcloud:latest
+    environment:
+      - NEXTCLOUD_HOST=cloud.yourdomain.com  # REPLACE THIS WITH YOUR DOMAIN
+      - NEXTCLOUD_ADMIN_USER=admin            # Default Admin User
+      - NEXTCLOUD_ADMIN_PASSWORD=change_this_admin_password_456
+      # Database Config
+      - POSTGRES_HOST=db
+      - POSTGRES_DB=nextcloud
+      - POSTGRES_USER=nextcloud
+      - POSTGRES_PASSWORD=change_this_strong_password_123
+      # Redis Config (For Talk & Caching)
+      - REDIS_HOST=redis
+      - REDIS_HOST_PORT=6379
+      # Trust the reverse proxy
+      - TRUSTED_PROXIES=traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.nextcloud.rule=Host(`cloud.yourdomain.com`)"
+      - "traefik.http.routers.nextcloud.entrypoints=websecure"
+      - "traefik.http.routers.nextcloud.tls.certresolver=myresolver"
+      - "traefik.http.services.nextcloud.loadbalance.stickiness=true"
+    depends_on:
+      - db
+      - redis
+    volumes:
+      - nextcloud-data:/var/www/html
+    restart: unless-stopped
+
+  # 5. OnlyOffice (Document Server for Editing in Browser)
+  # Optional but recommended if you want full Talk file collaboration
+  onlyoffice:
+    image: onlyoffice/documentserver:latest
+    environment:
+      - JWT_ENABLED=true
+      - JWT_SECRET=super_secret_jwt_key_change_this_789
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.onlyoffice.rule=Host(`onlyoffice.yourdomain.com`)"
+      - "traefik.http.routers.onlyoffice.entrypoints=websecure"
+      - "traefik.http.routers.onlyoffice.tls.certresolver=myresolver"
+    volumes:
+      - onlyoffice-data:/var/www/onlyoffice/Data
+    restart: unless-stopped
+
+volumes:
+  db-data:
+  redis-data:
+  nextcloud-data:
+  traefik-data:
+  onlyoffice-data:
