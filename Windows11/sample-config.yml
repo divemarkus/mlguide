@@ -1,0 +1,6 @@
+windows:
+  wsl: true
+  recommended_packages:
+    - git
+    - vscode
+    - docker-desktop
