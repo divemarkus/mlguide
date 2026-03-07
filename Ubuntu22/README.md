@@ -1,8 +1,9 @@
 # Ubuntu22
 
-Notes for setting up Ubuntu 22.04 for ML workloads.
+Notes for setting up Ubuntu 22.04 for ML workloads.
 
-Files:
+## Files
 
-- `setup.sh`: Script to install drivers and common packages
-- `docker-compose.yml`: Example compose file for development
+- `setup.sh`: Script to install drivers and common packages.
+- `docker-compose.yml`: Example compose file for development.
+

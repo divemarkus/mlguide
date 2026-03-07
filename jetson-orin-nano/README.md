@@ -1,11 +1,9 @@
 # Nvidia Jetson Orin Nano Super Dev Kit: Getting Started with Machine Learning
 
----
+## Files
 
-Files:
-
-- `jetson_setup.sh`: Example commands to install CUDA/L4T components
-- `docker-compose.yml`: Example Compose file for services (Ollama, Open-WebUI, Netdata, Portainer)
+- `jetson_setup.sh`: Example commands to install CUDA/L4T components.
+- `docker-compose.yml`: Example Compose file for services (Ollama, Open-WebUI, Netdata, Portainer).
 
 ---
 

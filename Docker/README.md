@@ -1,8 +1,9 @@
 # Docker
 
-This guide is everything Docker related 
+This guide is everything Docker related.
 
 ## Table of Contents
+
 1. [Prerequisites](#prerequisites)
 2. [System Preparation](#system-preparation)
 3. [Monitoring Resources](#monitoring-resources)
@@ -12,7 +13,8 @@ This guide is everything Docker related
 ---
 
 ## Prerequisites
-Docker
+
+- Docker installed and running.
 
 ---
 
@@ -20,114 +22,178 @@ Docker
 
 ### Basic Software Installation
 
+*Placeholder for installation instructions.*
+
 ---
 
 ## Monitoring Resources
 
 ### Additional Tools
 
+*Placeholder for monitoring tools.*
+
 ---
 
-## Security considerations
-Here are practical, advanced, safe ways to harden and lock down a running Docker container used for something like an Openclaw deployment.
+## Security Considerations
 
-Use these together for strong containment.
+Below are practical, advanced, safe ways to harden and lock down a running Docker container used for something like an Openclaw deployment. Use these together for strong containment.
 
-Filesystem Lockdown
-Make the container root filesystem read‑only
-• Start with  
-  docker run --read-only ...  
-• Add writable tmpfs only where needed:  
+### Filesystem Lockdown
+
+- **Make the container root filesystem read-only**
+
+  ```bash
+  docker run --read-only ...
+  ```
+
+  Add writable `tmpfs` only where needed:
+
+  ```bash
   --tmpfs /tmp --tmpfs /var/run
+  ```
 
-Mount application directories read‑only
-• -v /host/app:/app:ro
-• If the app writes logs, put logs in a separate tmpfs or host directory with restricted permissions.
+- **Mount application directories read-only**
 
-Drop ability to remount filesystems
-• --cap-drop SYSADMIN
+  ```bash
+  -v /host/app:/app:ro
+  ```
 
-Process & Privilege Restrictions
-Run as non‑root
-• Add a user in the Dockerfile and run the container as that user.
-• Or enforce externally with:  
+  If the app writes logs, put logs in a separate `tmpfs` or host directory with restricted permissions.
+
+- **Drop ability to remount filesystems**
+
+  ```bash
+  --cap-drop SYSADMIN
+  ```
+
+### Process & Privilege Restrictions
+
+- **Run as non-root**
+
+  Add a user in the Dockerfile and run the container as that user, or enforce externally with:
+
+  ```bash
   --user 1000:1000
+  ```
 
-Drop all unnecessary Linux capabilities
-Typical minimum:
-• --cap-drop ALL
-• Add back only what is strictly required (often none).
+- **Drop all unnecessary Linux capabilities**
 
-Prevent privilege escalation
-• --security-opt no-new-privileges=true
+  Typical minimum:
 
-Seccomp hardening
-• Use Docker’s default seccomp or a custom restrictive profile:
-  --security-opt seccomp=profile.json
+  ```bash
+  --cap-drop ALL
+  ```
 
-AppArmor or SELinux confinement
-• AppArmor: --security-opt apparmor=docker-default or a custom profile
-• SELinux: --security-opt label:type:containert
+  Add back only what is strictly required (often none).
 
-Network Isolation
-Remove all networking
-If Openclaw doesn’t need network access:
-• --network none
+- **Prevent privilege escalation**
 
-Restrict egress only
-If it needs limited outbound access, use:
-• Docker network with firewall rules
-• Or a CNI plugin supporting egress ACLs (Cilium, Calico)
+  ```bash
+  --security-opt no-new-privileges=true
+  ```
 
-Disable inter-container communication
-• --icc=false
+### Seccomp Hardening
 
-Use user-defined bridge networks
-• Provides container‑level isolation and firewall control.
+Use Docker’s default seccomp or a custom restrictive profile:
 
-Resource Isolation
-Limit CPU, RAM, GPU use
-• --memory 512m  
-• --cpus 1.0  
-• For GPU/OpenCL: allow only a specific device using NVIDIA Container Runtime options.
+```bash
+--security-opt seccomp=profile.json
+```
 
-Restrict filesystem access by device
-• --device-read-bps / --device-write-bps
-• Avoid exposing additional /dev entries.
+### AppArmor or SELinux Confinement
 
-Container Runtime & Host Controls
-Kernel namespace & capability tightening
-• Disable access to host PID, NET, IPC namespaces:
-  (default in Docker; just avoid --pid=host, --net=host, etc.)
+- AppArmor: `--security-opt apparmor=docker-default` or a custom profile
+- SELinux: `--security-opt label:type:containert`
 
-Use rootless Docker
-• Provides strong host isolation if compatible with your workload.
+### Network Isolation
 
-Enable automatic container restart only on failure
-Avoid giving a compromised container infinite recovery:
-• --restart=on-failure:3
+- **Remove all networking**
 
-Sign and verify images
-• Use Docker Content Trust or Sigstore to prevent tampered images.
+  If Openclaw doesn’t need network access:
 
-Monitoring & Audit
-Enable auditing on container syscalls
-• Linux auditd with targeted syscall monitoring.
+  ```bash
+  --network none
+  ```
 
-Limit logging paths
-• Send logs to a controlled destination outside the container.
+- **Restrict egress only**
 
-Summary of Strongest Minimal Lockdown
+  Use Docker network with firewall rules or a CNI plugin supporting egress ACLs (Cilium, Calico).
+
+- **Disable inter-container communication**
+
+  ```bash
+  --icc=false
+  ```
+
+- **Use user-defined bridge networks**
+
+  Provides container‑level isolation and firewall control.
+
+### Resource Isolation
+
+- **Limit CPU, RAM, GPU use**
+
+  ```bash
+  --memory 512m
+  --cpus 1.0
+  ```
+
+  For GPU/OpenCL: allow only a specific device using NVIDIA Container Runtime options.
+
+- **Restrict filesystem access by device**
+
+  ```bash
+  --device-read-bps / --device-write-bps
+  ```
+
+  Avoid exposing additional `/dev` entries.
+
+### Container Runtime & Host Controls
+
+- **Kernel namespace & capability tightening**
+
+  Avoid `--pid=host`, `--net=host`, etc. (Docker defaults to isolated namespaces).
+
+- **Use rootless Docker**
+
+  Provides strong host isolation if compatible with your workload.
+
+- **Enable automatic container restart only on failure**
+
+  ```bash
+  --restart=on-failure:3
+  ```
+
+- **Sign and verify images**
+
+  Use Docker Content Trust or Sigstore to prevent tampered images.
+
+### Monitoring & Audit
+
+- **Enable auditing on container syscalls**
+
+  Use Linux `auditd` with targeted syscall monitoring.
+
+- **Limit logging paths**
+
+  Send logs to a controlled destination outside the container.
+
+### Summary of Strongest Minimal Lockdown
+
 If Openclaw can operate read‑only and without networking, launch with:
 
-• --read-only
-• --tmpfs /tmp
-• --network none
-• --cap-drop ALL
-• --security-opt no-new-privileges=true
-• --user 1000:1000
-• --security-opt seccomp=default.json
-• AppArmor or SELinux profile
+```bash
+docker run \
+  --read-only \
+  --tmpfs /tmp \
+  --network none \
+  --cap-drop ALL \
+  --security-opt no-new-privileges=true \
+  --user 1000:1000 \
+  --security-opt seccomp=default.json \
+  --security-opt apparmor=docker-default \
+  ...
+```
 
 ---
 
