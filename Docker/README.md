@@ -45,3 +45,6 @@ This folder contains example container-based services and documentation for runn
 - [docker-compose.yml](docker-compose.yml): Example compose file for the example app and services.
 - [Example app](example_app/): Minimal Flask app used in the Docker examples.
 - [DNS Stack container guide](containers/DNS-STACKv1.md): Notes and configuration for running Pi-hole in Docker.
+- [Ollama Stack container guide](containers/OLLAMA-STACKv1.md): Getting started with using Ollama.
+- [Nextcloud Stack container guide](containers/NEXTCLOUD-STACKv1.md): All about Nextcloud.
+
