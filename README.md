@@ -25,4 +25,4 @@ Each subfolder contains a `README.md` and sample files (scripts, YAML, and HTML)
 
 ---
 
-Would you like me to update the changes *-make it so* :0
+Would you like me to update the changes *...make it so* :0
