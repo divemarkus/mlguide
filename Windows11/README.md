@@ -42,7 +42,7 @@ Ensure your system meets baseline requirements:
 ### ✅ Core Tools Overview
 | Tool | Purpose | Parallelism? | Notes |
 |------|---------|--------------|-------|
-| **LM Studio** 📦 | Desktop UI to run & chat with local models (GGUF format) | ❌ (single-threaded chat, but multi-model support via server) | Best for beginners & quick prototyping |
+| **LM Studio** 📦 | Desktop UI to run & chat with local models (GGUF format) | ✅ (multi-model support via server) | Best for beginners & quick prototyping |
 | **Ollama** 🐋 | CLI-first model runner (`ollama run llama3`) | ✅ (via `OLLAMA_MAX_PARALLEL` env var) | Great scripting support; cross-platform |
 | **Docker + vLLM** 🚢 | Production-grade inference server | ✅ (with proper config) | Ideal for APIs, multi-tenant servers |
 | **Docker Model Runner** 🏗️ | Deploy models as containers on WSL2 or native Windows Docker Desktop | ✅ | Requires WSL2 backend |
