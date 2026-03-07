@@ -10,7 +10,7 @@ This repository collects setup guides, configuration examples, and sample code f
 - [Jetson Orin Nano](jetson-orin-nano/README.md): Jetson-specific setup and examples for GPU/edge deployments.
 - [LM Studio](lm-studio/README.md): Local model development with LM Studio — installs and workspace examples.
 - [Ollama](ollama/README.md): Running and serving models with Ollama; example configs.
-- [Sample Prompts](sample-prompts/README.md): Curated prompt examples and quick HTML previews.
+- [Sample Prompts](sample-prompts/README.md): Curated prompt examples and quick code previews.
 
 ---
 
