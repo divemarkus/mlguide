@@ -14,7 +14,7 @@ This repository collects setup guides, configuration examples, and sample code f
 
 ---
 
-Each subfolder contains a `README.md` and sample files (scripts, YAML, and HTML) to help you get started quickly.
+Each subfolder contains a `README.md` and sample files (scripts, yml, bash, ps1) to help you get started quickly.
 
 ---
 
