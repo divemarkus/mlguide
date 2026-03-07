@@ -1,4 +1,5 @@
-# Nvidia Jetson Orin Nano Super Dev Kit: Getting Started with Machine Learning
+# Nvidia Jetson Orin Nano Super Dev Kit
+Getting Started with Machine Learning
 
 ## Files
 
