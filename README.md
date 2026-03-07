@@ -16,7 +16,7 @@ This repository collects setup guides, configuration examples, and sample code f
 
 Each subfolder contains a `README.md` and sample files (scripts, YAML, and HTML) to help you get started quickly.
 
-If you'd like, I can commit these files and push them to GitHub for you.
+If you'd like, I can commit these files and push them to GitHub for you. -Proceed :O
 
 # 🧠 Machine Learning Setup Guide, 2026  
 *Optimized for AMD & NVIDIA GPUs | Local LLMs | Privacy-First Workflows*
