@@ -3,22 +3,20 @@
 This guide is everything Docker related.
 
 ## Table of Contents
-
-1. [Prerequisites](#prerequisites)
-2. [System Preparation](#system-preparation)
-3. [Monitoring Resources](#monitoring-resources)
-4. [Containers](#containers)
-5. [Security Considerations](#security-considerations)
+1. [Prerequisites](#prerequisites)  
+2. [System Preparation](#system-preparation)  
+3. [Monitoring Resources](#monitoring-resources)  
+4. [Security Considerations](#security-considerations)  
+5. [Containers](#containers)
 
 ---
 
-## Prerequisites
-
+## ✅ Prerequisites
 - Docker installed and running.
 
 ---
 
-## System Preparation
+## ⚙️ System Preparation
 
 ### Basic Software Installation
 
@@ -26,7 +24,7 @@ This guide is everything Docker related.
 
 ---
 
-## Monitoring Resources
+## 📈 Monitoring Resources
 
 ### Additional Tools
 
@@ -34,63 +32,62 @@ This guide is everything Docker related.
 
 ---
 
-## Security Considerations
+## 🔒 Security Considerations
 
-Below are practical, advanced, safe ways to harden and lock down a running Docker container used for something like an Openclaw deployment. Use these together for strong containment.
+Practical, advanced, safe ways to harden and lock down a running Docker container (example: Openclaw). Use these together for strong containment.
 
 ### Filesystem Lockdown
-
 - **Make the container root filesystem read-only**
 
-  ```bash
-  docker run --read-only ...
-  ```
+```bash
+docker run --read-only ...
+```
 
-  Add writable `tmpfs` only where needed:
+Add writable `tmpfs` only where needed:
 
-  ```bash
-  --tmpfs /tmp --tmpfs /var/run
-  ```
+```bash
+--tmpfs /tmp --tmpfs /var/run
+```
 
 - **Mount application directories read-only**
 
-  ```bash
-  -v /host/app:/app:ro
-  ```
+```bash
+-v /host/app:/app:ro
+```
 
-  If the app writes logs, put logs in a separate `tmpfs` or host directory with restricted permissions.
+If the app writes logs, put logs in a separate `tmpfs` or host directory with restricted permissions.
 
 - **Drop ability to remount filesystems**
 
-  ```bash
-  --cap-drop SYSADMIN
-  ```
+```bash
+--cap-drop SYSADMIN
+```
 
 ### Process & Privilege Restrictions
 
 - **Run as non-root**
 
-  Add a user in the Dockerfile and run the container as that user, or enforce externally with:
+Add a user in the Dockerfile and run the container as that user, or enforce externally with:
 
-  ```bash
-  --user 1000:1000
-  ```
+```bash
+--user 1000:1000
+```
 
 - **Drop all unnecessary Linux capabilities**
 
-  Typical minimum:
+Typical minimum:
 
-  ```bash
-  --cap-drop ALL
-  ```
+```bash
+--cap-drop ALL
+```
 
-  Add back only what is strictly required (often none).
+Add back only what is strictly required (often none).
 
 - **Prevent privilege escalation**
 
-  ```bash
-  --security-opt no-new-privileges=true
-  ```
+```bash
+--security-opt no-new-privileges=true
+```
 
 ### Seccomp Hardening
 
@@ -109,74 +106,74 @@ Use Docker’s default seccomp or a custom restrictive profile:
 
 - **Remove all networking**
 
-  If Openclaw doesn’t need network access:
+If Openclaw doesn’t need network access:
 
-  ```bash
-  --network none
-  ```
+```bash
+--network none
+```
 
 - **Restrict egress only**
 
-  Use Docker network with firewall rules or a CNI plugin supporting egress ACLs (Cilium, Calico).
+Use Docker network with firewall rules or a CNI plugin supporting egress ACLs (Cilium, Calico).
 
 - **Disable inter-container communication**
 
-  ```bash
-  --icc=false
-  ```
+```bash
+--icc=false
+```
 
 - **Use user-defined bridge networks**
 
-  Provides container‑level isolation and firewall control.
+Provides container‑level isolation and firewall control.
 
 ### Resource Isolation
 
 - **Limit CPU, RAM, GPU use**
 
-  ```bash
-  --memory 512m
-  --cpus 1.0
-  ```
+```bash
+--memory 512m
+--cpus 1.0
+```
 
-  For GPU/OpenCL: allow only a specific device using NVIDIA Container Runtime options.
+For GPU/OpenCL: allow only a specific device using NVIDIA Container Runtime options.
 
 - **Restrict filesystem access by device**
 
-  ```bash
-  --device-read-bps / --device-write-bps
-  ```
+```bash
+--device-read-bps / --device-write-bps
+```
 
-  Avoid exposing additional `/dev` entries.
+Avoid exposing additional `/dev` entries.
 
 ### Container Runtime & Host Controls
 
 - **Kernel namespace & capability tightening**
 
-  Avoid `--pid=host`, `--net=host`, etc. (Docker defaults to isolated namespaces).
+Avoid `--pid=host`, `--net=host`, etc. (Docker defaults to isolated namespaces).
 
 - **Use rootless Docker**
 
-  Provides strong host isolation if compatible with your workload.
+Provides strong host isolation if compatible with your workload.
 
 - **Enable automatic container restart only on failure**
 
-  ```bash
-  --restart=on-failure:3
-  ```
+```bash
+--restart=on-failure:3
+```
 
 - **Sign and verify images**
 
-  Use Docker Content Trust or Sigstore to prevent tampered images.
+Use Docker Content Trust or Sigstore to prevent tampered images.
 
 ### Monitoring & Audit
 
 - **Enable auditing on container syscalls**
 
-  Use Linux `auditd` with targeted syscall monitoring.
+Use Linux `auditd` with targeted syscall monitoring.
 
 - **Limit logging paths**
 
-  Send logs to a controlled destination outside the container.
+Send logs to a controlled destination outside the container.
 
 ### Summary of Strongest Minimal Lockdown
 
@@ -197,7 +194,7 @@ docker run \
 
 ---
 
-## Containers
+## 📦 Containers
 This folder contains example container-based services and documentation for running them.
 
 - [docker-compose.yml](docker-compose.yml): Example compose file for the example app and services.

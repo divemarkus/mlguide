@@ -1,10 +1,22 @@
 
 # Ollama Stack v1
-Verified running stack, deployed on RTX 3070 Ti
 
-##
-Deployed using Portainer
-```
+Verified running stack (deployed on RTX 3070 Ti). Deployed using Portainer — compose file below.
+
+## Table of Contents
+1. [Overview](#overview)  
+2. [Compose Snippet](#compose-snippet)  
+3. [Version](#version)
+
+---
+
+## 🔎 Overview
+Services included: Ollama (model runner), Open-WebUI, Opencode (dev), Frigate (NVR), Jellyfin (media), Netdata (monitoring).
+
+---
+
+## 🧩 Compose Snippet
+```yaml
 version: "3.9"
 
 services:
@@ -104,5 +116,7 @@ services:
     restart: unless-stopped
 ```
 
---- 
+---
+
+## 🏷️ Version
 #### Version 03052026-1338
