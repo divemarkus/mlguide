@@ -1,5 +1,5 @@
 
-# Pi-hole + Unbound 
+# DNS Stack v1
 Pi-hole + Unbound Docker stack. Below are deployment strategies
 
 ## Table of Contents
@@ -217,3 +217,4 @@ I’ll tailor the config! 🛠️
 - Block lists via `adlists.list` volume mount  
 
 Happy blocking & resolving! 🌐🔒
+
