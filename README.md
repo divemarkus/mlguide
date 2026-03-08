@@ -1,6 +1,17 @@
+
 # ML Guide
 
 This repository collects setup guides, configuration examples, and sample code for getting started with machine learning across several environments and tools.
+
+---
+
+## The Brain vs Body (analogy)
+
+- The Model (The Brain): This is the file you download. It’s just "weights"—mathematical values that represent patterns of human language. It doesn’t have a networking stack, it doesn’t know what a "browser" is, and it can’t execute code.
+
+- The Runner (The Body): Tools like Ollama, LM Studio, or llama.cpp are the "bodies." They are actual programs written in languages like C++ or Go. They are the ones that talk to your hardware (CPU/GPU) and, if you allow them, your internet connection.
+
+---
 
 ## Subtopics
 
