@@ -36,5 +36,10 @@ Each subfolder contains a `README.md` and sample files (scripts, yml, bash, ps1)
 
 ---
 
-
 Would you like me to update the changes *...make it so* :0
+
+---
+
+For more about me:  
+🔗 LinkedIn — https://www.linkedin.com/in/markpg/
+
