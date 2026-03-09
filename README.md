@@ -11,6 +11,8 @@ This repository collects setup guides, configuration examples, and sample code f
 
 - The Runner (The Body): Tools like Ollama, LM Studio, or llama.cpp are the "bodies." They are actual programs written in languages like C++ or Go. They are the ones that talk to your hardware (CPU/GPU) and, if you allow them, your internet connection.
 
+- The Agent Framework (The Nervous System / Spinal Cord) — OpenClaw, LangChain, AutoGPT, agentic runtimes. They orchestrate thought → action cycles, decide which tools to call, and loop until goals are met. OpenClaw explicitly separates gateway, runner, agentic loop, and response path to enable multi‑stage tool chaining and observability. 
+
 ---
 
 ## Subtopics
@@ -38,8 +40,12 @@ Each subfolder contains a `README.md` and sample files (scripts, yml, bash, ps1)
 
 Would you like me to update the changes *...make it so* :0
 
+
+
 ---
 
-For more about me:  
+<sup>
+About me:  
 🔗 LinkedIn — https://www.linkedin.com/in/markpg/
+</sup>
 
