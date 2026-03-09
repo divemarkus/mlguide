@@ -78,7 +78,7 @@ sudo docker network create -d ipvlan \
 
 ---
 
-### 3️⃣ Updated `docker-compose.yml`
+### 3️⃣ UPi-hole + Unbound  `docker-compose.yml`
 - Unfortunately my compose file is legacy macvlan. 
 - From macvlan to ipvlan is future upgrade plan.
 
@@ -157,7 +157,7 @@ networks:
 
 ```
 
-### 3️⃣ UP-hole only `docker-compose.yml`
+### 3️⃣ UUpdated docker-compose `docker-compose.yml`
 
 ---
 
@@ -202,6 +202,7 @@ networks:
 > ✅ **Critical additions**:
 > - `ports:` — since host can reach `.50`, we *still* bind ports to `0.0.0.0` (not localhost) for host access  
 > - `DNSMASQ_LISTENING: "all"` — ensures it binds on the interface IP
+> - `UPSTREAM_DNS: remove any reference to public free DNS resolvers like google and cloudflare
 
 ---
 
