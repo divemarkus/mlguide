@@ -34,4 +34,5 @@ Requirements:
 - This was version 5, because it got confused with my other prompt
 - I need to be mindful about prompting effectively
 - Copy and save file attached as prompt1.html > double-click for Web Browsers to open
+- [Open the demo](./prompt1.html)
 - Completed in less than 2 mins. I need to measure in tok/secs
