@@ -1,7 +1,7 @@
 
 # Ollama Stack v1
 
-Verified running stack (deployed on RTX 3070 Ti). Deployed using Portainer — compose file below.
+Ollama stack — compose file below.
 
 ## Table of Contents
 1. [Overview](#overview)  
@@ -11,7 +11,10 @@ Verified running stack (deployed on RTX 3070 Ti). Deployed using Portainer — c
 ---
 
 ## 🔎 Overview
-Services included: Ollama (model runner), Open-WebUI, Opencode (dev), Frigate (NVR), Jellyfin (media), Netdata (monitoring).
+- Services included: Ollama (model runner), Open-WebUI (chat web interface), Opencode (dev), Frigate (NVR), Jellyfin (media), Netdata (monitoring).
+- You may remove Frigate and Jellyfin, if you don't plan on using NVR and RTSP security camera.
+- Opencode is like VSCode, using locally downloaded models.
+- As of publishing this guide -03092026, Opencode won't connect to local LLMs via Ollama.
 
 ---
 
