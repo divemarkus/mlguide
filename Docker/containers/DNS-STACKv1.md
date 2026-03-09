@@ -79,6 +79,87 @@ sudo docker network create -d ipvlan \
 ---
 
 ### 3️⃣ Updated `docker-compose.yml`
+- Unfortunately my compose file is legacy macvlan. 
+- From macvlan to ipvlan is future upgrade plan.
+
+```yaml
+version: "3.8"
+
+services:
+
+  pihole-v6-unbound:
+    container_name: pihole-v6-unbound
+    image: mpgirro/docker-pihole-unbound
+    hostname: piholev6unbound
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+    networks:
+      br0:
+        ipv4_address: 192.168.0.2
+
+    ports:
+      - "80:80/tcp"
+      - "443:443/tcp"
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "5335:5335/tcp"
+      - "67:67/udp"
+      - "123:123/udp"
+
+    environment:
+      TZ: "168"
+      FTLCONF_webserver_api_password: "xxxxxxxxxxxxxxxx"
+      FTLCONF_webserver_interface_theme: "default-auto"
+      FTLCONF_dns_upstreams: "127.0.0.1#5335"
+      FTLCONF_dns_dnssec: "true"
+      FTLCONF_dns_listeningMode: "single"
+      FTLCONF_misc_etc_dnsmasq_d: "false"
+      FTLCONF_dns_revServers: "false"
+
+    volumes:
+      - /mnt/user/appdata/pihole-v6-unbound:/config
+      - /mnt/user/appdata/pihole-unbound/etc_pihole-unbound:/etc/pihole
+      - /mnt/user/appdata/pihole-unbound/etc_pihole_dnsmasq-unbound:/etc/dnsmasq.d
+
+  pihole:
+    container_name: pihole
+    image: diginc/pi-hole:alpine
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "63880:80/tcp"
+
+    environment:
+      ServerIP: 192.168.0.13
+      DNS1: 8.8.8.8
+      DNS2: 8.8.4.4
+      IPv6: "False"
+
+    volumes:
+      - /mnt/user/appdata/pihole/pihole.log:/var/log/pihole.log
+      - /mnt/user/appdata/pihole/blacklist.txt:/etc/pihole/blacklist.txt
+      - /mnt/user/appdata/pihole/whitelist.txt:/etc/pihole/whitelist.txt
+
+
+networks:
+  br0:
+    driver: macvlan
+    driver_opts:
+      parent: br0
+    ipam:
+      config:
+        - subnet: 192.168.0.0/24
+
+```
+
+### 3️⃣ UP-hole only `docker-compose.yml`
+
+---
 
 ```yaml
 # pi-hole/docker-compose.yml
