@@ -190,6 +190,10 @@ on Ubuntu can significantly improve efficiency when hosting large models.
 
 ## Summary
 
-* Future upgrade path, 2TB NVMe, securing original 1TB NVMe Gen4.
-* Install Ubuntu and allocate 96gb RAM to GPU and rest to Ubuntu 22/24.
+* Future upgrade path is to replace the 1TB NVMe Gen4, with 2TB NVMe.
+* Install Ubuntu 22/24, no desktop GUI (gnome or kde). 
+* Allocate 96gb VRAM to GPU and rest to System RAM.
+* Use Ollama > Claude Code or other CLI-only tools that has capabilities of connecting to local LLMs.
+* Launch GUI Desktop if there's no AI workloads.
+
 
