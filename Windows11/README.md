@@ -29,7 +29,7 @@
 ---
 
 ## 🔌 Prerequisites
-*I am running on AMD Ryzen laptop with 128GB shared RAM, split between GPU=64GB*
+*I am running on AMD machine with 128GB shared memory. See system specs, on how running local LLMs utilizes each device*
 
 Ensure your system meets baseline requirements:
 
