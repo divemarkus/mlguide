@@ -270,7 +270,7 @@ Agent will:
 
 ## 🧭 Recommended Setup: 
 
-For local models, make sure you can connect to network:
+For local models running headless, make sure you can connect to network:
 
 👉 Go with:
 
