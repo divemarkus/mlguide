@@ -42,6 +42,7 @@ You want 3 layers working together:
 
   * Open-source agent framework
   * Supports multiple models (local + API)
+  * [This is what I use](https://docs.continue.dev/ide-extensions/install)
 
 ---
 
