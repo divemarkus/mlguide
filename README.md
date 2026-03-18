@@ -24,6 +24,7 @@ This repository collects setup guides, configuration examples, and sample code f
 - [LM Studio](lm-studio/README.md): Local model development with LM Studio — installs and workspace examples.
 - [Ollama](ollama/README.md): Running and serving models with Ollama; example configs.
 - [Sample Prompts](sample-prompts/README.md): Curated prompt examples and quick code previews.
+- [VSCode](vscode/README.md): Using Visual Studio Code as coding partner.
 
 ---
 
@@ -42,7 +43,7 @@ Would you like me to update the changes
 
 
 <sup>
-*...make it so* :O
+*...make it so* :o
 </sup>
 
 ---
