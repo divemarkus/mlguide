@@ -270,7 +270,7 @@ Agent will:
 
 ## 🧭 Recommended Setup: 
 
-Given your engineering mindset:
+For local models, make sure you can connect to network:
 
 👉 Go with:
 
