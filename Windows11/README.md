@@ -47,7 +47,7 @@ Ensure your system meets baseline requirements:
 | **Docker + vLLM** 🚢 | Production-grade inference server | ✅ (with proper config) | Ideal for APIs, multi-tenant servers |
 | **Docker Model Runner** 🏗️ | Deploy models as containers on WSL2 or native Windows Docker Desktop | ✅ | Requires WSL2 backend |
 
-> ⚠️ **Note**: As of 2024, **AMD GPU support in ML tooling is still maturing**. ROCm 6.x works with select Linux kernels & Windows 11 (via WSL2 or experimental native). See [GPU Setup](#gpu-setup-amd-rocm). Proceed with your own research.
+> ⚠️ **Note**: **AMD GPU support in ML tooling is still maturing**. ROCm 6.x works with select Linux kernels & Windows 11 (via WSL2 or experimental native). See [GPU Setup](#gpu-setup-amd-rocm). [Proceed with your own research](https://www.amd.com/en/developer/resources/ml-radeon.html). We will use Vulkan for now. Skip anything related to ROCm on this write-up.
 
 ---
 
@@ -190,10 +190,5 @@ services:
 | **vLLM + Docker** | Enterprise-grade serving with PagedAttention (faster decoding) |
 | **LangChain/Gradio UI** | Build custom apps on top of your local LLMs |
 | **Hugging Face Transformers** + `bitsandbytes` | Fine-tuning & quantization control (via WSL2) |
-
----
-
-> ✨ **Made with ❤️ from your local AI community**  
-> *Last updated: Oct 2024 — ROCm 6.2 / LM Studio v0.2.55* <-check for updates
 
 ---
