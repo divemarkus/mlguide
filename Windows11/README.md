@@ -29,7 +29,7 @@
 ---
 
 ## 🔌 Prerequisites
-*I am running on AMD machine with 128GB shared memory. See system specs, on how running local LLMs utilizes each device*
+*I am running on AMD machine with 128GB shared memory. [See system specs](Windows11/system-specs.md), on how running local LLMs utilizes each device*
 
 Ensure your system meets baseline requirements:
 
@@ -47,7 +47,7 @@ Ensure your system meets baseline requirements:
 | **Docker + vLLM** 🚢 | Production-grade inference server | ✅ (with proper config) | Ideal for APIs, multi-tenant servers |
 | **Docker Model Runner** 🏗️ | Deploy models as containers on WSL2 or native Windows Docker Desktop | ✅ | Requires WSL2 backend |
 
-> ⚠️ **Note**: **AMD GPU support in ML tooling is still maturing**. ROCm 6.x works with select Linux kernels & Windows 11 (via WSL2 or experimental native). See [GPU Setup](#gpu-setup-amd-rocm). [Proceed with your own research](https://www.amd.com/en/developer/resources/ml-radeon.html). We will use Vulkan for now. Skip anything related to ROCm on this write-up.
+> ⚠️ **Note**: **AMD GPU support in ML tooling is still maturing**. ROCm 6.x works with select Linux kernels & Windows 11 (via WSL2 or experimental native). [Proceed with your own research](https://www.amd.com/en/developer/resources/ml-radeon.html). We will use Vulkan for now. Skip anything related to ROCm on this write-up.
 
 ---
 
@@ -72,7 +72,9 @@ powercfg -setactive 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c
 - Windows 11 often hides these traditional power plans in the Settings app in favor of its own "Power Mode" toggle (Best Power Efficiency, Balanced, Best Performance). Running this command is a popular way to "force" the classic High Performance behavior if you feel the system is being too aggressive with power saving.
 
 ### 3️⃣ GPU Setup (AMD ROCm)  
-⚠️ **Windows Native Support is Experimental** — **WSL2 + Ubuntu is recommended for stability.**
+⚠️ **Windows Native Support is Experimental** — **WSL2 + Ubuntu is recommended for stability.** 
+
+- Skip this part as we will use Vulkan.
 
 | Option | Steps |
 |--------|-------|
@@ -91,7 +93,7 @@ LM Studio is a **beautiful, drag-and-drop UI** for loading & interacting with qu
 ### Install & First Run
 ```bash
 # Download from https://lmstudio.ai → install .exe
-# Launch → Login/Sign Up (free)
+# Launch → configure environment
 ```
 
 ### 🚀 Essential Setup Steps
