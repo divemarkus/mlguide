@@ -50,9 +50,8 @@ You want 3 layers working together:
 
 * **Ollama**
   → run local models (privacy + offline)
-
-* **LangChain**
-  → build your own agents
+  → currently deployed Nvidia Jetson Nano & RTX3070Ti/Ubuntu
+  → [ollama write-up](ollama/README.md)
 
 ---
 
