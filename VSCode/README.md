@@ -42,6 +42,7 @@ You want 3 layers working together:
 
   * Strong inline + chat + PR review
   * Best balance of stability + power
+  * [Strong pricing model](https://docs.github.com/en/billing/concepts/product-billing/github-copilot-licenses)
 
 * **Continue**
 
