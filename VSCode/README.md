@@ -49,9 +49,9 @@ You want 3 layers working together:
 ### 🧠 Optional (Advanced / Power Users)
 
 * **Ollama**
-  → run local models (privacy + offline)
-  → currently deployed Nvidia Jetson Nano & RTX3070Ti/Ubuntu
-  → [ollama write-up](ollama/README.md)
+  * run local models (privacy + offline)
+  * currently deployed Nvidia Jetson Nano & RTX3070Ti/Ubuntu
+  * [ollama write-up](https://github.com/divemarkus/mlguide/blob/main/ollama/README.md)
 
 ---
 
