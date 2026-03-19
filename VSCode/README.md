@@ -1,6 +1,11 @@
 
 # 🧠 VS Code + AI Coding Agent Setup (ML/AI Focus)
 
+- Below will have some cloud dependencies.
+- Run Ollama with local models for privacy.
+- Set expectations to what local models will run on your hardware.
+- As of 03182026, RTX3070Ti with 8GB VRAM is not enough.
+
 ## 🧰 Core Stack Overview
 
 You want 3 layers working together:
