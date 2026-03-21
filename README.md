@@ -31,14 +31,14 @@
 
 ---
 
-## Github Links
+## Links
 
 - https://github.com/ollama
 - https://github.com/lmstudio-ai
 - https://github.com/anthropics
 - https://github.com/NVIDIA
 - https://github.com/openclaw
-
+- [Facts About AI Companies - Not political](https://youtu.be/h3AtWdeu_G0)
 
 ---
 
