@@ -29,7 +29,7 @@
 ---
 
 ## 🔌 Prerequisites
-*I am running on AMD machine with 128GB shared memory. [See system specs](Windows11/system-specs.md), on how running local LLMs utilizes each device*
+*I am running on AMD machine with 128GB shared memory. [See system specs](system-specs.md), on how running local LLMs utilizes each device*
 
 Ensure your system meets baseline requirements:
 
