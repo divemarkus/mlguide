@@ -38,7 +38,7 @@
 - https://github.com/anthropics
 - https://github.com/NVIDIA
 - https://github.com/openclaw
-- [Facts About AI Companies - Not political](https://youtu.be/h3AtWdeu_G0)
+- [Facts About AI Companies - Video](https://youtu.be/h3AtWdeu_G0)
 
 ---
 
