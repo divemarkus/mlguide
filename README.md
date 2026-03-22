@@ -38,7 +38,23 @@
 - https://github.com/anthropics
 - https://github.com/NVIDIA
 - https://github.com/openclaw
-- [Facts About AI Companies - Video](https://youtu.be/h3AtWdeu_G0)
+- [Impact of AI on Privacy - Video](https://youtu.be/h3AtWdeu_G0)
+ - <details>
+   Senator Bernie Sanders speaks with Anthropic's AI agent Claude.
+   
+   Sonnet 4.6 is part of Anthropic’s Claude 4.6 model family. It’s positioned as the best balance of speed, cost, and intelligence, sitting just below Opus but above Haiku.
+
+   Key characteristics
+   Hybrid reasoning model with strong agentic capabilities 
+
+   1M‑token context window for long documents, multi‑day project compression, and extended reasoning 
+
+   Improved coding performance, including consistency and instruction following 
+
+   Enhanced computer‑use abilities, such as navigating spreadsheets or multi‑step web forms at human‑level skill 
+
+   Adaptive thinking mode supported (recommended for complex tasks) 
+   </details>
 
 ---
 
