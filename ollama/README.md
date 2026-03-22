@@ -4,8 +4,8 @@ Guides and example configuration for running models with Ollama.
 
 ## Files
 
-- `ollama-setup.md`: Quick start notes.  
-- `docker-compose.yml`: Example service config.
+- [Quick start notes](ollama-setup.md) 
+- [Full Ollama Stack v1](docker-compose.yml)
 
 <details>
 - [Docker Deployment](../Docker/containers/OLLAMA-STACKv1.md)
