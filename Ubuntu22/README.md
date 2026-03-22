@@ -112,9 +112,7 @@ docker run --rm --gpus all nvidia/cuda:12.3.2-runtime-ubuntu22.04 nvidia-smi
 
 ## 🧩 LLM Runner Setup (Ollama)
 Install Ollama from their official website:
-```bash
-curl -fsSL https://ollama.ai/install.sh | sh
-```
+- [See Docker Guide](../Docker/containers/OLLAMA-STACKv1.md)
 
 Run models locally using Docker:
 - Example for a smaller model (safe for most enthusiast GPUs):
@@ -157,6 +155,7 @@ Access points (examples):
 ## 📈 Monitoring Resources
 Useful commands to monitor system resources:
 ```bash
+nvidia-smi
 watch -n 1 free -m
 watch -n 1 nvidia-smi
 htop
@@ -168,6 +167,3 @@ nvtop
 - Netdata container provides a Web portal for monitoring.  
 - Access Netdata and navigate to Hardware > NVIDIA (GPU).
 
----
-
-This guide provides a comprehensive setup for an Ubuntu 22.04 system tailored for machine learning tasks.
