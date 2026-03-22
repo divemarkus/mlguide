@@ -106,7 +106,7 @@ Use Docker’s default seccomp or a custom restrictive profile:
 
 - **Remove all networking**
 
-If Openclaw doesn’t need network access:
+If Openclaw or AI Agents doesn’t need network access:
 
 ```bash
 --network none
