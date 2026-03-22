@@ -1,12 +1,13 @@
 
 # Ollama Stack v1
+- [Use this update docker-compose.yml file](docker-compose.yml)
 
-Ollama stack — compose file below.
 
 ## Table of Contents
 1. [Overview](#overview)  
 2. [Compose Snippet](#compose-snippet)  
 3. [Version](#version)
+4. Compose file below has been updated!
 
 ---
 
