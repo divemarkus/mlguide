@@ -1,4 +1,0 @@
-service:
-  name: ollama-example
-  model: local/my-model:latest
-  port: 11434
