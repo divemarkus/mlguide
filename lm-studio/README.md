@@ -2,6 +2,10 @@
 
 Local-first environment for experimenting with, fine-tuning, and serving large language models (LLMs). Provides a GUI + CLI to manage models, run inference, test prompts, and prototype apps on your hardware or private cloud.
 
+## Installation Notes
+- [LM Studio Install Notes](lm-studio-install.md)
+
+<details>
 ## Table of Contents
 1. [Basic Facts](#basic-facts)  
 2. [Key Features](#key-features)  
@@ -14,7 +18,7 @@ Local-first environment for experimenting with, fine-tuning, and serving large l
 9. [Troubleshooting](#troubleshooting)  
 10. [FAQ / Notes](#faq--notes)  
 11. [References & Links](#references--links)
-
+</details>
 ---
 
 ## ✅ Basic Facts
