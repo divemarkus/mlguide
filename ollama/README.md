@@ -5,8 +5,11 @@ Guides and example configuration for running models with Ollama.
 ## Files
 
 - `ollama-setup.md`: Quick start notes.  
-- `model-serve.yml`: Example service config.
+- `docker-compose.yml`: Example service config.
+
+<details>
 - [Docker Deployment](../Docker/containers/OLLAMA-STACKv1.md)
+</details>
 
 ---
 
@@ -19,13 +22,13 @@ Ollama is a lightweight local model serving tool and workflow that makes it easy
 For detailed platform-specific instructions see `ollama-setup.md`. Typical installation options:
 
 - Download the official installer from the project website and follow platform instructions.  
-- Use the provided Docker images (see `model-serve.yml`) for containerized deployments.
+- Use the provided Docker images (see `docker-compose.yml`) for containerized deployments.
 
 After installation, verify the CLI is available and the service can list models:
 
 ```bash
-ollama --help
-ollama models
+docker exec it ollama --help
+docker exec it ollama models
 ```
 
 ---
@@ -54,11 +57,11 @@ Common deployment patterns:
 
 - Simple CLI and management tooling for model lifecycle operations.  
 - Ability to serve models locally or in containers for private inference.  
-- Example configuration files (`model-serve.yml`) to help bootstrap deployments.  
+- Example configuration files (`docker-compose.yml`) to help bootstrap deployments.  
 - Integration points for routing requests through standard HTTP APIs or gateways.  
 - Support for GPU-accelerated setups via Docker or host drivers (platform dependent).
 
 ---
 
-See `ollama-setup.md` for setup notes and `model-serve.yml` for an example service configuration.
+See `ollama-setup.md` for setup notes and `docker-compose.yml` for an example service configuration.
 
