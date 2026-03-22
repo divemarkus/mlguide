@@ -94,6 +94,6 @@ LM Studio is a **beautiful, drag-and-drop UI** for loading & interacting with qu
 ```
 
 ### 🚀 Essential Setup Steps
-- [LM Studio Write-up](lm-studio\README.md)
-- [LM Studio Install and Configure](lm-studio\lm-studio-install.md)
+- [LM Studio Write-up](../lm-studio/README.md)
+- [LM Studio Install and Configure](../lm-studio/lm-studio-install.md)
 
