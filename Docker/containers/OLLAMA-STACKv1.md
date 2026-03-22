@@ -2,125 +2,316 @@
 # Ollama Stack v1
 - [Use this update docker-compose.yml file](docker-compose.yml)
 
+---
 
-## Table of Contents
-1. [Overview](#overview)  
-2. [Compose Snippet](#compose-snippet)  
-3. [Version](#version)
-4. Compose file below has been updated!
+# 🧠 Local AI Stack (Privacy-First)
+
+A fully self-hosted AI platform using Docker.
+Runs **local LLMs, agents, vector memory, and dev tooling** — with **zero cloud dependency by default**.
 
 ---
 
-## 🔎 Overview
-- Services included: Ollama (model runner), Open-WebUI (chat web interface), Opencode (dev), Frigate (NVR), Jellyfin (media), Netdata (monitoring).
-- You may remove Frigate and Jellyfin, if you don't plan on using NVR and RTSP security camera.
-- Opencode is like VSCode, using locally downloaded models.
-- As of publishing this guide -03092026, Opencode won't connect to local LLMs via Ollama.
+## 🚀 Stack Overview
 
----
+This system is designed around a simple principle:
 
-## 🧩 Compose Snippet
-```yaml
-version: "3.9"
+> **All inference happens locally unless explicitly configured otherwise.**
 
-services:
+### Architecture
 
-  ollama:
-    image: ollama/ollama:latest
-    container_name: ollama
-    runtime: nvidia
-    environment:
-      - NVIDIA_VISIBLE_DEVICES=all
-    volumes:
-      - ./ollama:/root/.ollama
-    ports:
-      - "11434:11434"
-    restart: unless-stopped
+```
+OpenWebUI  →  Ollama (default local inference)
+              ↓
+        Qdrant (memory)
+              ↓
+        Flowise (agents)
 
-  open-webui:
-    image: ghcr.io/open-webui/open-webui:main
-    container_name: open-webui
-    network_mode: host
-    environment:
-      - OLLAMA_BASE_URL=http://127.0.0.1:11434
-    volumes:
-      - ./open-webui:/app/backend/data
-    restart: unless-stopped
-
-  opencode:
-    image: node:20
-    container_name: opencode
-    stdin_open: true
-    tty: true
-    working_dir: /workspace
-    environment:
-      - OLLAMA_BASE_URL=http://ollama:11434
-    volumes:
-      - ./opencode:/workspace
-    restart: unless-stopped
-    command: >
-      bash -c "
-      npm install -g opencode-ai &&
-      sleep infinity
-      "
-
-  frigate:
-    container_name: frigate
-    image: ghcr.io/blakeblackshear/frigate:stable
-    privileged: true
-    shm_size: "1gb"
-    runtime: nvidia
-    environment:
-      - NVIDIA_VISIBLE_DEVICES=all
-    volumes:
-      - ./frigate/config:/config
-      - ./frigate/media:/media/frigate
-      - type: tmpfs
-        target: /tmp/cache
-    ports:
-      - "5000:5000"
-      - "8554:8554"
-    restart: unless-stopped
-
-  jellyfin:
-    image: jellyfin/jellyfin
-    container_name: jellyfin
-    runtime: nvidia
-    environment:
-      - NVIDIA_VISIBLE_DEVICES=all
-    volumes:
-      - ./jellyfin/config:/config
-      - ./jellyfin/cache:/cache
-      - /mnt:/media
-    ports:
-      - "8096:8096"
-    restart: unless-stopped
-
-  netdata:
-    image: netdata/netdata:latest
-    container_name: netdata
-    network_mode: host
-    cap_add:
-      - SYS_PTRACE
-    security_opt:
-      - apparmor:unconfined
-    environment:
-      - NVIDIA_VISIBLE_DEVICES=all
-      - NVIDIA_DRIVER_CAPABILITIES=all
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [gpu]
-    volumes:
-      - ./netdata:/etc/netdata
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-    restart: unless-stopped
++ OpenCode (AI dev workspace)
++ LiteLLM (optional routing layer)
++ Netdata (monitoring)
 ```
 
 ---
 
-## 🏷️ Version
-#### Version 03052026-1338
+# 📦 Containers & Usage
+
+## 🧠 Ollama — Local LLM Engine (Core)
+
+**Role:** Runs local language models
+**Port:** `11434`
+
+### What it does
+
+* Hosts LLMs locally (Llama3, Mistral, CodeLlama)
+* Provides API for inference
+* Keeps all data on your machine
+
+### Usage
+
+```bash
+docker exec -it ollama ollama pull llama3
+docker exec -it ollama ollama run llama3
+```
+
+### Why it matters
+
+* 🔒 Full privacy (no API calls)
+* ⚡ Fast local inference
+* 🧠 Foundation of the entire stack
+
+---
+
+## 🌐 OpenWebUI — Chat Interface
+
+**Role:** Web UI for interacting with local models
+**URL:** [http://localhost:3000](http://localhost:3000)
+
+### What it does
+
+* ChatGPT-like interface
+* Connects directly to Ollama (default)
+* Supports file uploads, chat history, tools
+
+### Key Config
+
+```yaml
+OLLAMA_BASE_URL=http://ollama:11434
+```
+
+### Why it matters
+
+* 🧑‍💻 Primary user interface
+* 🔒 No cloud dependency
+* 🧠 Direct access to local models
+
+---
+
+## 🧑‍💻 OpenCode — AI Coding Workspace
+
+**Role:** Dev container for AI-assisted coding
+
+### What it does
+
+* CLI-based AI coding assistant
+* Runs against local Ollama models
+* Can automate scripts, pipelines, workflows
+
+### Usage
+
+```bash
+docker exec -it opencode bash
+```
+
+Inside:
+
+```bash
+opencode
+```
+
+### Why it matters
+
+* ⚙️ Automate development tasks
+* 🧠 Build agents and tooling
+* 🔒 Fully local coding assistant
+
+---
+
+## 🧠 Qdrant — Vector Database (Memory)
+
+**Role:** Stores embeddings for RAG / memory
+**URL:** [http://localhost:6333](http://localhost:6333)
+
+### What it does
+
+* Stores semantic vectors
+* Enables:
+
+  * long-term memory
+  * document search
+  * RAG pipelines
+
+### Why it matters
+
+* 🧠 Adds memory to LLMs
+* 📚 Enables document-based AI
+* 🔒 Local data storage
+
+---
+
+## 🤖 Flowise — Agent Builder (UI)
+
+**Role:** No-code / low-code agent builder
+**URL:** [http://localhost:3001](http://localhost:3001)
+
+### What it does
+
+* Build AI workflows visually
+* Connect:
+
+  * Ollama
+  * Qdrant
+  * APIs
+* Create autonomous agents
+
+### Why it matters
+
+* 🧩 Build pipelines without coding
+* 🤖 Rapid prototyping of agents
+* 🔒 Can run fully local
+
+---
+
+## ⚡ LiteLLM — Optional Router Layer
+
+**Role:** Unified API / model router
+**Port:** `4000`
+
+### What it does
+
+* Routes requests between:
+
+  * Ollama (local)
+  * vLLM (future)
+  * Cloud APIs (optional)
+
+### Important
+
+> ❗ Not used by default (privacy-first)
+
+### Why it matters
+
+* 🔀 Multi-model orchestration
+* 🧠 Benchmarking models
+* 🌐 Optional cloud fallback
+
+---
+
+## 📊 Netdata — Monitoring
+
+**Role:** System + container monitoring
+**URL:** [http://localhost:19999](http://localhost:19999)
+
+### What it does
+
+* CPU / RAM / Disk
+* Docker container metrics
+* GPU stats (if configured)
+
+### Why it matters
+
+* 📈 Observe AI workloads
+* ⚠️ Prevent overload
+* 🔍 Debug performance
+
+---
+
+# 🔐 Privacy Model
+
+This stack is designed so that:
+
+✅ All LLM inference runs locally
+✅ No data leaves your machine
+✅ No API keys required
+✅ No telemetry required
+
+### Optional (opt-in only)
+
+* LiteLLM → cloud routing
+* external APIs in Flowise
+
+---
+
+# ⚙️ Common Workflows
+
+## 🧠 Chat with Local LLM
+
+1. Open [http://localhost:3000](http://localhost:3000)
+2. Select model (e.g., `llama3`)
+3. Start chatting
+
+---
+
+## 📚 Add Memory (RAG)
+
+1. Store documents in Qdrant
+2. Connect Flowise → Qdrant
+3. Build retrieval pipeline
+
+---
+
+## 🤖 Build Agents
+
+1. Open Flowise
+2. Create new flow
+3. Connect:
+
+   * Ollama (LLM)
+   * Qdrant (memory)
+
+---
+
+## 🧑‍💻 AI Coding
+
+```bash
+docker exec -it opencode bash
+opencode
+```
+
+Use for:
+
+* script generation
+* infra automation
+* code refactoring
+
+---
+
+# 🧠 Recommended Models (3070Ti)
+
+```bash
+ollama pull llama3
+ollama pull mistral
+ollama pull codellama
+```
+
+### Notes
+
+* 7B–8B models → optimal
+* 13B → possible but tight
+* Mixtral → not recommended on 8GB VRAM
+
+---
+
+# 📦 Data Persistence
+
+| Service   | Storage          |
+| --------- | ---------------- |
+| Ollama    | `ollama_data`    |
+| OpenWebUI | `openwebui_data` |
+| Qdrant    | `qdrant_data`    |
+| Flowise   | `flowise_data`   |
+
+---
+
+# 🧠 Future Enhancements
+
+* 🔐 Traefik (HTTPS + auth)
+* ⚡ vLLM (high-performance inference)
+* 🧠 LangGraph (advanced agents)
+* 📊 Prometheus + Grafana (GPU metrics)
+* 🗂️ NAS-backed model storage
+
+---
+
+# ⚠️ Notes
+
+* Requires NVIDIA Container Toolkit
+* GPU strongly recommended
+* Ubuntu 24 + Docker Compose v2 tested
+
+---
+
+# 🔥 Philosophy
+
+> Own your models.
+> Own your data.
+> Own your intelligence.
