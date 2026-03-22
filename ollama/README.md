@@ -6,6 +6,7 @@ Guides and example configuration for running models with Ollama.
 
 - `ollama-setup.md`: Quick start notes.  
 - `model-serve.yml`: Example service config.
+- [Docker Deployment](../Docker/containers/OLLAMA-STACKv1.md)
 
 ---
 
@@ -35,8 +36,8 @@ Common deployment patterns:
 
 - **Local development:** run Ollama on a developer workstation for fast iteration and testing.  
 - **Single-node production:** host the Ollama process on a VM or dedicated server, optionally fronted by an API gateway.  
-- **Containerized deployment:** run `model-serve.yml` or a Docker image for reproducible environments.  
-- **Kubernetes / Edge:** package the serving container into Kubernetes or edge device images for scaled inference.
+- **Containerized deployment:** run `model-serve.yml` or a Docker image for reproducible environments.
+- [Use this Docker deployment strategy](../Docker/containers/OLLAMA-STACKv1.md)
 
 ---
 
