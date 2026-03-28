@@ -9,7 +9,9 @@
 - 655 total tokens
 - 27.18 prompt token/sec
 - 52 prompt tokens
-- **Using tables compare Bitcoin with industry credit card companies, focusing on encryption. Output your answer in README.md github format.**
+ - ```
+   Using tables compare Bitcoin with industry credit card companies, focusing on encryption. Output your answer in README.md github format.
+   ```
 
 ---
 
