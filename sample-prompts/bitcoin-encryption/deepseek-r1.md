@@ -1,5 +1,6 @@
 
 # Bitcoin encyrption comparison, using tables
+- RTX 3070 Ti
 - deepseek-r1:latest
 - Small-med local LLM
 - Fits 8GB VRAM or Shared RAM

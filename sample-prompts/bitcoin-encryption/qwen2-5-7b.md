@@ -1,5 +1,6 @@
 
 # Bitcoin encyrption comparison, using tables
+- RTX 3070 Ti
 - qwen2.5-7b
 - Small local LLM
 - 4.7GB

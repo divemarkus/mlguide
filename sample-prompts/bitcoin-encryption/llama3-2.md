@@ -1,5 +1,6 @@
 
 # Bitcoin encyrption comparison, using tables
+- RTX 3070 Ti
 - llama3.2:latest
 - Small local LLM
 - Fits 4GB VRAM or Shared RAM
