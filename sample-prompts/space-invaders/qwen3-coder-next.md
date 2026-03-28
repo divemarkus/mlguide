@@ -33,6 +33,6 @@ Requirements:
 - Pretty much maxed out my 64GB shared GPU RAM, offloaded to another 64GB system RAM
 - This was version 5, because it got confused with my other prompt
 - I need to be mindful about prompting effectively
-- Copy and save file attached as prompt1.html > double-click for Web Browsers to open
-- [Open the demo](./prompt1.html)
+- Copy and save file attached as qwen3-coder-next.html > double-click for Web Browsers to open
+- [Open the demo](qwen3-coder-next.html)
 - Completed in less than 2 mins. I need to measure in tok/secs
