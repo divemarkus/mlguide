@@ -3,7 +3,7 @@
 - RTX 3070 Ti
 - deepseek-r1:latest
 - Small-med local LLM
-- Fits 8GB VRAM or Shared RAM
+- 5.2GB
 
 ## Prompt
 - 1156 tokens
