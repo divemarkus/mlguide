@@ -122,11 +122,3 @@
 
 👉 RTX 4000 / Tesla P4
 
----
-
-### From your list specifically:
-
-> 🥇 RTX 5060 is the smartest buy
-> 🥈 RTX 5050 if cheaper
-> ❌ Tesla T4 is not worth $820
-
