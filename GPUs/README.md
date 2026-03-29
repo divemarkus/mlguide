@@ -44,16 +44,6 @@
 
 ---
 
-### 🥇 Best **overall value (YOU)**
-
-👉 **RTX 5060**
-
-* modern architecture
-* fastest compute here
-* limited only by 8GB VRAM
-
----
-
 ### ⚠️ Overpriced for what it is
 
 👉 Tesla T4 at $820
