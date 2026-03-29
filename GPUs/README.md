@@ -77,9 +77,9 @@
 
 ---
 
-# 🧠 Final Recommendations (No BS)
+# 🧠 Final Recommendations
 
-## 🥇 Best for YOU (Unraid + AI + flexibility)
+## 🥇 Best for unRAID users (Unraid + AI + flexibility)
 
 👉 **RTX 5060**
 
