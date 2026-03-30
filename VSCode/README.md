@@ -55,9 +55,19 @@ You want 3 layers working together:
 ### 🧠 Optional (Advanced / Power Users)
 
 * **Ollama**
-  * run local models (privacy + offline)
-  * currently deployed Nvidia Jetson Nano & RTX3070Ti/Ubuntu
+  * Run local models (privacy + offline).
   * [ollama write-up](https://github.com/divemarkus/mlguide/blob/main/ollama/README.md)
+  * If you have Ollama installed, any local or cloud model from Ollama can be selected for use within Visual Studio Code.
+  * Visual Studio Code now directly integrates with Ollama via GitHub Copilot.
+  * Ollama's models work out-of-the-box with features from Copilot Chat agents. 
+  * **Agent mode** in agent mode, Copilot will use Ollama models (local or Ollama's cloud) to complete end-to-end tasks: determining which files to modify, suggesting code changes, running terminal commands, and iterating until the task is complete.
+  
+Try prompts like:
+  ```
+  - "Run the tests and fix any failures"        
+  - "Generate unit tests for this file"
+  - "Update the README with the new API changes"
+  ```
 
 ---
 
