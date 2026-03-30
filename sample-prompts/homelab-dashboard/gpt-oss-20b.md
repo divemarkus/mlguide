@@ -1,6 +1,8 @@
 
-# Prompt 4
-gpt-oss-20b
+# Homelab Dashboard
+- Using gpt-oss-20b. 
+- One shot prompt.
+- Fits in ~16GB VRAM
 
 ---
 

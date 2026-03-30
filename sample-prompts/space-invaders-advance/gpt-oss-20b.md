@@ -1,5 +1,10 @@
-# Prompt 3
-Using gpt-oss-20b. One shot prompt
+
+# Space Invaders - Advance
+- Using gpt-oss-20b. 
+- One shot prompt.
+- Fits in ~16GB VRAM
+
+---
 
 ## Instructions
 ```

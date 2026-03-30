@@ -1,7 +1,10 @@
 
-# Prompt 1
+# Space Invaders
 - Using local opensource ML model [Qwen3-Coder-Next](https://lmstudio.ai/models/qwen3-coder-next):
 - Qwen3 Coder Next is an 80B MoE with 3B active parameters designed for coding agents and local development. Excels at long-horizon reasoning, complex tool usage, and recovery from execution failures.
+- 42GB on VRAM
+
+---
 
 ## Pasted prompt
 ```

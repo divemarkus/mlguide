@@ -1,6 +1,8 @@
 
-# Prompt 5
-Qwen-coder-next
+# Homelab Dashboard
+- Qwen-coder-next
+- Old model, pre-Qwen3
+- Smaller, dense (varies by release)
 
 ---
 
