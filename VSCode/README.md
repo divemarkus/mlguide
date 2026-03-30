@@ -294,6 +294,9 @@ For local models running headless, make sure you can connect to network:
 * **Continue (multi-model flexibility)**
 * **Copilot (fallback + PR integration)**
 * New integration: **Ollama for local models**
+* Screenshot: Using local LLMs with Ollama:
+
+<img width="770" height="528" alt="ollama-local-llms" src="https://github.com/user-attachments/assets/6f134b91-aad9-4b25-aae1-66fb4068a745" />
 
 
 
