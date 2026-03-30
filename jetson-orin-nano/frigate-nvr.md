@@ -1,7 +1,7 @@
 
 # 🧠 Architecture (What you’re building)
 
-Below is a **production-ready Frigate NVR + local AI setup** built specifically for the **NVIDIA Jetson Orin Nano Super Dev Kit (8GB)**. It follows the Seeed guide, but adds **best-practice containerization, TensorRT usage, and optional local LLM integration**.
+Below is a **production-ready Frigate NVR + local AI setup** built specifically for the **NVIDIA Jetson Orin Nano Super Dev Kit (8GB)**. It follows the [Seeed guide](https://wiki.seeedstudio.com/deploy_frigate_on_jetson/), but adds **best-practice containerization, TensorRT usage, and optional local LLM integration**.
 
 ```text
 RTSP PoE Cameras (Dahua / EmpireTech)
