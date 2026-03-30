@@ -295,9 +295,5 @@ For local models running headless, make sure you can connect to network:
 * **Copilot (fallback + PR integration)**
 * New integration: **Ollama for local models**
 
----
 
-### Comparison
-
-<img width="1019" height="305" alt="msedge_tdho9AO5Tc" src="https://github.com/user-attachments/assets/0e452ad1-3910-4d44-9deb-46eb9455956a" />
 
