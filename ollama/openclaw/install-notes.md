@@ -1,6 +1,6 @@
 
 # Install notes
-- The axios package version was very close.
+- [The axios package version was very close](https://www.huntress.com/blog/supply-chain-compromise-axios-npm-package)
 - Regardless, this box is nuked.
 - But we must pers...
 
