@@ -155,9 +155,34 @@
 
 ---
 
-## 🔥 Bottom Line
 
-* If you want **speed + modern stack → RTX 5070 Ti**
-* If you want **cheap + capable → RTX 5060**
-* If you want **big models locally → RTX 8000 (48GB)**
-* If you want **low power → Tesla T4**
+# 🧠 Updated with RTX 3080 Ti and 3090 Ti
+
+| Device                            | Est Price (USD) | Architecture / Gen  | VRAM / Memory        | Tensor Cores        | AI Stack (CUDA / TensorRT)  | LLM Capability Tier | Realistic Model Size (local)                 | Inference Speed (relative) | Power (TDP) | Perf/Watt    | Framework Support (vLLM / Ollama / PyTorch) | Multi-GPU Scaling    | Key Strengths                          | Key Limitations         | Overall Verdict         |
+| --------------------------------- | --------------: | ------------------- | -------------------- | ------------------- | --------------------------- | ------------------- | -------------------------------------------- | -------------------------- | ----------: | ------------ | ------------------------------------------- | -------------------- | -------------------------------------- | ----------------------- | ----------------------- |
+| **RTX 5070 Ti (16GB)**            |      ~$800–1000 | Blackwell (latest)  | 16GB GDDR7           | ✅ Latest (FP8/FP16) | ✅ CUDA + TensorRT (latest)  | 🔥🔥🔥🔥            | 7B–13B (excellent), 30B (partial w/ offload) | 🚀🚀🚀🚀                   |       ~250W | ⚖️ High      | ✅ Full                                      | ⚠️ Limited           | Fastest per-token here, modern kernels | 16GB VRAM cap           | 🥇 Best modern choice   |
+| **RTX 3090 Ti (24GB)**            |  ~$700–900 used | Ampere              | **24GB GDDR6X**      | ✅ Gen2              | ✅ CUDA + TensorRT           | 🔥🔥🔥🔥            | 7B–30B (strong), 70B (partial/offload)       | 🚀🚀🚀🚀                   |       ~450W | ❌ Low        | ✅ Full                                      | ⚠️ Limited           | Huge VRAM + strong compute             | Very high power/heat    | 🥇 Brute-force king     |
+| **RTX 3090 (24GB)** *(reference)* |  ~$600–800 used | Ampere              | 24GB GDDR6X          | ✅ Gen2              | ✅ CUDA + TensorRT           | 🔥🔥🔥🔥            | 7B–30B (strong), 70B (partial)               | 🚀🚀🚀                     |       ~350W | ⚖️ Medium    | ✅ Full                                      | ⚠️ NVLink (rare use) | Best balance VRAM + cost               | Older gen               | 🥇 Best overall value   |
+| **RTX 3080 Ti (12GB)**            |  ~$450–650 used | Ampere              | 12GB GDDR6X          | ✅ Gen2              | ✅ CUDA + TensorRT           | 🔥🔥🔥              | 7B–13B (good), 30B (limited)                 | 🚀🚀🚀                     |       ~350W | ❌ Low        | ✅ Full                                      | ❌                    | Very fast compute                      | VRAM bottleneck         | 🥈 Fast but constrained |
+| **Quadro RTX 8000 (48GB)**        |     ~$2500 used | Turing              | **48GB GDDR6 (ECC)** | ✅ Gen1              | ✅ CUDA + TensorRT           | 🔥🔥🔥🔥            | **13B–30B (excellent), 70B (possible)**      | 🚀🚀🚀                     |       ~260W | ⚖️ Medium    | ✅ Full                                      | ⚠️ NVLink capable    | Massive VRAM, ECC stability            | Old gen speed           | 🥇 Large-model king     |
+| **RTX 5060 (8GB)**                |           ~$350 | Blackwell           | 8GB GDDR7            | ✅ Latest            | ✅ CUDA + TensorRT           | 🔥🔥🔥              | 7B (fast), 13B (tight)                       | 🚀🚀🚀                     |       ~120W | ✅ Very Good  | ✅ Full                                      | ❌                    | Best value GPU                         | VRAM limited            | 🥇 Best value           |
+| **RTX 5050 (8GB)**                |           ~$290 | Blackwell           | 8GB GDDR6            | ✅                   | ✅ CUDA + TensorRT           | 🔥🔥                | 7B (good), 13B (tight)                       | 🚀🚀                       |       ~100W | ✅ Good       | ✅ Full                                      | ❌                    | Budget modern GPU                      | Bandwidth + VRAM limit  | 🥈 Budget               |
+| **Tesla T4 (16GB)**               |      ~$600 used | Turing (datacenter) | 16GB GDDR6           | ✅ Gen1              | ✅ CUDA + TensorRT           | 🔥🔥🔥              | 7B–13B (good), 30B (slow)                    | 🚀🚀                       |        ~70W | 🔋 Excellent | ✅ Strong                                    | ⚠️ PCIe scaling      | Very efficient, low power              | Older architecture      | ⚠️ Efficiency niche     |
+| **Quadro RTX 4000 (8GB)**         |      ~$240 used | Turing              | 8GB GDDR6            | ✅ Gen1              | ✅ CUDA                      | 🔥🔥                | 7B (OK), 13B (tight)                         | 🚀🚀                       |       ~160W | ❌ Low        | ✅ Full                                      | ❌                    | Cheap CUDA option                      | Old + inefficient       | 🥉 Only if cheap        |
+| **Tesla P4 (8GB)**                |      ~$150 used | Pascal              | 8GB GDDR5            | ❌                   | ⚠️ CUDA (legacy)            | 🔥                  | ≤7B (slow)                                   | 🚀                         |        ~75W | ⚖️ Medium    | ⚠️ Limited                                  | ❌                    | Low cost                               | No tensor cores         | ❌ Avoid                 |
+| **Jetson Orin Nano Super (8GB)**  |       ~$250–300 | Ampere (embedded)   | 8GB LPDDR5 (shared)  | ✅ Ampere            | ✅ CUDA + TensorRT (JetPack) | 🔥 (edge)           | 3B–7B (optimized)                            | 🚀–⚡                       |     ~10–25W | 🔋 Excellent | ⚠️ Partial                                  | ❌                    | Ultra efficient edge AI                | Memory + tooling limits | ⚠️ Edge-only            |
+
+---
+
+# 🧠 Performance Ranking (Updated)
+
+1. RTX 5070 Ti (fastest modern)
+2. RTX 3090 Ti (best brute force)
+3. RTX 3090
+4. RTX 3080 Ti
+5. RTX 8000 (VRAM > speed)
+6. RTX 5060
+7. Tesla T4
+8. Others
+
+
