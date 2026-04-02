@@ -102,3 +102,62 @@
 | **RTX 4000**               | ~$240 used | Turing            | 8GB GDDR6           | ✅ Gen1              | CUDA                      | 🔥🔥                | 7B (OK), 13B (tight)              | ⚡ Medium                       | ~160W   | ❌ Low        | ✅ Full                                 | ❌          | Cheap CUDA card                         | Old + inefficient             | 🥉 Only if cheap    |
 | **Tesla P4**               | ~$150 used | Pascal            | 8GB GDDR5           | ❌ None              | CUDA (legacy)             | 🔥                  | ≤7B (slow)                        | 🐢 Slow                        | ~75W    | ⚖️ Medium    | ⚠️ Limited                             | ❌          | Low cost, low power                     | No tensor cores               | ❌ Avoid             |
 | **Jetson Orin Nano Super** | ~$250–300  | Ampere (Embedded) | 8GB LPDDR5 (shared) | ✅ Ampere            | CUDA + TensorRT (JetPack) | 🔥 (edge)           | 3B–7B (optimized)                 | 🐢–⚡ (depends on optimization) | ~10–25W | 🔋 Excellent | ⚠️ Partial (TensorRT, limited PyTorch) | ❌          | Ultra efficient edge AI, 67 TOPS        | Memory bandwidth + RAM limits | ⚠️ Edge-only        |
+
+
+---
+
+# 🧠 Added - Elite Level GPU
+
+| Device                           | Est Price (USD) | Architecture / Gen   | VRAM / Memory        | Tensor Cores        | AI Stack (CUDA / TensorRT)  | LLM Capability Tier | Realistic Model Size (local)                            | Inference Speed (relative)        | Power (TDP) | Perf/Watt    | Framework Support (vLLM / Ollama / PyTorch) | Multi-GPU Scaling                    | Key Strengths                                        | Key Limitations                                          | Overall Verdict               |
+| -------------------------------- | --------------: | -------------------- | -------------------- | ------------------- | --------------------------- | ------------------- | ------------------------------------------------------- | --------------------------------- | ----------: | ------------ | ------------------------------------------- | ------------------------------------ | ---------------------------------------------------- | -------------------------------------------------------- | ----------------------------- |
+| **RTX 5070 Ti (16GB)**           |      ~$800–1000 | Blackwell (latest)   | 16GB GDDR7           | ✅ Latest (FP8/FP16) | ✅ CUDA + TensorRT (latest)  | 🔥🔥🔥🔥            | 7B–13B (excellent), 30B (partial w/ offload)            | 🚀🚀🚀🚀                          |       ~250W | ⚖️ High      | ✅ Full (vLLM, Ollama, PyTorch)              | ⚠️ Limited (no NVLink)               | Fastest per-token here, modern kernels, future-proof | 16GB VRAM cap for larger models                          | 🥇 Best overall modern choice |
+| **RTX 5060 (8GB)**               |           ~$350 | Blackwell            | 8GB GDDR7            | ✅ Latest            | ✅ CUDA + TensorRT           | 🔥🔥🔥              | 7B (fast), 13B (tight/partial)                          | 🚀🚀🚀                            |       ~120W | ✅ Very Good  | ✅ Full                                      | ❌                                    | Excellent value, efficient, new stack                | 8GB VRAM bottleneck                                      | 🥇 Best value                 |
+| **RTX 5050 (8GB)**               |           ~$290 | Blackwell            | 8GB GDDR6            | ✅                   | ✅ CUDA + TensorRT           | 🔥🔥                | 7B (good), 13B (tight)                                  | 🚀🚀                              |       ~100W | ✅ Good       | ✅ Full                                      | ❌                                    | Cheapest entry to modern CUDA/TensorRT               | Lower bandwidth than 5060                                | 🥈 Budget pick                |
+| **Quadro RTX 8000 (48GB)**       |     ~$2500 used | Turing (workstation) | **48GB GDDR6 (ECC)** | ✅ Gen1              | ✅ CUDA + TensorRT           | 🔥🔥🔥🔥            | **13B–30B (strong), 70B (possible w/ quant + offload)** | 🚀🚀🚀 (bandwidth-bound vs newer) |       ~260W | ⚖️ Medium    | ✅ Full (vLLM, Ollama, PyTorch)              | ⚠️ Possible (NVLink on some configs) | Massive VRAM, ECC, can host very large models        | Old gen → slower than Blackwell/Ada per token; expensive | 🥇 VRAM king (large models)   |
+| **Tesla T4 (16GB)**              |      ~$600 used | Turing (datacenter)  | 16GB GDDR6           | ✅ Gen1              | ✅ CUDA + TensorRT           | 🔥🔥🔥              | 7B–13B (good), 30B (slow/partial)                       | 🚀🚀                              |        ~70W | 🔋 Excellent | ✅ Strong (vLLM works well)                  | ⚠️ Yes (PCIe; no NVLink)             | Very efficient, low power, 16GB VRAM                 | Older gen; slower tokens/s than modern GPUs              | ⚠️ Niche (efficiency servers) |
+| **Quadro RTX 4000 (8GB)**        |      ~$240 used | Turing               | 8GB GDDR6            | ✅ Gen1              | ✅ CUDA                      | 🔥🔥                | 7B (OK), 13B (tight)                                    | 🚀🚀                              |       ~160W | ❌ Low        | ✅ Full                                      | ❌                                    | Cheap, stable drivers                                | Old + inefficient; 8GB limit                             | 🥉 Only if very cheap         |
+| **Tesla P4 (8GB)**               |      ~$150 used | Pascal               | 8GB GDDR5            | ❌                   | ⚠️ CUDA (legacy)            | 🔥                  | ≤7B (slow)                                              | 🚀                                |        ~75W | ⚖️ Medium    | ⚠️ Limited / legacy paths                   | ❌                                    | Low cost, low power                                  | No tensor cores → poor transformer perf                  | ❌ Avoid for LLMs              |
+| **Jetson Orin Nano Super (8GB)** |       ~$250–300 | Ampere (embedded)    | 8GB LPDDR5 (shared)  | ✅ Ampere            | ✅ CUDA + TensorRT (JetPack) | 🔥 (edge)           | 3B–7B (optimized/quantized)                             | 🚀–⚡ (model/engine dependent)     |     ~10–25W | 🔋 Excellent | ⚠️ Partial (TensorRT focus; limited vLLM)   | ❌                                    | Ultra-efficient, on-device AI (≈67 TOPS)             | Shared RAM, lower bandwidth; tooling constraints         | ⚠️ Edge-only                  |
+
+---
+
+## 🧠 Quick Interpretation
+
+* **Fastest inference (per token):** RTX 5070 Ti
+* **Best price/performance:** RTX 5060
+* **Best for large models (VRAM):** Quadro RTX 8000 (48GB)
+* **Best low-power server:** Tesla T4
+* **Budget only:** RTX 5050
+* **Avoid for LLMs:** Tesla P4
+* **Edge/embedded only:** Jetson Orin Nano Super
+
+---
+
+## 🧠 Model Size Reality (practical)
+
+| Model Size | Best Choices from Table                                  |
+| ---------- | -------------------------------------------------------- |
+| 1B–3B      | All devices                                              |
+| 7B         | 5050 / 5060 / 5070 Ti / T4 / RTX 8000                    |
+| 13B        | 5070 Ti / T4 / **RTX 8000 (best)**                       |
+| 30B        | ⚠️ 5070 Ti (offload) / T4 (slow) / **RTX 8000 (strong)** |
+| 70B        | ⚠️ **RTX 8000 (quant + offload)**                        |
+
+---
+
+## ⚠️ Key Reality
+
+> 🧠 **VRAM determines what you can load. Architecture determines how fast it runs.**
+
+* 8GB → entry
+* 16GB → serious usage
+* **48GB → large models locally**
+
+---
+
+## 🔥 Bottom Line
+
+* If you want **speed + modern stack → RTX 5070 Ti**
+* If you want **cheap + capable → RTX 5060**
+* If you want **big models locally → RTX 8000 (48GB)**
+* If you want **low power → Tesla T4**
