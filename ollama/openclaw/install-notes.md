@@ -1,7 +1,8 @@
 
 # Install notes
-- The axios package version was very close
-- Regardless, this box is nuked
+- The axios package version was very close.
+- Regardless, this box is nuked.
+- But we must pers...
 
 ---
 

@@ -195,7 +195,7 @@ ChatGPT clone
 
 # 🔐 4. SecOps Perspective — Where the Real Risk Is
 
-Now the important part for you.
+Now the important part for all of us.
 
 ---
 
@@ -294,7 +294,7 @@ Potential leak:
 
 ### 4. Network Exposure
 
-You already saw:
+Already saw:
 
 * binding issues
 * origin restrictions
@@ -376,18 +376,13 @@ What did the agent actually do?
 
 ## 🔐 6. Network Segmentation
 
-Your architecture is already good:
+Current architecture is already good:
 
 ```text
 Shuttle (agent)
 ↓
 GPU box (LLM)
 ```
-
-Improve:
-
-* firewall rules
-* no outbound by default (optional)
 
 ---
 
