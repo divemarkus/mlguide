@@ -51,7 +51,7 @@ lmstudio server --port 1234
 
 ## 💡 AnythingLLM – Your AI Workspace Orchestrator
 
-- https://github.com/Mintplex-Labs/anything-llm
+- [AnythingLLM is open-source](https://github.com/Mintplex-Labs/anything-llm) 
 - Runs on top of LM Studio/Ollama/vLLM to build knowledge bases, chat apps, and deployable agents.
 - **Proceed with caution from installing AI Orchestrator** 
 

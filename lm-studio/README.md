@@ -4,6 +4,7 @@ Local-first environment for experimenting with, fine-tuning, and serving large l
 
 ## Installation Notes
 - [LM Studio Install Notes](lm-studio-install.md)
+- LM Studio is partially open-source
 
 <details>
 ## Table of Contents
