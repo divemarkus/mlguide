@@ -9,19 +9,17 @@ Basic notes for installing LM Studio locally. Keep platform-specific steps here 
 ---
 
 ## ⬇️ Download
-1. Download LM Studio from the official site or vendor.
+1. Download [LM Studio](https://lmstudio.ai/) from the official site or vendor.
 
 ## 🛠️ Platform Install
 2. Follow platform-specific install instructions (Windows .exe, macOS dmg, Linux tar/installer).
 
-Expand this file with exact commands for each platform when ready.
-
 ### 🚀 Essential Setup Steps
 1. **Download Models**  
    - Use the built-in *Model Hub* or import `.gguf` files manually  
-   - Recommended starting models for AMD GPUs:  
+   - Recommended starting models for GPUs:  
      • `Mistral-7B-Instruct-v0.3.Q4_K_M.gguf` (~5GB VRAM)  
-     • `Llama-3-8B-Instruct.Q4_K_M.gguf`  
+     • `Llama-3-8B-Instruct.Q4_K_M.gguf`  (~8GB VRAM)
 
 2. **Configure System Prompt** *(for consistent behavior)*
 ```prompt
@@ -30,6 +28,10 @@ If you do not know an answer, state that you don't know rather than guessing.
 ```
 → Click ⋮ next to model → *Presets* → *Copy Preset Identifier*  
 → Paste into chat or save as default in *Settings > Prompts*
+
+3. [Basic Chat](https://github.com/lmstudio-ai/docs/blob/main/0_app/1_basics/chat.md)
+
+---
 
 ### 🧰 Plugins & Enhancements
 | Plugin | Purpose |
@@ -49,7 +51,11 @@ lmstudio server --port 1234
 
 ## 💡 AnythingLLM – Your AI Workspace Orchestrator
 
-Runs on top of LM Studio/Ollama/vLLM to build knowledge bases, chat apps, and deployable agents.
+- https://github.com/Mintplex-Labs/anything-llm
+- Runs on top of LM Studio/Ollama/vLLM to build knowledge bases, chat apps, and deployable agents.
+- **Proceed with caution from installing AI Orchestrator** 
+
+---
 
 ### Docker Deployment (Recommended for Windows)
 1. Clone & configure:
@@ -60,22 +66,8 @@ cp .env.example .env
 # Edit .env: set `LLM_PROVIDER=lmstudio`, `LMSTUDIO_BASE_URL=http://host.docker.internal:1234`
 ```
 
-2. Deploy with Docker Compose:
-```yaml
-version: '3.8'
-services:
-  anything-llm:
-    image: mintplexlabs/anything-llm:latest
-    ports:
-      - "3001:3001"
-    environment:
-      - LLM_PROVIDER=lmstudio
-      - LMSTUDIO_BASE_URL=http://host.docker.internal:1234  # ← Critical!
-      - VECTOR_DB=chroma
-      - EMBEDDING_ENGINE=openai   # or `local` (uses sentence-transformers)
-    volumes:
-      - ./data:/app/server/storage
-```
+2. Deploy with [Docker Compose](anythingllm-docker-compose.yml):
+
 
 ### Key Features You’ll Love 🎯
 - 📁 Upload PDFs, docs, web pages → auto-chunk & embed  

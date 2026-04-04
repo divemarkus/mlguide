@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  anything-llm:
+    image: mintplexlabs/anything-llm:latest
+    ports:
+      - "3001:3001"
+    environment:
+      - LLM_PROVIDER=lmstudio
+      - LMSTUDIO_BASE_URL=http://host.docker.internal:1234  # ← Critical!
+      - VECTOR_DB=chroma
+      - EMBEDDING_ENGINE=openai   # or `local` (uses sentence-transformers)
+    volumes:
+      - ./data:/app/server/storage
