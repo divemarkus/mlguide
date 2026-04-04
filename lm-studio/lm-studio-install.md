@@ -92,17 +92,7 @@ cp .env.example .env
 | GPU not detected in LM Studio | Ensure WSL2 backend has access to GPU + ROCm installed in distro |
 | Slow inference on AMD | Enable [ROCm memory pool](https://rocmdocs.amd.com/en/docs-6.0/memory_management.html) via `export HIP_VISIBLE_DEVICES=0` (WSL2) |
 
-> 💡 **Pro Tip**: Run `lmstudio server --max-context-length 4096` to cap context and preserve VRAM.
+> 💡 **Tip**: Run `lmstudio server --max-context-length 4096` to cap context and preserve VRAM.
 
 ---
 
-## 🎁 Bonus Tools & Integrations
-
-| Tool | Why Add It? |
-|------|-------------|
-| **Ollama CLI** (`ollama run llama3:8b-instruct-q4_K_M`) | Scriptable model pulls + parallel requests (`OLLAMA_MAX_PARALLEL=2`) |
-| **vLLM + Docker** | Enterprise-grade serving with PagedAttention (faster decoding) |
-| **LangChain/Gradio UI** | Build custom apps on top of your local LLMs |
-| **Hugging Face Transformers** + `bitsandbytes` | Fine-tuning & quantization control (via WSL2) |
-
----
