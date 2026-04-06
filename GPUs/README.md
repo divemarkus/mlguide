@@ -68,24 +68,9 @@
 
 ---
 
-# 🥇 Table 3 - Wider Selection
+# 🧠 Added - Desktop-Class GPU
 
 👉 **Added Nvidia Jetson Nano Super Dev Kit 8GB**
-
-| Device                     | Est Price  | Architecture      | VRAM / Memory       | Tensor Cores        | AI Stack                  | LLM Capability Tier | Realistic Model Size              | Inference Speed                | Power   | Perf/Watt    | Framework Support                      | Multi-GPU  | Key Strengths                           | Key Limitations               | Verdict             |
-| -------------------------- | ---------- | ----------------- | ------------------- | ------------------- | ------------------------- | ------------------- | --------------------------------- | ------------------------------ | ------- | ------------ | -------------------------------------- | ---------- | --------------------------------------- | ----------------------------- | ------------------- |
-| **RTX 5070 Ti**            | ~$800–1000 | Blackwell         | 16GB GDDR7          | ✅ Latest (FP8/FP16) | CUDA + TensorRT           | 🔥🔥🔥🔥            | 7B–13B (excellent), 30B (partial) | 🚀 Very Fast                   | ~250W   | ⚖️ High      | ✅ Full (vLLM, Ollama, PyTorch)         | ⚠️ Limited | Best modern inference GPU, fastest here | 16GB VRAM cap                 | 🥇 Best overall     |
-| **RTX 5060**               | ~$350      | Blackwell         | 8GB GDDR7           | ✅ Latest            | CUDA + TensorRT           | 🔥🔥🔥              | 7B (fast), 13B (tight)            | 🚀 Fast                        | ~120W   | ✅ Very Good  | ✅ Full                                 | ❌          | Best value, modern stack                | VRAM bottleneck               | 🥇 Best value       |
-| **RTX 5050**               | ~$290      | Blackwell         | 8GB GDDR6           | ✅                   | CUDA + TensorRT           | 🔥🔥                | 7B (good), 13B (tight)            | ⚡ Medium-Fast                  | ~100W   | ✅ Good       | ✅ Full                                 | ❌          | Cheap entry into modern AI              | Limited bandwidth + VRAM      | 🥈 Budget           |
-| **Tesla T4**               | ~$600 used | Turing            | 16GB GDDR6          | ✅ Gen1              | CUDA + TensorRT           | 🔥🔥🔥              | 7B–13B (good), 30B (slow)         | ⚡ Medium                       | ~70W    | 🔋 Excellent | ✅ Strong (vLLM optimized)              | ⚠️ Yes     | Very efficient, 16GB VRAM               | Older, slower per token       | ⚠️ Niche efficiency |
-| **RTX 4000**               | ~$240 used | Turing            | 8GB GDDR6           | ✅ Gen1              | CUDA                      | 🔥🔥                | 7B (OK), 13B (tight)              | ⚡ Medium                       | ~160W   | ❌ Low        | ✅ Full                                 | ❌          | Cheap CUDA card                         | Old + inefficient             | 🥉 Only if cheap    |
-| **Tesla P4**               | ~$150 used | Pascal            | 8GB GDDR5           | ❌ None              | CUDA (legacy)             | 🔥                  | ≤7B (slow)                        | 🐢 Slow                        | ~75W    | ⚖️ Medium    | ⚠️ Limited                             | ❌          | Low cost, low power                     | No tensor cores               | ❌ Avoid             |
-| **Jetson Orin Nano Super** | ~$250–300  | Ampere (Embedded) | 8GB LPDDR5 (shared) | ✅ Ampere            | CUDA + TensorRT (JetPack) | 🔥 (edge)           | 3B–7B (optimized)                 | 🐢–⚡ (depends on optimization) | ~10–25W | 🔋 Excellent | ⚠️ Partial (TensorRT, limited PyTorch) | ❌          | Ultra efficient edge AI, 67 TOPS        | Memory bandwidth + RAM limits | ⚠️ Edge-only        |
-
-
----
-
-# 🧠 Added - Desktop-Class GPU
 
 | Device                           | Est Price (USD) | Architecture / Gen   | VRAM / Memory        | Tensor Cores        | AI Stack (CUDA / TensorRT)  | LLM Capability Tier | Realistic Model Size (local)                            | Inference Speed (relative)        | Power (TDP) | Perf/Watt    | Framework Support (vLLM / Ollama / PyTorch) | Multi-GPU Scaling                    | Key Strengths                                        | Key Limitations                                          | Overall Verdict               |
 | -------------------------------- | --------------: | -------------------- | -------------------- | ------------------- | --------------------------- | ------------------- | ------------------------------------------------------- | --------------------------------- | ----------: | ------------ | ------------------------------------------- | ------------------------------------ | ---------------------------------------------------- | -------------------------------------------------------- | ----------------------------- |
@@ -300,5 +285,3 @@ You get:
 * FP8 = the biggest shift since CUDA
 
 ---
-
-
