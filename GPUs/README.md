@@ -121,6 +121,8 @@
 
 # 🧠 Updated with RTX 3080 Ti and 3090 Ti
 
+👉 **Reference old or current hardware**
+
 | Device                            | Est Price (USD) | Architecture / Gen  | VRAM / Memory        | Tensor Cores        | AI Stack (CUDA / TensorRT)  | LLM Capability Tier | Realistic Model Size (local)                 | Inference Speed (relative) | Power (TDP) | Perf/Watt    | Framework Support (vLLM / Ollama / PyTorch) | Multi-GPU Scaling    | Key Strengths                          | Key Limitations         | Overall Verdict         |
 | --------------------------------- | --------------: | ------------------- | -------------------- | ------------------- | --------------------------- | ------------------- | -------------------------------------------- | -------------------------- | ----------: | ------------ | ------------------------------------------- | -------------------- | -------------------------------------- | ----------------------- | ----------------------- |
 | **RTX 5070 Ti (16GB)**            |      ~$800–1000 | Blackwell (latest)  | 16GB GDDR7           | ✅ Latest (FP8/FP16) | ✅ CUDA + TensorRT (latest)  | 🔥🔥🔥🔥            | 7B–13B (excellent), 30B (partial w/ offload) | 🚀🚀🚀🚀                   |       ~250W | ⚖️ High      | ✅ Full                                      | ⚠️ Limited           | Fastest per-token here, modern kernels | 16GB VRAM cap           | 🥇 Best modern choice   |
@@ -152,7 +154,7 @@
 
 ---
 
-## 🧠 What Actually Matters for ML (Real Talk)
+## 🧠 What Actually Matters for ML
 
 From your own stack design (Ollama, Flowise, Qdrant, etc.)  — the **real bottlenecks** are:
 
@@ -179,7 +181,7 @@ From your own stack design (Ollama, Flowise, Qdrant, etc.)  — the **real bottl
 
 ## 🧩 Key Insights (Important)
 
-### 1. **Quadro RTX 8000 (Your current class)**
+### 1. **Quadro RTX 8000**
 
 * Still useful due to **48GB VRAM**
 * BUT:
@@ -265,7 +267,7 @@ You get:
 
 ---
 
-# 🎮 Gaming Comparison (Separate Table)
+# 🎮 Gaming Comparison
 
 | GPU       | Gaming Tier | 4K Performance | Ray Tracing | DLSS    | Notes               |
 | --------- | ----------- | -------------- | ----------- | ------- | ------------------- |
@@ -278,7 +280,7 @@ You get:
 
 ---
 
-# ⚠️ Brutal Truth (What Most People Miss)
+# ⚠️ Brutal Truth
 
 * **VRAM ≠ performance**
 * **Tensor core generation matters more now**
