@@ -44,15 +44,6 @@
 
 ---
 
-### ⚠️ Overpriced for what it is
-
-👉 Tesla T4 at $820
-
-* great card
-* but price-to-performance is poor vs consumer GPUs
-
----
-
 # 🎮 TABLE 2 — Gaming Comparison
 
 | GPU          | Arch      | VRAM | 1080p     | 1440p     | Ray Tracing | DLSS / Frame Gen | Driver Support | FPS Tier | Power | Noise  | Verdict       |
@@ -77,18 +68,6 @@
 
 ---
 
-# 🧠 Final Recommendations
-
-## 🥇 Best for unRAID users (Unraid + AI + flexibility)
-
-👉 **RTX 5060**
-
-* fastest modern compute
-* best CUDA support
-* gaming + AI combo
-
----
-
 # 🥇 Table 3 - Wider Selection
 
 👉 **Added Nvidia Jetson Nano Super Dev Kit 8GB**
@@ -106,7 +85,7 @@
 
 ---
 
-# 🧠 Added - Elite Level GPU
+# 🧠 Added - Desktop-Class GPU
 
 | Device                           | Est Price (USD) | Architecture / Gen   | VRAM / Memory        | Tensor Cores        | AI Stack (CUDA / TensorRT)  | LLM Capability Tier | Realistic Model Size (local)                            | Inference Speed (relative)        | Power (TDP) | Perf/Watt    | Framework Support (vLLM / Ollama / PyTorch) | Multi-GPU Scaling                    | Key Strengths                                        | Key Limitations                                          | Overall Verdict               |
 | -------------------------------- | --------------: | -------------------- | -------------------- | ------------------- | --------------------------- | ------------------- | ------------------------------------------------------- | --------------------------------- | ----------: | ------------ | ------------------------------------------- | ------------------------------------ | ---------------------------------------------------- | -------------------------------------------------------- | ----------------------------- |
@@ -155,7 +134,6 @@
 
 ---
 
-
 # 🧠 Updated with RTX 3080 Ti and 3090 Ti
 
 | Device                            | Est Price (USD) | Architecture / Gen  | VRAM / Memory        | Tensor Cores        | AI Stack (CUDA / TensorRT)  | LLM Capability Tier | Realistic Model Size (local)                 | Inference Speed (relative) | Power (TDP) | Perf/Watt    | Framework Support (vLLM / Ollama / PyTorch) | Multi-GPU Scaling    | Key Strengths                          | Key Limitations         | Overall Verdict         |
@@ -174,15 +152,153 @@
 
 ---
 
-# 🧠 Performance Ranking (Updated)
+# 🧠 ML / AI Capability Comparison - Elite-Level GPUs (2026)
 
-1. RTX 5070 Ti (fastest modern)
-2. RTX 3090 Ti (best brute force)
-3. RTX 3090
-4. RTX 3080 Ti
-5. RTX 8000 (VRAM > speed)
-6. RTX 5060
-7. Tesla T4
-8. Others
+### 🔬 Core Specs + AI Performance
+
+| GPU                     | Architecture         | VRAM   | Memory Type   | Tensor Cores | FP16/BF16 | FP8/FP4 | PCIe         | ECC | Est AI Tier   |
+| ----------------------- | -------------------- | ------ | ------------- | ------------ | --------- | ------- | ------------ | --- | ------------- |
+| Quadro RTX 8000         | Turing               | 48GB   | GDDR6         | Gen 2        | ✔️        | ❌       | PCIe 3.0     | ✔️  | 🟡 Legacy Pro |
+| RTX PRO 4000 Blackwell  | Blackwell            | 24GB   | GDDR7         | Gen 5        | ✔️        | ✔️      | PCIe 5.0     | ✔️  | 🟢 Modern Pro |
+| RTX PRO 4500 Blackwell  | Blackwell            | 32GB   | GDDR7         | Gen 5        | ✔️        | ✔️      | PCIe 5.0     | ✔️  | 🟢 Strong Pro |
+| RTX 5090                | Blackwell (consumer) | 32GB   | GDDR7         | Gen 5        | ✔️        | ✔️      | PCIe 5.0     | ❌   | 🔥 Enthusiast |
+| RTX PRO 6000 Blackwell  | Blackwell            | 96GB   | GDDR7         | Gen 5        | ✔️        | ✔️      | PCIe 5.0     | ✔️  | 🟣 Elite AI   |
+| DGX Spark (128GB class) | Blackwell / Grace    | 128GB+ | HBM / Unified | Data Center  | ✔️        | ✔️      | NVLink / SXM | ✔️  | 🚀 Datacenter |
+
+---
+
+## 🧠 What Actually Matters for ML (Real Talk)
+
+From your own stack design (Ollama, Flowise, Qdrant, etc.)  — the **real bottlenecks** are:
+
+* VRAM (model size)
+* Memory bandwidth (token/sec)
+* Tensor core generation (FP8 = massive speed boost)
+* Interconnect (multi-GPU scaling)
+
+---
+
+## ⚡ LLM / AI Workload Performance
+
+| Workload        | RTX 8000 | PRO 4000 | PRO 4500 | RTX 5090 | PRO 6000 | DGX Spark |
+| --------------- | -------- | -------- | -------- | -------- | -------- | --------- |
+| 7B models       | ✅ Easy   | ✅ Easy   | ✅ Easy   | ✅ Easy   | ✅ Easy   | ✅ Instant |
+| 13B models      | ✅        | ✅        | ✅        | ✅        | ✅        | ✅         |
+| 34B models      | ⚠️ tight | ⚠️       | ✅        | ✅        | ✅        | ✅         |
+| 70B models      | ❌        | ❌        | ⚠️ split | ⚠️ split | ✅ (fits) | ✅         |
+| 120B+           | ❌        | ❌        | ❌        | ❌        | ⚠️       | ✅         |
+| FP8 inference   | ❌        | ✅        | ✅        | ✅        | ✅        | ✅         |
+| Training (LoRA) | ⚠️ slow  | ✅        | ✅        | 🔥       | 🔥🔥     | 🚀        |
+
+---
+
+## 🧩 Key Insights (Important)
+
+### 1. **Quadro RTX 8000 (Your current class)**
+
+* Still useful due to **48GB VRAM**
+* BUT:
+
+  * No FP8
+  * Old tensor cores
+  * ~3–6x slower than Blackwell
+
+👉 Verdict:
+**Memory-rich but compute-poor**
+
+---
+
+### 2. **RTX PRO 4000 / 4500 (Blackwell workstation)**
+
+* Massive efficiency jump
+* FP8 = **2–4x LLM speedup**
+* Lower VRAM but smarter compute
+
+👉 Best for:
+
+* Agents
+* Coding LLMs (Qwen, DeepSeek)
+* Production inference nodes
+
+---
+
+### 3. **RTX 5090 (Consumer King)**
+
+* Best **price/performance**
+* No ECC, but:
+
+  * Fastest raw throughput
+  * Ideal for:
+
+    * Local LLM dev
+    * Stable Diffusion
+    * Fine-tuning
+
+👉 This is the **“builder GPU”**
+
+---
+
+### 4. **RTX PRO 6000 Blackwell (96GB)**
+
+* This is where things change completely
+
+You get:
+
+* Full 70B+ models in VRAM
+* No quantization needed
+* ECC reliability
+* Workstation stability
+
+👉 This is basically:
+
+> “Single GPU replaces small cluster”
+
+---
+
+### 5. **DGX Spark / Grace Blackwell Systems**
+
+* Not a GPU — **AI node**
+* Unified memory (CPU+GPU)
+* NVLink / fabric scaling
+
+👉 This is:
+
+> “mini OpenAI node in your house”
+
+---
+
+# 🧠 ML Ranking (Real-World Use)
+
+| Rank | GPU          | Why                         |
+| ---- | ------------ | --------------------------- |
+| 🥇   | DGX Spark    | Full-scale AI workloads     |
+| 🥈   | RTX PRO 6000 | Fits massive models locally |
+| 🥉   | RTX 5090     | Best performance per dollar |
+| 4    | RTX PRO 4500 | Balanced pro workstation    |
+| 5    | RTX PRO 4000 | Efficient but VRAM limited  |
+| 6    | RTX 8000     | Outdated compute            |
+
+---
+
+# 🎮 Gaming Comparison (Separate Table)
+
+| GPU       | Gaming Tier | 4K Performance | Ray Tracing | DLSS    | Notes               |
+| --------- | ----------- | -------------- | ----------- | ------- | ------------------- |
+| RTX 8000  | ❌           | Weak           | Old RT      | DLSS 2  | Not for gaming      |
+| PRO 4000  | ⚠️          | Medium         | Good        | DLSS 4  | Driver-limited      |
+| PRO 4500  | ⚠️          | Good           | Good        | DLSS 4  | Still workstation   |
+| RTX 5090  | 🔥🔥🔥      | Ultra          | Best        | DLSS 4+ | Gaming king         |
+| PRO 6000  | ⚠️          | Good           | Great       | DLSS 4  | Overkill cost       |
+| DGX Spark | ❌           | N/A            | N/A         | N/A     | Not a gaming device |
+
+---
+
+# ⚠️ Brutal Truth (What Most People Miss)
+
+* **VRAM ≠ performance**
+* **Tensor core generation matters more now**
+* FP8 = the biggest shift since CUDA
+
+---
 
 
