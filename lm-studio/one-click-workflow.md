@@ -28,7 +28,7 @@ Examples:
 * “Any limitations in methodology?”
 * “Explain this for a patient”
 
-👉 That’s it — this becomes their **daily workflow**
+👉 That’s it — this can become a  **daily workflow**
 
 ---
 
