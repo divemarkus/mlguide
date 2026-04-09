@@ -1,6 +1,8 @@
 
 # 🧠 1. “One-Click” Workflow (PDF → Q&A + Voice)
 
+**IMPORTANT: Abide with HIPAA or other regulations, why this model is perfect for indexing research papers**
+
 ### 🔹 Step-by-step (set once, then it’s easy)
 
 **1. Open LM Studio**
@@ -151,9 +153,9 @@ These work **locally + are good for research/clinical reading**
 
 ---
 
-# 🧪 Simple Recommendation (don’t overthink)
+# 🧪 Simple Recommendation
 
-👉 Tell them:
+👉 Try this approach:
 
 * Start with: **Mistral 7B**
 * If PDFs are long: switch to **Llama 3 8B**
@@ -161,9 +163,9 @@ These work **locally + are good for research/clinical reading**
 
 ---
 
-# 🔒 Why this setup is ideal (for medical work)
+# 🔒 Why this setup is ideal
 
-* No cloud → patient/privacy safe
+* No cloud
 * Works offline
 * Handles PDFs directly
 * Voice makes it frictionless
