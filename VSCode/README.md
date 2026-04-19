@@ -5,6 +5,9 @@
 - Run Ollama with local models for privacy.
 - Set expectations to what local models will run on your hardware.
 - As of 03182026, RTX3070Ti with 8GB VRAM is not enough.
+- As of 04192026, [Codex as an extension is now provided, if you have chatGPT subscription](https://marketplace.visualstudio.com/items?itemName=openai.chatgpt)
+
+---
 
 ## 🧰 Core Stack Overview
 
