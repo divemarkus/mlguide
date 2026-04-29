@@ -1,7 +1,9 @@
 # Space Invaders
 - Using local opensource ML model [Qwen2.5-Coder-30b](https://lmstudio.ai/models/qwen2.5-coder-30b):
-- Qwen 2.5 Coder Next is an 
-- xxGB on VRAM
+- Qwen2.5 Coder 32B by qwen.
+- 32B version of the code-specific Qwen 2.5 for code generation, code reasoning and code fixing.
+- MLX version
+- 19GB Unified Memory (minimum)
 
 ---
 
