@@ -300,9 +300,9 @@ Filesystem, network, process, user
 
 ---
 
-# 🚀 Practical Takeaway (For You)
+# 🚀 Practical Takeaway
 
-Given your setup (AI + local LLMs + privacy-first):
+Given our setup (AI + local LLMs + privacy-first):
 
 Docker is not optional—it’s **foundational** because:
 
