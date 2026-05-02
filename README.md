@@ -58,12 +58,4 @@
 
 ---
 
-Would you like me to update the changes 
-
-
-<sup>
-*...make it so* :o
-</sup>
-
----
 
