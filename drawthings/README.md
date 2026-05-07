@@ -11,7 +11,6 @@
 
 ![Image](https://images.openai.com/static-rsc-4/SN-rY_gMHSs8Kupl6ZHcRA961b40X4TVZ6W2NZDGWm4hhsmfIYnZB41s7TWi69MBwG_G5QaDeEu-jQCu097TUG4Iz7JgkiuDzSAk5rMz4PHbD-fr99pDVWdhQVLuwXEE6ey00YVv2FVMAR1iSCtI0XuoE6e6JFaoXJsqBbfSEwI0Q1lzpea30gTtMCRmu0l4?purpose=fullsize)
 
-![Image](https://images.openai.com/static-rsc-4/v57NJFK12lpPO0r7KOmtLOg0oXxJIa-33PnYAgoa_or83B-RxeFPmIFGx0d0_yfLB4WGXp9WcTZxSE2wF3QpUZ2lAq3XWAEU97rZMEGvTnIxmwwLispSuaZFrmldLCLv0ORT1d_hIAm4luIx7_3pkIDwoeOLj9HwFWhMhufIjkp1JZVsgilgl5b6xIm8EQPv?purpose=fullsize)
 
 If you’re serious about **privacy-first AI image generation on macOS**, **Draw Things** is one of the best tools available right now. It’s essentially the **LM Studio of image generation**—but optimized for Apple Silicon.
 
@@ -123,30 +122,6 @@ Negative:
 
 * Reproducibility (same seed = same image)
 * Batch generation for exploration
-
----
-
-# 🧠 How It Fits Your Local AI Stack
-
-You already have a **privacy-first architecture**:
-
-* Ollama → LLMs
-* Qdrant → memory
-* Flowise → orchestration
-
-
-
-👉 Add Draw Things and you get:
-
-```
-LLM (Ollama)
-   ↓
-Prompt Generator
-   ↓
-Draw Things (image model)
-   ↓
-Asset / UI / content pipeline
-```
 
 ---
 
@@ -294,7 +269,7 @@ Asset / UI / content pipeline
 
 # 🧠 Real Use Cases (Where It Actually Shines)
 
-### 🧑‍💻 Engineering / Dev (you specifically)
+### 🧑‍💻 Engineering / Dev
 
 * UI mockups
 * game assets
