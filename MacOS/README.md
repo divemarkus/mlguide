@@ -172,10 +172,6 @@ From architecture notes:
 
 ## 🔥 RTX 5090 (Windows / Ubuntu)
 
-![Image](https://images.openai.com/static-rsc-4/qmjpxM1EGf1RS0QShJzq8lrEbdOu0e8K66bp5KLAZtgPkLKyE0_Oh-P8Ys1L3q3A6k8Kskao4iHQ8KVOBqJEPXPmP_RWJx-vjEmRDtDxoJ9RjcLyXTxtx7oVL0qlRyHMUMWAbdIbks7m5049K6337BG-hILIBnz_jxaVTyHkzfRSbPeu1qEKHzXr633oazAF?purpose=fullsize)
-
-![Image](https://images.openai.com/static-rsc-4/Z2z3fWI8VD3DWwMxK4jG9ddMdTp9JmhE2yDOSWA8fFCpkhOEUS4NBBpOfJYWCuJ3sqbFuBLTg7YzDj6N4r9SdFxBtuCZk2BMr42OyGzJUmC52qXV4aYhlgqGM8FWGoTkcf-izKzWPgdnIRsOHIq7r_GTzw-8BW0ur9_N1M-hvB33xiqGovzj9zq52Ompo07T?purpose=fullsize)
-
 ![Image](https://images.openai.com/static-rsc-4/LLJPZ62y3LYhcwHSAfGkItRrTSVeflhEB-N-uV9ZIkVjKunYN0UhHT4Wgp1cUYppwMNs5N8uyDB7FnvEti78ATQZOZNMX4o7llVsRoAEtO-mEMBbJSJwmzWsOHV7C08Ofgjv5JrZoaZuoQ9C5UF2jCqeF171mpArQjLP-IN2hPA4woE37-1LtSOySJDGrvVe?purpose=fullsize)
 
 ![Image](https://images.openai.com/static-rsc-4/zsEKTK7DF9goAx81tl2gwpr17jbCjHOXGv5FgbdJeEeNRbYkJsroBSr6oU0_OuWiO9h7xVAin8J9epsj-XidbosPd-KqAU2hPiYR_Hu_LTUxiFxx78DsXRdme8iVBpH3xDX2WQICFFIBOzeannD4rYFWj83WLjZLkYnmcEDzQisPRlWQGjYevbR5mMSP-a_z?purpose=fullsize)
