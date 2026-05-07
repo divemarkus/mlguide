@@ -22,6 +22,8 @@ Ultra-realistic, physically accurate materials, ray-traced reflections, soft glo
 ---
 
 ## Image generated
-- Steps 20
-- Completion time 10 minutes
+- Steps: 20
+- Completion time: 10 minutes
+- Size: 1024x768
 
+<img width="1024" height="768" alt="ornate_engravings__regal_detailing__ceremonial_armor_accents_count_knight_riding_a_black_warhorse__both_fully_armored_horse_covered_only_eyes_nose_mouth_shows_with_subtle_red_accents__f_3149527849" src="https://github.com/user-attachments/assets/b150d5a3-fa9e-47fb-9e4d-6e06d59c985b" />
