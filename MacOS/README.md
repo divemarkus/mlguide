@@ -3,6 +3,7 @@
 
 <img width="1536" height="1024" alt="Macbook-M1-M2-M3-M4-M5" src="https://github.com/user-attachments/assets/5113f53d-2b4c-4853-8907-d84ba665c442" />
 
+- Top Infographic source from GPT-5.4 prompt
 
 ![Image](https://images.openai.com/static-rsc-4/gnzsp4v88hYhz7COKhvcMl4VuVfcUteOweUBTEIni_tXVggL--_1x8UON1yQYOLkAae_7VlfKJ8h9C23CBikh0QtVPRgYjEGiFNy9uJYxwMuazu8Z0uFbKzy9URn0BdFt3MKUp_MPbdPkTR7he1YX1bYRckU2hBkfhcTFx-kCwSWt8YppHo6aG1OeAyTlyoh?purpose=fullsize)
 
