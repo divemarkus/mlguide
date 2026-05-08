@@ -374,7 +374,7 @@ Save as index.html
 ---
 
 ## Stats
-- Qwen3-coder-next took all my GPU and System RAM = 128GB
-- 37.20 tok/sec. 4085 tokens. 0.44s.
-- Best so far from my LLMs (self-hosted)
+- Qwen3-coder-30b took all 32GB Unified Memory
+- tok/sec
+- Notes
 
