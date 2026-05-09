@@ -1,17 +1,13 @@
 # Space Invaders
-- Using local opensource ML model [Qwen3-Coder-30b](https://lmstudio.ai/models/qwen/qwen3-coder-30b):
-- Qwen3 Coder 30B by qwen.
-- 30B version of the code-specific Qwen 3 for code generation, code reasoning and code fixing.
-- MLX version
-- 17GB Unified Memory
-
-## Troubleshoot
-- Second try increased Context Length 40,000
-- I gave the model a second chance to fix the SHOOT button & delivered
-- [qwen3-coder-30b-v2.html](qwen3-coder-30b-v2.html)
-- 12.74 tok/sec
-- 4050 tokens
-- 212.89 sec
+- Macbook Pro M1 Pro, 32GB Unified Memory, 16c GPU
+- LM Studio, Context Length 262,000 (max)
+- Using Alibaba's opensource ML model
+- Qwen 3.5 9b
+- 9GB Small sized LLM
+- GGUF version
+- 16GB Unified Memory (minimum)
+- 15.81 tok/sec
+- 4671 tokens
 
 ---
 
