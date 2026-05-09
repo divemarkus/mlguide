@@ -1,9 +1,12 @@
 
 # Bitcoin encyrption comparison, using tables
 - Apple Macbook Pro M1 Pro, 16c GPU
-- Google's gemma-4-e4b
-- Medium-sized local LLM
-- LM Studio
+- LM Studio, Context Length 45,000
+- Using Google's opensource ML model
+- Gemma4 e4b by Google
+- 7GB
+- GGUF version
+- 16GB Unified Memory (minimum)
 
 ## Prompt
 - xx tokens

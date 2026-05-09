@@ -1,9 +1,12 @@
 # Space Invaders
+- LM Studio, Context Length 45,000
 - Using Google's opensource ML model
 - Gemma4 e4b by Google
-- 7GB
+- 7GB Small-med sized LLM
 - GGUF version
 - 16GB Unified Memory (minimum)
+- 32.50 tok/sec
+- 5474 tokens
 
 ---
 
