@@ -1,6 +1,6 @@
 # Space Invaders
 - Macbook Pro M1 Pro, 32GB Unified Memory, 16c GPU
-- LM Studio, Context Length 30,000 (anything higher hangs)
+- LM Studio, Context Length 10,000 (anything higher hangs)
 - Took 12 minutes to think before spitting code
 - Using Alibaba's opensource ML model
 - This is one shot prompt
@@ -11,6 +11,14 @@
 - 5.67 tok/sec
 - 8611 tokens
 - 222.74 sec
+
+## Troubleshoot
+- Second try increased Context Length 20,000 (anything higher MBP hangs)
+- I gave the model a second chance by pasting the same prompt
+- [qwen3.6-27b-v2.html](qwen3.6-27b-v2.html)
+- 5.75 tok/sec
+- 5088 tokens
+- 162.16 sec
 
 ---
 
