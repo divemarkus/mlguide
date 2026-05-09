@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Space Invaders Clone</title>
+<style>
+  body, html { margin:0; padding:0; overflow:hidden; background:#000; }
+  canvas { display:block; width:100vw; height:100vh; background:#000; }
+  #overlay {
+    position:absolute;
+    top:0; left:0;
+    width:100%; height:100%;
+    display:flex;
+    justify-content:center; align-items:center;
+    color:#fff; font-family:monospace;
+    pointer-events:none;
+  }
+</style>
+</head>
+<body>
+
+<canvas id="gameCanvas"></canvas>
+<div id="overlay"></div>
+
+<script>
+/* =======================
+   Space Invaders Clone
+   Author: ChatGPT
+   Description: Vanilla JS, HTML5 Canvas implementation
+   ======================= */
+
+// ---------- Configuration ----------
+const CONFIG = {
+  // Canvas size will be set dynamically (100% of window)
+  canvas: { width: 800, height: 600 }, // base resolution for scaling
+  player: {
+    width: 40, height: 20,
+    speed: 300 // pixels per second
+  },
+  bullet: {
+    width: 4, height: 10,
+    speed: 500
+  },
+  alien: {
+    width: 30, height: 20,
+    speedX: 50, // base horizontal speed
+    speedY: 30, // vertical descent per cycle
+    rows: 5,
+    cols: 10,
+    paddingX: 20, // horizontal spacing
+    paddingY: 15  // vertical spacing
+  },
+  scorePerAlien: 10,
+  keyCodes: {
+    left: [37, 65], // ArrowLeft or A
+    right: [39, 68], // ArrowRight or D
+    shoot: [32] // Spacebar
+  }
+};
+
+// ---------- Canvas & Context ----------
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+
+// Set initial size
+resizeCanvas();
+window.addEventListener('resize', resizeCanvas);
+
+// ---------- Game State ----------
+let lastTime = 0;
+let player, bullets=[], aliens=[];
+let keysPressed={};
+let score=0;
+let gameState='playing'; // 'playing', 'gameover', 'win'
+const overlay = document.getElementById('overlay');
+
+// ---------- Utility ----------
+function clamp(value, min, max) { return Math.min(Math.max(value, min), max); }
+
+// ---------- Classes ----------
+class Player {
+  constructor() {
+    this.w = CONFIG.player.width;
+    this.h = CONFIG.player.height;
+    this.x = canvas.width/2 - this.w/2;
+    this.y = canvas.height - this.h - 10;
+    this.speed = CONFIG.player.speed;
+  }
+  update(dt) {
+    let dir=0;
+    if (keysPressed['left']) dir--;
+    if (keysPressed['right']) dir++;
+    this.x += dir*this.speed*dt;
+    // Keep inside canvas
+    this.x = clamp(this.x, 0, canvas.width - this.w);
+  }
+  draw() {
+    ctx.fillStyle = '#0f0';
+    ctx.fillRect(this.x, this.y, this.w, this.h);
+  }
+}
+
+class Bullet {
+  constructor(x,y) {
+    this.x = x;
+    this.y = y;
+    this.w = CONFIG.bullet.width;
+    this.h = CONFIG.bullet.height;
+    this.speed = CONFIG.bullet.speed;
+  }
+  update(dt) {
+    this.y -= this.speed*dt;
+  }
+  draw() {
+    ctx.fillStyle = '#ff0';
+    ctx.fillRect(this.x, this.y, this.w, this.h);
+  }
+}
+
+class Alien {
+  constructor(x,y) {
+    this.x = x;
+    this.y = y;
+    this.w = CONFIG.alien.width;
+    this.h = CONFIG.alien.height;
+    this.alive=true;
+  }
+  draw() {
+    if (!this.alive) return;
+    ctx.fillStyle = '#f00';
+    ctx.fillRect(this.x, this.y, this.w, this.h);
+  }
+}
+
+// ---------- Game Functions ----------
+function init() {
+  player = new Player();
+  bullets=[];
+  aliens=[];
+  score=0;
+  gameState='playing';
+  overlay.textContent='';
+  createAliens();
+}
+
+function createAliens() {
+  const {rows, cols, paddingX, paddingY} = CONFIG.alien;
+  const totalWidth = cols*CONFIG.alien.width + (cols-1)*paddingX;
+  const startX = (canvas.width - totalWidth)/2;
+  const startY = 50;
+
+  for (let r=0; r<rows; r++) {
+    for (let c=0; c<cols; c++) {
+      const x = startX + c*(CONFIG.alien.width+paddingX);
+      const y = startY + r*(CONFIG.alien.height+paddingY);
+      aliens.push(new Alien(x,y));
+    }
+  }
+}
+
+let alienDir=1; // 1:right, -1:left
+function updateAliens(dt) {
+  const aliveAliens = aliens.filter(a=>a.alive);
+  if (aliveAliens.length===0) return;
+
+  // Increase speed as aliens die
+  const baseSpeed = CONFIG.alien.speedX;
+  const speedMultiplier = Math.max(1, aliveAliens.length/ (CONFIG.alien.rows*CONFIG.alien.cols));
+  const speed = baseSpeed * speedMultiplier;
+
+  let moveX = alienDir*speed*dt;
+  // Check bounds
+  const leftMost = Math.min(...aliveAliens.map(a=>a.x));
+  const rightMost = Math.max(...aliveAliens.map(a=>a.x + a.w));
+
+  if (rightMost+moveX > canvas.width || leftMost+moveX < 0) {
+    // Reverse direction and descend
+    alienDir *= -1;
+    for (let a of aliveAliens) {
+      a.y += CONFIG.alien.speedY;
+    }
+  } else {
+    // Move horizontally
+    for (let a of aliveAliens) a.x += moveX;
+  }
+}
+
+function updateBullets(dt) {
+  for (let b of bullets) b.update(dt);
+  // Remove offscreen
+  bullets = bullets.filter(b=>b.y + b.h >0);
+}
+
+function checkCollisions() {
+  for (let b of bullets) {
+    for (let a of aliens) {
+      if (!a.alive) continue;
+      if (b.x < a.x + a.w && b.x + b.w > a.x &&
+          b.y < a.y + a.h && b.y + b.h > a.y) {
+        // Hit!
+        a.alive=false;
+        b.y = -b.h; // remove bullet
+        score += CONFIG.scorePerAlien;
+      }
+    }
+  }
+
+  // Check if any alien reached bottom
+  for (let a of aliens) {
+    if (!a.alive) continue;
+    if (a.y + a.h >= canvas.height - player.h - 10) {
+      gameState='gameover';
+    }
+  }
+
+  // Check if player hit (simple bounding box)
+  for (let a of aliens) {
+    if (!a.alive) continue;
+    if (player.x < a.x + a.w && player.x + player.w > a.x &&
+        player.y < a.y + a.h && player.y + player.h > a.y) {
+      gameState='gameover';
+    }
+  }
+
+  // Check win condition
+  if (aliens.every(a=>!a.alive)) {
+    gameState='win';
+  }
+}
+
+function drawUI() {
+  ctx.fillStyle='#fff';
+  ctx.font='20px monospace';
+  ctx.textAlign='left';
+  ctx.fillText(`Score: ${score}`,10,30);
+}
+
+function drawOverlay() {
+  if (gameState==='playing') return;
+  overlay.style.display='flex';
+  overlay.textContent = gameState==='win' ? 'You Win! Press R to Restart' : 'Game Over! Press R to Restart';
+}
+
+function gameLoop(timestamp) {
+  if (!lastTime) lastTime=timestamp;
+  const dt = (timestamp - lastTime)/1000; // in seconds
+  lastTime=timestamp;
+
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+
+  if (gameState==='playing') {
+    player.update(dt);
+    updateBullets(dt);
+    updateAliens(dt);
+    checkCollisions();
+  }
+
+  // Draw everything
+  player.draw();
+  for (let b of bullets) b.draw();
+  for (let a of aliens) a.draw();
+
+  drawUI();
+  drawOverlay();
+
+  requestAnimationFrame(gameLoop);
+}
+
+// ---------- Input ----------
+window.addEventListener('keydown', e=>{
+  if (CONFIG.keyCodes.left.includes(e.keyCode)) keysPressed['left']=true;
+  if (CONFIG.keyCodes.right.includes(e.keyCode)) keysPressed['right']=true;
+  if (CONFIG.keyCodes.shoot.includes(e.keyCode)) {
+    // Fire bullet
+    const b = new Bullet(player.x + player.w/2 - CONFIG.bullet.width/2,
+                         player.y);
+    bullets.push(b);
+  }
+  if (e.key==='r' || e.key==='R') {
+    init();
+  }
+});
+window.addEventListener('keyup', e=>{
+  if (CONFIG.keyCodes.left.includes(e.keyCode)) keysPressed['left']=false;
+  if (CONFIG.keyCodes.right.includes(e.keyCode)) keysPressed['right']=false;
+});
+
+// ---------- Canvas Resize ----------
+function resizeCanvas() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+
+// ---------- Start ----------
+init();
+requestAnimationFrame(gameLoop);
+</script>
+</body>
+</html>
