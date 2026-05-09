@@ -3,6 +3,7 @@
 - LM Studio, Context Length 30,000 (anything higher hangs)
 - Took 12 minutes to think before spitting code
 - Using Alibaba's opensource ML model
+- This is one shot prompt
 - Qwen 3.6 27b
 - 20GB Medium sized LLM
 - GGUF version

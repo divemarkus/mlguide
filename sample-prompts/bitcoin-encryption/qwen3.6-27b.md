@@ -1,7 +1,7 @@
 
 # Bitcoin encyrption comparison, using tables
 - Macbook Pro M1 Pro, 32GB Unified Memory, 16c GPU
-- LM Studio, Context Length 40,000 (max)
+- LM Studio, Context Length 30,000 (max)
 - Using Alibaba's opensource ML model
 - Qwen 3.6 27b
 - 20GB Medium sized LLM
