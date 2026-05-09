@@ -5,6 +5,13 @@
 - MLX version
 - 17GB Unified Memory
 
+## More Details
+- I gave the model a second chance to fix the SHOOT button & delivered
+- [qwen3-coder-30b-v2.html](qwen3-coder-30b-v2.html)
+- 12.74 tok/sec
+- 4050 tokens
+- 212.89 sec
+
 ---
 
 ## Pasted prompt
