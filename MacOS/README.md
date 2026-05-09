@@ -407,3 +407,7 @@ brew install ollama
 * The real power move is **hybrid architecture**
 
 ---
+
+## 💡 Projects to monitor
+- [oMLX - beta](https://omlx.ai/)
+- [OpenCode Desktop App - beta](https://opencode.ai/download)
