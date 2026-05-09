@@ -31,7 +31,7 @@ Requirements:
 ```
 
 ## Output by bot
-- [gpt-oss-20b](gpt-oss-20b.html)
+- [gpt-oss-20b-windows](gpt-oss-20b-windows.html)
 
 
 ---
