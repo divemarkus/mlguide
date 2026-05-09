@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Invaders Clone</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #0a1929;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            user-select: none;
+        }
+
+        .game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #4caf50;
+            text-shadow: 0 0 10px rgba(76, 175, 80, 0.8);
+            letter-spacing: 2px;
+        }
+
+        .game-wrapper {
+            position: relative;
+            margin-bottom: 40px;
+            width: min(85vw, 620px);
+        }
+
+        canvas {
+            background-color: #142842;
+            display: block;
+            border-radius: 5px;
+            box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
+            cursor: none;
+        }
+
+        .game-info {
+            display: flex;
+            justify-content: space-between;
+            width: min(85vw, 620px);
+            max-width: 700px;
+            padding: 15px;
+            background-color: rgba(10, 25, 41, 0.7);
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(76, 175, 80, 0.2);
+            margin-bottom: 40px;
+        }
+
+        .score-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .lives {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .life-icon {
+            display: inline-block;
+            background-color: #ff9800;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 4px;
+            line-height: 25px;
+            text-align: center;
+            font-size: 18px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            width: min(85vw, 620px);
+        }
+
+        .key {
+            padding: 15px 25px;
+            background-color: rgba(40, 40, 87, 0.5);
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+            margin-top: -45px;
+            position: absolute;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .key:hover {
+            background-color: rgba(40, 70, 139, 0.5);
+            color: #ffeb3b;
+        }
+
+        .key.active {
+            background-color: rgba(40, 70, 139, 0.8);
+            color: #ff5252;
+        }
+
+        .instructions {
+            background-color: rgba(10, 25, 41, 0.7);
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 10px;
+            text-align: center;
+            width: min(85vw, 620px);
+        }
+
+        .instructions p {
+            margin: 15px 0;
+            font-size: 18px;
+        }
+
+        button, select {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        button {
+            background-color: #4caf50;
+            width: 120px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        #pauseButton {
+            background-color: rgba(40, 139, 64, 0.7);
+            color: white;
+        }
+
+        @media (max-width: 650px) {
+            .game-info, .controls {
+                flex-direction: column;
+                align-items: center;
+                gap: 20px;
+            }
+            
+            #pauseButton {
+                margin-top: -45px;
+            }
+
+            .game-info-content {
+                display: flex;
+                justify-content: center;
+                gap: 30px;
+            }
+        }
+
+        .game-over {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(41, 26, 79, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            display: none;
+            box-shadow: 0 0 25px rgba(139, 0, 0, 0.6);
+        }
+
+        .game-over h2 {
+            color: #ff5722;
+            margin-bottom: 10px;
+        }
+
+        .game-over p {
+            font-size: 24px;
+            margin-bottom: 30px;
+        }
+
+        .game-over button {
+            background-color: #ff5722;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>SPACE INVADERS</h1>
+        <div class="game-wrapper">
+            <canvas id="gameCanvas"></canvas>
+            <!-- Controls will be added via JavaScript -->
+        </div>
+        <div class="game-info">
+            <div class="score-container">
+                <span>Score</span>
+                <div id="score">0</div>
+            </div>
+            <div class="lives">
+                <span>Lives: </span>
+                <div id="scoreContainer"></div>
+            </div>
+        </div>
+        <div class="instructions">
+            <p>Move with LEFT/RIGHT arrows or A/D keys. Press SPACE to shoot.<br>
+            Destroy all aliens before they reach the bottom!</p>
+        </div>
+
+        <div class="button-group">
+            <button id="startButton">Start Game</button>
+            <select id="difficultySelect">
+                <option value="Easy">Easy</option>
+                <option value="Medium" selected>Medium</option>
+                <option value="Hard">Hard</option>
+            </select>
+        </div>
+
+    </div>
+
+    <script>
+        // Canvas setup code will appear here
+
+        if (window.innerWidth > 700) {
+            window.addEventListener('keydown', function(event) {
+                const keyElement = document.elementFromPoint(event.clientX, event.clientY);
+                if (keyElement && ['left', 'right', 'arrowleft', 'arrowright', 'space'].includes(event.key.toLowerCase())) {
+                    keyElement.classList.add('active');
+                }
+            });
+
+            window.addEventListener('keyup', function(event) {
+                const keyElement = document.elementFromPoint(event.clientX, event.clientY);
+                if (keyElement && ['left', 'right', 'arrowleft', 'arrowright', 'space'].includes(event.key.toLowerCase())) {
+                    keyElement.classList.remove('active');
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Main game code will appear here
+            
+            const canvas = document.getElementById('gameCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Make the canvas responsive to window resize
+            function setCanvasSize() {
+                const wrapperWidth = Math.min(85 * window.innerWidth / 100, 620);
+                canvas.width = wrapperWidth;
+                canvas.height = canvas.width * 1.5; // Aspect ratio of ~4:3
+                
+                player.xPos = canvas.width / 2;
+            }
+            
+            window.addEventListener('resize', setCanvasSize);
+            setCanvasSize();
+            
+            // Define game elements
+            const player = {
+                size: 30,
+                xPos: canvas.width / 2 - 15,
+                yPos: canvas.height - 40,
+                speed: 8,
+                lives: 3, 
+                draw: function() {
+                    ctx.fillStyle = 'white';
+                    
+                    // Draw ship body
+                    const gradient = ctx.createLinearGradient(this.xPos, this.yPos - 5,
+                                                             this.xPos + 10, this.yPos);
+                    gradient.addColorStop(0, 'white');
+                    gradient.addColorStop(1, this.yPos >= canvas.height - 40 ? 'white' : '#FF9800');
+                    
+                    ctx.beginPath();
+                    ctx.moveTo(this.xPos, this.yPos);
+                    for (let i = 0; i < player.bullets.length; ++i) {
+                        if (!gameOver && !playerInvaderHit(player.playerLives.length, player.playerHits.length)) {
+                            // Only draw if game hasn't ended or not hit by alien yet
+                        } else ctx.lineTo(this.xPos - this.size/2, canvas.height);
+                    }
+                    // Draw the V shape properly regardless of lives
+                    ctx.moveTo(this.xPos, this.yPos);
+                    if (player.lives === 3) {
+                        ctx.lineTo(this.xPos - this.size/2, canvas.height);
+                        const gradient = ctx.createLinearGradient(
+                            this.xPos + 5, this.yPos - this.size/2,
+                            this.xPos, this.yPos);
+                        gradient.addColorStop(0, 'silver');
+                        gradient.addColorStop(1, 'gold');
+                        ctx.fillStyle = 'rgba(240, 230, 140, 0.8)';
+                        ctx.fillRect(this.xPos - this.size/2 + 15, canvas.height, this.size*4, 30);
+                    }
+                },
+                draw: function() {
+                    // Draw ship
+                    ctx.fillStyle = 'rgba(249, 236, 50, 0.8)'; // Ship color
+                    ctx.beginPath();
+                    
+                    const headLen = this.size/2;
+                    drawShip(
+                        this.xPos - this.size/4, 
+                        this.yPos,
+                        Math.min(this.lives, 3) * (Math.PI/4 - this.size/10)
+                    );
+                    
+                    // Draw gun on the ship pointing up
+                    if (!gamePaused) {
+                        const bulletPos = this.xPos;
+                        ctx.fillStyle = 'rgba(103, 58, 183, 0.6)';
+                        ctx.beginPath();
+                        ctx.arc(bulletPos, this.yPos - 5, this.size/20, Math.PI * 0.4, Math.PI * 1);
+                        ctx.fill();
+                    }
+                },
+            };
+            
+            // This drawShip function replaces the original drawing method for better clarity
+            
+            // Game state variables
+            let score = 0;
+            let gameOver = false;
+            let gamePaused = true;
+            
+            // Game loop and drawing functions will appear here
+            
+        });
+    </script>
+</body>
+</html>
