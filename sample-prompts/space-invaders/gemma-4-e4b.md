@@ -2,9 +2,9 @@
 - LM Studio, Context Length 45,000
 - Using Google's opensource ML model
 - Gemma4 e4b by Google
-```
-Gemma 4 is Google's most capable family of open models, built from Gemini 3 research. Supports vision input and available in multiple sizes for on-device deployment.
-```
+
+> Gemma 4 is Google's most capable family of open models, built from Gemini 3 research. Supports vision input and available in multiple sizes for on-device deployment.
+
 - 7GB Small sized LLM
 - GGUF version
 - 8GB Unified Memory (minimum)
