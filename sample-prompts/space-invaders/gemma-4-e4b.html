@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VanillaJS Space Invaders</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #000022; /* Deep space blue */
+            font-family: 'Courier New', monospace;
+            color: #fff;
+        }
+        #gameCanvas {
+            border: 2px solid #333;
+            background-color: #000000;
+            display: block; /* Removes any default inline spacing */
+        }
+        #scoreBoard {
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            text-align: center;
+            width: calc(var(--canvas-width) - 20px); /* Match canvas width minus padding */
+        }
+        /* Utility class for centering text on game over/win screen */
+        #overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            pointer-events: none; /* Allows clicks to pass through if needed */
+        }
+        #overlay button {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            margin-top: 20px;
+            cursor: pointer;
+            background-color: #333;
+            border: 2px solid #fff;
+            color: #fff;
+            transition: background-color 0.2s;
+        }
+        #overlay button:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="scoreBoard">Score: <span id="score">0</span></div>
+    <canvas id="gameCanvas"></canvas>
+
+    <!-- Game Over/Win Overlay -->
+    <div id="overlay" style="display: none;">
+        <h1 id="messageTitle">Game Over!</h1>
+        <p id="finalScoreMessage">Your final score is 0.</p>
+        <button id="restartButton">Play Again</button>
+    </div>
+
+<script>
+/**
+ * ===============================================
+ * V A N I L L A J S - P A C E   I N V A D E R S
+ * Game Loop and Game Objects
+ * ===============================================
+ */
+
+// --- Setup Variables and Constants ---
+
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+const scoreDisplay = document.getElementById('score');
+const overlay = document.getElementById('overlay');
+const messageTitle = document.getElementById('messageTitle');
+const finalScoreMessage = document.getElementById('finalScoreMessage');
+const restartButton = document.getElementById('restartButton');
+
+// Set canvas dimensions and handle scaling
+let CANVAS_WIDTH = window.innerWidth - 40; // Account for some margin/padding on larger screens
+let CANVAS_HEIGHT = Math.min(600, window.innerHeight * 0.8); // Limit height to prevent huge canvases
+
+canvas.width = CANVAS_WIDTH;
+canvas.height = CANVAS_HEIGHT;
+
+// Style CSS variable for matching the score board width
+document.documentElement.style.setProperty('--canvas-width', `${CANVAS_WIDTH}px`);
+
+
+// --- Game State Variables ---
+let gameState = {
+    running: false,
+    score: 0,
+    playerHit: false, // Tracks if player is currently invulnerable/dead
+};
+
+// Player setup
+const PLAYER_WIDTH = 40;
+const PLAYER_HEIGHT = 15;
+let player = {
+    x: CANVAS_WIDTH / 2 - PLAYER_WIDTH / 2,
+    y: CANVAS_HEIGHT - 30,
+    dx: 0, // Movement delta x
+    speed: 6,
+    canShoot: true,
+    shootCooldown: 200, // ms
+    lastShotTime: 0
+};
+
+// Arrays for game objects
+let bullets = []; // Player bullets
+let aliens = [];
+let alienBullets = [];
+let keysPressed = {};
+
+
+// --- Object Classes (Modular Design) ---
+
+/**
+ * Represents a projectile shot by the player.
+ */
+class Bullet {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.width = 3;
+        this.height = 10;
+        this.speed = 8;
+        this.owner = 'player'; // Used for collision logic
+    }
+
+    update() {
+        this.y -= this.speed;
+    }
+
+    draw() {
+        ctx.fillStyle = '#00FFFF'; // Cyan laser
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+    }
+
+    isOffScreen() {
+        return this.y < 0 || this.y > CANVAS_HEIGHT;
+    }
+}
+
+/**
+ * Represents a projectile shot by the aliens.
+ */
+class EnemyBullet {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.width = 2;
+        this.height = 8;
+        this.speed = 4;
+        this.owner = 'alien';
+    }
+
+    update() {
+        this.y += this.speed;
+    }
+
+    draw() {
+        ctx.fillStyle = '#FF0000'; // Red laser
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+    }
+
+    isOffScreen() {
+        return this.y > CANVAS_HEIGHT + 10;
+    }
+}
+
+
+/**
+ * Represents a single alien invader.
+ */
+class Alien {
+    constructor(x, y, row, col) {
+        this.width = 25;
+        this.height = 15;
+        this.x = x;
+        this.y = y;
+        this.row = row;
+        this.col = col;
+        this.alive = true;
+
+        // Movement tracking
+        this.start_x = x - (this.width / 2); // Store original horizontal position for clean movement
+        this.speed_x = 1;
+        this.direction = Math.random() > 0.5 ? 1 : -1; // Start moving left or right
+    }
+
+    /**
+     * Updates the alien's position and manages group movement logic.
+     * @param {number} globalSpeed Multiplier based on difficulty/score.
+     */
+    update(globalSpeed) {
+        if (!this.alive) return;
+
+        // Group horizontal movement (all aliens move together)
+        this.x += this.direction * (0.5 + (globalSpeed * 0.1));
+        
+        // Check boundaries and reverse direction if needed (handled by the group logic, but included for safety)
+        if (this.x < 0 || this.x > CANVAS_WIDTH - this.width) {
+            // Note: Actual reversal is handled in the main game loop to ensure all aliens sync
+        }
+    }
+
+    /**
+     * Draws the alien on the canvas.
+     */
+    draw() {
+        if (!this.alive) return;
+        ctx.fillStyle = '#00FF7F'; // Green glow for aliens
+        // Draw simple rectangle representation of an invader
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+
+        // Simple detail (optional)
+        ctx.strokeStyle = '#333';
+        ctx.strokeRect(this.x, this.y, this.width, this.height);
+    }
+
+    /**
+     * Checks if the alien has reached the bottom boundary (Game Over condition).
+     */
+    checkBottom() {
+        return this.y + this.height >= player.y - 10; // Danger zone above player
+    }
+
+    destroy() {
+        this.alive = false;
+    }
+}
+
+
+// --- Game Initialization and Reset ---
+
+/**
+ * Initializes the alien formation grid.
+ */
+function initAliens() {
+    aliens = [];
+    const rows = 4;
+    const cols = 10;
+    const padding = 30;
+    const startY = 50;
+
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+            // Calculate starting x position for the center of the alien
+            let x_pos = padding + c * (25 + 10); // Alien width + gap
+            let y_pos = startY + r * 30;
+
+            if (c % 2 === 0) {
+                x_pos += 10; // Offset for alternating rows
+            }
+            
+            aliens.push(new Alien(x_pos, y_pos, r, c));
+        }
+    }
+}
+
+
+/**
+ * Resets and initializes the game state for a new round.
+ */
+function startGame() {
+    gameState.score = 0;
+    player.x = CANVAS_WIDTH / 2 - PLAYER_WIDTH / 2;
+    player.y = CANVAS_HEIGHT - 30;
+    bullets = [];
+    alienBullets = [];
+    initAliens();
+
+    document.getElementById('score').textContent = gameState.score;
+    overlay.style.display = 'none';
+    gameState.running = true;
+    gameLoop();
+}
+
+
+// --- Input Handling ---
+
+/**
+ * Handles key press events for continuous movement and shooting.
+ */
+document.addEventListener('keydown', (e) => {
+    keysPressed[e.code] = true;
+
+    if (!gameState.running && e.key === ' ') {
+        startGame();
+    }
+});
+
+/**
+ * Handles key release events.
+ */
+document.addEventListener('keyup', (e) => {
+    keysPressed[e.code] = false;
+});
+
+
+// --- Game Logic Functions ---
+
+/**
+ * Updates the player's position based on pressed keys.
+ */
+function updatePlayerMovement() {
+    player.dx = 0;
+    if (keysPressed['ArrowLeft'] || keysPressed['KeyA']) {
+        player.dx = -1;
+    } else if (keysPressed['ArrowRight'] || keysPressed['KeyD']) {
+        player.dx = 1;
+    }
+
+    // Move player, constrained by canvas edges
+    player.x += player.dx * player.speed;
+    if (player.x < 0) player.x = 0;
+    if (player.x + PLAYER_WIDTH > CANVAS_WIDTH) {
+        player.x = CANVAS_WIDTH - PLAYER_WIDTH;
+    }
+
+    // Shooting mechanism
+    if ((keysPressed['Space'] || keysPressed['KeyW']) && gameState.running && player.canShoot) {
+        const now = Date.now();
+        if (now > player.lastShotTime + player.shootCooldown) {
+            bullets.push(new Bullet(player.x + PLAYER_WIDTH / 2 - 1.5, player.y));
+            player.lastShotTime = now;
+            player.canShoot = false; // Cooldown set
+        }
+    }
+    // Reset shooting ability after cooldown
+    if (!keysPressed['Space'] && !keysPressed['KeyW']) {
+        player.canShoot = true;
+    }
+}
+
+/**
+ * Manages the movement and firing of all aliens.
+ * Determines global speed based on how many are left.
+ */
+function updateAliens(globalSpeed) {
+    // 1. Check for Win Condition
+    if (aliens.filter(a => a.alive).length === 0) {
+        endGame(true); // Player wins!
+        return;
+    }
+
+    // 2. Group Movement Logic
+    let moveDown = false;
+    let directionChange = false;
+
+    // Check if any alien hits the side boundaries
+    for (const alien of aliens) {
+        if (!alien.alive) continue;
+        
+        const xMin = alien.x;
+        const xMax = alien.x + alien.width;
+
+        if (xMin <= 0 || xMax >= CANVAS_WIDTH) {
+            directionChange = true;
+            break;
+        }
+    }
+
+    // If direction must change, update global state for all aliens
+    let moveDirectionMultiplier = 1; // Default speed multiplier
+    if (directionChange) {
+        moveDirectionMultiplier = -1;
+        moveDown = true;
+    } else if ((Date.now() / 500) % 2 < 1) { // Simple timer for occasional down movement
+         moveDirectionMultiplier = 1;
+    }
+
+    // Apply movement to all living aliens
+    for (const alien of aliens) {
+        if (!alien.alive) continue;
+
+        // Direction handling: If we need to reverse or if it's time to move down
+        let currentDir = directionChange ? -1 : 1;
+        
+        // If the global movement logic dictates a change (e.g., hit wall), force reversal for all
+        if (directionChange) {
+            alien.direction *= -1; // Reverse the group direction
+        }
+
+        // Apply horizontal movement and speed scaling
+        alien.x += alien.direction * (0.5 + (globalSpeed * 0.1));
+        
+        // Check for descent
+        if (moveDown) {
+            alien.y -= 15; // Large drop down
+        } else {
+             // Normal gravity/descent effect over time
+             alien.y += 0.2 * globalSpeed * 0.01; 
+        }
+
+    }
+
+    // Check Game Over condition: If aliens reach the player's danger zone
+    for (const alien of aliens) {
+        if (!alien.alive && alien.checkBottom()) {
+            endGame(false); // Aliens reached you!
+            return;
+        }
+    }
+
+
+    // 3. Simple AI Shot Implementation (Randomly shoot every X frames)
+    if (Math.random() < 0.01 && aliens.length > 0) {
+        const activeAliens = aliens.filter(a => a.alive);
+        if (activeAliens.length > 0) {
+            // Select a random living alien to shoot from
+            const shooterIndex = Math.floor(Math.random() * activeAliens.length);
+            const shooter = activeAliens[shooterIndex];
+
+            alienBullets.push(new EnemyBullet(
+                shooter.x + alienBullets.filter(b => b.owner === 'alien')[0]?.width || 12, // Calculate spawn x near the invader
+                shooter.y + alienBullets.filter(b => b.owner === 'alien')[0]?.height * 0.5 - 4 // Spawn Y slightly above center
+            ));
+        }
+    }
+}
+
+/**
+ * Updates all bullets and handles boundary removal.
+ */
+function updateProjectiles() {
+    // Player bullets
+    bullets = bullets.filter(bullet => !bullet.isOffScreen());
+    for (const bullet of bullets) {
+        bullet.update();
+    }
+
+    // Alien bullets
+    alienBullets = alienBullets.filter(bullet => !bullet.isOffScreen());
+    for (const bullet of alienBullets) {
+        bullet.update();
+    }
+}
+
+
+/**
+ * Handles all collision detection: Bullet-Alien and EnemyBullet-Player.
+*/
+function checkCollisions() {
+    let bulletsToKeep = [];
+    let aliensToKeep = [...aliens];
+    let enemyBulletsToRemoveIndices = new Set();
+
+    // --- 1. Player Bullet vs Alien Collision ---
+    bullets.forEach(bullet => {
+        let hitAlien = false;
+        for (const alien of aliens) {
+            if (!alien.alive) continue;
+
+            // Basic AABB collision detection
+            if (bullet.x < alien.x + alien.width &&
+                bullet.x + bullet.width > alien.x &&
+                bullet.y < alien.y + alien.height &&
+                bullet.y + bullet.height > alien.y) {
+
+                // Collision detected!
+                alien.destroy(); // Destroy the target alien
+                gameState.score += 10;
+                document.getElementById('score').textContent = gameState.score;
+                hitAlien = true;
+                break; // A bullet only hits one alien per frame
+            }
+        }
+        if (hitAlien) {
+             bulletsToKeep.push(bullet);
+        } else {
+             bulletsToKeep.push(bullet);
+        }
+    });
+    bullets = bulletsToKeep;
+
+    // --- 2. Enemy Bullet vs Player Collision ---
+    let playerHitByEnemy = false;
+    for (let i = alienBullets.length - 1; i >= 0; i--) {
+        const enemyBullet = alienBullets[i];
+
+        if (enemyBullet.x < PLAYER_WIDTH &&
+            enemyBullet.x + enemyBullet.width > 0 &&
+            enemyBullet.y < player.y + PLAYER_HEIGHT &&
+            enemyBullet.y + enemyBullet.height > player.y) {
+
+            playerHitByEnemy = true;
+            // We don't need to remove the bullet, as it will be filtered by isOffScreen next frame.
+        }
+    }
+    
+    if (playerHitByEnemy && !gameState.playerHit) {
+        endGame(false); // Player was hit!
+        return;
+    }
+
+    // Note: We keep the aliens and enemy bullets for now, relying on the filter update later.
+}
+
+
+/**
+ * Calculates global difficulty speed based on remaining enemies.
+ * @returns {number} A multiplier (0 to 1) representing difficulty.
+ */
+function calculateDifficultySpeed() {
+    const activeAliens = aliens.filter(a => a.alive);
+    if (activeAliens.length === aliens.length) return 0; // Start slow
+
+    // Inverse relationship: The fewer aliens left, the lower the score multiplier, but we want speed to increase as they die.
+    // Let's use percentage of remaining vs initial count.
+    const initialCount = aliens.length;
+    const currentRatio = activeAliens.length / initialCount;
+
+    // Speed increases faster when the ratio is low (i.e., more are dead)
+    return Math.max(0, 1 - (currentRatio * 0.8)); // Max speed increase factor of ~0.8
+}
+
+
+/**
+ * Main game loop function executed by requestAnimationFrame.
+ */
+function gameLoop() {
+    if (!gameState.running) return;
+
+    // 1. Clear Canvas (Draw black background for space)
+    ctx.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+
+    // --- Update Logic ---
+    updatePlayerMovement();
+    updateAliens(calculateDifficultySpeed()); // Pass current difficulty speed
+    updateProjectiles();
+    checkCollisions();
+
+    // --- Drawing Phase ---
+
+    // Draw Player Ship
+    ctx.fillStyle = '#00FFFF'; 
+    ctx.fillRect(player.x, player.y, PLAYER_WIDTH, PLAYER_HEIGHT);
+    
+    // Draw Bullets (Player)
+    bullets.forEach(bullet => bullet.draw());
+
+    // Draw Enemy Bullets
+    alienBullets.forEach(bullet => bullet.draw());
+
+    // Draw Aliens
+    aliens.forEach(alien => alien.draw());
+
+
+    // --- Loop Continuation ---
+    requestAnimationFrame(gameLoop);
+}
+
+
+/**
+ * Ends the game and displays the appropriate message (Win or Loss).
+ * @param {boolean} won - True if the player achieved victory.
+ */
+function endGame(won) {
+    gameState.running = false;
+
+    if (won) {
+        messageTitle.textContent = "YOU WON!";
+        finalScoreMessage.innerHTML = `Congratulations! You cleared the invasion!<br>Final Score: ${gameState.score}`;
+    } else {
+        // Determine loss reason for better feedback
+        let cause = '';
+        if (!won && aliens.some(a => a.checkBottom())) {
+            cause = "The invaders overwhelmed you!";
+        } else if (playerHit) {
+             cause = "Your shields failed.";
+        } else {
+             cause = "Game Over.";
+        }
+        messageTitle.textContent = cause;
+        finalScoreMessage.innerHTML = `Better luck next time! Your final score: ${gameState.score}`;
+    }
+
+    overlay.style.display = 'flex';
+}
+
+
+// --- Event Listeners and Initial Setup ---
+
+restartButton.addEventListener('click', startGame);
+
+// Set the initial welcome screen display when the script loads
+document.addEventListener('DOMContentLoaded', () => {
+    messageTitle.textContent = "Space Invaders Clone";
+    finalScoreMessage.innerHTML = `Press SPACE or click Play to start!<br>Use A/D (or Arrows) to Move.<br>Press SPACE to Shoot.`;
+    restartButton.textContent = "Start Game";
+    overlay.style.display = 'flex';
+});
+
+</script>
+</body>
+</html>
