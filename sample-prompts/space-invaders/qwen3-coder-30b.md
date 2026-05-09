@@ -6,7 +6,7 @@
 - 17GB Unified Memory
 
 ## Troubleshoot
-- Second try increased Context Length 40,000
+- Second try increased Context Length 40,000 (anything higher MBP crashes)
 - I gave the model a second chance to fix the SHOOT button & delivered
 - [qwen3-coder-30b-v2.html](qwen3-coder-30b-v2.html)
 - 12.74 tok/sec
