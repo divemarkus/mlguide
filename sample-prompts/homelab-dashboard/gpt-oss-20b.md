@@ -1,12 +1,17 @@
 
 # Homelab Dashboard
-- Using gpt-oss-20b. 
-- One shot prompt.
-- Fits in ~16GB VRAM
+- Apple Macbook Pro M1 Pro, 16c GPU
+- LM Studio, Context Length 20,000
+- Using OpenAI's opensource ML model
+- GPT-OSS-20b by OpenAI
+- 18GB Medium sized LLM
+- MLX version
+- 32GB Unified Memory (preferred)
 
 ---
 
 ## Prompt
+Instructions
 ```
 Build me a simple homelab dashboard using HTML, CSS, and JavaScript.
 Include:
@@ -17,190 +22,197 @@ Include:
 - Clean, modern UI using Bootstrap or Tailwind
 Make the code easy for a beginner to edit.
 ```
----
-
-## Response from LLM
-Response...
-```
-Below is a single‑file example that you can copy into index.html.
-
-Everything is in one file so a beginner only has to open the page in a browser,
-edit the links or add new tiles, and change the CSS if they want a different look.
-
-What you’ll need
-
-A modern web browser (Chrome / Firefox / Edge) – no server required.
-Internet access for the two public APIs used below:
-Bitcoin price – CoinGecko
-NASDAQ price – IEX Cloud “sandbox” (free tier, 5 k requests/day)
-```
 
 ---
+## Response
 
-## Code
-52.55 tok/sec. 1757 tokens. 0.22s.
-```
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>My Homelab Dashboard</title>
-
-<!-- Bootstrap 5 CDN -->
+<title>Homelab Dashboard</title>
+<!-- Bootstrap 5 CDN – no local files required -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-      rel="stylesheet">
+      rel="stylesheet" integrity="sha384-..." crossorigin="anonymous">
 
 <style>
-/* ----------------------------------------------------- */
-/* 1️⃣  Custom styling – keep it short & readable         */
-/* ----------------------------------------------------- */
-body {
-    background:#f8fafc;          /* light gray */
-}
-.card {                      /* all tiles */
-    border: none;
-    transition: transform .2s;
-}
-.card:hover {                /* hover effect */
-    transform: translateY(-5px);
-    box-shadow: 0 4px 12px rgba(0,0,0,.1);
-}
-.widget-card {
-    background:#fff;          /* white background for widgets */
-    border-radius:.75rem;
-    padding:1.5rem;
-}
-h3 { margin-bottom: .75rem;}
+/* Simple custom styling – keep it minimal so beginners can tweak */
+body { background:#f8f9fa; }
+.card { cursor:pointer; transition:transform .2s; }
+.card:hover { transform:scale(1.02); }
+.widget-title { font-size:.9rem; color:#6c757d; }
 </style>
 </head>
 
 <body class="p-4">
+<div class="container-fluid">
 
-<div class="container">
-  <!-- ======== 1️⃣ Tiles section ====================== -->
-  <div class="row g-4 mb-5">
-    <!-- Example tile – replace the link & icon as needed -->
-    <div class="col-sm-6 col-md-4 col-lg-3">
-      <a href="https://yourservice.local" target="_blank"
-         class="card text-decoration-none text-dark h-100 p-3 d-flex flex-column align-items-center justify-content-center">
-        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48"
-             fill="#4a90e2" viewBox="0 0 24 24"><path d="M12 2l9 5v10l-9 5-9-5V7z"/></svg>
-        <h6 class="mt-3 mb-0">Web‑UI</h6>
-      </a>
+  <!-- Header -->
+  <div class="row mb-3">
+    <div class="col">
+      <h1>Homelab Dashboard</h1>
     </div>
-
-    <!-- Add more tiles here – just copy the block above -->
-    <!-- ... -->
   </div>
 
-  <!-- ======== 2️⃣ Widget section ====================== -->
-  <div class="row g-4">
+  <!-- Tiles row -->
+  <div class="row g-3 mb-4">
+    <!-- Example tile – duplicate and edit for more services -->
+    <div class="col-md-3">
+      <a href="https://myservice.local" target="_blank" class="text-decoration-none">
+        <div class="card text-center shadow-sm h-100 bg-white">
+          <div class="card-body d-flex flex-column justify-content-center align-items-center">
+            <i class="bi bi-gear" style="font-size:2rem;"></i>
+            <h5 class="card-title mt-2">My Service</h5>
+          </div>
+        </div>
+      </a>
+    </div>
+    <!-- Add more tiles below -->
+  </div>
+
+  <!-- Widgets row -->
+  <div class="row g-3 mb-4">
     <!-- Bitcoin price widget -->
     <div class="col-md-6">
-      <div class="widget-card h-100">
-        <h3>Bitcoin (BTC)</h3>
-        <p id="btc-price" class="display-5 fw-bold">Loading…</p>
-        <small id="btc-change"></small>
+      <div class="card shadow-sm h-100 bg-white">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <span>Bitcoin Price (USD)</span>
+          <button id="btcRefresh" class="btn btn-sm btn-outline-secondary">↻</button>
+        </div>
+        <div class="card-body">
+          <h2 id="btcPrice" class="mb-0">$--</h2>
+        </div>
       </div>
     </div>
 
     <!-- NASDAQ stock widget -->
     <div class="col-md-6">
-      <div class="widget-card h-100">
-        <h3>NASDAQ Index (NDX)</h3>
-        <p id="nasdaq-price" class="display-5 fw-bold">Loading…</p>
-        <small id="nasdaq-change"></small>
+      <div class="card shadow-sm h-100 bg-white">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <span>NASDAQ Stock (AAPL)</span>
+          <button id="stockRefresh" class="btn btn-sm btn-outline-secondary">↻</button>
+        </div>
+        <div class="card-body">
+          <h2 id="stockPrice" class="mb-0">$--</h2>
+          <p id="stockChange" class="text-muted mb-0"></p>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- ======== 3️⃣ System stats placeholder ====================== -->
-  <div class="row mt-5">
+  <!-- System stats placeholder -->
+  <div class="row mb-4">
     <div class="col">
-      <h4>System Stats</h4>
-      <p class="text-muted">Coming soon – you can plug in a REST endpoint that returns JSON.</p>
+      <div class="card shadow-sm h-100 bg-white">
+        <div class="card-header">System Stats (Placeholder)</div>
+        <div class="card-body">
+          <p>CPU: --%</p>
+          <p>Memory: -- GB / -- GB</p>
+          <p>Disk: -- GB free of -- GB</p>
+        </div>
+      </div>
     </div>
   </div>
+
 </div>
 
-<!-- ----------------------------------------------------- -->
-<!-- 2️⃣ JavaScript – fetch API data and update DOM          -->
-<!-- ----------------------------------------------------- -->
+<!-- Bootstrap Icons (for the gear icon) -->
+<link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
 <script>
-// Helper to format numbers with commas
-function formatNumber(n, decimals = 2) {
-  return Number(n).toLocaleString(undefined, {minimumFractionDigits: decimals, maximumFractionDigits: decimals});
-}
+/* =========================
+   1️⃣ Bitcoin price widget
+   ========================= */
+const btcPriceEl = document.getElementById('btcPrice');
+const btcRefreshBtn = document.getElementById('btcRefresh');
 
-// 1️⃣ Bitcoin price (CoinGecko)
-async function loadBTC() {
+async function fetchBitcoin() {
   try {
-    const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd');
+    const res = await fetch(
+      'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd'
+    );
     const data = await res.json();
-    const price = data.bitcoin.usd;
-    document.getElementById('btc-price').textContent = `$${formatNumber(price)}`;
-
-    // Optional: show change percentage (needs extra call)
-    const marketRes = await fetch('https://api.coingecko.com/api/v3/coins/bitcoin');
-    const marketData = await marketRes.json();
-    const change24h = marketData.market_data.price_change_percentage_24h;
-    document.getElementById('btc-change').textContent =
-      `${change24h >= 0 ? '+' : ''}${formatNumber(change24h,1)}% (24h)`;
-  } catch(e) { console.error(e); }
+    btcPriceEl.textContent = `$${data.bitcoin.usd.toLocaleString()}`;
+  } catch (e) {
+    btcPriceEl.textContent = 'Error';
+  }
 }
+btcRefreshBtn.onclick = fetchBitcoin;
+fetchBitcoin(); // initial load
 
-// 2️⃣ NASDAQ price – using IEX Cloud “sandbox” endpoint
-async function loadNASDAQ() {
-  // Replace YOUR_API_TOKEN with a real token from https://iexcloud.io/
-  const apiToken = 'YOUR_SANDBOX_TOKEN';
-  const symbol = '^NDX';          // Nasdaq-100 index symbol
+/* =========================
+   2️⃣ NASDAQ stock widget (Apple)
+   ========================= */
+const stockPriceEl = document.getElementById('stockPrice');
+const stockChangeEl = document.getElementById('stockChange');
+const stockRefreshBtn = document.getElementById('stockRefresh');
 
+/*
+  Alpha Vantage free API – replace YOUR_API_KEY with your key.
+  For a beginner, you can use the demo key "demo" but it only works for
+  AAPL and has a request limit.
+*/
+const ALPHA_KEY = 'demo'; // <-- Replace with your key
+
+async function fetchStock() {
   try {
-    const res = await fetch(`https://sandbox.iexapis.com/stable/stock/${symbol}/quote?token=${apiToken}`);
+    const res = await fetch(
+      `https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=AAPL&apikey=${ALPHA_KEY}`
+    );
     const data = await res.json();
-    document.getElementById('nasdaq-price').textContent =
-      `$${formatNumber(data.latestPrice)}`;
+    const quote = data['Global Quote'];
+    const price = parseFloat(quote['05. price']);
+    const change = parseFloat(quote['09. change']);
 
-    const changePct = data.changePercent * 100;
-    document.getElementById('nasdaq-change').textContent =
-      `${changePct >= 0 ? '+' : ''}${formatNumber(changePct,1)}% (today)`;
-  } catch(e) { console.error(e); }
+    stockPriceEl.textContent = `$${price.toFixed(2)}`;
+    stockChangeEl.textContent =
+      `${change >= 0 ? '+' : ''}${change.toFixed(2)} (${(
+        (change / price) *
+        100
+      ).toFixed(2)}%)`;
+    stockChangeEl.className = change >= 0 ? 'text-success' : 'text-danger';
+  } catch (e) {
+    stockPriceEl.textContent = 'Error';
+    stockChangeEl.textContent = '';
+  }
 }
+stockRefreshBtn.onclick = fetchStock;
+fetchStock(); // initial load
 
-// Run the loaders when page loads
-window.addEventListener('load', () => {
-  loadBTC();
-  loadNASDAQ();   // comment out if you don't have a token yet
-});
+/* =========================
+   3️⃣ System stats placeholder
+   ========================= */
+/*
+  In a real homelab you might fetch stats from your own API or
+  a monitoring service (Prometheus, Grafana, etc.). For this demo,
+  the stats are static placeholders. Edit the HTML below to show
+  real data when you have an endpoint.
+*/
 </script>
-
-<!-- Bootstrap JS bundle (includes Popper) – optional but good for future features -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 ```
 
----
+### How to Edit
 
-## Instructions
-How to use / edit
+1. **Add/Change Tiles**  
+   Copy the `<div class="col-md-3"> … </div>` block inside the first row and change:
+   * `href` – URL of your service
+   * Icon class (`bi bi-gear`) – choose from [Bootstrap Icons](https://icons.getbootstrap.com/)
+   * Title (`My Service`) – your service name
 
-| What | Where to change |
-|------|-----------------|
-| **Tile link & icon** | Inside the `<div class="col-sm-6 …">` block – change `href`, swap out the SVG or use an image. Copy that whole block for new tiles. |
-| **Widget API keys / endpoints** | In the JavaScript section:  
-  * Bitcoin uses a public CoinGecko endpoint (no key).  
-  * NASDAQ needs a free IEX Cloud token – replace `YOUR_SANDBOX_TOKEN` with your real token or comment out that call if you don’t want it. |
-| **System stats** | Replace the placeholder paragraph with your own fetch to an API that returns CPU, memory, etc., and populate the DOM. |
-| **Styling** | Add CSS rules inside `<style>` – e.g., change colors, fonts, or use a different Bootstrap theme. |
+2. **Change Stock Symbol**  
+   Edit the `symbol=AAPL` part in the Alpha Vantage URL to whatever ticker you want.
 
----
+3. **Replace API Key**  
+   Get a free key from [Alpha Vantage](https://www.alphavantage.co/) and replace `demo` with it.
 
-### Why this is beginner‑friendly
+4. **Add System Stats**  
+   Replace the placeholder `<p>` tags in the “System Stats” card with real data or a fetch call to your monitoring endpoint.
 
-1. **Single file** – no build tools, no server needed.  
-2. **Bootstrap 5 CDN** – all layout and responsiveness comes from the library; you only need to add classes like `row`, `col-md-6`.  
-3. **Minimal JavaScript** – just a few fetch calls and DOM updates.  
-4. **Clear comments** – every section has a header comment explaining its purpose.
+5. **Styling**  
+   Adjust the CSS in the `<style>` block for colors, fonts, or spacing.
 
-Happy hacking! If you hit any snags, feel free to ask for help.
+This dashboard uses only Bootstrap 5 (via CDN) and vanilla JavaScript – no build tools or frameworks. Save the file as `index.html` and open it in any modern browser to see your homelab dashboard live!
