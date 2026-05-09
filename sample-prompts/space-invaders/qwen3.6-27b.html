@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Invaders Clone</title>
+    <style>
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #050508;
+            overflow: hidden;
+            font-family: 'Courier New', Courier, monospace;
+            color: #fff;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        /* Canvas fills the viewport and scales dynamically */
+        #gameCanvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, #0a0a12 0%, #000000 100%);
+        }
+
+        /* UI Overlay Container */
+        #ui-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 20px;
+        }
+
+        /* Score Display */
+        #score-board {
+            font-size: 24px;
+            font-weight: bold;
+            text-shadow: 0 0 8px #00ffcc;
+            color: #00ffcc;
+        }
+
+        /* Controls Hint */
+        #controls-hint {
+            text-align: center;
+            font-size: 14px;
+            opacity: 0.6;
+            margin-bottom: 10px;
+        }
+
+        /* Game Over / Win Screens */
+        .overlay-screen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            pointer-events: auto;
+            z-index: 10;
+        }
+
+        .overlay-screen h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+
+        .overlay-screen p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.8;
+        }
+
+        .overlay-screen button {
+            padding: 12px 30px;
+            font-size: 18px;
+            font-family: inherit;
+            background: #00ffcc;
+            color: #000;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .overlay-screen button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px #00ffcc;
+        }
+
+        #game-over h1 { color: #ff3366; }
+        #game-win h1 { color: #00ffcc; }
+    </style>
+</head>
+<body>
+    <canvas id="gameCanvas"></canvas>
+    
+    <div id="ui-layer">
+        <div id="score-board">SCORE: <span id="score-value">0</span></div>
+        <div id="controls-hint">← → or A/D to move | SPACE to shoot</div>
+    </div>
+
+    <div id="game-over" class="overlay-screen">
+        <h1>Game Over</h1>
+        <p>Final Score: <span id="final-score-loss">0</span></p>
+        <button onclick="restartGame()">Try Again</button>
+    </div>
+
+    <div id="game-win" class="overlay-screen">
+        <h1>Mission Complete</h1>
+        <p>Final Score: <span id="final-score-win">0</span></p>
+        <button onclick="restartGame()">Play Again</button>
+    </div>
+
+    <script>
+        /**
+         * SPACE INVADERS CLONE
+         * A vanilla JS implementation using HTML5 Canvas.
+         * Features: Player movement, shooting, alien grid, collision detection,
+         * dynamic difficulty, win/loss states, and responsive canvas.
+         */
+
+        // ================= DOM & CANVAS SETUP =================
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const scoreEl = document.getElementById('score-value');
+        const gameOverScreen = document.getElementById('game-over');
+        const gameWinScreen = document.getElementById('game-win');
+        const finalScoreLoss = document.getElementById('final-score-loss');
+        const finalScoreWin = document.getElementById('final-score-win');
+
+        // ================= GAME CONSTANTS =================
+        const CONFIG = {
+            player: { width: 40, height: 30, speed: 6, color: '#00ffcc' },
+            bullet: { width: 4, height: 12, speed: 8, color: '#ffff00' },
+            alienBullet: { width: 4, height: 10, speed: 5, color: '#ff3366' },
+            alien: { width: 32, height: 24, padding: 20, rows: 4, cols: 8, baseColor: '#ff3366' },
+            shotCooldown: 300, // ms
+            baseAlienInterval: 600, // ms between horizontal moves
+            minAlienInterval: 100
+        };
+
+        // ================= GAME STATE =================
+        let state = {
+            score: 0,
+            isRunning: false,
+            player: { x: 0, y: 0 },
+            bullets: [],
+            alienBullets: [],
+            aliens: [],
+            keys: {},
+            lastShotTime: 0,
+            lastAlienMoveTime: 0,
+            alienDirection: 1, // 1 = right, -1 = left
+            alienMoveInterval: CONFIG.baseAlienInterval,
+            stars: []
+        };
+
+        // ================= RESPONSIVE CANVAS =================
+        /**
+         * Adjusts canvas size to match window dimensions.
+         * Recalculates player Y position to keep them anchored at the bottom.
+         */
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            state.player.y = canvas.height - CONFIG.player.height - 20;
+            generateStars();
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        // ================= INPUT HANDLING =================
+        window.addEventListener('keydown', (e) => {
+            state.keys[e.key.toLowerCase()] = true;
+            // Prevent spacebar from scrolling the page
+            if (e.key === ' ') e.preventDefault();
+        });
+
+        window.addEventListener('keyup', (e) => {
+            state.keys[e.key.toLowerCase()] = false;
+        });
+
+        // ================= ENTITY GENERATION =================
+        /**
+         * Creates a grid of alien invaders positioned relative to canvas width.
+         */
+        function createAliens() {
+            state.aliens = [];
+            const totalWidth = CONFIG.alien.cols * (CONFIG.alien.width + CONFIG.alien.padding);
+            const startX = (canvas.width - totalWidth) / 2;
+            const startY = 80;
+
+            for (let r = 0; r < CONFIG.alien.rows; r++) {
+                for (let c = 0; c < CONFIG.alien.cols; c++) {
+                    state.aliens.push({
+                        x: startX + c * (CONFIG.alien.width + CONFIG.alien.padding),
+                        y: startY + r * (CONFIG.alien.height + CONFIG.alien.padding),
+                        width: CONFIG.alien.width,
+                        height: CONFIG.alien.height,
+                        alive: true
+                    });
+                }
+            }
+        }
+
+        /**
+         * Generates background stars for visual polish.
+         */
+        function generateStars() {
+            state.stars = [];
+            for (let i = 0; i < 100; i++) {
+                state.stars.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    size: Math.random() * 2 + 0.5,
+                    alpha: Math.random()
+                });
+            }
+        }
+
+        // ================= CORE GAME LOGIC =================
+        /**
+         * Main update loop: handles input, movement, collisions, and win/loss conditions.
+         */
+        function update(timestamp) {
+            if (!state.isRunning) return;
+
+            // Player horizontal movement
+            if (state.keys['arrowleft'] || state.keys['a']) {
+                state.player.x -= CONFIG.player.speed;
+            }
+            if (state.keys['arrowright'] || state.keys['d']) {
+                state.player.x += CONFIG.player.speed;
+            }
+
+            // Clamp player within canvas bounds
+            state.player.x = Math.max(0, Math.min(canvas.width - CONFIG.player.width, state.player.x));
+
+            // Player shooting
+            if (state.keys[' '] && timestamp - state.lastShotTime > CONFIG.shotCooldown) {
+                state.bullets.push({
+                    x: state.player.x + CONFIG.player.width / 2 - CONFIG.bullet.width / 2,
+                    y: state.player.y - CONFIG.bullet.height,
+                    width: CONFIG.bullet.width,
+                    height: CONFIG.bullet.height,
+                    speed: CONFIG.bullet.speed,
+                    hit: false
+                });
+                state.lastShotTime = timestamp;
+            }
+
+            // Update player bullets
+            state.bullets.forEach(b => b.y -= b.speed);
+            state.bullets = state.bullets.filter(b => b.y + b.height > 0);
+
+            // Alien horizontal movement & descent logic
+            if (timestamp - state.lastAlienMoveTime > state.alienMoveInterval) {
+                let hitEdge = false;
+                const aliveAliens = state.aliens.filter(a => a.alive);
+
+                aliveAliens.forEach(a => {
+                    if ((state.alienDirection === 1 && a.x + a.width >= canvas.width - 20) ||
+                        (state.alienDirection === -1 && a.x <= 20)) {
+                        hitEdge = true;
+                    }
+                });
+
+                if (hitEdge) {
+                    state.alienDirection *= -1;
+                    state.aliens.forEach(a => a.y += 15);
+                    // Increase speed as aliens descend
+                    state.alienMoveInterval = Math.max(CONFIG.minAlienInterval, state.alienMoveInterval * 0.9);
+                } else {
+                    aliveAliens.forEach(a => a.x += 8 * state.alienDirection);
+                }
+                state.lastAlienMoveTime = timestamp;
+            }
+
+            // Dynamic difficulty: speed increases as fewer aliens remain
+            const remainingRatio = state.aliens.filter(a => a.alive).length / (CONFIG.alien.rows * CONFIG.alien.cols);
+            state.alienMoveInterval = Math.max(CONFIG.minAlienInterval, CONFIG.baseAlienInterval * remainingRatio);
+
+            // Alien shooting logic
+            if (Math.random() < 0.015 && state.aliens.filter(a => a.alive).length > 0) {
+                const shooters = state.aliens.filter(a => a.alive);
+                const shooter = shooters[Math.floor(Math.random() * shooters.length)];
+                state.alienBullets.push({
+                    x: shooter.x + shooter.width / 2 - CONFIG.alienBullet.width / 2,
+                    y: shooter.y + shooter.height,
+                    width: CONFIG.alienBullet.width,
+                    height: CONFIG.alienBullet.height,
+                    speed: CONFIG.alienBullet.speed,
+                    hit: false
+                });
+            }
+
+            // Update alien bullets
+            state.alienBullets.forEach(b => b.y += b.speed);
+            state.alienBullets = state.alienBullets.filter(b => b.y < canvas.height);
+
+            // Collision Detection: Player bullets vs Aliens
+            state.bullets.forEach(b => {
+                state.aliens.forEach(a => {
+                    if (a.alive && !b.hit && rectIntersect(b, a)) {
+                        a.alive = false;
+                        b.hit = true;
+                        state.score += 10;
+                        scoreEl.textContent = state.score;
+                    }
+                });
+            });
+            state.bullets = state.bullets.filter(b => !b.hit);
+            state.aliens = state.aliens.filter(a => a.alive);
+
+            // Collision Detection: Alien bullets vs Player
+            state.alienBullets.forEach(b => {
+                if (!b.hit && rectIntersect(b, state.player)) {
+                    endGame(false);
+                }
+            });
+
+            // Loss Condition: Aliens reach player level
+            state.aliens.forEach(a => {
+                if (a.y + a.height >= state.player.y) {
+                    endGame(false);
+                }
+            });
+
+            // Win Condition: All aliens destroyed
+            if (state.aliens.length === 0) {
+                endGame(true);
+            }
+        }
+
+        /**
+         * Simple AABB (Axis-Aligned Bounding Box) collision detection.
+         */
+        function rectIntersect(r1, r2) {
+            return !(r2.x > r1.x + r1.width || 
+                     r2.x + r2.width < r1.x || 
+                     r2.y > r1.y + r1.height || 
+                     r2.y + r2.height < r1.y);
+        }
+
+        // ================= RENDERING =================
+        /**
+         * Draws all game entities to the canvas.
+         */
+        function draw() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw stars
+            state.stars.forEach(star => {
+                ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
+                ctx.beginPath();
+                ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+
+            // Draw Player Ship
+            ctx.fillStyle = CONFIG.player.color;
+            ctx.beginPath();
+            ctx.moveTo(state.player.x + CONFIG.player.width / 2, state.player.y);
+            ctx.lineTo(state.player.x, state.player.y + CONFIG.player.height);
+            ctx.lineTo(state.player.x + CONFIG.player.width, state.player.y + CONFIG.player.height);
+            ctx.closePath();
+            ctx.fill();
+
+            // Draw Aliens
+            ctx.fillStyle = CONFIG.alien.baseColor;
+            state.aliens.forEach(a => {
+                ctx.fillRect(a.x, a.y, a.width, a.height);
+                // Simple alien eyes
+                ctx.fillStyle = '#000';
+                ctx.fillRect(a.x + 6, a.y + 8, 6, 6);
+                ctx.fillRect(a.x + a.width - 12, a.y + 8, 6, 6);
+                ctx.fillStyle = CONFIG.alien.baseColor;
+            });
+
+            // Draw Player Bullets
+            ctx.fillStyle = CONFIG.bullet.color;
+            state.bullets.forEach(b => ctx.fillRect(b.x, b.y, b.width, b.height));
+
+            // Draw Alien Bullets
+            ctx.fillStyle = CONFIG.alienBullet.color;
+            state.alienBullets.forEach(b => ctx.fillRect(b.x, b.y, b.width, b.height));
+        }
+
+        // ================= GAME LOOP =================
+        function gameLoop(timestamp) {
+            update(timestamp);
+            draw();
+            if (state.isRunning) {
+                requestAnimationFrame(gameLoop);
+            }
+        }
+
+        // ================= STATE MANAGEMENT =================
+        /**
+         * Handles game termination and UI updates.
+         * @param {boolean} won - True if player won, false if lost.
+         */
+        function endGame(won) {
+            state.isRunning = false;
+            const finalScore = state.score;
+            
+            if (won) {
+                finalScoreWin.textContent = finalScore;
+                gameWinScreen.style.display = 'flex';
+            } else {
+                finalScoreLoss.textContent = finalScore;
+                gameOverScreen.style.display = 'flex';
+            }
+        }
+
+        /**
+         * Resets all game state and restarts the loop.
+         */
+        function restartGame() {
+            gameOverScreen.style.display = 'none';
+            gameWinScreen.style.display = 'none';
+            
+            state.score = 0;
+            state.isRunning = true;
+            state.bullets = [];
+            state.alienBullets = [];
+            state.keys = {};
+            state.lastShotTime = 0;
+            state.lastAlienMoveTime = 0;
+            state.alienDirection = 1;
+            state.alienMoveInterval = CONFIG.baseAlienInterval;
+            state.player.x = canvas.width / 2 - CONFIG.player.width / 2;
+            state.player.y = canvas.height - CONFIG.player.height - 20;
+            
+            scoreEl.textContent = '0';
+            createAliens();
+            requestAnimationFrame(gameLoop);
+        }
+
+        // ================= INITIALIZATION =================
+        // Start the game on load
+        createAliens();
+        state.isRunning = true;
+        requestAnimationFrame(gameLoop);
+    </script>
+</body>
+</html>
