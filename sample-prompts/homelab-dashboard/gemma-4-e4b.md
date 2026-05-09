@@ -3,6 +3,9 @@
 - Google's Gemma 4
 - 7GB GGUF
 - LM Studio, Context Size 45,000
+- 31.36 tok/sec
+- 3482 tokens
+- 16.64 sec
 
 ---
 
@@ -20,11 +23,11 @@ Make the code easy for a beginner to edit.
 ```
 
 ---
-```
+## Response
+
 This dashboard uses **Bootstrap 5** via a CDN, which makes it look modern and professional while being extremely easy for you to edit simply by changing text or adding classes. Since real-time financial data requires API keys and backend setup, I have implemented **mock API functions** using JavaScript timers (`setTimeout`) that simulate the fetching process.
 
-The entire code is provided in a single `index.html` file.
-```
+The entire code is provided in a single `index.html` file
 
 ### 🚀 Homelab Dashboard Code (Single HTML File)
 
