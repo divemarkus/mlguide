@@ -1,7 +1,8 @@
 
 # Space Invaders - Advance
-- Using gpt-oss-20b. 
-- One shot prompt.
+- Windows 11
+- Using gpt-oss-20b
+- One shot prompt
 - Fits in ~16GB VRAM
 
 ---
@@ -30,7 +31,7 @@ Requirements:
 ```
 
 ## Output by bot
-
+- [gpt-oss-20b](gpt-oss-20b.html)
 
 
 ---
