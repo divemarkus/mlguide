@@ -5,6 +5,8 @@
 
 If you’re serious about **privacy-first AI image generation on macOS**, **Draw Things** is one of the best tools available right now. It’s essentially the **LM Studio of image generation**—but optimized for Apple Silicon.
 
+> Check-out [sample prompt here](./sample-prompts/knight-v1.md)
+
 ---
 
 # 🧠 What Draw Things Actually Is
