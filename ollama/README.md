@@ -65,6 +65,8 @@ Before Ollama:
   * Hugging Face configs
   * manual quantization handling
 
+**This was actually my experience several years ago, using llama.cpp with Meta's opensource model**
+
 Ollama changed this with:
 
 ```bash
