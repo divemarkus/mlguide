@@ -125,10 +125,10 @@ That single difference explains everything below.
 * Easy UI + API mode
 * Good for testing + dev
 
-Latest update:
+⚡ Latest update:
 
 * Ollama + Claude Code + MLX model
-* [See write-up here]
+* [See write-up here](../ollama/claudecode/README.md)
 
 ---
 
