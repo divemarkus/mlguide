@@ -1,8 +1,9 @@
 
 # Sample prompt
+- Macbook Pro M1, 16c GPU, 32GB RAM
 - Knight v1
 - Using Qwen Image 1.0 (6 bit)
-- No Lora
+- No LoRa
 - One shot prompt
 
 ---

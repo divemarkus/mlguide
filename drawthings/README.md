@@ -3,6 +3,26 @@
 
 ![Image](https://drawthings.ai/images/macOS-Draw-Things-V2-1230x1000-3.webp?purpose=fullsize)
 
+## Table of Contents
+
+- [What Draw Things Actually Is](#-what-draw-things-actually-is)
+- [Why Draw Things Exists (Background)](#%EF%B8%8F-why-draw-things-exists-background)
+- [macOS Optimization (Why it's Good)](#-macos-optimization-why-its-good)
+- [Key Features You Need to Know](#-key-features-you-need-to-know)
+- [Best Models for Draw Things (2026)](#-best-models-for-draw-things-2026)
+  - [SDXL (Still the baseline)](#-1-sdxl-still-the-baseline)
+  - [SDXL Turbo / Lightning](#-2-sdxl-turbo--lightning)
+  - [Juggernaut XL / RealVisXL](#-3-juggernaut-xl--realvisxl)
+  - [Anime Models (Very Popular)](#-4-anime-models-very-popular)
+  - [Flux (Emerging 2025-2026)](#-5-flux-emerging-20252026)
+  - [Qwen Image 1.0 6-bit](#-6-qwen-image-10-6-bit)
+  - [Z-Image-Turbo](#-7-z-image-turbo)
+- [Performance Expectations (Mac)](#-performance-expectations-mac)
+- [Real Use Cases (Where It Actually Shines)](#-real-use-cases-where-it-actually-shines)
+- [Limitations (Be Realistic)](#%EF%B8%8F-limitations-be-realistic)
+- [Pro Setup (What You Should Do)](#-pro-setup-what-you-should-do)
+- [Key Insight (Important)](#-key-insight-important)
+
 If you’re serious about **privacy-first AI image generation on macOS**, **Draw Things** is one of the best tools available right now. It’s essentially the **LM Studio of image generation**—but optimized for Apple Silicon.
 
 ---
