@@ -238,6 +238,43 @@ Negative:
 
 ---
 
+## 🔥 6. Qwen Image 1.0 6-bit
+
+* Strong open-source image model with excellent prompt adherence
+* The **6-bit** Draw Things build is the practical sweet spot for Apple Silicon
+* Better than many older models at:
+
+  * text-in-image
+  * complex scene instructions
+  * multilingual prompts
+
+**Use for:**
+
+* Posters and signs
+* UI mockups with readable text
+* detailed prompt-following tests
+
+👉 Good target for Macs with **16GB+ unified memory**.
+
+---
+
+## 🔥 7. Z-Image-Turbo
+
+* Fast 6B image-generation model
+* Designed for quick, low-latency generations
+* Often runs well with fewer steps than heavier diffusion models
+
+**Use for:**
+
+* Fast ideation
+* realistic portraits
+* product-shot style images
+* rapid prompt iteration
+
+👉 Treat this like a modern fast lane: not always the absolute best final render, but excellent when you want speed.
+
+---
+
 # ⚡ Performance Expectations (Mac)
 
 | Machine | Experience                 |
