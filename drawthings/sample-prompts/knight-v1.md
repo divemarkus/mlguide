@@ -3,6 +3,7 @@
 - Knight v1
 - Using Qwen Image 1.0 (6 bit)
 - No Lora
+- One shot prompt
 
 ---
 
@@ -22,6 +23,7 @@ Ultra-realistic, physically accurate materials, ray-traced reflections, soft glo
 ---
 
 ## Image generated
+- Mostly default settings
 - Steps: 20
 - Completion time: 10 minutes
 - Size: 1024x768
