@@ -13,39 +13,7 @@ Guides and example configuration for running models with Ollama.
 
 ---
 
-## 💡 Introduction
-
-Ollama is a lightweight local model serving tool and workflow that makes it easy to run, evaluate, and serve large language models on your own hardware or private infrastructure. It focuses on simple deployment, reproducible model runs, and convenient developer tooling (CLI + API) so teams can prototype and ship inference services without heavy orchestration.
-
-## ⚙️ Installation
-
-For detailed platform-specific instructions see `ollama-setup.md`. Typical installation options:
-
-- Download the official installer from the project website and follow platform instructions.  
-- Use the provided Docker images (see `docker-compose.yml`) for containerized deployments.
-
-After installation, verify the CLI is available and the service can list models:
-
-```bash
-docker exec it ollama --help
-docker exec it ollama models
-```
-
----
-
-## 🚀 Deployment Scenario
-
-Common deployment patterns:
-
-- **Local development:** run Ollama on a developer workstation for fast iteration and testing.  
-- **Single-node production:** host the Ollama process on a VM or dedicated server, optionally fronted by an API gateway.  
-- **Containerized deployment:** run `docker-compose.yml` or a Docker image for reproducible environments.
-- [**Containerized deployment:**](../Docker/containers/OLLAMA-STACKv1.md)
-
----
-
-
-# [Ollama](https://ollama.com/?utm_source=chatgpt.com) — What It Is
+# [Ollama](https://ollama.com/) — What It Is
 
 Ollama is a lightweight local AI runtime that lets you:
 
@@ -60,11 +28,11 @@ Ollama is a lightweight local AI runtime that lets you:
 * Use GPU acceleration
 * Connect tools like:
 
-  * [Open WebUI](https://openwebui.com/?utm_source=chatgpt.com)
-  * [Flowise](https://flowiseai.com/?utm_source=chatgpt.com)
-  * [AnythingLLM](https://anythingllm.com/?utm_source=chatgpt.com)
-  * [OpenCode](https://opencode.ai/?utm_source=chatgpt.com)
-  * [LM Studio](https://lmstudio.ai/?utm_source=chatgpt.com)
+  * [Open WebUI](https://openwebui.com/)
+  * [Flowise](https://flowiseai.com/)
+  * [AnythingLLM](https://anythingllm.com/)
+  * [OpenCode](https://opencode.ai/)
+  * [LM Studio](https://lmstudio.ai/)
   * VS Code AI extensions
   * Coding agents
 
@@ -76,7 +44,7 @@ It acts like a local “AI engine” with:
 * GPU scheduling
 * Local inference
 
-Your own notes describe it well as:
+Notes here describe it well as:
 
 > “Own your models. Own your data. Own your intelligence.” 
 
@@ -377,5 +345,3 @@ OpenAI-compatible endpoint:
 Tests with Qwen3-Coder-Next showed extremely strong coding output but very heavy RAM usage.
 
 ---
-
-
