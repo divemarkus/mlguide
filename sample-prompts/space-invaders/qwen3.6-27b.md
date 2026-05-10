@@ -3,11 +3,14 @@
 - LM Studio, Context Length 10,000 (anything higher hangs)
 - Took 12 minutes to think before spitting code
 - Using Alibaba's opensource ML model
-- This is one shot prompt
-- Qwen 3.6 27b
-- 20GB Medium sized LLM
+
+> Dense 27B Qwen 3.6 prioritizes stability and real-world utility, offering developers a more intuitive, responsive, and genuinely productive coding experience.
+
+- [Qwen 3.6 27b](https://lmstudio.ai/models/qwen/qwen3.6-27b)
+- 17GB Medium sized LLM
 - GGUF version
-- 32GB Unified Memory (minimum)
+- 32GB Unified Memory
+- One shot prompt
 - 5.67 tok/sec
 - 8611 tokens
 - 222.74 sec

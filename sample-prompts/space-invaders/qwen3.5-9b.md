@@ -2,8 +2,11 @@
 - Macbook Pro M1 Pro, 32GB Unified Memory, 16c GPU
 - LM Studio, Context Length 262,000 (max)
 - Using Alibaba's opensource ML model
-- Qwen 3.5 9b
-- 9GB Small sized LLM
+
+> Qwen3.5 represents a significant leap forward, integrating breakthroughs in multimodal learning, architectural efficiency, reinforcement learning scale, and global accessibility. This is a 9B parameter dense model, supporting a native context length of 262,144 tokens.
+
+- [Qwen 3.5 9b](https://lmstudio.ai/models/qwen/qwen3.5-9b)
+- 7GB Small sized LLM
 - GGUF version
 - 16GB Unified Memory (minimum)
 - 15.81 tok/sec

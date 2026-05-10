@@ -1,7 +1,10 @@
 # Space Invaders
 - LM Studio, Context Length 20,000 (fast)
 - Using OpenAI's opensource ML model
-- GPT-OSS-20b by OpenAI
+
+> Designed for lower latency and specialized or local deployment, the model has 21B total parameters with only 3.6B active at a time. Thanks to native MXFP4 quantization for the MoE layer, it runs efficiently and it's capable of operating within 16GB of memory.
+
+- [GPT-OSS-20b by OpenAI](https://lmstudio.ai/models/openai/gpt-oss-20b)
 - 18GB Medium sized LLM
 - MLX version
 - 32GB Unified Memory (preferred)

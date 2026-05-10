@@ -1,9 +1,16 @@
 # Space Invaders
-- Using local opensource ML model [Qwen3-Coder-30b](https://lmstudio.ai/models/qwen/qwen3-coder-30b):
-- Qwen3 Coder 30B by qwen.
+- Using local opensource ML model 
+- [Qwen3-Coder-30b](https://lmstudio.ai/models/qwen/qwen3-coder-30b)
+
+> A powerful 30B MoE coding model from Alibaba Qwen, joining its larger 480B counterpart
+
 - 30B version of the code-specific Qwen 3 for code generation, code reasoning and code fixing.
+- 15GB Minimum Memory
 - MLX version
-- 17GB Unified Memory
+
+> v2 fixed the original code and its one of the best aesthetics and feel for the game. I wonder its because MLX version on macOS
+
+---
 
 ## Troubleshoot
 - Second try increased Context Length 40,000 (anything higher MBP crashes)
