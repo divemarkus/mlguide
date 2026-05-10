@@ -31,3 +31,4 @@ Ultra-realistic, physically accurate materials, ray-traced reflections, soft glo
 - Size: 1024x768
 
 
+<img width="1024" height="768" alt="ornate_engravings__regal_detailing__ceremonial_armor_accents_count_knight_riding_a_black_warhorse__both_fully_armored_horse_covered_only_eyes_nose_mouth_shows_with_subtle_red_accents__fu_833870237" src="https://github.com/user-attachments/assets/2b265b57-0200-4b25-b1c8-8493871f09ed" />
