@@ -1,12 +1,6 @@
 
 ## 🎨 Draw Things (macOS) — Complete Guide (2026)
 
-![Image](https://images.openai.com/static-rsc-4/Lon7ZDAMvrjaPJYK8si5UNg-Fh7x1wNCuvtadeLXY-xHrJ2rVhsNoz4NzeN2Oa25wpZ7E7KlRFNibjbK1tLgN92cNWZhCGvC0jYJL-AR0aDDod2YpeHQD5CMpZOQHQP2hxhCwuoVAVRdO6Yk8AIZxklM84ghjo6rf-8qwOr5luooGihDaSTk8OFkie4Lf2PW?purpose=fullsize)
-
-![Image](https://images.openai.com/static-rsc-4/fOPmIs8MJ_wmJAA9QoxHIc4weKJXUmunvyXO93_l1iz9olbdnNoiSdfC2XJ3cSoeRwKgCm1D5Bft5SpuQB7j3cx95bv1_y4PU3EbNCyAKx1Yzj3bR1au_Exi4f19cJYNRqMTT8y35qA1E-CsysYN40tn4lGm1hPJc9Q_kjIVUWSgErW5AEGy_Gwg0OtS06CD?purpose=fullsize)
-
-![Image](https://images.openai.com/static-rsc-4/4DMjaWcZTq92stVZcLNOFeOQpJEFb_R4Siphx1ZVcn7-mrWDXOF7CD0mZYeDVigXqNClvU-osubODcVkcAOPmmxuU4A3MBSpxfwRy_hjK_MGGs8zchBKAGPVh1fnkYpgqNZjmcm8pkPaxRRGqsH0EQILqwlkfQN9z3gQCQUrvpPblXp-LPsheLk4BsuM2D7n?purpose=fullsize)
-
 ![Image](https://drawthings.ai/images/macOS-Draw-Things-V2-1230x1000-3.webp?purpose=fullsize)
 
 If you’re serious about **privacy-first AI image generation on macOS**, **Draw Things** is one of the best tools available right now. It’s essentially the **LM Studio of image generation**—but optimized for Apple Silicon.
