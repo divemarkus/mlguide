@@ -51,9 +51,9 @@ Apple Silicon GPU + Unified Memory
 
 # 💻 Tested Hardware
 
-## Your Experience
+## My Experience
 
-You tested:
+It is advisable to get a better MBP:
 
 | Hardware                                  | Result         |
 | ----------------------------------------- | -------------- |
@@ -62,7 +62,7 @@ You tested:
 | Ollama + Claude Code                      | ✅ Functional  |
 | Qwen3.5 35B Coding Model                  | ✅ Usable      |
 
-Your screenshot confirms:
+Screenshot confirms:
 
 ```bash
 ollama launch claude --model qwen3.5:35b-a3b-coding-nvfp4
@@ -221,7 +221,7 @@ Screenshot demonstrates this exact workflow successfully.
 
 # 🧠 What Claude Code Was Able To Do
 
-From screenshot:
+Some from screenshot:
 
 ✅ Search repository
 ✅ Read HTML game files
@@ -229,6 +229,7 @@ From screenshot:
 ✅ Rewrite broken code
 ✅ Explain logic issues
 ✅ Generate working replacement game
+✅ Push changes to github repo
 
 This aligns well with:
 
