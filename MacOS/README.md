@@ -9,8 +9,6 @@
 
 ---
 
-![Image](https://images.openai.com/static-rsc-4/gnzsp4v88hYhz7COKhvcMl4VuVfcUteOweUBTEIni_tXVggL--_1x8UON1yQYOLkAae_7VlfKJ8h9C23CBikh0QtVPRgYjEGiFNy9uJYxwMuazu8Z0uFbKzy9URn0BdFt3MKUp_MPbdPkTR7he1YX1bYRckU2hBkfhcTFx-kCwSWt8YppHo6aG1OeAyTlyoh?purpose=fullsize)
-
 ![Image](https://images.openai.com/static-rsc-4/JmjFNX3-rmx5ZNMd21HPMQGmH2dI_dJU6-Q_pjZXDzMx14-ou3DTSjXpENXDOkmBY_hZGdKzD_oFHgQjEpTuf1sHqXGOSn5f2RJcRa06cBKEq66KJHPwHEuQxyyWRWTCLQCCFcGSlG-hr4TCqAHlWHXSCOQJWybi5W4j-px7mJhO_RAVo27DF8aJOgGLfAGV?purpose=fullsize)
 
 ![Image](https://images.openai.com/static-rsc-4/g4pzo2sPKdSrvFxsDU_sIRO_g46u2JGkk1y1ATpO56YiW117mxVEj7uLalbJz46thuj7VHP6VThMxOL6Dh6x5mtDJ9jM00awG47G3KUsvRfSElpco-wf4oXOSSZ0jldiQ0LHCOe9qOGC4HWYGM_A2n8NZq5CRzJHEpIhqni2JjBVAecNzjOCsK59vvE6UZjc?purpose=fullsize)
