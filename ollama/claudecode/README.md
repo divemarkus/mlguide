@@ -132,13 +132,13 @@ Compared to older CPU-heavy inference:
 
 ## Coding Models
 
-### Your tested model
+### Tested model
 
 ```bash
 ollama pull qwen3.5:35b-a3b-coding-nvfp4
 ```
 
-Your screenshot shows:
+Screenshot shows:
 
 * ~21GB model size
 * running successfully via Claude Code
@@ -164,8 +164,6 @@ Or install with Homebrew:
 ```bash
 brew install ollama
 ```
-
-(Recommended since you already prefer Homebrew workflows.)
 
 ---
 
@@ -204,7 +202,7 @@ ollama pull qwen3.5:35b-a3b-coding-nvfp4
 ## Example Install
 
 ```bash
-npm install -g @anthropic-ai/claude-code
+brew install --cask claude-code
 ```
 
 ---
@@ -260,24 +258,24 @@ This aligns well with:
 ## Things Macs still struggle with
 
 | Task                             | Status |
-| -------------------------------- | ------ |
-| CUDA training                    | ❌      |
-| Large fine tuning                | ⚠️     |
-| 70B+ heavy inference             | ⚠️     |
-| Enterprise distributed inference | ❌      |
+| -------------------------------- |--------|
+| CUDA training                    | ❌    |
+| Large fine tuning                | ⚠️    |
+| 70B+ heavy inference             | ⚠️    |
+| Enterprise distributed inference | ❌    |
 
 ---
 
 # 📊 Real-World MacBook Expectations
 
-## M1 Pro 32GB (your system)
+## M1 Pro 32GB (My system)
 
 | Workload       | Result              |
 | -------------- | ------------------- |
 | 7B models      | Excellent           |
 | 13B models     | Excellent           |
 | 35B coding MoE | Surprisingly usable |
-| LM Studio      | Smooth              |
+| Ollama         | Smooth              |
 | Claude Code    | Works well          |
 
 ---
@@ -318,6 +316,7 @@ Screenshot is valuable because it demonstrates:
 ✅ Claude Code can operate against local models
 ✅ Qwen coding models work well locally (this model precisely)
 ✅ macOS is now a legitimate AI dev platform
+⚠️ Context Length with bigger projects has not been tested
 
 ---
 
@@ -325,7 +324,7 @@ Screenshot is valuable because it demonstrates:
 
 Apple Silicon has evolved from:
 
-> “not useful for AI”
+> “not useful for local AI”
 
 to:
 
@@ -339,7 +338,7 @@ Especially for:
 * prompt engineering
 * privacy-first AI workflows
 
-Your M1 Pro 32GB result confirms:
+My M1 Pro 32GB result confirms:
 
 * local coding agents are already practical
 * MLX acceleration matters
