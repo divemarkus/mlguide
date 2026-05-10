@@ -3,7 +3,7 @@
 
 <img width="1536" height="1024" alt="Macbook-M1-M2-M3-M4-M5" src="https://github.com/user-attachments/assets/5113f53d-2b4c-4853-8907-d84ba665c442" />
 
-- Top Infographic source from GPT-5.4 prompt
+- Infographic source from GPT-5.4 prompt
 
 <img width="1536" height="1024" alt="ChatGPT Image May 9, 2026, 04_41_34 AM" src="https://github.com/user-attachments/assets/5caeef38-779f-4574-88e0-95787232138e" />
 
