@@ -259,6 +259,8 @@ Negative:
   * complex scene instructions
   * multilingual prompts
 
+![Image](https://substackcdn.com/image/fetch/$s_!w6wR!,w_720,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F6e1a93c4-dbf6-4eb1-822b-66a142ae9b67_1536x1024.png?purpose=fullsize)
+
 **Use for:**
 
 * Posters and signs
