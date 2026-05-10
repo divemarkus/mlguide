@@ -244,9 +244,7 @@ Negative:
 
 ## 🔥 6. Qwen Image 1.0 6-bit
 
-> Check-out [sample prompt here](../drawthings/sample-prompts/qwen-image/knight-v1.md)
-
-> Check-out [and here for second prompt](../drawthings/sample-prompts/qwen-image/knight-v2.md)
+> Check-out [First sample prompt](../drawthings/sample-prompts/qwen-image/knight-v1.md) | [Second sample prompt](../drawthings/sample-prompts/qwen-image/knight-v2.md)
 
 * [Release info from Draw Things](https://releases.drawthings.ai/p/introducing-qwen-image-support)
 * Strong open-source image model with excellent prompt adherence
@@ -271,7 +269,7 @@ Negative:
 
 ## 🔥 7. Z-Image-Turbo
 
-> Check-out [sample prompt here](../drawthings/sample-prompts/z-image-turbo/knight-v1.md)
+> Check-out [First sample prompt](../drawthings/sample-prompts/z-image-turbo/knight-v1.md) | [Second sample prompt](../drawthings/sample-prompts/z-image-turbo/knight-v2.md)
 
 * [Release info from Draw Things](https://releases.drawthings.ai/p/quantify-z-image-turbo-efficiency)
 * Fast 6B image-generation model
