@@ -5,11 +5,7 @@
 
 ![Image](https://images.openai.com/static-rsc-4/fOPmIs8MJ_wmJAA9QoxHIc4weKJXUmunvyXO93_l1iz9olbdnNoiSdfC2XJ3cSoeRwKgCm1D5Bft5SpuQB7j3cx95bv1_y4PU3EbNCyAKx1Yzj3bR1au_Exi4f19cJYNRqMTT8y35qA1E-CsysYN40tn4lGm1hPJc9Q_kjIVUWSgErW5AEGy_Gwg0OtS06CD?purpose=fullsize)
 
-![Image](https://images.openai.com/static-rsc-4/OpHxZKcS4jaromsHUY9_WACveqDAqy64Y9MwIvQx8ZCk2owjm5F1mPqfVGN3llgI1BjUQJWFwyQ_hk1AEzBNVwylMNNNezwrTNPbTPNBY_cYTVeSEVT0l4yuOMs6LwVnVzByxX42h9XUCuIOQmec4F81PCPa40biQCskdBwGzKZ0B0Awr_Z37KPwXySzksQH?purpose=fullsize)
-
 ![Image](https://images.openai.com/static-rsc-4/4DMjaWcZTq92stVZcLNOFeOQpJEFb_R4Siphx1ZVcn7-mrWDXOF7CD0mZYeDVigXqNClvU-osubODcVkcAOPmmxuU4A3MBSpxfwRy_hjK_MGGs8zchBKAGPVh1fnkYpgqNZjmcm8pkPaxRRGqsH0EQILqwlkfQN9z3gQCQUrvpPblXp-LPsheLk4BsuM2D7n?purpose=fullsize)
-
-![Image](https://images.openai.com/static-rsc-4/SN-rY_gMHSs8Kupl6ZHcRA961b40X4TVZ6W2NZDGWm4hhsmfIYnZB41s7TWi69MBwG_G5QaDeEu-jQCu097TUG4Iz7JgkiuDzSAk5rMz4PHbD-fr99pDVWdhQVLuwXEE6ey00YVv2FVMAR1iSCtI0XuoE6e6JFaoXJsqBbfSEwI0Q1lzpea30gTtMCRmu0l4?purpose=fullsize)
 
 
 If you’re serious about **privacy-first AI image generation on macOS**, **Draw Things** is one of the best tools available right now. It’s essentially the **LM Studio of image generation**—but optimized for Apple Silicon.
