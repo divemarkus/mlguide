@@ -119,16 +119,16 @@ That single difference explains everything below.
 
 # ⚙️ Tooling on macOS
 
-## 🧠 LM Studio
+## 🧠 LM Studio & Ollama
 
-* GGUF + local inference
+* GGUF/MLX + local inference
 * Easy UI + API mode
 * Good for testing + dev
 
-From your guide:
+Latest update:
 
-* Can run local API server
-* Supports RAG workflows 
+* Ollama + Claude Code + MLX model
+* [See write-up here]
 
 ---
 
