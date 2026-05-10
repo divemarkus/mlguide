@@ -5,7 +5,7 @@
 
 ---
 
-![Image](https://images.openai.com/static-rsc-4/kPfLY2g2ldLfinTRkSxFMFAmxejg0promG22AUR3Tm5A4BdeIkfh9Sql5nsAdXDZTETM-Bq5nlC-eoQch6TikC_pcnhPF2dKvpLo7Uqz0k-5DWmhQobf_KhHJ1J_MFP9DAokbBn8ockIEwkbmgkAI9jOvi0FWYY1gZUURqyQUyuYQcrueGk1-iD3ewyWNz8n?purpose=fullsize)
+<img width="1536" height="1024" alt="ChatGPT Image May 9, 2026, 10_49_34 PM" src="https://github.com/user-attachments/assets/345dab9f-98b4-41f5-a1d9-afa655ba9fa6" />
 
 ---
 
