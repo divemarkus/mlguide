@@ -315,45 +315,6 @@ Stack documentation recommends Ubuntu + Docker Compose v2.
 
 ---
 
-## Example Docker Compose
-
-Uploaded compose stack already provides a strong privacy-first architecture.
-
-Core Ollama service:
-
-```yaml
-services:
-  ollama:
-    image: ollama/ollama:latest
-    container_name: ollama
-    gpus: all
-    volumes:
-      - ollama_data:/root/.ollama
-    ports:
-      - "11434:11434"
-    restart: unless-stopped
-```
-
-Run:
-
-```bash
-docker compose up -d
-```
-
-Pull model:
-
-```bash
-docker exec -it ollama ollama pull llama3
-```
-
-Run model:
-
-```bash
-docker exec -it ollama ollama run llama3
-```
-
----
-
 # 🌐 Ollama as API Server
 
 Start server:
@@ -413,67 +374,8 @@ OpenAI-compatible endpoint:
 | Agents           | Qwen3.5          |
 | Lightweight CPU  | Phi-4            |
 
-Your own tests with Qwen3-Coder-Next showed extremely strong coding output but very heavy RAM usage.
+Tests with Qwen3-Coder-Next showed extremely strong coding output but very heavy RAM usage.
 
 ---
 
-# 🧩 Best Ecosystem Pairings
 
-## Homelab / Self-Hosted
-
-* [Open WebUI](https://openwebui.com/?utm_source=chatgpt.com)
-* [Flowise](https://flowiseai.com/?utm_source=chatgpt.com)
-* [Qdrant](https://qdrant.tech/?utm_source=chatgpt.com)
-* [LiteLLM](https://litellm.ai/?utm_source=chatgpt.com)
-
-## Coding
-
-* [OpenCode](https://opencode.ai/?utm_source=chatgpt.com)
-* VS Code Continue
-* Cline
-* Roo Code
-
-## Privacy-First AI
-
-Ollama is one of the best tools available today for:
-
-* offline AI
-* self-hosted agents
-* private RAG
-* local coding assistants
-
-Uploaded stack architecture is already aligned with this philosophy.
-
----
-
-# ⚠️ Important Hardware Notes
-
-## Apple Silicon
-
-Excellent:
-
-* M3 Max
-* M4 Max
-* 36GB+
-* MLX acceleration
-
-## NVIDIA
-
-Best experience:
-
-* CUDA
-* 16GB+ VRAM
-* RTX 4090 / 5090
-* RTX A-series
-
-## RAM Reality
-
-Large coding models can consume:
-
-* 32GB
-* 64GB
-* 128GB+
-
-Your Qwen3-Coder-Next testing confirms this in real-world usage.
-
----
