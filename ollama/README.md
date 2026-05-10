@@ -33,6 +33,7 @@ Ollama is a lightweight local AI runtime that lets you:
   * [AnythingLLM](https://anythingllm.com/)
   * [OpenCode](https://opencode.ai/)
   * [LM Studio](https://lmstudio.ai/)
+  * [Claude Code](https://claude.com/product/claude-code)
   * VS Code AI extensions
   * Coding agents
 
