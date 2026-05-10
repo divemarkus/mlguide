@@ -5,11 +5,11 @@
 
 - Top Infographic source from GPT-5.4 prompt
 
+<img width="1536" height="1024" alt="ChatGPT Image May 9, 2026, 04_41_34 AM" src="https://github.com/user-attachments/assets/5caeef38-779f-4574-88e0-95787232138e" />
+
+---
+
 ![Image](https://images.openai.com/static-rsc-4/gnzsp4v88hYhz7COKhvcMl4VuVfcUteOweUBTEIni_tXVggL--_1x8UON1yQYOLkAae_7VlfKJ8h9C23CBikh0QtVPRgYjEGiFNy9uJYxwMuazu8Z0uFbKzy9URn0BdFt3MKUp_MPbdPkTR7he1YX1bYRckU2hBkfhcTFx-kCwSWt8YppHo6aG1OeAyTlyoh?purpose=fullsize)
-
-![Image](https://images.openai.com/static-rsc-4/z--uWVzrE5eAelvFrIePISx1F-yxTsmi6RF2QOkhQhnju13XdvCfe9Yw3rsee_RAJkDuFa97ZKoH5UjdR3ITniowAhJu-F2ncf1v6wbT9t3E_OlmAtMfoF2YTbC_alBk6HY7t3JCSNgkPXYufoNEoXOKqu1aej_lN_6FFJ5Atk0UVc1ue38pKLHY-lEOQGNG?purpose=fullsize)
-
-![Image](https://images.openai.com/static-rsc-4/47Qi5EUH6Aj6JqEICQgB8ut2mNkWDzjEPpFkE7mE-IUHbc4QIOyLUVzoXtsK3d_2oTZpiJ_oP4y7Gv0xuhEBWfb3FX-Sh6WyagtQERt4l-cPBCMoLhCmpshvdpvYIW2GUODctsF1drfFmT3IMj5eHROE9WJROrzKLjn9kvOoJY5ibxZAWpKqggwh070NGBpo?purpose=fullsize)
 
 ![Image](https://images.openai.com/static-rsc-4/JmjFNX3-rmx5ZNMd21HPMQGmH2dI_dJU6-Q_pjZXDzMx14-ou3DTSjXpENXDOkmBY_hZGdKzD_oFHgQjEpTuf1sHqXGOSn5f2RJcRa06cBKEq66KJHPwHEuQxyyWRWTCLQCCFcGSlG-hr4TCqAHlWHXSCOQJWybi5W4j-px7mJhO_RAVo27DF8aJOgGLfAGV?purpose=fullsize)
 
