@@ -180,10 +180,6 @@ Negative:
 
 ## 🔥 3. Juggernaut XL / RealVisXL
 
-![Image](https://images.openai.com/static-rsc-4/PztAx_nNj6lmmhqTny97R-h8ajOauHwSYy57ztIDyhaOugJ3SPmQLDF59gleM-r6Z9kS44Ajwd--08WV6GhNY1Mx6cz6J41iOA3EZ7AVplSL2RzJmy-0ASQ6_M10N9kCrWqJ7NtuyHhBH57H0HQnoRKXgVJinbw-kyi5bGTjTjQ-6sIsIjfCm8Y-uHLkGg_h?purpose=fullsize)
-
-![Image](https://images.openai.com/static-rsc-4/xiEIpf22e5ig8C69xQ-YXrmb_yZMAeDgeEBgFFg3RVAByjMyS-gLt0bnHjuG7TgyKXMQGwkmoQUAGkZKkC4xWtaHDzcdcpZrOa0leN1Cj6H42LbPcA78qkIMh9zC5fIccxqFLboB_pe0NhxBzJzAn5quLK7HwjFdbLIYazvvGXdK19qI1Zkhua5EZm4G_LPq?purpose=fullsize)
-
 ![Image](https://images.openai.com/static-rsc-4/cvFgwwByN0NkkfZl3CZEciVY_cyxGlCqxbHLfeK4VqxVYIAFblNedD57Ertqer8tJsT9FOPxqQZEcdH-hktoTCXs6BVS3bPlKbmQvW0_s5oOQe4VI9Z0QD0BeBmOrNHQQ2VdRuWyjF3UTZ1OjJDZqxaaZX2GZnrgLdlMWsvh1kXp4IDcqC8RtCrde83EiFVi?purpose=fullsize)
 
 ![Image](https://images.openai.com/static-rsc-4/J8dK8aygSGHOteooXlWMmcKhe72iYLFaB71gNtT-__qyHEayJI6Y3DrLT5hgyPHGuxNHqyt-78WsYMhkbeUXZGrJI3AWjkEEcT6UyHqCckO60lxXcrH5RpUyRODfEnRvcN9T_5xswYcdwCfuFeVmX-V25lWiPLecWt8AJCxXW3sk4ZUG-s5-lxinB4gn3PEB?purpose=fullsize)
