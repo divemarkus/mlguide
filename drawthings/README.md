@@ -271,9 +271,12 @@ Negative:
 
 ## 🔥 7. Z-Image-Turbo
 
+* [Release info from Draw Things](https://releases.drawthings.ai/p/quantify-z-image-turbo-efficiency)
 * Fast 6B image-generation model
 * Designed for quick, low-latency generations
 * Often runs well with fewer steps than heavier diffusion models
+
+![Image](https://substackcdn.com/image/fetch/$s_!zp9o!,w_474,c_limit,f_webp,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2F04d16962-606b-473e-a473-43743ec0f2d1_2048x2048.png?purpose=fullsize)
 
 **Use for:**
 
