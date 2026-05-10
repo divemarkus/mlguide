@@ -200,14 +200,6 @@ Negative:
 
 ![Image](https://images.openai.com/static-rsc-4/9s9WnW8aur6fz4MsHFTQWzbkvvMalXPrDsl5hQFtcg5vw4jHDKcIqJ8iCXyUYDZn4umDuxfH9ssQzLWAPvvqESPuGdvskZpJ9OFN6UyxpamCLH_rmSDH6Grzju2Wcs4Bpj3aflRbhA4F8pqO9zS-Ny2MKdrnPpgs85OccX4CZz-dZnZkb6nbO-oOWXR3xE0-?purpose=fullsize)
 
-![Image](https://images.openai.com/static-rsc-4/zM7WN1Hg3_AzKt-iJtWQ0hpLmeNuBpLLwIqPd3tzMQyxjjEKqTZxvtH-ViThk2TnOWij4N0QqEuZguoZGNMwx3xaAGP-PhvkgnvoYxxLQ7FlRkexTJz8MV8v9k5l2iTQtsl50-lV6qqyPYR44hnu6IlFfx65ivWmjUGfxLx-pBgl_MlKJe8vekk_0rwEtKmv?purpose=fullsize)
-
-![Image](https://images.openai.com/static-rsc-4/mv60_6np7suyu_HL5kRU2yg3v4c7X0crr4K5XyR9-5BCQm8XY_TpJoedknfwiIF_RBH85iE403SNgZsHmijaX7IghQLdgUl77pjNyC8SxAHasudYFQyxU8UU7IRIFuUXOwSf7h3AO5UNY8kBWAh2md1zvL_roe2vgd268uKyU-EN0ZF-gaEvyGDj5Z9VPZDc?purpose=fullsize)
-
-![Image](https://images.openai.com/static-rsc-4/V0E3AePM99QFgzvZiKqIUWhnrT0Qo_2wtmayRZ608aN5FcVlchwX0W8AUyzZ_ZOYIPapeyL6Y-6zgJCQVA7iPmYr5aOEReUB1sMfasePGc0YI4D3157kqREl8uwqW8dD3UWWo0mtMacz57aO1YEN_Lsd8ZppV1ffZnz7wv1feYfYewINCusxthGfBKBTebe0?purpose=fullsize)
-
-![Image](https://images.openai.com/static-rsc-4/perDXYJYjw2epckHHSk7seySZJi5ggINOkysxrZhSXzq1zLEunnHnUz_vwzp_C3h1IHVPK-zekf-Q7mL6-u4H28y6aQGUe2WBz2XuoGi_FmYuCZxatcQuHIhCJljOHKuYq2lUWnUcAjquHdQhMJlpCRDkjVBZTUDdm94KGrBgWY2KfA-ZvgYHIsG2PoaAavg?purpose=fullsize)
-
 ![Image](https://images.openai.com/static-rsc-4/H9VQkCG1CzNsa-fZJd_7DYfb7j5CwU5vtWET0zJ-Wzx19R7UDvHKhpXkp8pf9KDfHcVNSrX3Pl1FWJn4QW9Uz7qbCDHDPBQKC-kEZfd30ta9lFo7GBLM0cFp-GbMJo0eNDUQdlRsObr7qf2qSYIHPUDIAWF9WvhWR-dMMMvNpgjGvyjUyY-DHFnNpUMyIA-e?purpose=fullsize)
 
 * Anything v5
