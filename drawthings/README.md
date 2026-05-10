@@ -250,6 +250,7 @@ Negative:
 
 > Check-out [sample prompt here](./sample-prompts/knight-v1.md)
 
+* [Release info from Draw Things](https://releases.drawthings.ai/p/introducing-qwen-image-support)
 * Strong open-source image model with excellent prompt adherence
 * The **6-bit** Draw Things build is the practical sweet spot for Apple Silicon
 * Better than many older models at:
