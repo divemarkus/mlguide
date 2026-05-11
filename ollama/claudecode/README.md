@@ -351,3 +351,7 @@ My M1 Pro 32GB result confirms:
 * Ollama + Claude Code is a very viable setup
 
 ---
+
+# Claude Code Getting Started
+- [Follow this documentation](./claudecode.md)
+- It is imperative to setup Claude Code for first time use
