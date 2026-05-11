@@ -1,7 +1,9 @@
 
 # 🧠 1. “One-Click” Workflow (PDF → Q&A + Voice)
 
-**IMPORTANT: Abide with HIPAA or other regulations, why this model is perfect for indexing research papers**
+<img width="1024" height="1536" alt="ChatGPT Image May 11, 2026, 04_12_07 PM (1)" src="https://github.com/user-attachments/assets/38d7e056-4660-4ae8-b429-66794d519bc2" />
+
+---
 
 ### 🔹 Step-by-step (set once, then it’s easy)
 
