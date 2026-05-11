@@ -1,6 +1,11 @@
 # LM Studio
-
 Local-first environment for experimenting with, fine-tuning, and serving large language models (LLMs). Provides a GUI + CLI to manage models, run inference, test prompts, and prototype apps on your hardware or private cloud.
+
+---
+
+<img width="1024" height="1536" alt="ChatGPT Image May 11, 2026, 04_12_07 PM (2)" src="https://github.com/user-attachments/assets/5e9f1a6d-44be-424b-afb5-2999c4766b71" />
+
+---
 
 ## Installation Notes
 - [LM Studio Install Notes](lm-studio-install.md)
