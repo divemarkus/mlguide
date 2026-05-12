@@ -1,6 +1,6 @@
 # Microsoft + Machine Learning: The Big Picture
 
-
+<img width="1536" height="1024" alt="ChatGPT Image May 12, 2026, 03_57_36 PM" src="https://github.com/user-attachments/assets/f85bfcb5-5ba8-49c8-ba90-adf4f577b62d" />
 
 Microsoft has transformed itself from a traditional enterprise software company into one of the largest AI infrastructure and platform companies in the world.
 
