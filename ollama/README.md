@@ -1,6 +1,9 @@
 # Ollama
-
 Guides and example configuration for running models with Ollama.
+
+
+
+---
 
 ## Files
 
