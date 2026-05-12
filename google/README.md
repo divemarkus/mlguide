@@ -1,7 +1,5 @@
 # Google’s Position in AI and Machine Learning (2026)
 
-
-
 Google is in a very unusual position right now:
 
 > They simultaneously have:
@@ -22,6 +20,10 @@ But underneath that perception:
 ---
 
 # The Big Picture
+
+<img width="1024" height="1536" alt="ChatGPT Image May 12, 2026, 11_04_05 AM" src="https://github.com/user-attachments/assets/83f4d51b-e158-451e-a8c4-9e61008a9b03" />
+
+---
 
 ## Google’s AI Strategy
 
