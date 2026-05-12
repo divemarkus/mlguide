@@ -1,7 +1,8 @@
 
 # Space Invaders
-- Using local opensource ML model
-- Qwen3.5 is MLX model 
+- Using Alibaba's opensource ML model
+- qwen3.6-35b-a3b-coding-nvfp4 
+- MLX model 
 - 22GB on VRAM
 - 10 mins to complete
 - Using Claude Code via Ollama
@@ -34,5 +35,5 @@ Requirements:
 
 ---
 
-## Output: ***qwen3.5:35b-a3b-coding-nvfp4.html***
-- See file inside directory
+## Output: ***qwen3.6:35b-a3b-coding-nvfp4.html***
+- Output inside directory
