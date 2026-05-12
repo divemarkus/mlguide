@@ -280,74 +280,6 @@ Use it as your base layer.
 
 ---
 
-## 📁 Recommended Dotfiles Layout
-
-```
-~/dotfiles/
-├── zsh/
-│   ├── .zshrc
-│   ├── aliases.zsh
-│   ├── exports.zsh
-│
-├── git/
-│   └── .gitconfig
-│
-├── brew/
-│   └── Brewfile
-│
-├── nvim/
-│   └── init.lua
-│
-├── tmux/
-│   └── .tmux.conf
-│
-├── ai/
-│   ├── models/        # symlink to external SSD
-│   ├── lmstudio/
-│   ├── mlx/
-│
-├── scripts/
-│   ├── bootstrap.sh
-│   ├── install-ai.sh
-│
-└── README.md
-```
-
----
-
-## ⚙️ Example Brewfile
-
-```bash
-brew install \
-  git \
-  neovim \
-  tmux \
-  python \
-  node \
-  wget \
-  htop \
-  ripgrep
-```
-
----
-
-## 🚀 Bootstrap Script
-
-```bash
-#!/bin/bash
-
-# Install Homebrew
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
-# Install packages
-brew bundle --file=brew/Brewfile
-
-# Symlink dotfiles
-stow zsh git nvim tmux
-```
-
----
-
 ## 🧠 AI-specific Setup
 
 ```bash
@@ -363,12 +295,13 @@ brew install ollama
 
 # 🔥 Real-World Setup (Best Practice)
 
-**Your ideal architecture:**
+**Ideal architecture:**
 
 ### 💻 MacBook Pro (M1–M5)
 
 * Dev machine
 * LM Studio
+* Ollama
 * Draw Things
 * MLX experiments
 

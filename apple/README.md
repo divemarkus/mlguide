@@ -95,7 +95,7 @@ That’s why users can run:
 
 …on laptops.
 
-This is especially relevant to your local-first workflows around [LM Studio](https://lmstudio.ai?utm_source=chatgpt.com) and [Ollama](https://ollama.com?utm_source=chatgpt.com), where local inference and privacy-first architectures are central themes. Your own project documentation already emphasizes the importance of local inference, privacy, and self-hosted stacks. 
+This is especially relevant to your local-first workflows around [LM Studio](https://lmstudio.ai) and [Ollama](https://ollama.com), where local inference and privacy-first architectures are central themes. Your own project documentation already emphasizes the importance of local inference, privacy, and self-hosted stacks. 
 
 ---
 
@@ -149,7 +149,7 @@ But now:
 
 # 🚀 MLX Is the Turning Point
 
-The biggest recent development is probably [MLX by Apple](https://github.com/ml-explore/mlx?utm_source=chatgpt.com).
+The biggest recent development is probably [MLX by Apple](https://github.com/ml-explore/mlx).
 
 MLX is Apple’s machine learning framework designed specifically for Apple Silicon.
 
@@ -190,7 +190,7 @@ Now we’re seeing:
 * MLX fine-tuning
 * MLX + Ollama integrations
 
-Even [Ollama’s MLX announcement](https://ollama.com/blog/mlx?utm_source=chatgpt.com) signals how important Apple Silicon has become in the local AI space.
+Even [Ollama’s MLX announcement](https://ollama.com/blog/mlx) signals how important Apple Silicon has become in the local AI space.
 
 ---
 
@@ -208,7 +208,7 @@ Modern:
 
 The emergence of tools like:
 
-* [Google AI Edge Gallery](https://ai.google.dev/edge?utm_source=chatgpt.com)
+* [Google AI Edge Gallery](https://ai.google.dev/edge)
 * Gemma mobile inference
 * CoreML conversions
 * on-device quantized transformers
