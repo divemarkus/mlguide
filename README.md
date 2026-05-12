@@ -1,6 +1,6 @@
 
 # 🧠 Machine Learning Setup Guide, 2026  
-*Optimized for AMD & NVIDIA GPUs | Local LLMs | Privacy-First Workflows*
+*Optimized for Apple, AMD & NVIDIA hardware | Local LLMs | Privacy-First Workflows*
 
 > **💡 Tip**: This guide is designed for *on-premise, offline-capable AI workflows* — ideal for developers, researchers, and privacy-conscious users who want to run large language models (LLMs) locally on several environments without (some) cloud dependencies.
 
@@ -24,7 +24,7 @@
 - https://github.com/lmstudio-ai
 - https://github.com/anthropics
 - https://github.com/NVIDIA
-- https://github.com/openclaw
+
 - [Impact of AI on Privacy - Video](https://youtu.be/h3AtWdeu_G0)
  - <details>
    Senator Bernie Sanders speaks with Anthropic's AI agent Claude.
