@@ -395,3 +395,6 @@ Just like:
 * LM Studio → dev environment
 
 ---
+
+## Additional Resources
+- [Beginner's Guide](./beginners-guide.md)
