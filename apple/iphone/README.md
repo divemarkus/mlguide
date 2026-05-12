@@ -1,4 +1,5 @@
 # iPhone 16e — AI Edge / Gemma Capability Overview
+- [Google AI Edge Gallery / Gemma Models](../../google/README.md)
 
 | Category                       | Specification                   | Relevance to Google AI Edge Gallery / Gemma                   |
 | ------------------------------ | ------------------------------- | ------------------------------------------------------------- |
@@ -26,7 +27,7 @@
 
 # What is Google AI Edge Gallery?
 
-[Google AI Edge Gallery GitHub](https://github.com/google-ai-edge/gallery?utm_source=chatgpt.com)
+[Google AI Edge Gallery GitHub](https://github.com/google-ai-edge/gallery)
 
 Google AI Edge Gallery is Google’s experimental showcase/runtime environment for:
 
