@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Invaders - Retro Edition</title>
+    <style>
+        /*
+         * CSS Styles
+         * Retro arcade aesthetic with pixel-perfect rendering
+         */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #050505;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            font-family: 'Press Start 2P', 'Courier New', monospace;
+            overflow: hidden;
+        }
+
+        #game-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #gameCanvas {
+            border: 4px solid #00ff00;
+            background-color: #000000;
+            display: block;
+            image-rendering: pixelated;
+            image-rendering: crisp-edges;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+        }
+
+        #ui-layer {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            display: flex;
+            justify-content: space-between;
+            color: #00ff00;
+            font-size: 14px;
+            pointer-events: none;
+            text-shadow: 2px 2px #004400;
+        }
+
+        #game-over-screen, #victory-screen {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #00ff00;
+            display: none;
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 40px;
+            border: 4px solid #00ff00;
+            box-shadow: 0 0 30px rgba(0, 255, 0, 0.5);
+        }
+
+        #game-over-screen h1, #victory-screen h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            text-shadow: 4px 4px #004400;
+            animation: flicker 0.1s infinite;
+        }
+
+        #game-over-screen p, #victory-screen p {
+            font-size: 16px;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px #004400;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 1; }
+            50% { opacity: 0.8; }
+            100% { opacity: 1; }
+        }
+
+        button {
+            background-color: transparent;
+            border: 3px solid #00ff00;
+            color: #00ff00;
+            padding: 15px 30px;
+            font-size: 14px;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        button:hover {
+            background-color: #00ff00;
+            color: #000000;
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.8);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        #start-screen {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: #00ff00;
+            display: block;
+            background-color: rgba(0, 0, 0, 0.95);
+            padding: 60px;
+            border: 4px solid #00ff00;
+            box-shadow: 0 0 40px rgba(0, 255, 0, 0.5);
+        }
+
+        #start-screen h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            text-shadow: 4px 4px #004400;
+            animation: flicker 0.15s infinite;
+        }
+
+        #start-screen p {
+            font-size: 12px;
+            margin-bottom: 30px;
+            color: #00cc00;
+            text-shadow: 2px 2px #003300;
+        }
+
+        #start-screen .controls {
+            font-size: 10px;
+            color: #00aa00;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px #002200;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <canvas id="gameCanvas"></canvas>
+        <div id="ui-layer">
+            <div id="score">SCORE: 0</div>
+            <div id="high-score">HIGH: 0</div>
+            <div id="lives">LIVES: 3</div>
+        </div>
+        <div id="start-screen">
+            <h1>SPACE INVADERS</h1>
+            <p>RETRO EDITION</p>
+            <div class="controls">
+                MOVE: Arrow Keys or A/D<br>
+                SHOOT: Spacebar
+            </div>
+            <button id="start-btn">INSERT COIN</button>
+        </div>
+        <div id="game-over-screen">
+            <h1>GAME OVER</h1>
+            <p id="final-score">SCORE: 0</p>
+            <button id="restart-btn">INSERT COIN</button>
+        </div>
+        <div id="victory-screen">
+            <h1>VICTORY!</h1>
+            <p id="victory-score">SCORE: 0</p>
+            <button id="play-again-btn">PLAY AGAIN</button>
+        </div>
+    </div>
+
+    <script>
+        /**
+         * SPACE INVADERS - RETRO EDITION
+         * A complete HTML5 Canvas game with pixel art, sound effects,
+         * and classic arcade gameplay
+         */
+
+        // ============================================================================
+        // CONFIGURATION
+        // All game constants in one place for easy tuning
+        // ============================================================================
+        const CONFIG = {
+            // Canvas dimensions (8-bit aesthetic)
+            CANVAS_WIDTH: 800,
+            CANVAS_HEIGHT: 600,
+
+            // Player settings
+            PLAYER_WIDTH: 44,
+            PLAYER_HEIGHT: 24,
+            PLAYER_SPEED: 6,
+            PLAYER_COLOR: '#00ff00',
+
+            // Projectile settings
+            PROJECTILE_WIDTH: 4,
+            PROJECTILE_HEIGHT: 12,
+            PROJECTILE_SPEED: 8,
+            PROJECTILE_COOLDOWN: 300, // ms between shots
+            MAX_PROJECTILES: 3,
+
+            // Alien grid settings
+            ALIEN_ROWS: 5,
+            ALIEN_COLUMNS: 11,
+            ALIEN_WIDTH: 36,
+            ALIEN_HEIGHT: 24,
+            ALIEN_PADDING: 12,
+
+            // Alien movement
+            ALIEN_INITIAL_SPEED: 1,
+            ALIEN_DROP_DISTANCE: 20,
+            ALIEN_SPEED_MULTIPLIER: 0.08, // speed increase per alien destroyed
+
+            // Animation
+            ALIEN_ANIMATION_SPEED: 15, // frames per animation change
+
+            // Game states
+            STATE_START: 'start',
+            STATE_PLAYING: 'playing',
+            STATE_GAME_OVER: 'game_over',
+            STATE_VICTORY: 'victory'
+        };
+
+        // ============================================================================
+        // PIXEL ART SPRITE DEFINITIONS
+        // Each sprite is a 2D array where 0 = transparent, other values = colors
+        // ============================================================================
+
+        // Player ship sprite (11x6 pixels)
+        const PLAYER_SPRITE = [
+            [0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0],
+            [0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0],
+            [0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0],
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1]
+        ];
+
+        // Alien types (each 11x6 pixels)
+        const ALIEN_TOP_SPRITE = [
+            [0, 0, 0, 1, 1, 0, 0, 0, 0],
+            [0, 0, 1, 1, 1, 1, 1, 0, 0],
+            [0, 1, 1, 1, 1, 1, 1, 1, 0],
+            [1, 1, 0, 1, 1, 1, 0, 1, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [0, 1, 0, 1, 0, 1, 0, 1, 0]
+        ];
+
+        const ALIEN_MIDDLE_SPRITE = [
+            [0, 0, 1, 1, 1, 1, 1, 0, 0],
+            [0, 1, 1, 1, 1, 1, 1, 1, 0],
+            [1, 1, 0, 1, 1, 1, 0, 1, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [0, 1, 0, 1, 1, 1, 0, 1, 0],
+            [0, 1, 0, 0, 0, 0, 0, 1, 0]
+        ];
+
+        const ALIEN_BOTTOM_SPRITE = [
+            [0, 0, 0, 1, 1, 1, 0, 0, 0],
+            [0, 0, 1, 1, 1, 1, 1, 0, 0],
+            [0, 1, 1, 1, 1, 1, 1, 1, 0],
+            [1, 1, 0, 1, 1, 1, 0, 1, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [0, 0, 1, 0, 0, 0, 1, 0, 0]
+        ];
+
+        // Bullet sprite (3x6 pixels)
+        const BULLET_SPRITE = [
+            [1],
+            [1],
+            [1],
+            [1],
+            [1],
+            [1]
+        ];
+
+        // Alien colors by row
+        const ALIEN_COLORS = ['#00ffff', '#00ff00', '#00ff00', '#ff00ff', '#ff00ff'];
+
+        // ============================================================================
+        // GAME STATE
+        // ============================================================================
+        let canvas, ctx;
+        let score = 0;
+        let highScore = parseInt(localStorage.getItem('spaceInvadersHighScore')) || 0;
+        let lives = 3;
+        let gameState = CONFIG.STATE_START;
+        let lastShotTime = 0;
+        let animationFrame = 0;
+
+        // Game entities
+        let player;
+        let projectiles = [];
+        let aliens = [];
+        let explosions = [];
+        let alienDirection = 1; // 1 = right, -1 = left
+
+        // Alien movement state
+        let alienMoveTimer = 0;
+        let alienMoveInterval = 30; // frames between movement
+
+        // Screen shake effect
+        let shakeDuration = 0;
+        let shakeMagnitude = 0;
+
+        // Audio system
+        let audioContext = null;
+
+        // ============================================================================
+        // AUDIO CONTROLLER
+        // Generates retro sound effects using Web Audio API
+        // ============================================================================
+        const AudioController = {
+            /**
+             * Initialize audio context (must be called after user interaction)
+             */
+            init() {
+                try {
+                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                } catch (e) {
+                    console.log('Audio not supported');
+                }
+            },
+
+            /**
+             * Play shoot sound - short oscillator burst
+             */
+            playShoot() {
+                if (!audioContext) return;
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(300, audioContext.currentTime + 0.1);
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.1);
+            },
+
+            /**
+             * Play alien hit sound - descending pitch
+             */
+            playAlienHit() {
+                if (!audioContext) return;
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                oscillator.frequency.setValueAtTime(600, audioContext.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(100, audioContext.currentTime + 0.1);
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.1);
+            },
+
+            /**
+             * Play player hit sound - noisy descending sound
+             */
+            playPlayerHit() {
+                if (!audioContext) return;
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                oscillator.type = 'sawtooth';
+                oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(50, audioContext.currentTime + 0.3);
+                gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+                gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.3);
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.3);
+            },
+
+            /**
+             * Play victory sound
+             */
+            playVictory() {
+                if (!audioContext) return;
+                for (let i = 0; i < 5; i++) {
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    oscillator.frequency.setValueAtTime(400 + i * 200, audioContext.currentTime + i * 0.1);
+                    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime + i * 0.1);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + i * 0.1 + 0.2);
+                    oscillator.start(audioContext.currentTime + i * 0.1);
+                    oscillator.stop(audioContext.currentTime + i * 0.1 + 0.2);
+                }
+            },
+
+            /**
+             * Play game over sound
+             */
+            playGameOver() {
+                if (!audioContext) return;
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                oscillator.type = 'sawtooth';
+                oscillator.frequency.setValueAtTime(300, audioContext.currentTime);
+                oscillator.frequency.exponentialRampToValueAtTime(50, audioContext.currentTime + 0.5);
+                gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+                gainNode.gain.linearRampToValueAtTime(0, audioContext.currentTime + 0.5);
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + 0.5);
+            }
+        };
+
+        // ============================================================================
+        // SPRITE RENDERING
+        // Helper functions for drawing pixel art sprites
+        // ============================================================================
+
+        /**
+         * Draw a pixel art sprite at the given position
+         * @param {CanvasRenderingContext2D} ctx - Canvas context
+         * @param {number[][]} sprite - 2D array of pixel values
+         * @param {number} x - X position
+         * @param {number} y - Y position
+         * @param {number} scale - Pixel scale factor
+         * @param {string} color - Color to use for non-zero pixels
+         */
+        function drawSprite(ctx, sprite, x, y, scale, color) {
+            ctx.fillStyle = color;
+            for (let row = 0; row < sprite.length; row++) {
+                for (let col = 0; col < sprite[row].length; col++) {
+                    if (sprite[row][col] !== 0) {
+                        ctx.fillRect(
+                            x + col * scale,
+                            y + row * scale,
+                            scale,
+                            scale
+                        );
+                    }
+                }
+            }
+        }
+
+        /**
+         * Draw a pixel art sprite with animation frame offset
+         * @param {CanvasRenderingContext2D} ctx - Canvas context
+         * @param {number[][]} sprite - 2D array of pixel values
+         * @param {number} x - X position
+         * @param {number} y - Y position
+         * @param {number} scale - Pixel scale factor
+         * @param {string} color - Color to use
+         * @param {number} frameOffset - Offset for animation (0 or 1)
+         */
+        function drawAnimatedSprite(ctx, sprite, x, y, scale, color, frameOffset = 0) {
+            ctx.fillStyle = color;
+            for (let row = 0; row < sprite.length; row++) {
+                for (let col = 0; col < sprite[row].length; col++) {
+                    let pixel = sprite[row][col];
+                    // Alternate pixel for animation effect
+                    if (frameOffset === 1 && row === sprite.length - 1 && col % 2 === 0) {
+                        pixel = 0;
+                    }
+                    if (pixel !== 0) {
+                        ctx.fillRect(
+                            x + col * scale,
+                            y + row * scale,
+                            scale,
+                            scale
+                        );
+                    }
+                }
+            }
+        }
+
+        // ============================================================================
+        // GAME ENTITIES
+        // ============================================================================
+
+        /**
+         * Player class - represents the player's ship
+         */
+        class Player {
+            constructor() {
+                this.width = CONFIG.PLAYER_WIDTH;
+                this.height = CONFIG.PLAYER_HEIGHT;
+                this.x = canvas.width / 2 - this.width / 2;
+                this.y = canvas.height - this.height - 30;
+                this.speed = CONFIG.PLAYER_SPEED;
+                this.direction = 0; // -1 = left, 0 = stationary, 1 = right
+                this.color = CONFIG.PLAYER_COLOR;
+                this.scale = 4; // Pixel scale
+            }
+
+            /**
+             * Update player position based on input
+             */
+            update() {
+                this.x += this.direction * this.speed;
+
+                // Clamp to canvas bounds
+                if (this.x < 0) {
+                    this.x = 0;
+                }
+                if (this.x + this.width > canvas.width) {
+                    this.x = canvas.width - this.width;
+                }
+            }
+
+            /**
+             * Draw the player ship using pixel art
+             */
+            draw() {
+                drawSprite(ctx, PLAYER_SPRITE, this.x, this.y, this.scale, this.color);
+            }
+
+            /**
+             * Check if player is hit by an alien
+             */
+            isHitByAlien() {
+                return aliens.some(alien =>
+                    alien.x < this.x + this.width &&
+                    alien.x + alien.width > this.x &&
+                    alien.y < this.y + this.height &&
+                    alien.y + alien.height > this.y
+                );
+            }
+
+            /**
+             * Check collision with a projectile
+             */
+            isHitByProjectile(projectile) {
+                return (
+                    projectile.x < this.x + this.width &&
+                    projectile.x + projectile.width > this.x &&
+                    projectile.y < this.y + this.height &&
+                    projectile.y + projectile.height > this.y
+                );
+            }
+        }
+
+        /**
+         * Alien class - represents an alien invader
+         */
+        class Alien {
+            constructor(x, y, row) {
+                this.x = x;
+                this.y = y;
+                this.width = CONFIG.ALIEN_WIDTH;
+                this.height = CONFIG.ALIEN_HEIGHT;
+                this.row = row;
+                this.active = true;
+                this.scale = 3.5; // Pixel scale
+
+                // Set sprite based on row
+                if (row === 0) {
+                    this.sprite = ALIEN_TOP_SPRITE;
+                } else if (row === 2 || row === 3) {
+                    this.sprite = ALIEN_MIDDLE_SPRITE;
+                } else {
+                    this.sprite = ALIEN_BOTTOM_SPRITE;
+                }
+            }
+
+            /**
+             * Draw the alien using pixel art with animation
+             */
+            draw() {
+                if (!this.active) return;
+
+                // Alternate sprite based on animation frame
+                const frameOffset = Math.floor(animationFrame / CONFIG.ALIEN_ANIMATION_SPEED) % 2;
+                drawAnimatedSprite(
+                    ctx,
+                    this.sprite,
+                    this.x,
+                    this.y,
+                    this.scale,
+                    ALIEN_COLORS[this.row],
+                    frameOffset
+                );
+            }
+
+            /**
+             * Check collision with a projectile
+             */
+            isHitByProjectile(projectile) {
+                return (
+                    projectile.x < this.x + this.width &&
+                    projectile.x + projectile.width > this.x &&
+                    projectile.y < this.y + this.height &&
+                    projectile.y + projectile.height > this.y
+                );
+            }
+        }
+
+        /**
+         * Projectile class - represents a player's bullet
+         */
+        class Projectile {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.width = CONFIG.PROJECTILE_WIDTH;
+                this.height = CONFIG.PROJECTILE_HEIGHT;
+                this.speed = CONFIG.PROJECTILE_SPEED;
+                this.active = true;
+                this.scale = 3; // Pixel scale
+            }
+
+            /**
+             * Update projectile position
+             */
+            update() {
+                this.y -= this.speed;
+
+                // Deactivate if off screen
+                if (this.y + this.height < 0) {
+                    this.active = false;
+                }
+            }
+
+            /**
+             * Draw the projectile using pixel art
+             */
+            draw() {
+                drawSprite(ctx, BULLET_SPRITE, this.x, this.y, this.scale, '#ffffff');
+            }
+
+            /**
+             * Check collision with an alien
+             */
+            isHitByAlien(alien) {
+                return (
+                    this.x < alien.x + alien.width &&
+                    this.x + this.width > alien.x &&
+                    this.y < alien.y + alien.height &&
+                    this.y + this.height > alien.y
+                );
+            }
+        }
+
+        /**
+         * Explosion class - particle-based death effect
+         */
+        class Explosion {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+                this.particles = [];
+                this.active = true;
+                this.life = 20; // frames until complete
+
+                // Create particles
+                for (let i = 0; i < 12; i++) {
+                    this.particles.push({
+                        x: x,
+                        y: y,
+                        vx: (Math.random() - 0.5) * 4,
+                        vy: (Math.random() - 0.5) * 4,
+                        life: 15 + Math.random() * 10
+                    });
+                }
+            }
+
+            /**
+             * Update explosion particles
+             */
+            update() {
+                this.life--;
+
+                for (let i = this.particles.length - 1; i >= 0; i--) {
+                    const p = this.particles[i];
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.life--;
+                    if (p.life <= 0) {
+                        this.particles.splice(i, 1);
+                    }
+                }
+
+                if (this.particles.length === 0) {
+                    this.active = false;
+                }
+            }
+
+            /**
+             * Draw explosion particles
+             */
+            draw() {
+                this.particles.forEach(p => {
+                    ctx.fillStyle = `rgba(255, 100, 0, ${p.life / 15})`;
+                    ctx.fillRect(p.x, p.y, 4, 4);
+                });
+            }
+        }
+
+        // ============================================================================
+        // INPUT HANDLER
+        // Keyboard input management
+        // ============================================================================
+        const InputHandler = {
+            keys: {},
+
+            /**
+             * Handle keydown events
+             */
+            onKeyDown(e) {
+                this.keys[e.code] = true;
+
+                if (gameState !== CONFIG.STATE_PLAYING) return;
+
+                switch(e.code) {
+                    case 'ArrowLeft':
+                    case 'KeyA':
+                        player.direction = -1;
+                        break;
+                    case 'ArrowRight':
+                    case 'KeyD':
+                        player.direction = 1;
+                        break;
+                    case 'Space':
+                        shootProjectile();
+                        break;
+                }
+            },
+
+            /**
+             * Handle keyup events
+             */
+           KeyUp(e) {
+                this.keys[e.code] = false;
+
+                switch(e.code) {
+                    case 'ArrowLeft':
+                    case 'KeyA':
+                    case 'ArrowRight':
+                    case 'KeyD':
+                        player.direction = 0;
+                        break;
+                }
+            }
+        };
+
+        // ============================================================================
+        // GAME FUNCTIONS
+        // ============================================================================
+
+        /**
+         * Initialize the game canvas and entities
+         */
+        function init() {
+            canvas = document.getElementById('gameCanvas');
+            ctx = canvas.getContext('2d');
+
+            // Set canvas size
+            canvas.width = CONFIG.CANVAS_WIDTH;
+            canvas.height = CONFIG.CANVAS_HEIGHT;
+
+            // Set up UI elements
+            document.getElementById('score').textContent = `SCORE: ${score}`;
+            document.getElementById('high-score').textContent = `HIGH: ${highScore}`;
+            document.getElementById('lives').textContent = `LIVES: ${lives}`;
+
+            // Set up start button
+            document.getElementById('start-btn').addEventListener('click', startGame);
+
+            // Set up restart buttons
+            document.getElementById('restart-btn').addEventListener('click', restartGame);
+            document.getElementById('play-again-btn').addEventListener('click', restartGame);
+
+            // Set up keyboard controls
+            document.addEventListener('keydown', InputHandler.onKeyDown);
+            document.addEventListener('keyup', InputHandler.onKeyUp);
+
+            // Hide start screen initially
+            document.getElementById('start-screen').style.display = 'none';
+        }
+
+        /**
+         * Start the game from the start screen
+         */
+        function startGame() {
+            AudioController.init();
+            restartGame();
+        }
+
+        /**
+         * Restart the game with fresh state
+         */
+        function restartGame() {
+            score = 0;
+            lives = 3;
+            gameState = CONFIG.STATE_PLAYING;
+            lastShotTime = 0;
+            animationFrame = 0;
+            projectiles = [];
+            explosions = [];
+            alienDirection = 1;
+            alienMoveTimer = 0;
+
+            // Hide all screens
+            document.getElementById('start-screen').style.display = 'none';
+            document.getElementById('game-over-screen').style.display = 'none';
+            document.getElementById('victory-screen').style.display = 'none';
+
+            // Update UI
+            document.getElementById('score').textContent = `SCORE: ${score}`;
+            document.getElementById('high-score').textContent = `HIGH: ${highScore}`;
+            document.getElementById('lives').textContent = `LIVES: ${lives}`;
+
+            // Create player
+            player = new Player();
+
+            // Create aliens
+            createAliens();
+        }
+
+        /**
+         * Create the alien grid
+         */
+        function createAliens() {
+            aliens = [];
+            const totalAlienWidth = CONFIG.ALIEN_COLUMNS * (CONFIG.ALIEN_WIDTH + CONFIG.ALIEN_PADDING);
+            const startX = (canvas.width - totalAlienWidth) / 2;
+            const startY = 50;
+
+            for (let row = 0; row < CONFIG.ALIEN_ROWS; row++) {
+                for (let col = 0; col < CONFIG.ALIEN_COLUMNS; col++) {
+                    const x = startX + col * (CONFIG.ALIEN_WIDTH + CONFIG.ALIEN_PADDING);
+                    const y = startY + row * (CONFIG.ALIEN_HEIGHT + CONFIG.ALIEN_PADDING);
+                    aliens.push(new Alien(x, y, row));
+                }
+            }
+        }
+
+        /**
+         * Fire a projectile from the player
+         */
+        function shootProjectile() {
+            const currentTime = Date.now();
+
+            // Check cooldown
+            if (currentTime - lastShotTime < CONFIG.PROJECTILE_COOLDOWN) {
+                return;
+            }
+
+            // Check max projectiles
+            const activeProjectiles = projectiles.filter(p => p.active);
+            if (activeProjectiles.length >= CONFIG.MAX_PROJECTILES) {
+                return;
+            }
+
+            // Create new projectile
+            const projectile = new Projectile(
+                player.x + player.width / 2 - CONFIG.PROJECTILE_WIDTH / 2,
+                player.y
+            );
+            projectiles.push(projectile);
+            lastShotTime = currentTime;
+
+            // Play sound
+            AudioController.playShoot();
+        }
+
+        /**
+         * Update alien positions and movement
+         */
+        function updateAliens() {
+            if (aliens.length === 0) {
+                return;
+            }
+
+            // Calculate current speed based on remaining aliens
+            const remainingRatio = aliens.length / (CONFIG.ALIEN_ROWS * CONFIG.ALIEN_COLUMNS);
+            const currentSpeed = CONFIG.ALIEN_INITIAL_SPEED +
+                                 (1 - remainingRatio) * CONFIG.ALIEN_SPEED_MULTIPLIER * 20;
+
+            // Move aliens
+            let hitEdge = false;
+
+            aliens.forEach(alien => {
+                if (!alien.active) return;
+
+                alien.x += currentSpeed * alienDirection;
+
+                // Check if any alien hit the edge
+                if (alienDirection === 1 &&
+                    alien.x + alien.width >= canvas.width - 10) {
+                    hitEdge = true;
+                } else if (alienDirection === -1 &&
+                           alien.x <= 10) {
+                    hitEdge = true;
+                }
+            });
+
+            // If edge hit, reverse direction and drop down
+            if (hitEdge) {
+                alienDirection *= -1;
+
+                aliens.forEach(alien => {
+                    if (!alien.active) return;
+                    alien.y += CONFIG.ALIEN_DROP_DISTANCE;
+                });
+            }
+        }
+
+        /**
+         * Check for collisions between projectiles and aliens
+         */
+        function checkCollisions() {
+            projectiles.forEach(projectile => {
+                if (!projectile.active) return;
+
+                aliens.forEach(alien => {
+                    if (!alien.active) return;
+
+                    if (projectile.isHitByAlien(alien)) {
+                        // Mark both as inactive
+                        projectile.active = false;
+                        alien.active = false;
+
+                        // Create explosion
+                        explosions.push(new Explosion(
+                            alien.x + alien.width / 2,
+                            alien.y + alien.height / 2
+                        ));
+
+                        // Update score
+                        score += 10;
+                        document.getElementById('score').textContent = `SCORE: ${score}`;
+
+                        // Play sound
+                        AudioController.playAlienHit();
+                    }
+                });
+            });
+
+            // Remove inactive projectiles
+            projectiles = projectiles.filter(p => p.active);
+
+            // Remove inactive aliens
+            aliens = aliens.filter(a => a.active);
+        }
+
+        /**
+         * Check game end conditions
+         */
+        function checkGameState() {
+            if (gameState !== CONFIG.STATE_PLAYING) return;
+
+            // Check for victory (all aliens destroyed)
+            if (aliens.length === 0) {
+                gameState = CONFIG.STATE_VICTORY;
+                AudioController.playVictory();
+                showVictoryScreen();
+                return;
+            }
+
+            // Check for game over (aliens reached bottom or hit player)
+            const playerHit = player.isHitByAlien();
+            const aliensReachedBottom = aliens.some(alien =>
+                alien.y + alien.height >= canvas.height - 30
+            );
+
+            if (playerHit || aliensReachedBottom) {
+                lives--;
+                document.getElementById('lives').textContent = `LIVES: ${lives}`;
+
+                if (lives <= 0) {
+                    gameState = CONFIG.STATE_GAME_OVER;
+                    AudioController.playGameOver();
+                    showGameOverScreen();
+                } else {
+                    // Reset alien position and direction
+                    alienDirection = 1;
+                    aliens.forEach(alien => {
+                        if (!alien.active) return;
+                        alien.y = 50;
+                        alien.x = (canvas.width - CONFIG.ALIEN_COLUMNS * (CONFIG.ALIEN_WIDTH + CONFIG.ALIEN_PADDING)) / 2 +
+                                   (alien.x % (CONFIG.ALIEN_WIDTH + CONFIG.ALIEN_PADDING));
+                    });
+                }
+            }
+        }
+
+        /**
+         * Show game over screen
+         */
+        function showGameOverScreen() {
+            document.getElementById('game-over-screen').style.display = 'block';
+            document.getElementById('final-score').textContent = `SCORE: ${score}`;
+
+            // Update high score
+            if (score > highScore) {
+                highScore = score;
+                localStorage.setItem('spaceInvadersHighScore', highScore);
+                document.getElementById('high-score').textContent = `HIGH: ${highScore}`;
+            }
+        }
+
+        /**
+         * Show victory screen
+         */
+        function showVictoryScreen() {
+            document.getElementById('victory-screen').style.display = 'block';
+            document.getElementById('victory-score').textContent = `SCORE: ${score}`;
+
+            // Update high score
+            if (score > highScore) {
+                highScore = score;
+                localStorage.setItem('spaceInvadersHighScore', highScore);
+                document.getElementById('high-score').textContent = `HIGH: ${highScore}`;
+            }
+        }
+
+        /**
+         * Apply screen shake effect
+         */
+        function applyScreenShake() {
+            if (shakeDuration > 0) {
+                const magnitude = shakeMagnitude || 10;
+                const dx = (Math.random() - 0.5) * magnitude * 2;
+                const dy = (Math.random() - 0.5) * magnitude * 2;
+                ctx.translate(dx, dy);
+                shakeDuration--;
+            }
+        }
+
+        /**
+         * Reset canvas transform after shake
+         */
+        function resetCanvasTransform() {
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
+        }
+
+        // ============================================================================
+        // DRAWING FUNCTIONS
+        // ============================================================================
+
+        /**
+         * Draw the player ship
+         */
+        function drawPlayer() {
+            player.draw();
+        }
+
+        /**
+         * Draw all projectiles
+         */
+        function drawProjectiles() {
+            projectiles.forEach(projectile => {
+                if (projectile.active) {
+                    projectile.draw();
+                }
+            });
+        }
+
+        /**
+         * Draw all aliens
+         */
+        function drawAliens() {
+            aliens.forEach(alien => {
+                alien.draw();
+            });
+        }
+
+        /**
+         * Draw all explosions
+         */
+        function drawExplosions() {
+            explosions.forEach(explosion => {
+                explosion.draw();
+            });
+        }
+
+        // ============================================================================
+        // MAIN GAME LOOP
+        // ============================================================================
+
+        /**
+         * Main game loop - runs at ~60fps
+         */
+        function gameLoop() {
+            // Clear canvas
+            ctx.fillStyle = '#000000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            if (gameState === CONFIG.STATE_PLAYING) {
+                // Apply screen shake
+                applyScreenShake();
+
+                // Update game state
+                player.update();
+                projectiles.forEach(projectile => projectile.update());
+                updateAliens();
+                checkCollisions();
+                checkGameState();
+
+                // Update explosions
+                explosions.forEach(explosion => explosion.update());
+                explosions = explosions.filter(e => e.active);
+
+                // Draw everything
+                drawAliens();
+                drawPlayer();
+                drawProjectiles();
+                drawExplosions();
+
+                // Reset canvas transform
+                resetCanvasTransform();
+
+                // Increment animation frame
+                animationFrame++;
+            }
+
+            // Continue the loop
+            requestAnimationFrame(gameLoop);
+        }
+
+        // ============================================================================
+        // START THE GAME
+        // ============================================================================
+        window.onload = init;
+    </script>
+</body>
+</html>
