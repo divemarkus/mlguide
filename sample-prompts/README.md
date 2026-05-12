@@ -61,7 +61,9 @@ Requirements:
 ---
 
 ### Space Invaders - Advance
+- This prompt create's a fully playable game
 
+```
 Create an advanced Space Invaders–style browser game with a retro pixel‑art aesthetic.
 
 Requirements:
@@ -104,5 +106,6 @@ Game Feel Requirements:
 Final Output:
 - Provide the full HTML file with no placeholders or omissions.
 - The file should run immediately when saved as index.html and opened in a browser.
+```
 
 ---
