@@ -399,3 +399,6 @@ Just like:
 
 ## Additional Resources
 - [Beginner's Visual Guide](./beginners-guide.md)
+- [Draw Things](https://drawthings.ai/)
+- [CIVITAI](https://civitai.com/)
+- [ComfyUI (Windows Equivalent)](https://www.comfy.org/)
