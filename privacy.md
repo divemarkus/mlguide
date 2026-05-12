@@ -32,7 +32,7 @@ With local models like:
 
 No prompts need to travel to a remote datacenter unless *you explicitly configure cloud access*.
 
-Your own Ollama stack documentation describes this exact model:
+This whole repo stack & documentation describes this exact model:
 
 > “All inference happens locally unless explicitly configured otherwise.” 
 
@@ -71,7 +71,7 @@ Some providers also:
 
 This is critical.
 
-A model itself is usually just weights/tensors. Your own ML guide explains this well:
+A model itself is usually just weights/tensors. ML guide repo explains this well:
 
 > “The Model (The Brain): This is the file you download. It’s just weights.” 
 
@@ -150,7 +150,7 @@ Local AI can still leak data if:
 | Browser UI insecure   | Open WebUI exposed      |
 | Sync enabled          | Cloud backups           |
 
-Your own stack docs mention optional cloud routing through LiteLLM. 
+This repo stack & docs mention optional cloud routing through LiteLLM. 
 
 So “local” depends heavily on configuration.
 
@@ -248,7 +248,7 @@ This is especially relevant for your homelab + Docker + AI workflows.
 
 # Ideal Privacy-First Stack
 
-Your uploaded stack already resembles what many advanced users build:
+The uploaded stack here already resembles what many advanced users build:
 
 ```text
 Open WebUI
@@ -294,11 +294,11 @@ Designed specifically so:
 * offline inference
 * firewall restrictions
 * no telemetry apps
-* container isolation
-* local vector DBs
-* VPN-only remote access
+* container isolation - optional (for advanced users)
+* local vector DBs - optional (for advanced users)
+* VPN-only remote access - optional (for advanced users)
 
-Your Docker hardening notes are excellent examples of this approach.
+Docker hardening notes are excellent examples of this approach.
 
 ---
 
