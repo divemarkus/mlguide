@@ -422,53 +422,6 @@ This is why:
 
 ---
 
-# My Recommendation For Your Setup
-
-Given your interests in:
-
-* local AI
-* Ollama
-* LM Studio
-* privacy-first workflows
-* homelab/self-hosting
-
-A strong setup today is:
-
-## Desktop / Server
-
-Use:
-
-* Ollama
-* Open WebUI
-* Flowise/Qdrant stack
-* RTX workstation/server
-
-Very similar to your documented local AI stack.
-
----
-
-## Apple Devices
-
-Use for:
-
-* MLX experimentation
-* mobile inference
-* efficient local AI
-* portable workflows
-
----
-
-## Android Devices
-
-Use for:
-
-* AI Edge Gallery
-* experimental edge AI
-* Gemma mobile testing
-* open local AI tooling
-
----
-
 # Practical Expectations
 
 Today:

@@ -1,4 +1,4 @@
-# Apple iPad Air (5th generation) — Full Specs for Running [Google AI Edge Gallery / Gemma Models](../../google/README.md)
+# Apple iPad Air (5th generation) — Full Specs for Running [Google AI Edge Gallery / Gemma Models](../../google/edge-ai-gallery/README.md)
 
 The 5th Gen iPad Air is one of the best-value Apple tablets for local AI inference because it uses the same Apple M1 architecture found in early Apple Silicon Macs. That makes it surprisingly capable for lightweight on-device Gemma/Gemma 2/Gemma 3 edge workloads through frameworks like Google AI Edge Gallery, MLX-style runtimes, Core ML, or ONNX-compatible mobile inference stacks.
 

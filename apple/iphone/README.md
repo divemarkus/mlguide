@@ -1,5 +1,5 @@
 # iPhone 16e — AI Edge / Gemma Capability Overview
-- [Google AI Edge Gallery / Gemma Models](../../google/README.md)
+- [Google AI Edge Gallery / Gemma Models](../../google/edge-ai-gallery/README.md)
 
 | Category                       | Specification                   | Relevance to Google AI Edge Gallery / Gemma                   |
 | ------------------------------ | ------------------------------- | ------------------------------------------------------------- |
