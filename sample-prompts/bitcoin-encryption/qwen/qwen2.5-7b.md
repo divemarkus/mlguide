@@ -1,6 +1,7 @@
 
 # Bitcoin encyrption comparison, using tables
-- RTX 3070 Ti
+- RTX 3070 Ti, 8GB VRAM
+- Ubuntu 22, 32GB RAM
 - qwen2.5-7b
 - Small local LLM
 - 4.7GB

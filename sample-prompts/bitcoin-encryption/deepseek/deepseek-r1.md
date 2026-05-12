@@ -1,6 +1,7 @@
 
 # Bitcoin encyrption comparison, using tables
-- RTX 3070 Ti
+- RTX 3070 Ti, 8GB VRAM
+- Ubuntu 22, 32GB RAM
 - deepseek-r1:latest
 - Small-med local LLM
 - 5.2GB
