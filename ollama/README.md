@@ -1,7 +1,7 @@
 # Ollama
 Guides and example configuration for running models with Ollama.
 
-
+<img width="1536" height="1024" alt="ChatGPT Image May 12, 2026, 03_30_41 PM (1)" src="https://github.com/user-attachments/assets/6c9e6be0-5b8b-4941-8a47-4c6675642177" />
 
 ---
 
