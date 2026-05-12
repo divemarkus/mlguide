@@ -27,9 +27,9 @@ Curated prompts and small examples to use with local LLMs or hosted APIs.
 ### Bitcoin Encryption
 - This prompt compares bitcoin with industry standard CC companies
 
- - ```
-   Using tables compare Bitcoin with industry credit card companies, focusing on encryption. Output your answer in README.md github format.
-   ```
+ ```
+ Using tables compare Bitcoin with industry credit card companies, focusing on encryption. Output your answer in README.md github format.
+ ```
 
 ---
 
