@@ -18,6 +18,11 @@
 
 ---
 
+## Privacy
+- [Privacy write-up](./privacy.md)
+
+---
+
 ## Links
 
 - https://github.com/ollama
