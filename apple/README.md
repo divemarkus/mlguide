@@ -1,6 +1,7 @@
 # 🍎 Apple’s AI Strategy: Why the Ecosystem Is Quietly Winning the Local AI Race
 
 
+<img width="1024" height="1536" alt="ChatGPT Image May 12, 2026, 04_21_18 AM" src="https://github.com/user-attachments/assets/f20c39f6-a232-41b1-b188-9693274bc684" />
 
 ---
 
