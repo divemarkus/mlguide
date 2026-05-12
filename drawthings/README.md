@@ -22,6 +22,7 @@
 - [Limitations (Be Realistic)](#%EF%B8%8F-limitations-be-realistic)
 - [Pro Setup (What You Should Do)](#-pro-setup-what-you-should-do)
 - [Key Insight (Important)](#-key-insight-important)
+- [Additional Resources](#additional-resources)
 
 If you’re serious about **privacy-first AI image generation on macOS**, **Draw Things** is one of the best tools available right now. It’s essentially the **LM Studio of image generation**—but optimized for Apple Silicon.
 
@@ -397,4 +398,4 @@ Just like:
 ---
 
 ## Additional Resources
-- [Beginner's Guide](./beginners-guide.md)
+- [Beginner's Visual Guide](./beginners-guide.md)
