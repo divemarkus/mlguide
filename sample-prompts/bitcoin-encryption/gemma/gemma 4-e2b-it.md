@@ -2,8 +2,8 @@
 - 2022 Apple iPad Air 5th Gen, M1, 8c GPU, 8GB RAM
 - Google Edge AI Gallery
 - Using Google's opensource ML model
-- Gemma4-e2b-it by Google
-- 2GB size of local model
+- Gemma-4-e2b-it by Google
+- 2.6GB size of local model
 
 ## Prompt
 - xx tokens
