@@ -1,5 +1,4 @@
-
-# Bitcoin encyrption comparison, using tables
+# Bitcoin encryption comparison, using tables
 - Apple iPad Mini 5th Gen
 - Google Edge AI Gallery
 - Using Google's opensource ML model
