@@ -11,8 +11,9 @@
 - xx tokens
 - xx prompt token/sec
 - xx sec
- - ```
-   Using tables compare Bitcoin with industry credit card companies, focusing on encryption. Output your answer in README.md github format.
-   ```
+
+```
+Using tables compare Bitcoin with industry credit card companies, focusing on encryption. Output your answer in README.md github format.
+```
    
 ---
