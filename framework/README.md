@@ -1,5 +1,7 @@
 # What “Frameworks” Mean in AI
 
+<img width="1149" height="1369" alt="ChatGPT Image May 12, 2026, 09_26_51 PM" src="https://github.com/user-attachments/assets/0f0a9a7a-7895-40fc-bf78-3a40b8580502" />
+
 In AI and machine learning, a **framework** is a software foundation that helps developers:
 
 * build models
