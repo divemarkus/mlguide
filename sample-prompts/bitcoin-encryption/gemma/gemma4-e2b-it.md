@@ -1,10 +1,9 @@
 # Bitcoin encryption comparison, using tables
-- Apple iPad Mini 5th Gen
+- 2022 Apple iPad Air 5th Gen, M1, 8c GPU, 8GB RAM
 - Google Edge AI Gallery
 - Using Google's opensource ML model
 - Gemma4-e2b-it by Google
-- 2GB
-- 8GB Unified Memory (minimum)
+- 2GB size of local model
 
 ## Prompt
 - xx tokens
