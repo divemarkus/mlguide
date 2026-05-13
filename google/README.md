@@ -167,7 +167,7 @@ Gemma is becoming central to:
 * mobile AI
 * privacy-first workflows
 
-This ties directly into Google AI Edge Gallery, which you were already exploring earlier.
+This ties directly into Google AI Edge Gallery.
 
 ---
 
