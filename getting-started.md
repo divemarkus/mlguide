@@ -39,7 +39,7 @@ Start with your existing device and learn first.
 
 ## Easiest Path: Google AI Edge Gallery
 
-[Google AI Edge Gallery](https://ai.google.dev/edge?utm_source=chatgpt.com)
+[Google AI Edge Gallery](https://ai.google.dev/edge)
 
 Google's Edge AI initiative allows modern smartphones to run smaller AI models directly on-device.
 
@@ -63,9 +63,10 @@ Google's Edge AI initiative allows modern smartphones to run smaller AI models d
 
 ### Good Starter Models
 
+* Best to follow recommended as it changes quiet often
+* Gemma-4-e2b-it (~2.6GB)
 * Gemma 3
 * Gemma 3n
-* Qwen 3
 
 ### Reality Check
 
@@ -103,8 +104,8 @@ The answer is usually a modern Apple Silicon Mac.
 | -------- | -------------- |
 | M1 16GB  | Good           |
 | M2 16GB  | Good           |
-| M3 18GB+ | Excellent      |
-| M4 24GB+ | Outstanding    |
+| M3 24GB+ | Excellent      |
+| M4 32GB+ | Outstanding    |
 
 Unified memory is extremely valuable for AI workloads.
 
@@ -112,7 +113,7 @@ Unified memory is extremely valuable for AI workloads.
 
 ## Install Ollama
 
-[Ollama](https://ollama.com?utm_source=chatgpt.com)
+[Ollama](https://ollama.com)
 
 Ollama is the easiest way to run local models. It serves models locally and exposes a simple API.
 
@@ -134,7 +135,7 @@ ollama run llama3
 
 ## Install LM Studio
 
-[LM Studio](https://lmstudio.ai?utm_source=chatgpt.com)
+[LM Studio](https://lmstudio.ai)
 
 LM Studio provides a GUI for downloading, testing, and serving models locally.
 
@@ -150,7 +151,7 @@ Why beginners love it:
 
 ## Install Draw Things
 
-[Draw Things](https://drawthings.ai?utm_source=chatgpt.com)
+[Draw Things](https://drawthings.ai)
 
 Best beginner image-generation application for Mac.
 
@@ -231,7 +232,7 @@ For Windows beginners:
 
 ### Download
 
-[LM Studio Download](https://lmstudio.ai/download?utm_source=chatgpt.com)
+[LM Studio Download](https://lmstudio.ai/download)
 
 ### Then
 
