@@ -21,7 +21,7 @@ A good way to think about it:
 * **Ollama / LM Studio = The Body**
 * **Flowise / Agents = The Nervous System**
 
-This is similar to the architecture described in the local ML setup guide. 
+This is similar to the architecture echoed in this repo. 
 
 ---
 
@@ -60,13 +60,13 @@ Google's Edge AI initiative allows modern smartphones to run smaller AI models d
 * Coding assistance
 * Image understanding
 * Privacy-first AI
+* [More use-cases](./google/edge-ai-gallery/edge-ai-use-cases.md)
 
 ### Good Starter Models
 
-* Best to follow recommended as it changes quiet often
+* Best to follow recommended as it changes quiet often!
 * Gemma-4-e2b-it (~2.6GB)
 * Gemma 3
-* Gemma 3n
 
 ### Reality Check
 
@@ -164,7 +164,7 @@ Use it for:
 
 ---
 
-## Recommended First Models
+## Recommended First Models (Below might be outdated)
 
 | Use Case       | Model        |
 | -------------- | ------------ |
