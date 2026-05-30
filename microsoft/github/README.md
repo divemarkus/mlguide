@@ -6,30 +6,11 @@
 
 ---
 
-# Table of Contents
-
-1. Install Git
-2. Configure Git
-3. Create an SSH Key
-4. Add SSH Key to GitHub
-5. Verify SSH Authentication
-6. Install and Configure VS Code
-7. Create Your First Repository
-8. Clone Repository with VS Code
-9. Create Your First Commit
-10. Push Changes to GitHub
-11. Daily Git Workflow
-12. Useful Git Commands
-13. Recommended GitHub Practices
-14. Suggested Repository Structure
-
----
-
 # 1. Install Git
 
 ## Download Git
 
-Visit:
+Visit or use winget:
 
 [Git for Windows](https://git-scm.com/)
 
@@ -590,36 +571,565 @@ Use:
 
 ---
 
-# 14. Suggested Repository Structure
+# GitHub Getting Started Guide (VS Code Only)
 
-For your home-lab, automation, and engineering projects:
+> **Audience:** New GitHub user with some technical knowledge who already has a GitHub account.
+>
+> **Goal:** Use **Visual Studio Code as the primary interface** for Git and GitHub, minimizing terminal usage and leveraging built-in GitHub integration.
+
+---
+
+# 1. Install Git
+
+Although VS Code provides a graphical Git interface, Git itself must still be installed.
+
+Download:
+
+[Git for Windows](https://git-scm.com/download/win)
+
+Install using the default settings.
+
+> Git runs in the background and powers VS Code's source control features.
+
+---
+
+# 2. Install VS Code
+
+Download:
+
+[Visual Studio Code](https://code.visualstudio.com)
+
+Launch VS Code after installation.
+
+---
+
+# 3. Sign into GitHub from VS Code
+
+## Open Account Menu
+
+In the lower-left corner of VS Code:
 
 ```text
-project-name/
-├── README.md
-├── docs/
-├── scripts/
-├── docker/
-├── configs/
-├── assets/
-├── .gitignore
-└── LICENSE
+Accounts → Sign In
 ```
+
+Select:
+
+```text
+Sign in with GitHub
+```
+
+A browser window will open.
+
+Authorize VS Code to access GitHub.
+
+After authentication, you should see your GitHub account in VS Code.
+
+---
+
+# 4. Create and Add an SSH Key
+
+VS Code can help manage GitHub authentication, but SSH remains the preferred method.
+
+## Open SSH Key Generator
+
+Open:
+
+```text
+Ctrl+Shift+P
+```
+
+Search:
+
+```text
+GitHub: Create SSH Key
+```
+
+Select it.
+
+---
+
+## Generate New Key
+
+Choose:
+
+```text
+Generate New SSH Key
+```
+
+Select:
+
+```text
+ED25519
+```
+
+Use your GitHub email address when prompted.
 
 Example:
 
 ```text
-ubuntu-dotfiles/
-├── README.md
-├── scripts/
-│   ├── install.sh
-│   └── bootstrap.sh
-├── configs/
-│   ├── zsh/
-│   ├── git/
-│   └── vscode/
-├── docs/
-└── LICENSE
+your-email@example.com
 ```
 
 ---
+
+## Save the Key
+
+Accept the default location:
+
+```text
+~/.ssh/id_ed25519
+```
+
+Optionally create a passphrase.
+
+---
+
+## Add SSH Key to GitHub
+
+VS Code will usually offer:
+
+```text
+Add SSH Key to GitHub
+```
+
+Select:
+
+```text
+Yes
+```
+
+VS Code uploads the public key directly to GitHub.
+
+No manual copy/paste required.
+
+---
+
+# 5. Verify GitHub Connection
+
+Open:
+
+```text
+Source Control
+```
+
+or press:
+
+```text
+Ctrl+Shift+G
+```
+
+If no authentication warnings appear, GitHub and VS Code are connected successfully.
+
+---
+
+# 6. Create Your First Repository
+
+## Option A: Create Directly in VS Code
+
+Open:
+
+```text
+Source Control
+```
+
+Select:
+
+```text
+Publish to GitHub
+```
+
+Choose:
+
+```text
+Publish to GitHub Public Repository
+```
+
+or
+
+```text
+Publish to GitHub Private Repository
+```
+
+Enter repository name:
+
+```text
+hello-github
+```
+
+VS Code automatically:
+
+* Creates repository
+* Initializes Git
+* Creates remote repository
+* Connects GitHub
+
+---
+
+## Option B: Create on GitHub Website
+
+Go to:
+
+[GitHub Repository Creation](https://github.com/new)
+
+Create:
+
+```text
+hello-github
+```
+
+Then return to VS Code to clone it.
+
+---
+
+# 7. Clone a Repository
+
+## Open Command Palette
+
+```text
+Ctrl+Shift+P
+```
+
+Search:
+
+```text
+Git: Clone
+```
+
+Select:
+
+```text
+Git: Clone
+```
+
+---
+
+## Choose Repository
+
+VS Code displays repositories associated with your GitHub account.
+
+Select:
+
+```text
+hello-github
+```
+
+Choose a local folder.
+
+Example:
+
+```text
+Documents\Projects
+```
+
+---
+
+## Open Repository
+
+When prompted:
+
+```text
+Open Repository
+```
+
+Click:
+
+```text
+Open
+```
+
+---
+
+# 8. Make Your First Change
+
+Inside VS Code:
+
+Create:
+
+```text
+README.md
+```
+
+Example contents:
+
+```markdown
+# Hello GitHub
+
+My first GitHub repository.
+```
+
+Save the file.
+
+---
+
+# 9. Commit Changes
+
+Open:
+
+```text
+Source Control
+```
+
+You will see:
+
+```text
+README.md
+```
+
+under:
+
+```text
+Changes
+```
+
+---
+
+## Stage Changes
+
+Click:
+
+```text
++
+```
+
+next to the file.
+
+Or:
+
+```text
+Stage All Changes
+```
+
+---
+
+## Commit
+
+Enter commit message:
+
+```text
+Initial commit
+```
+
+Click:
+
+```text
+Commit
+```
+
+or use:
+
+```text
+Ctrl+Enter
+```
+
+---
+
+# 10. Push Changes to GitHub
+
+After committing:
+
+Click:
+
+```text
+Sync Changes
+```
+
+or:
+
+```text
+Push
+```
+
+VS Code uploads your commit to GitHub automatically.
+
+Refresh GitHub in your browser.
+
+Your files should now appear.
+
+---
+
+# 11. Daily Workflow
+
+Most development work follows:
+
+```text
+Open Repository
+↓
+Pull Latest Changes
+↓
+Edit Files
+↓
+Review Changes
+↓
+Commit
+↓
+Push
+```
+
+---
+
+## Pull Changes
+
+Bottom-left sync icon:
+
+```text
+Sync Changes
+```
+
+or:
+
+```text
+Source Control → Pull
+```
+
+---
+
+## Review Differences
+
+Click any modified file.
+
+VS Code displays:
+
+```text
+Current Version
+vs
+Previous Version
+```
+
+side-by-side.
+
+This is one of the most useful Git features.
+
+---
+
+# 12. Recommended Extensions
+
+## Essential
+
+| Extension                       | Purpose                 |
+| ------------------------------- | ----------------------- |
+| GitHub Pull Requests and Issues | GitHub Integration      |
+| GitLens                         | Commit History          |
+| Markdown All in One             | Documentation           |
+| Error Lens                      | Better Error Visibility |
+
+---
+
+## Home Lab / Engineering
+
+| Extension  | Purpose                |
+| ---------- | ---------------------- |
+| Docker     | Docker Integration     |
+| YAML       | Compose Files          |
+| Remote SSH | Manage Linux Servers   |
+| Ansible    | Playbooks              |
+| Terraform  | Infrastructure as Code |
+
+---
+
+## AI Development
+
+| Extension      | Purpose                   |
+| -------------- | ------------------------- |
+| Continue       | Local AI Coding Assistant |
+| Ollama         | Local LLM Integration     |
+| GitHub Copilot | AI Assistance             |
+
+---
+
+# 13. Best Practices
+
+## Use One Repository Per Project
+
+Good:
+
+```text
+docker-homelab
+ubuntu-dotfiles
+ansible-lab
+local-ai-lab
+```
+
+Avoid:
+
+```text
+everything-project
+```
+
+---
+
+## Commit Frequently
+
+Good:
+
+```text
+Add Docker Compose stack
+```
+
+```text
+Configure monitoring service
+```
+
+```text
+Add Ubuntu bootstrap script
+```
+
+Avoid:
+
+```text
+stuff
+```
+
+```text
+changes
+```
+
+---
+
+## Create README Files
+
+Every repository should explain:
+
+```text
+Purpose
+Requirements
+Installation
+Usage
+License
+```
+
+---
+
+## Never Upload Secrets
+
+Never commit:
+
+```text
+.env
+private keys
+API keys
+passwords
+certificates
+```
+
+Add them to:
+
+```text
+.gitignore
+```
+
+---
+
+# The Simplified VS Code Workflow
+
+```text
+1. Sign into GitHub
+2. Generate SSH Key
+3. Publish Repository
+4. Edit Files
+5. Commit
+6. Sync Changes
+7. Repeat
+```
+
+For most day-to-day work, you can spend 95% of your time inside VS Code and rarely need to touch the command line.
