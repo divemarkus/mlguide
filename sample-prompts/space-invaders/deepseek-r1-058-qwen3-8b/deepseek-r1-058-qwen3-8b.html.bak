@@ -583,21 +583,19 @@
 
             // Start button
             startButton.addEventListener('click', function() {
-                if (gamePaused && !gameOver) {
-                    score = 0;
-                    scoreElement.textContent = score;
-                    player.lives = 3;
-                    player.xPos = canvas.width / 2;
-                    gameOver = false;
-                    gamePaused = false;
-                    gameWon = false;
-                    bullets = [];
-                    enemyBullets = [];
-                    particles = [];
-                    createAliens();
-                    updateLivesDisplay();
-                    startButton.textContent = 'Restart Game';
-                }
+                score = 0;
+                scoreElement.textContent = score;
+                player.lives = 3;
+                player.xPos = canvas.width / 2;
+                gameOver = false;
+                gamePaused = false;
+                gameWon = false;
+                bullets = [];
+                enemyBullets = [];
+                particles = [];
+                createAliens();
+                updateLivesDisplay();
+                startButton.textContent = 'Restart Game';
             });
         });
     </script>
