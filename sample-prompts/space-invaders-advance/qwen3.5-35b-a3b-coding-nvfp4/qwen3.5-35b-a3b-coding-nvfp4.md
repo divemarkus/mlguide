@@ -54,4 +54,5 @@ Final Output:
 ---
 
 ## Boop boop, output
-- Game won't load at all, just blank screen
+- For the M1 Macbook Pro, game won't load at all, just blank screen
+- For the M4 Macbook Max, game loads but doesn't look and function well (improvement from M1)
