@@ -831,7 +831,6 @@ Prioritize factual accuracy over agreeing with me.
 
 That single prompt style can transform ChatGPT from a **question-answering tool** into a far more useful **research, engineering, and decision-support partner**.
 
-I can also turn this into a dedicated **“ChatGPT Power User Guide”** with sections for Deep Research, Projects, Codex, Agents, Voice, Plugins, Tasks, privacy, and 25 copy-paste power prompts.
 
 [1]: https://help.openai.com/en/articles/10169521?utm_source=chatgpt.com "Projects in ChatGPT | OpenAI Help Center"
 [2]: https://openai.com/index/introducing-deep-research/?utm_source=chatgpt.com "Introducing deep research | OpenAI"
