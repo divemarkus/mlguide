@@ -9,10 +9,6 @@ For your particular use case—**communications + agentic AI**—I'd actually us
 
 ![Image](https://images.openai.com/static-rsc-4/bhHfflQkyD5i8H3nTOY6CnU7ieBrS6fNwgqTKqvCuhit5ofG09zlkA_pwWiv0SmaN0zizBaTh3OSRq0mN5I0no212_ahn_ZXTp1nD1-h0hBHqcbQoxxI5MnkUZkr8G8OecThqnVWhtgVlqjflfeufNsleYyP9cRbOGdK3owYJvTSogTfmnmrH1JCi0r5lDfV?purpose=fullsize)
 
-![Image](https://images.openai.com/static-rsc-4/HWoEJIgwRv2OEoKx-yc3As2OFg150PaFZLazzpnyiBHPSKsgLcsBYasi6lqmcuJzEKnH289Kirm-xQK_B8FkU0ik9Kl4yq-vx52w5jZIxwJ7VxUfatOxvmN9zWmQvsC17RePGXVlahM0CYv3XpwfSZoP4WQjXGZTwGL9ciatbWgsx4UzvfWG3m218uBJTRIl?purpose=fullsize)
-
-![Image](https://images.openai.com/static-rsc-4/XHomE4c-0RIdSBeJyIzHFTtrB09tlW2WQ1tXiXsNN6lLGd1ZFQ68SEwm5Z6tFncOYIzzcKQo7Ownn7WiEc-wSaNU4Ntc7CICBz5t5eov8HSRpxq40oznz0WWniWwMb92iJV7fn4xill6DZUpEhQaXoPDb-yxQ9JVo7U-FujoAEg3EhHW3wIJPOBVvTelTDOM?purpose=fullsize)
-
 ![Image](https://images.openai.com/static-rsc-4/kNXSgs0UUiCfqB6hztkdN3IWMiIEMMq44UBRPaovOw3_Ywfp4sZmPCXX6CjuvuQbtZHfUQG3bxDqfYBzwqyDkPa2-AhM804cWpwPJOqDPn7sGwlB1XoH2YPV1JoyAaGjGCbLcOL5Jksd-eOLtD-VxB62WBSL8dMKZIQySRRm75ds1oMwwRoSQN09z-usfHK3?purpose=fullsize)
 
 ![Image](https://images.openai.com/static-rsc-4/mfmHRLhSjlXzQfN8dJ2Rv7d2WE9ImhfuK2N7NGYFSm786F6DajNYuNFm0m_380NsIskVIjwz786t5anxpRgsDM9L4qi-HdIuFuNDoAVdonGTwVE6QkHsqQxrISuhNlM3M--k_WLj-do3LZ7vuUzAOPMpsgm4PyBhymELy64Kbeizv83tAQ53-IpZE47vAO5W?purpose=fullsize)
