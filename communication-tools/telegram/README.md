@@ -9,12 +9,6 @@ For your particular use case—**communications + agentic AI**—I'd actually us
 
 ![Image](https://images.openai.com/static-rsc-4/bhHfflQkyD5i8H3nTOY6CnU7ieBrS6fNwgqTKqvCuhit5ofG09zlkA_pwWiv0SmaN0zizBaTh3OSRq0mN5I0no212_ahn_ZXTp1nD1-h0hBHqcbQoxxI5MnkUZkr8G8OecThqnVWhtgVlqjflfeufNsleYyP9cRbOGdK3owYJvTSogTfmnmrH1JCi0r5lDfV?purpose=fullsize)
 
-![Image](https://images.openai.com/static-rsc-4/kNXSgs0UUiCfqB6hztkdN3IWMiIEMMq44UBRPaovOw3_Ywfp4sZmPCXX6CjuvuQbtZHfUQG3bxDqfYBzwqyDkPa2-AhM804cWpwPJOqDPn7sGwlB1XoH2YPV1JoyAaGjGCbLcOL5Jksd-eOLtD-VxB62WBSL8dMKZIQySRRm75ds1oMwwRoSQN09z-usfHK3?purpose=fullsize)
-
-![Image](https://images.openai.com/static-rsc-4/mfmHRLhSjlXzQfN8dJ2Rv7d2WE9ImhfuK2N7NGYFSm786F6DajNYuNFm0m_380NsIskVIjwz786t5anxpRgsDM9L4qi-HdIuFuNDoAVdonGTwVE6QkHsqQxrISuhNlM3M--k_WLj-do3LZ7vuUzAOPMpsgm4PyBhymELy64Kbeizv83tAQ53-IpZE47vAO5W?purpose=fullsize)
-
-![Image](https://images.openai.com/static-rsc-4/qMKmLcuhDyT4f-oFYtEpfhMQnv-OzSqY7UoJMH0v2vTgaYm6wb4dEm-kCQBqv5uoSKoS-HAXIz5Q40PjBAylQkp0Jvp4P8WuF3-edTB19Q21_6C6IvoGtw5nWv48zpkMR0bPnzeLnXTB7X75-_m0UCWZ3tczpqxn7jndzNoimCEksMo4oBvAjrmG-UsUuxcM?purpose=fullsize)
-
 Telegram was founded in **2013 by Pavel Durov and his brother Nikolai Durov**, following Pavel's earlier creation of VKontakte (VK), Russia's largest social network.
 
 Pavel was essentially the entrepreneur/business side; **Nikolai is the technical genius behind much of Telegram's protocol and infrastructure**.
