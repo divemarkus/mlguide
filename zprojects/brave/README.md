@@ -29,7 +29,7 @@ For your environment, think of it like this:
                                ▼
                     ┌──────────────────────┐
                     │       OLLAMA         │
-                    │   localhost:11434     │
+                    │   localhost:11434    │
                     └──────────┬───────────┘
                                │
                   ┌────────────┼────────────┐
