@@ -755,8 +755,6 @@ if you decide:
 
 And there is one particularly interesting angle for you:
 
-**your RTX 5090-class GPU makes the Dream Air's extremely high resolution and Dynamic Foveated Rendering much more interesting than it would be for the average buyer.**
-
 The Dream Air is actually one of the few VR products where I'd say **eye tracking isn't just a gimmick** — it can be part of the solution to driving a very high-resolution display efficiently. Pimax specifically designed DFR around this use case. ([Pimax Store][10])
 
 
