@@ -662,7 +662,7 @@ And **Aura is one of the first products I've seen that actually resembles that a
 
 And **Aura is particularly strategically interesting because it puts XREAL directly inside Google's Android XR ecosystem**, rather than trying to create yet another proprietary XR platform. ([XREAL][7])
 
-Given your interest in **local LLMs/home lab + PC gaming + lightweight hardware**, I'd actually keep a close eye on **three things rather than brands**: **Android XR, OpenXR, and Qualcomm's on-device AI stack**. If those three converge properly, that's probably the architecture that eventually lets you use a pair of ~100g glasses as a front-end to both a **local AI server and cloud AI**.
+Given your interest in **local LLMs/home lab**, I'd actually keep a close eye on **three things rather than brands**: **Android XR, OpenXR, and Qualcomm's on-device AI stack**. If those three converge properly, that's probably the architecture that eventually lets you use a pair of ~100g glasses as a front-end to both a **local AI server and cloud AI**.
 
 [1]: https://www.idc.com/promo/arvr/ "IDC - Augmented and Virtual Reality Headsets Market Insights"
 [2]: https://blog.google/products-and-platforms/platforms/android/android-xr/ "Android XR: A new platform built for headsets and glasses"
