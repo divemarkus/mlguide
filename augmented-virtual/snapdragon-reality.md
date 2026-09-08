@@ -1,4 +1,4 @@
-# (QQQ) Snapdragon Reality Elite
+# (QCOM) Snapdragon Reality Elite
 
 Yes — **Snapdragon Reality Elite is much more important than the name initially suggests.** Given our discussion about **XREAL One Pro, Project Aura, Android XR, AI glasses, and eventually moving compute off the glasses**, Reality Elite is one of the pieces that makes that future technically plausible.
 
