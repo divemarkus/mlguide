@@ -69,8 +69,8 @@ Your glasses become the **interface**, rather than the computer.
                   AI inference
                          │
               ┌──────────▼──────────┐
-              │ Your response      │
-              │ appears in glasses │
+              │ Your response       │
+              │ appears in glasses  │
               └─────────────────────┘
 ```
 
