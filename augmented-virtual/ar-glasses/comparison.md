@@ -1,4 +1,4 @@
-# Comparison of AR/XR Glasses
+# Comparison of AR/XR/VR Glasses
 
 Absolutely. I’d consolidate everything we've discussed into **one master map**, but I’d separate **true spatial/VR computers** from **lightweight display glasses**, because comparing a 93g URXR to a 107g Beyond 2e to a 76g RayNeo can otherwise be misleading.
 
