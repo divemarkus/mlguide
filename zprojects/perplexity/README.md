@@ -1,4 +1,4 @@
-# Perplexity - Portable Computer (NVIDIA partnership-owned)
+# Perplexity - Portable Computer (NVIDIA partnership)
 
 Yes — **your RTX 3090 Ti is essentially the entry point Perplexity designed Portable Computer for**, because it has **24 GB of VRAM**. As of September 2026, Portable Computer is available on Windows PCs with NVIDIA GeForce RTX/RTX PRO GPUs with **at least 24 GB VRAM**, so your 3090 Ti qualifies on the hardware requirement. ([Perplexity AI][1])
 
