@@ -409,9 +409,6 @@ Then measure:
 
 **task completion → tool-call accuracy → hallucinations → files modified correctly → verification quality → tokens → time → GPU/RAM usage.**
 
-That would be considerably more meaningful for you than generic benchmarks.
-
-And it could become a **very good GitHub benchmark/project in its own right**: *Local Agent Shootout — Portable Computer vs Hermes vs OpenCode on a 3090 Ti*.
 
 [1]: https://www.perplexity.ai/pl/hub/blog/a-local-first-agent-for-private-and-cost-effective-knowledge-work "Agent local-first do prywatnej pracy koncepcyjnej"
 [2]: https://hermes-agent.nousresearch.com/docs/user-guide/local-models "Local Models | Hermes Agent"
