@@ -14,7 +14,7 @@ Garmin lists **12 sensor systems** for the Mk3i: GPS/GLONASS/Galileo + SatIQ, El
 
 ![Image](https://images.openai.com/static-rsc-4/Gb3g9KlQceU6cUu5NUS8n0MQog5FkBMEJdmFnLipmPV4v_THH7km6SFvSBFiWEtzSu1h-5yAeuEBo_Z6pjvJCa4SuMG24z5SwZ_FUj95_ji83DvcARGup3GnEuhBa4c_Lr3wntvTahqnHE0WDVvHes2JC0Y0-qm8rPxr0l0Gcf3x9lrUeUIuriWrCRtI2YmW?purpose=fullsize)
 
-# Your Mk3i sensor stack
+# Mk3i sensor stack
 
 | Sensor                            | What it actually measures                   | Daily-life use                                       | Diving use                                                                           | My recommendation     |
 | --------------------------------- | ------------------------------------------- | ---------------------------------------------------- | ------------------------------------------------------------------------------------ | --------------------- |
@@ -684,7 +684,7 @@ Dive computer
 ↓
 **Training / recovery / navigation / diving / health metrics**
 
-And because your Mk3i is the **43 mm AMOLED model**, you also have the advantage of a very compact 43 × 43 × 14.3 mm package, sapphire crystal, 32 GB storage, and up to 10 days of smartwatch battery life (less with always-on display). ([Garmin][11])
+Mk3i has the **43 mm AMOLED model**, you also have the advantage of a very compact 43 × 43 × 14.3 mm package, sapphire crystal, 32 GB storage, and up to 10 days of smartwatch battery life (less with always-on display). ([Garmin][11])
 
 ### If I were setting yours up from scratch
 
