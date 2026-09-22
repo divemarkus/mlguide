@@ -1,6 +1,6 @@
 # Garmin Descent Mk3i
 
-The **Descent Mk3i 43 mm (010-02753-13)** is considerably more capable than a “dive watch.” Given that you already own it and have decades of diving experience, I would treat it as a **multisport instrumentation platform that happens to contain a serious dive computer**.
+The **Descent Mk3i 43 mm (010-02753-13)** is considerably more capable than a “dive watch.” I would treat it as a **multisport instrumentation platform that happens to contain a serious dive computer**.
 
 Garmin lists **12 sensor systems** for the Mk3i: GPS/GLONASS/Galileo + SatIQ, Elevate wrist HR, Pulse Ox, barometric altimeter, compass, gyroscope, accelerometer, thermometer, ambient-light sensor, and depth sensor. ([Garmin][1])
 
