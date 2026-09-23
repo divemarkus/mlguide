@@ -1,4 +1,4 @@
-# The Body - Runner
+# The Runner - Body
 
 And I would **update the original analogy**, because the local-AI ecosystem has evolved significantly. In particular, Ollama and LM Studio are no longer merely "wrappers around llama.cpp"; they have become fairly sophisticated **model runtimes, servers, API layers, and application platforms**.
 

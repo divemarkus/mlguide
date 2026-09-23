@@ -1,4 +1,4 @@
-# The Brain - Model
+# The Model - Brain
 
 This is one of the most important concepts to understand if you're going to build the **Machine Learning / Local AI Guide**, because once someone understands *what a model actually is*, terms like **GGUF, Q4_K_M, ONNX, Safetensors, MLX, FP16, BF16, MoE, tokenizer, inference runtime** start making sense rather than looking like alphabet soup.
 
