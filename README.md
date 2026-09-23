@@ -51,5 +51,5 @@
 ---
 
 ## Highlights
-- [Run ClaudeCode local on MacOS](./2-the-runner/ollama/claudecode/claudecode.md)
+- [Run ClaudeCode local on MacOS](./2-the-runner/ollama/claudecode/README.md)
 - [Run Gemma local on Smartphones](./4-the-players/google/edge-ai-gallery/README.md)
