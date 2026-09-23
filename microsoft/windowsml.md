@@ -500,7 +500,7 @@ It's Microsoft's attempt to make **AI inference a native capability of Windows i
 
 For someone building the kind of local/private AI environment you're building, **Windows ML + Foundry Local are worth experimenting with alongside Ollama and LM Studio rather than replacing them**. Your existing privacy-first stack already follows the same basic local-inference philosophy. 
 
-[Microsoft's Windows AI overview you linked](https://learn.microsoft.com/en-us/windows/ai/overview)
+[Microsoft's Windows AI overview - linked](https://learn.microsoft.com/en-us/windows/ai/overview)
 
 > This needs more investigation
 
