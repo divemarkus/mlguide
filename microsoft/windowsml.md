@@ -502,7 +502,7 @@ For someone building the kind of local/private AI environment you're building, *
 
 [Microsoft's Windows AI overview you linked](https://learn.microsoft.com/en-us/windows/ai/overview)
 
-If you want, the next interesting step would be to map **Windows ML + Foundry Local + Ollama + LM Studio + NVIDIA CUDA/RTX 3090 Ti** into a single architecture and identify **which runtime is actually fastest/best for your 3090 Ti**.
+> This needs more investigation
 
 [1]: https://learn.microsoft.com/en-us/windows/ai/overview "Use local AI with Microsoft Foundry on Windows | Microsoft Learn"
 [2]: https://learn.microsoft.com/windows/ai/new-windows-ml/overview "What is Windows ML? | Microsoft Learn"
