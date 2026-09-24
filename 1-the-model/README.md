@@ -1248,23 +1248,23 @@ Here's the architecture I'd recommend teaching in the guide:
                        │
                        ▼
 ┌─────────────────────────────────────────────┐
-│             AI APPLICATION                 │
+│             AI APPLICATION                  │
 │                                             │
-│ LM Studio / Open WebUI / Custom App        │
+│ LM Studio / Open WebUI / Custom App         │
 └──────────────────────┬──────────────────────┘
                        │
                        ▼
 ┌─────────────────────────────────────────────┐
 │                RUNTIME                      │
 │                                             │
-│ llama.cpp / Ollama / MLX / ONNX Runtime    │
+│ llama.cpp / Ollama / MLX / ONNX Runtime     │
 └──────────────────────┬──────────────────────┘
                        │
                        ▼
 ┌─────────────────────────────────────────────┐
 │                 MODEL                       │
 │                                             │
-│ Qwen / Llama / Gemma / Mistral / etc.      │
+│ Qwen / Llama / Gemma / Mistral / etc.       │
 │                                             │
 │       Weights + Architecture + Tokenizer    │
 └──────────────────────┬──────────────────────┘
@@ -1553,7 +1553,6 @@ custom applications
 
 That distinction will make the rest of your **Machine Learning AI Guide** dramatically easier to understand.
 
-And I'd make **GGUF vs Safetensors vs ONNX vs MLX** a dedicated chapter, because it naturally leads into the next important subject: **how to choose the correct model for your hardware — including VRAM/RAM calculations, quantization, context size, MoE, and why a "14B model" can behave very differently on a 12GB RTX GPU, 32GB Mac, or 128GB unified-memory machine.**
 
 [1]: https://github.com/ggml-org/llama.cpp/blob/master/docs/models.md "llama.cpp/docs/models.md at master · ggml-org/llama.cpp · GitHub"
 [2]: https://github.com/ggml-org/llama.cpp/blob/master/ggml/include/gguf.h "llama.cpp/ggml/include/gguf.h at master · ggml-org/llama.cpp · GitHub"
