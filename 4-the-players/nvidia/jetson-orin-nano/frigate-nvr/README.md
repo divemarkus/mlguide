@@ -1,9 +1,10 @@
+# Frigate NVR
 
-Yes — and after looking at the **current Frigate documentation**, I would make one important distinction up front:
+[Current Frigate documentation](https://docs.frigate.video/plus/), I would make one important distinction up front:
 
 > **Frigate is not an "LLM NVR." It is an AI NVR whose primary real-time detector is a dedicated object-detection model. Generative AI/VLMs such as Qwen3-VL sit on top of that detector as an enrichment layer.**
 
-That distinction is actually one of the reasons I like Frigate for your Jetson project.
+That distinction is actually one of the reasons Frigate fits your Jetson project.
 
 And with your hardware, I would build it as **Jetson = NVR + real-time detector**, while your **RTX 3090 Ti = optional heavyweight local VLM/LLM server**. That gives you a much more capable architecture than trying to make the 8GB Jetson do everything.
 
@@ -11,7 +12,7 @@ And with your hardware, I would build it as **Jetson = NVR + real-time detector*
 
 # 1. What exactly is Frigate?
 
-[Frigate official documentation](https://docs.frigate.video/?utm_source=chatgpt.com)
+[Frigate official documentation](https://docs.frigate.video/)
 
 Frigate is a **local-first NVR designed around IP cameras and real-time AI object detection**.
 
@@ -71,7 +72,7 @@ Frigate is closer to:
     Local Storage
 ```
 
-Frigate is explicitly designed to minimize resource consumption by using inexpensive motion detection to determine when object detection needs to run, rather than running expensive inference against every frame continuously. :chatgpt-content-reference{index="1"}
+Frigate is explicitly designed to minimize resource consumption by using inexpensive motion detection to determine when object detection needs to run, rather than running expensive inference against every frame continuously.
 
 That architecture is **extremely appropriate for an edge computer such as your Orin Nano Super**.
 
@@ -85,7 +86,7 @@ There are several reasons I'm comfortable putting Frigate at the center of your 
 
 Frigate's core functionality does **not require persistent Internet access**.
 
-After models are downloaded, Frigate can operate completely offline unless you've deliberately enabled something that requires a cloud service. :chatgpt-content-reference{index="2"}
+After models are downloaded, Frigate can operate completely offline unless you've deliberately enabled something that requires a cloud service.
 
 That's exactly what you want for:
 
@@ -102,7 +103,7 @@ You don't need to send your home's video to somebody else's cloud.
 
 # 3. It isn't just an NVR
 
-This is probably the biggest reason I think it fits your Home Lab.
+This is probably the biggest reason everyone uses Frigate or for Home Lab.
 
 Frigate is simultaneously:
 
@@ -134,7 +135,7 @@ VLM/LLM descriptions, summaries and semantic search.
 
 go2rtc can restream camera feeds, reducing the number of direct connections to cameras.
 
-Frigate explicitly provides RTSP restreaming for this purpose. :chatgpt-content-reference{index="3"}
+Frigate explicitly provides RTSP restreaming for this purpose.
 
 That's a **lot of functionality in one local system**.
 
@@ -173,7 +174,7 @@ This is where:
 
 etc. come into play.
 
-Frigate recommends using a dedicated detector rather than CPU inference for production. :chatgpt-content-reference{index="4"}
+Frigate recommends using a dedicated detector rather than CPU inference for production.
 
 ---
 
@@ -197,7 +198,7 @@ Frigate calls this **Generative AI** and currently supports roles for:
 - `chat`
 - `embeddings`
 
-A single provider can handle all three, or different providers can handle different roles. :chatgpt-content-reference{index="5"}
+A single provider can handle all three, or different providers can handle different roles.
 
 ---
 
@@ -295,7 +296,7 @@ Person
 walking toward the front entrance."
 ```
 
-These descriptions can be generated at the end of an object's lifecycle, or earlier when enough meaningful frames have changed. :chatgpt-content-reference{index="7"}
+These descriptions can be generated at the end of an object's lifecycle, or earlier when enough meaningful frames have changed. 
 
 This is where your local VLM becomes really useful.
 
@@ -321,7 +322,7 @@ or:
 
 > "person near backyard gate"
 
-Frigate creates embeddings for tracked objects and uses those embeddings for image/text similarity search. The embeddings can remain entirely local. :chatgpt-content-reference{index="8"}
+Frigate creates embeddings for tracked objects and uses those embeddings for image/text similarity search. The embeddings can remain entirely local.
 
 The Explore interface then becomes something closer to:
 
@@ -330,7 +331,7 @@ The Explore interface then becomes something closer to:
 
 Search:
 ┌─────────────────────────────────────────┐
-│ person carrying a package                │
+│ person carrying a package               │
 └─────────────────────────────────────────┘
 
        ↓
@@ -350,13 +351,13 @@ Frigate currently provides **Jina CLIP** models for semantic search.
 
 V1 supports image ↔ text and image ↔ image similarity.
 
-V2 adds multilingual support but requires substantially more RAM/GPU resources; Frigate currently recommends V1 for most users, particularly English-language installations. :chatgpt-content-reference{index="9"}
+V2 adds multilingual support but requires substantially more RAM/GPU resources; Frigate currently recommends V1 for most users, particularly English-language installations. 
 
 There is also an interesting newer option:
 
 ### Qwen3-VL embeddings
 
-Frigate can use a GenAI provider for embeddings, and its documentation specifically supports multimodal embeddings through **llama.cpp**. :chatgpt-content-reference{index="10"}
+Frigate can use a GenAI provider for embeddings, and its documentation specifically supports multimodal embeddings through **llama.cpp**.
 
 So eventually we can experiment with:
 
@@ -378,7 +379,7 @@ For your system, I would start with:
 
 Frigate's current documentation specifically recommends Qwen3-VL for local deployment.
 
-It describes Qwen3-VL as having strong visual and situational understanding, including improved ability to identify smaller objects and interactions. :chatgpt-content-reference{index="11"}
+It describes Qwen3-VL as having strong visual and situational understanding, including improved ability to identify smaller objects and interactions.
 
 And the current Ollama distribution provides:
 
@@ -391,7 +392,7 @@ qwen3-vl:32b
 qwen3-vl:235b
 ```
 
-with the local model sizes currently listed by Ollama. :chatgpt-content-reference{index="12"}
+with the local model sizes currently listed by Ollama. 
 
 ---
 
@@ -403,7 +404,7 @@ I'd test these three:
 
 **First choice for Frigate experimentation**
 
-Ollama currently lists the model around **3.3 GB**. :chatgpt-content-reference{index="13"}
+Ollama currently lists the model around **3.3 GB**. 
 
 Good:
 
@@ -418,7 +419,7 @@ Good:
 
 **My likely production choice**
 
-Ollama currently lists it around **6.1 GB**. :chatgpt-content-reference{index="14"}
+Ollama currently lists it around **6.1 GB**.
 
 This gives us substantially more reasoning/vision capacity without becoming ridiculous for a surveillance enrichment workload.
 
@@ -428,7 +429,7 @@ This gives us substantially more reasoning/vision capacity without becoming ridi
 
 **Experiment on the 3090 Ti**
 
-Ollama currently lists approximately **20 GB** for the model. :chatgpt-content-reference{index="15"}
+Ollama currently lists approximately **20 GB** for the model.
 
 Your 3090 Ti has 24 GB VRAM, so this becomes an interesting experiment, although I'd expect considerably less headroom for context, runtime overhead and concurrent workloads.
 
@@ -442,7 +443,7 @@ For your preferred local ecosystem, the primary places are:
 
 ### Ollama
 
-[Ollama model library](https://ollama.com/library?utm_source=chatgpt.com)
+[Ollama model library](https://ollama.com/library)
 
 Example:
 
@@ -456,11 +457,11 @@ or:
 ollama pull qwen3-vl:8b
 ```
 
-Ollama is directly supported by Frigate's GenAI integration. :chatgpt-content-reference{index="17"}
+Ollama is directly supported by Frigate's GenAI integration.
 
 ### Hugging Face
 
-[Hugging Face](https://huggingface.co/?utm_source=chatgpt.com)
+[Hugging Face](https://huggingface.co/)
 
 Useful when we want:
 
@@ -474,7 +475,7 @@ Useful when we want:
 
 Useful when we want maximum control over local inference and multimodal embeddings.
 
-Frigate supports OpenAI-compatible endpoints and specifically documents llama.cpp. :chatgpt-content-reference{index="19"}
+Frigate supports OpenAI-compatible endpoints and specifically documents llama.cpp.
 
 ---
 
@@ -533,7 +534,7 @@ Real-time object detection.
 
 Excellent 24/7 edge appliance.
 
-Frigate explicitly supports Jetson through TensorRT/ONNX and the Jetson media engine. :chatgpt-content-reference{index="20"}
+Frigate explicitly supports Jetson through TensorRT/ONNX and the Jetson media engine.
 
 Your 3090 Ti is exceptionally good at:
 
@@ -586,7 +587,7 @@ A Qwen3-VL 4B model can fit within that memory envelope, but you've got competin
 
 That's a lot.
 
-Frigate itself recommends at least 8 GB available for 7B-class GenAI models, with larger models requiring substantially more memory. :chatgpt-content-reference{index="21"}
+Frigate itself recommends at least 8 GB available for 7B-class GenAI models, with larger models requiring substantially more memory.
 
 So I'd consider Jetson-hosted VLM a **later experiment**, not the foundation.
 
@@ -602,15 +603,15 @@ Current Frigate provides:
 ghcr.io/blakeblackshear/frigate:stable-tensorrt-jp6
 ```
 
-for JetPack 6 Jetson systems. :chatgpt-content-reference{index="22"}
+for JetPack 6 Jetson systems.
 
-Frigate's Jetson TensorRT detector can use the GPU and DLA, and its media engine handles hardware video decoding. :chatgpt-content-reference{index="23"}
+Frigate's Jetson TensorRT detector can use the GPU and DLA, and its media engine handles hardware video decoding.
 
 One caveat:
 
 > **Orin Nano has no hardware video encoder.**
 
-So Frigate can hardware-decode camera video, but encoding is done in software. :chatgpt-content-reference{index="24"}
+So Frigate can hardware-decode camera video, but encoding is done in software.
 
 That's fine for your use case because we're primarily consuming camera streams rather than performing heavy transcoding.
 
@@ -642,7 +643,7 @@ I'd build this:
                  ┌──────────────────┐
                  │  RTX 3090 Ti     │
                  │                  │
-                 │ Ollama            │
+                 │ Ollama           │
                  │ Qwen3-VL 8B      │
                  │ Qwen3-VL 30B     │
                  └────────┬─────────┘
@@ -659,7 +660,7 @@ I'd build this:
              ┌────────────┼─────────────┐
              │            │             │
           Review       Semantic       MQTT
-                         Search          │
+                         Search         │
              │            │             ▼
              │            │        Home Assistant
              │            │             │
@@ -672,7 +673,7 @@ I'd build this:
 
 Frigate has an official Home Assistant integration.
 
-Frigate requires MQTT for the HA integration, and the official integration exposes Frigate cameras/entities to Home Assistant. :chatgpt-content-reference{index="25"}
+Frigate requires MQTT for the HA integration, and the official integration exposes Frigate cameras/entities to Home Assistant.
 
 Then you can build things like:
 
@@ -680,7 +681,7 @@ Then you can build things like:
 Frigate:
 Person at front door
        ↓
-MQTT
+     MQTT
        ↓
 Home Assistant
        ↓
@@ -714,7 +715,7 @@ That's a **huge difference** from a conventional NVR.
 
 Current Frigate has native WebPush notifications.
 
-They use the WebPush/VAPID mechanism and work through supported browsers. :chatgpt-content-reference{index="26"}
+They use the WebPush/VAPID mechanism and work through supported browsers.
 
 The current system supports:
 
@@ -722,7 +723,7 @@ The current system supports:
 - Firefox
 - Safari
 
-with some differences in notification content; for example, Chrome currently supports images in notifications while Safari/Firefox don't. :chatgpt-content-reference{index="27"}
+with some differences in notification content; for example, Chrome currently supports images in notifications while Safari/Firefox don't. 
 
 And Frigate can generate the notification based on its review system.
 
@@ -744,11 +745,11 @@ Frigate can be installed as a **Progressive Web App** on:
 - iOS
 - desktop
 
-It can behave much more like a native application, including deep links. :chatgpt-content-reference{index="28"}
+It can behave much more like a native application, including deep links.
 
 On iOS 16.4+ you can add it to the Home Screen.
 
-On Android, Chrome/Firefox/Edge/etc. can install it. :chatgpt-content-reference{index="29"}
+On Android, Chrome/Firefox/Edge/etc. can install it.
 
 So:
 
@@ -883,7 +884,7 @@ Your architecture eventually looks roughly like:
 | **80/TCP** | Reolink HTTP/FLV |
 | **1935/TCP** | Reolink RTMP/FLV |
 
-Frigate's official Docker installation currently exposes 8971, 8554 and 8555 TCP/UDP for these functions. :chatgpt-content-reference{index="31"}
+Frigate's official Docker installation currently exposes 8971, 8554 and 8555 TCP/UDP for these functions. 
 
 ---
 
@@ -933,7 +934,7 @@ Jetson NVMe
           └── long-term retention
 ```
 
-Frigate's documentation supports network storage architectures, including Home Assistant network-mounted storage. :chatgpt-content-reference{index="32"}
+Frigate's documentation supports network storage architectures, including Home Assistant network-mounted storage. 
 
 For your environment, I'd probably eventually use your **unRAID storage** for long-term video while keeping the Jetson NVMe as the high-performance working layer.
 
@@ -1040,7 +1041,7 @@ And because the Reolink doorbell has the Frigate-supported two-way-talk path, we
 
 **Notification → live video → talk to visitor.**
 
-Frigate explicitly documents the Reolink Doorbell for this workflow. :chatgpt-content-reference{index="33"}
+Frigate explicitly documents the Reolink Doorbell for this workflow.
 
 ---
 
@@ -1056,7 +1057,7 @@ The models include:
 - YOLO-NAS
 - YOLOv9
 
-and are designed specifically for surveillance imagery. :chatgpt-content-reference{index="34"}
+and are designed specifically for surveillance imagery.
 
 Importantly:
 
@@ -1064,7 +1065,7 @@ Importantly:
 
 It's improving the **object detector**, not replacing it with an LLM.
 
-And once the model is downloaded, detection remains local. Frigate says your video feeds aren't sent to the cloud for analysis; only images you explicitly submit to Frigate+ are uploaded. :chatgpt-content-reference{index="35"}
+And once the model is downloaded, detection remains local. Frigate says your video feeds aren't sent to the cloud for analysis; only images you explicitly submit to Frigate+ are uploaded. 
 
 For your privacy-first setup, I'd initially **skip Frigate+** and establish how well the local TensorRT detector performs.
 
