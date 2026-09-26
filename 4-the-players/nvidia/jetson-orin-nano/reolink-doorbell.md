@@ -6,7 +6,7 @@ There is an important correction to my previous answer: **Frigate's own document
 
 For **one Wi-Fi doorbell**, however, I think it is perfectly reasonable — especially if the rest of your cameras are wired EmpireTech/PoE cameras.
 
-[Frigate and Reolink Cameras](https://docs.frigate.video/configuration/camera_specific/#reolink-cameras)
+[Frigate and Reolink Cameras Documentation](https://docs.frigate.video/configuration/camera_specific/#reolink-cameras)
 
 ---
 
@@ -250,7 +250,7 @@ That is very different from having six or eight Wi-Fi cameras.
 
 I interpret your requirement as:
 
-> **The Jetson is the only NVR/AI computer. The doorbell does not require a Reolink/Tapo/Amcrest NVR or hub.**
+> **The Jetson is the only NVR/AI computer. The doorbell does not require a Reolink NVR or hub.**
 
 If that's what you mean, then the answer gets much cleaner:
 
@@ -260,7 +260,7 @@ If that's what you mean, then the answer gets much cleaner:
 
 ---
 
-# My final architecture choice
+# Final architecture choice
 
 I'd actually make your doorbell the **one exception to your otherwise all-EmpireTech camera system**:
 
@@ -297,12 +297,6 @@ I'd actually make your doorbell the **one exception to your otherwise all-Empire
 And I'd configure the **Reolink specifically as Frigate documents it**, rather than treating it like a generic RTSP camera.
 
 That gives us the cleanest path to testing **5MP detection, HTTP-FLV, RTSP, go2rtc, WebRTC, two-way talk, H.264/AAC, TensorRT, MQTT, package detection and local-only operation** on the Jetson.
-
-**So at this point my shortlist is really just:**
-
-> **Reolink Video Doorbell WiFi vs Tapo D235 vs Tapo D225.**
-
-The next useful step would be a **deep, current Reolink-vs-D235-vs-D225 comparison**, including **exact Frigate setup procedure, stream URLs, recommended stream settings, go2rtc configuration, two-way-talk capability, VLAN/firewall requirements, and what features are lost when you isolate each doorbell from the Internet.** That will tell us whether the Reolink's two-way Frigate integration is worth choosing over the Tapo's newer hardware.
 
 Yes. **This is a good design**, and with your FortiGate background I'd segment it fairly aggressively:
 
