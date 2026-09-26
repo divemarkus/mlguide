@@ -1,0 +1,66 @@
+services:
+  frigate:
+    container_name: frigate
+    restart: unless-stopped
+    stop_grace_period: 30s
+
+    image: ghcr.io/blakeblackshear/frigate:stable-tensorrt-jp6
+    runtime: nvidia
+
+    shm_size: "512mb"
+
+    environment:
+      TZ: ${TZ:-America/Los_Angeles}
+
+      # TensorRT model generated ON THIS JETSON.
+      # Do not copy a .trt engine from the RTX 3090 Ti.
+      YOLO_MODELS: ${YOLO_MODELS:-yolov7-320}
+
+      # Keep true for the Orin Nano Super's normal FP16 path.
+      USE_FP16: ${USE_FP16:-true}
+
+      # Camera / MQTT variables used by config.yml.
+      FRIGATE_EMPIRETECH_USER: ${FRIGATE_EMPIRETECH_USER}
+      FRIGATE_EMPIRETECH_PASSWORD: ${FRIGATE_EMPIRETECH_PASSWORD}
+      FRIGATE_REOLINK_USER: ${FRIGATE_REOLINK_USER}
+      FRIGATE_REOLINK_PASSWORD: ${FRIGATE_REOLINK_PASSWORD}
+      FRIGATE_MQTT_HOST: ${FRIGATE_MQTT_HOST}
+      FRIGATE_MQTT_USER: ${FRIGATE_MQTT_USER}
+      FRIGATE_MQTT_PASSWORD: ${FRIGATE_MQTT_PASSWORD}
+
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /srv/frigate/config:/config
+      - /srv/frigate/media:/media/frigate
+
+      # Temporary recording segment cache.
+      # Reduces unnecessary NVMe writes.
+      - type: tmpfs
+        target: /tmp/cache
+        tmpfs:
+          size: 1000000000
+
+    ports:
+      # Authenticated Frigate UI/API.
+      - "8971:8971"
+
+      # go2rtc RTSP restream.
+      - "8554:8554"
+
+      # go2rtc WebRTC.
+      - "8555:8555/tcp"
+      - "8555:8555/udp"
+
+    # MQTT is normally an external/shared service in the home lab.
+    # Do NOT publish camera VLAN services from the Jetson.
+    #
+    # Network segmentation is enforced by the FortiGate:
+    #
+    #   Server VLAN  --> Camera VLAN
+    #       Jetson   --> EmpireTech / Reolink
+    #
+    #   Server VLAN  --> MQTT VLAN / broker
+    #       Jetson   --> MQTT
+    #
+    #   Camera VLAN  -X-> Server VLAN
+    #       Cameras cannot initiate arbitrary connections to Jetson.

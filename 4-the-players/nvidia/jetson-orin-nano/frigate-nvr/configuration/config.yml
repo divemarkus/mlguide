@@ -1,0 +1,394 @@
+# ============================================================
+# Frigate NVR - Jetson Orin Nano Super
+#
+# Architecture:
+#
+#   CAMERA VLAN
+#      |
+#      +-- EmpireTech RTSP
+#      |
+#      +-- Reolink Video Doorbell WiFi
+#              |
+#              | HTTP-FLV + RTSP secondary
+#              v
+#   FORTIGATE
+#      |
+#   SERVER VLAN
+#      |
+#      +-- Jetson Orin Nano Super
+#             |
+#             +-- Frigate
+#             +-- go2rtc
+#             +-- TensorRT
+#             +-- MQTT client
+#             +-- NVMe recording
+#
+# IMPORTANT:
+#   Replace the camera IP addresses below.
+#   Credentials come from Docker environment variables.
+# ============================================================
+
+
+# ------------------------------------------------------------
+# MQTT
+# ------------------------------------------------------------
+#
+# Use your existing/shared MQTT broker rather than adding
+# another broker to the Jetson unless you specifically want
+# Mosquitto local to the NVR.
+#
+mqtt:
+  enabled: true
+  host: "{FRIGATE_MQTT_HOST}"
+  port: 1883
+  user: "{FRIGATE_MQTT_USER}"
+  password: "{FRIGATE_MQTT_PASSWORD}"
+  topic_prefix: frigate
+
+
+# ------------------------------------------------------------
+# TensorRT detector
+# ------------------------------------------------------------
+#
+# YOLO_MODELS=yolov7-320 in docker-compose.yml causes Frigate
+# to generate the TensorRT engine on this Jetson and cache it
+# under /config/model_cache.
+#
+# 320x320 is intentionally the starting point. We can benchmark
+# yolov7-416 / 640 later.
+#
+detectors:
+  tensorrt:
+    type: tensorrt
+    device: 0
+
+model:
+  path: /config/model_cache/tensorrt/yolov7-320.trt
+  labelmap_path: /labelmap/coco-80.txt
+  input_tensor: nchw
+  input_pixel_format: rgb
+  width: 320
+  height: 320
+
+
+# ------------------------------------------------------------
+# Global FFmpeg
+# ------------------------------------------------------------
+#
+# Per-camera presets are specified below because the EmpireTech
+# and Reolink streams can use different codecs/protocols.
+#
+ffmpeg:
+  retry_interval: 10
+
+
+# ------------------------------------------------------------
+# go2rtc
+# ------------------------------------------------------------
+#
+# Frigate listens to these local restreams instead of opening
+# multiple independent connections to each camera.
+#
+# EmpireTech:
+#   Dahua-compatible RTSP paths:
+#     subtype=0 -> main stream
+#     subtype=1 -> substream
+#
+# Reolink Doorbell:
+#   HTTP-FLV main stream is preferred for stability.
+#   The secondary RTSP stream is retained for two-way audio /
+#   WebRTC compatibility.
+#
+go2rtc:
+
+  streams:
+
+    # ========================================================
+    # EmpireTech Front Yard
+    # ========================================================
+    #
+    # CHANGE 192.168.60.20 to the camera's actual CAMERA VLAN IP.
+    #
+    empiretech_front_yard_main:
+      - "rtsp://{FRIGATE_EMPIRETECH_USER}:{FRIGATE_EMPIRETECH_PASSWORD}@192.168.60.20:554/cam/realmonitor?channel=1&subtype=0"
+
+    empiretech_front_yard_sub:
+      - "rtsp://{FRIGATE_EMPIRETECH_USER}:{FRIGATE_EMPIRETECH_PASSWORD}@192.168.60.20:554/cam/realmonitor?channel=1&subtype=1"
+
+
+    # ========================================================
+    # Reolink Video Doorbell WiFi
+    # ========================================================
+    #
+    # CHANGE 192.168.60.30 to the actual doorbell IP.
+    #
+    # Main:
+    # HTTP-FLV provides the stable video/audio path.
+    #
+    # Secondary RTSP:
+    # Used by go2rtc for WebRTC / two-way audio support.
+    #
+    reolink_doorbell:
+      - "ffmpeg:http://192.168.60.30/flv?port=1935&app=bcs&stream=channel0_main.bcs&user={FRIGATE_REOLINK_USER}&password={FRIGATE_REOLINK_PASSWORD}#video=copy#audio=copy#audio=opus"
+      - "rtsp://{FRIGATE_REOLINK_USER}:{FRIGATE_REOLINK_PASSWORD}@192.168.60.30:554/Preview_01_sub"
+
+    reolink_doorbell_sub:
+      - "ffmpeg:http://192.168.60.30/flv?port=1935&app=bcs&stream=channel0_ext.bcs&user={FRIGATE_REOLINK_USER}&password={FRIGATE_REOLINK_PASSWORD}"
+
+
+  # ----------------------------------------------------------
+  # WebRTC
+  # ----------------------------------------------------------
+  #
+  # CHANGE 192.168.50.10 to the Jetson's SERVER VLAN address.
+  #
+  # If you later access Frigate remotely through VPN, we can
+  # add the VPN-side candidate as well.
+  #
+  webrtc:
+    candidates:
+      - 192.168.50.10:8555
+
+
+# ------------------------------------------------------------
+# Camera defaults
+# ------------------------------------------------------------
+#
+# Detect at a lower resolution/FPS than recording.
+#
+# The Jetson's TensorRT detector does not need 4K frames for
+# normal person/car detection.
+#
+detect:
+  enabled: true
+  fps: 5
+
+
+# ------------------------------------------------------------
+# Object tracking
+# ------------------------------------------------------------
+
+objects:
+  track:
+    - person
+    - car
+    - bicycle
+    - motorcycle
+    - dog
+    - cat
+    - package
+
+
+# ------------------------------------------------------------
+# Recording
+# ------------------------------------------------------------
+#
+# Initial policy:
+#
+#   1 day continuous
+#   7 days motion
+#   30 days alert/detection
+#
+# We can tune this after calculating actual NVMe consumption
+# from your camera bitrates.
+#
+record:
+  enabled: true
+
+  continuous:
+    days: 1
+
+  motion:
+    days: 7
+
+  alerts:
+    retain:
+      days: 30
+      mode: motion
+
+  detections:
+    retain:
+      days: 30
+      mode: motion
+
+
+# ------------------------------------------------------------
+# Review
+# ------------------------------------------------------------
+
+review:
+  alerts:
+    labels:
+      - person
+      - car
+      - bicycle
+      - motorcycle
+      - package
+
+  detections:
+    labels:
+      - person
+      - car
+      - bicycle
+      - motorcycle
+      - package
+
+
+# ------------------------------------------------------------
+# Snapshots
+# ------------------------------------------------------------
+
+snapshots:
+  enabled: true
+  retain:
+    default: 30
+
+
+# ------------------------------------------------------------
+# Camera 1 - EmpireTech
+# ------------------------------------------------------------
+#
+# IMPORTANT:
+# Set the EmpireTech camera itself to H.264 initially.
+#
+# Main stream:
+#   high quality -> recording
+#
+# Substream:
+#   lower resolution -> detection
+#
+# This lets the Jetson use NVDEC for both streams.
+#
+# If you later choose H.265 for the main stream, change the
+# main input's hwaccel_args to preset-jetson-h265.
+#
+cameras:
+
+  empiretech_front_yard:
+
+    enabled: true
+
+    ffmpeg:
+      inputs:
+
+        # ----------------------------------------------
+        # Main stream - recording
+        # ----------------------------------------------
+        - path: rtsp://127.0.0.1:8554/empiretech_front_yard_main
+          input_args: preset-rtsp-restream
+          hwaccel_args: preset-jetson-h264
+          roles:
+            - record
+
+        # ----------------------------------------------
+        # Substream - detection
+        # ----------------------------------------------
+        - path: rtsp://127.0.0.1:8554/empiretech_front_yard_sub
+          input_args: preset-rtsp-restream
+          hwaccel_args: preset-jetson-h264
+          roles:
+            - detect
+
+    detect:
+      enabled: true
+      # Adjust after checking the actual EmpireTech substream.
+      width: 704
+      height: 480
+      fps: 5
+
+    objects:
+      track:
+        - person
+        - car
+        - bicycle
+        - motorcycle
+        - dog
+        - cat
+        - package
+
+
+  # ========================================================
+  # Reolink Video Doorbell WiFi
+  # ========================================================
+  #
+  # The main HTTP-FLV stream is used for recording.
+  # The ext/sub stream is used for detection.
+  #
+  # The secondary RTSP stream remains in go2rtc for the
+  # doorbell's two-way audio/WebRTC path.
+  #
+  reolink_doorbell:
+
+    enabled: true
+
+    ffmpeg:
+      inputs:
+
+        # ----------------------------------------------
+        # Main stream - recording
+        # ----------------------------------------------
+        - path: rtsp://127.0.0.1:8554/reolink_doorbell
+          input_args: preset-rtsp-restream
+          hwaccel_args: preset-jetson-h264
+          roles:
+            - record
+            - audio
+
+        # ----------------------------------------------
+        # Lower stream - detection
+        # ----------------------------------------------
+        - path: rtsp://127.0.0.1:8554/reolink_doorbell_sub
+          input_args: preset-rtsp-restream
+          hwaccel_args: preset-jetson-h264
+          roles:
+            - detect
+
+    detect:
+      enabled: true
+
+      # These MUST be changed after we confirm the actual
+      # Doorbell stream dimensions.
+      width: 640
+      height: 480
+      fps: 5
+
+    objects:
+      track:
+        - person
+        - car
+        - bicycle
+        - motorcycle
+        - dog
+        - cat
+        - package
+
+
+# ------------------------------------------------------------
+# Birdseye
+# ------------------------------------------------------------
+
+birdseye:
+  enabled: true
+  mode: objects
+
+
+# ------------------------------------------------------------
+# Camera groups
+# ------------------------------------------------------------
+
+camera_groups:
+
+  exterior:
+    order:
+      - empiretech_front_yard
+      - reolink_doorbell
+
+
+# ------------------------------------------------------------
+# Version
+# ------------------------------------------------------------
+#
+# Do not add a hard-coded Frigate config version here unless
+# the installed Frigate release requires it. Current Frigate
+# configuration uses the schema without requiring us to pin
+# an old version number.
