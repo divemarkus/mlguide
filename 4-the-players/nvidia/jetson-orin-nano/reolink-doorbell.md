@@ -1,33 +1,16 @@
-# Reolink Wi-Fi Doorbell
+# 🥇 1. Reolink Video Doorbell WiFi
 
 After going through the **current Frigate documentation and the manufacturers' current documentation**, I would narrow the Wi-Fi choices considerably.
 
-There is an important correction to my previous answer: **Frigate's own documentation is considerably less enthusiastic about Wi-Fi cameras than I made it sound.** Frigate explicitly says Wi-Fi cameras are not recommended because their streams are more susceptible to connection loss and dropped video, particularly as the number of Wi-Fi cameras increases. :chatgpt-content-reference{index="0"}
+There is an important correction to my previous answer: **Frigate's own documentation is considerably less enthusiastic about Wi-Fi cameras than I made it sound.** Frigate explicitly says Wi-Fi cameras are not recommended because their streams are more susceptible to connection loss and dropped video, particularly as the number of Wi-Fi cameras increases.
 
 For **one Wi-Fi doorbell**, however, I think it is perfectly reasonable — especially if the rest of your cameras are wired EmpireTech/PoE cameras.
 
-## The shortlist I'd use
-
-| Model | Wi-Fi | RTSP | ONVIF | Frigate integration | 24/7 local recording | 2-way talk in Frigate | My assessment |
-|---|---|---|---|---|---|---|---|
-| **Reolink Video Doorbell WiFi** | 2.4/5 GHz | ✅ | ✅ | **Excellent** | ✅ | **✅** | **#1** |
-| **Tapo D235** | 2.4 GHz | ✅* | ✅* | Very good | ✅* | ❌ | **#2** |
-| **Tapo D225** | 2.4 GHz | ✅* | ✅* | Very good | ✅* | ❌ | **#3** |
-| **Tapo TD25** | 2.4 GHz | ✅* | ⚠️ | Good | ✅* | ❌ | Interesting |
-| **Amcrest AD410** | Wi-Fi | RTSP | ONVIF | Good | ✅ | Limited/complex | Legacy option |
-
-\*Tapo D235/D225/TD25 require **hardwired power + jumper + Always-On mode** for RTSP. TP-Link's current documentation explicitly states this. :chatgpt-content-reference{index="1"}
-
-And that requirement changes my ranking quite a bit.
+[Frigate and Reolink Cameras](https://docs.frigate.video/configuration/camera_specific/#reolink-cameras)
 
 ---
 
-# 🥇 1. Reolink Video Doorbell WiFi
-
-This is the one I would buy for **your Jetson/Frigate project**.
-
-
-### Why it stands out
+## Why it stands out
 
 The current Reolink Wi-Fi doorbell has:
 
@@ -51,11 +34,11 @@ The current Reolink Wi-Fi doorbell has:
 - 24/7 recording
 - IP65
 
-Reolink's current documentation confirms all of those network protocols and the dual-band Wi-Fi capability. :chatgpt-content-reference{index="3"}
+Reolink's current documentation confirms all of those network protocols and the dual-band Wi-Fi capability.
 
 ### The 5MP resolution is particularly important
 
-Frigate specifically recommends **5MP and below for Reolink** because of the known issues with higher-resolution Reolink cameras. :chatgpt-content-reference{index="4"}
+Frigate specifically recommends **5MP and below for Reolink** because of the known issues with higher-resolution Reolink cameras.
 
 So the doorbell lands almost perfectly in Frigate's preferred Reolink territory:
 
@@ -71,7 +54,7 @@ Frigate currently says:
 
 > **5MP or lower → HTTP-FLV**
 
-rather than automatically using RTSP. :chatgpt-content-reference{index="5"}
+rather than automatically using RTSP.
 
 That's because Frigate has found the HTTP video streams to be more reliable on many Reolink models.
 
@@ -100,7 +83,7 @@ The wizard queries the camera and automatically chooses:
 > 5MP → RTSP / HTTP-FLV depending on generation
 ```
 
-Frigate then validates the stream. :chatgpt-content-reference{index="6"}
+Frigate then validates the stream.
 
 That's a **big advantage** for you because you don't have to manually construct the initial YAML.
 
@@ -129,7 +112,7 @@ This is where I'd configure your doorbell:
                                Frigate
 ```
 
-Frigate itself recommends separate streams for detection and recording where possible. :chatgpt-content-reference{index="7"}
+Frigate itself recommends separate streams for detection and recording where possible.
 
 For your Jetson, this is ideal.
 
@@ -156,7 +139,7 @@ H.264
 
 and let Frigate detect at around **5 FPS**.
 
-Frigate says 5 FPS is the appropriate default for almost all cameras. :chatgpt-content-reference{index="8"}
+Frigate says 5 FPS is the appropriate default for almost all cameras.
 
 ---
 
@@ -166,7 +149,7 @@ Frigate says 5 FPS is the appropriate default for almost all cameras. :chatgpt-c
 
 This is where I think the Reolink decisively separates itself from the Tapo alternatives.
 
-Frigate specifically documents **Reolink Doorbell two-way talk**. :chatgpt-content-reference{index="9"}
+Frigate specifically documents **Reolink Doorbell two-way talk**.
 
 The architecture is slightly unusual.
 
@@ -182,7 +165,7 @@ But:
 
 for the two-way-talk path.
 
-Frigate's documentation explicitly says the RTSP stream can be added separately for two-way audio, and that it **must not be prefixed with `ffmpeg:`**, because go2rtc needs to handle it directly. :chatgpt-content-reference{index="10"}
+Frigate's documentation explicitly says the RTSP stream can be added separately for two-way audio, and that it **must not be prefixed with `ffmpeg:`**, because go2rtc needs to handle it directly.
 
 So your eventual configuration will look conceptually like:
 
@@ -213,7 +196,7 @@ With go2rtc + WebRTC configured, Frigate can provide:
 - full-resolution viewing
 - camera controls
 
-Frigate specifically says two-way talk requires a supported camera and WebRTC, and calls out the Reolink Doorbell configuration. :chatgpt-content-reference{index="11"}
+Frigate specifically says two-way talk requires a supported camera and WebRTC, and calls out the Reolink Doorbell configuration.
 
 So you could eventually have:
 
@@ -233,7 +216,7 @@ This is worth emphasizing.
 
 Frigate itself says:
 
-> Wi-Fi cameras are not recommended because streams are less reliable and can experience connection loss/lost video data. :chatgpt-content-reference{index="24"}
+> Wi-Fi cameras are not recommended because streams are less reliable and can experience connection loss/lost video data.
 
 So I would architect your system like this:
 
@@ -347,7 +330,7 @@ And **you do not need to put the Jetson on the same VLAN as the doorbell**.
 
 In fact, I'd prefer it this way.
 
-The important discovery from the current Reolink and Frigate documentation is that the **Reolink Video Doorbell WiFi is a standalone RTSP/ONVIF device**. Reolink's current product documentation lists RTSP, RTMP and ONVIF for the Wi-Fi doorbell, and its current firmware page shows firmware updated in June 2026. :chatgpt-content-reference{index="0"}
+The important discovery from the current Reolink and Frigate documentation is that the **Reolink Video Doorbell WiFi is a standalone RTSP/ONVIF device**. Reolink's current product documentation lists RTSP, RTMP and ONVIF for the Wi-Fi doorbell, and its current firmware page shows firmware updated in June 2026.
 
 ---
 
@@ -359,9 +342,9 @@ Frigate's current Reolink documentation recommends:
 
 **5MP or lower → HTTP-FLV**
 
-and specifically says the HTTP video stream tends to be more reliable than RTSP for Reolink. The current Frigate configuration wizard will therefore select HTTP-FLV for a 5MP Reolink camera. :chatgpt-content-reference{index="1"}
+and specifically says the HTTP video stream tends to be more reliable than RTSP for Reolink. The current Frigate configuration wizard will therefore select HTTP-FLV for a 5MP Reolink camera.
 
-For two-way talk, however, Frigate adds a **secondary RTSP connection** to go2rtc. Frigate explicitly documents this architecture for Reolink cameras. :chatgpt-content-reference{index="2"}
+For two-way talk, however, Frigate adds a **secondary RTSP connection** to go2rtc. Frigate explicitly documents this architecture for Reolink cameras. 
 
 So your network traffic will look roughly like:
 
@@ -622,7 +605,7 @@ WAN → TCP/80
 
 Nothing.
 
-Reolink's documentation discusses forwarding these ports for remote IP access, but **you don't want that architecture** for your installation. :chatgpt-content-reference{index="5"}
+Reolink's documentation discusses forwarding these ports for remote IP access, but **you don't want that architecture** for your installation.
 
 Instead:
 
@@ -783,7 +766,7 @@ The architecture is:
               Browser
 ```
 
-Frigate says WebRTC requires HTTPS access to Frigate and may require opening the appropriate ports depending on your deployment. :chatgpt-content-reference{index="10"}
+Frigate says WebRTC requires HTTPS access to Frigate and may require opening the appropriate ports depending on your deployment.
 
 So that's a **separate firewall problem**:
 
@@ -950,7 +933,7 @@ so you can:
 8. Test the stream.
 9. Remove the admin rule.
 
-Reolink's current documentation says the relevant RTSP/ONVIF/HTTP services can be enabled/configured under the camera's **Advanced Network Settings → Server Settings**. :chatgpt-content-reference{index="11"}
+Reolink's current documentation says the relevant RTSP/ONVIF/HTTP services can be enabled/configured under the camera's **Advanced Network Settings → Server Settings**.
 
 ---
 
@@ -1043,10 +1026,7 @@ For the **Reolink Video Doorbell WiFi specifically**, I'd start with this:
 
 **No port forwarding from WAN.**
 
-And I would **not allow TCP/9000 unless we discover that a specific feature of your doorbell actually needs it**. Reolink documents 9000 as the Basic Service port, but Frigate's current recommended Reolink pipeline does not require it. :chatgpt-content-reference{index="12"}
+And I would **not allow TCP/9000 unless we discover that a specific feature of your doorbell actually needs it**. Reolink documents 9000 as the Basic Service port, but Frigate's current recommended Reolink pipeline does not require it. 
 
-One other important detail: the current Reolink page for the **Video Doorbell WiFi** confirms it has both 2.4/5 GHz Wi-Fi and a physical LAN port, and supports 24/7 recording, RTSP, RTMP and ONVIF. :chatgpt-content-reference{index="13"}
+One other important detail: the current Reolink page for the **Video Doorbell WiFi** confirms it has both 2.4/5 GHz Wi-Fi and a physical LAN port, and supports 24/7 recording, RTSP, RTMP and ONVIF. 
 
-**So yes: VLAN separation is absolutely fine, and I'd consider it the preferred architecture for your setup.**
-
-If you give me your **actual VLAN IDs/subnets and the FortiGate model/RouterOS-like interface naming you use** (e.g. `VLAN10_SERVERS`, `VLAN50_CAMERAS`, etc.), I can lay out the **exact FortiGate address objects, custom services, policy order, and CLI configuration** for the Reolink → Jetson path.
