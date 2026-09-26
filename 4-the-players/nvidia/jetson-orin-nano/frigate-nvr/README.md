@@ -275,7 +275,7 @@ Frigate stores structured information including:
 - concerns
 - potential threat level
 
-and makes it available in the UI and notifications. :chatgpt-content-reference{index="6"}
+and makes it available in the UI and notifications.
 
 That's substantially more useful than:
 
