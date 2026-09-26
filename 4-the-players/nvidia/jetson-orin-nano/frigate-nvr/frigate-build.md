@@ -1854,7 +1854,7 @@ client.loop_forever()
 
 ---
 
-# 🧠 9. What This Setup Does Well
+# 🧠 7. What This Setup Does Well
 
 ## 🟢 Strengths
 
