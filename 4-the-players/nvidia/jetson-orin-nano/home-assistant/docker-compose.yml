@@ -1,0 +1,141 @@
+version: "3.9"
+services:
+
+  # ============================================================
+  # HOME ASSISTANT
+  # ============================================================
+  #
+  # Home Assistant Container
+  #
+  # Host networking is intentional.
+  #
+  # Benefits:
+  #   - Better device discovery
+  #   - mDNS / Zeroconf support
+  #   - Simplifies access to devices on the LAN
+  #   - HA listens directly on port 8123
+  #
+  # Home Assistant does NOT require the NVIDIA runtime.
+  #
+  # ============================================================
+
+  homeassistant:
+    container_name: homeassistant
+    restart: unless-stopped
+    stop_grace_period: 60s
+
+    image: ghcr.io/home-assistant/home-assistant:stable
+
+    network_mode: host
+
+    environment:
+      TZ: ${TZ:-America/Los_Angeles}
+
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /srv/homeassistant/config:/config
+
+
+  # ============================================================
+  # FRIGATE NVR
+  # ============================================================
+  #
+  # Jetson-specific Frigate build:
+  #
+  #   JetPack 6
+  #   TensorRT
+  #   NVIDIA runtime
+  #
+  # IMPORTANT:
+  # The TensorRT engine must be generated for THIS Jetson.
+  # Do not copy a .trt engine from the RTX 3090 Ti.
+  #
+  # ============================================================
+
+  frigate:
+    container_name: frigate
+    restart: unless-stopped
+    stop_grace_period: 30s
+
+    image: ghcr.io/blakeblackshear/frigate:stable-tensorrt-jp6
+    runtime: nvidia
+
+    shm_size: "512mb"
+
+    environment:
+      TZ: ${TZ:-America/Los_Angeles}
+
+      # TensorRT model generated ON THIS JETSON.
+      # Do not copy a .trt engine from the RTX 3090 Ti.
+      YOLO_MODELS: ${YOLO_MODELS:-yolov7-320}
+
+      # Keep true for the Orin Nano Super's normal FP16 path.
+      USE_FP16: ${USE_FP16:-true}
+
+      # Camera / MQTT variables used by config.yml.
+      FRIGATE_EMPIRETECH_USER: ${FRIGATE_EMPIRETECH_USER}
+      FRIGATE_EMPIRETECH_PASSWORD: ${FRIGATE_EMPIRETECH_PASSWORD}
+
+      FRIGATE_REOLINK_USER: ${FRIGATE_REOLINK_USER}
+      FRIGATE_REOLINK_PASSWORD: ${FRIGATE_REOLINK_PASSWORD}
+
+      FRIGATE_MQTT_HOST: ${FRIGATE_MQTT_HOST}
+      FRIGATE_MQTT_USER: ${FRIGATE_MQTT_USER}
+      FRIGATE_MQTT_PASSWORD: ${FRIGATE_MQTT_PASSWORD}
+
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+
+      # Frigate configuration
+      - /srv/frigate/config:/config
+
+      # Frigate recordings / clips / snapshots
+      - /srv/frigate/media:/media/frigate
+
+      # Temporary recording segment cache.
+      # Reduces unnecessary NVMe writes.
+      - type: tmpfs
+        target: /tmp/cache
+        tmpfs:
+          size: 1000000000
+
+    ports:
+
+      # --------------------------------------------------------
+      # Authenticated Frigate UI/API
+      # --------------------------------------------------------
+      - "8971:8971"
+
+      # --------------------------------------------------------
+      # go2rtc RTSP restream
+      # --------------------------------------------------------
+      - "8554:8554"
+
+      # --------------------------------------------------------
+      # go2rtc WebRTC
+      # --------------------------------------------------------
+      - "8555:8555/tcp"
+      - "8555:8555/udp"
+
+    # ==========================================================
+    # NETWORK ARCHITECTURE
+    # ==========================================================
+    #
+    # The Jetson is on the Server VLAN.
+    #
+    # FortiGate controls inter-VLAN access:
+    #
+    #   Server VLAN  --> Camera VLAN
+    #       Jetson   --> EmpireTech / Reolink
+    #
+    #   Server VLAN  --> MQTT VLAN / broker
+    #       Jetson   --> MQTT
+    #
+    #   Camera VLAN  -X-> Server VLAN
+    #       Cameras cannot initiate arbitrary connections
+    #       toward the Jetson.
+    #
+    # MQTT is intentionally NOT deployed in this Compose file.
+    # The home lab uses an external/shared MQTT broker.
+    #
+    # ==========================================================
