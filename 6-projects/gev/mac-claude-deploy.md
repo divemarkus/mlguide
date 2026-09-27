@@ -3,9 +3,11 @@
 - [Using ClaudeCode - Ollama - macOS](../../2-the-runner/ollama/claudecode/README.md)
 - Read, inspect, satisfy prerequisites, deploy - all using local AI on M1 Macbook Pro
 
+> Clone the repo and cd to directory before launching claude
+
 <img width="1691" height="984" alt="Screenshot 2026-09-27 at 1 55 16 AM" src="https://github.com/user-attachments/assets/70cdebf6-a61c-488f-9372-9fd1855078e3" />
 
-> Clone the repo first before launching claude
+> Satisfy prerequisites
 
 <img width="1107" height="986" alt="Screenshot 2026-09-27 at 1 57 10 AM" src="https://github.com/user-attachments/assets/7f4ac60b-f1e1-4587-94b3-7f07af241852" />
 
