@@ -1,6 +1,6 @@
 # GEV - God’s Eye View
 
-Yes — **God’s Eye View is worth trying**, especially for you. Given your networking/infrastructure background and interest in OSINT, local AI, agents, and self-hosting, I would treat it as an **OSINT/spatial-intelligence visualization platform**, not merely a flashy globe demo.
+**God’s Eye View is worth trying**, especially for you. Given your networking/infrastructure background and interest in OSINT, local AI, agents, and self-hosting, I would treat it as an **OSINT/spatial-intelligence visualization platform**, not merely a flashy globe demo.
 
 ![Image](https://images.openai.com/static-rsc-4/c0VYKPDmtPt-2ydrtiaqoF2X6Qv8ewgfBNs6denD3JLZYOEtXg9Vj6bz1xBM9kkarqsYieTtnz5ue_ESfmhNBkisgMg8ywCOhQhDqiuDwF4wYPEcCU4xSy79U8tpxKMNT-Cay6AB1bCzLPM0VRAQ98vdvQZTdD1NnpISfAUlB2l8XtOssF4XLzzpe0P9j9ho?purpose=fullsize)
 
