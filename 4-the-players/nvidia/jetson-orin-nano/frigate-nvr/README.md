@@ -8,6 +8,8 @@ That distinction is actually one of the reasons Frigate fits your Jetson project
 
 And with your hardware, I would build it as **Jetson = NVR + real-time detector**, while your **RTX 3090 Ti = optional heavyweight local VLM/LLM server**. That gives you a much more capable architecture than trying to make the 8GB Jetson do everything.
 
+<img width="1221" height="689" alt="chrome_U15eeq7GVp" src="https://github.com/user-attachments/assets/097d7750-5f07-4729-8b35-512605724c48" />
+
 ---
 
 # 1. What exactly is Frigate?
