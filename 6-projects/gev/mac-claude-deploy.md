@@ -4,6 +4,7 @@
 - Read, inspect, satisfy prerequisites, deploy - all using local AI on M1 Macbook Pro
 
 > Clone the repo and cd to directory before launching claude
+> Type "Read this repo. Learn how I can install this App without using Pinokio. I hae node version 26, running on M1 Macbook Pro 32GB Unified Memory."
 
 <img width="1691" height="984" alt="Screenshot 2026-09-27 at 1 55 16 AM" src="https://github.com/user-attachments/assets/70cdebf6-a61c-488f-9372-9fd1855078e3" />
 
