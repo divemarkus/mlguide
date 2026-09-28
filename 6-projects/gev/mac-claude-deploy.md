@@ -1,6 +1,6 @@
 # Using Local ClaudeCode to deploy GEV
 
-- [Using ClaudeCode - Ollama - macOS](../../2-the-runner/ollama/claudecode/README.md)
+- [Using ClaudeCode - Ollama - macOS](../../3-the-agent/claudecode/README.md)
 - Read, inspect, satisfy prerequisites, deploy - all using local AI on M1 Macbook Pro
 
 > node --version (v26.0.0)
