@@ -3,7 +3,11 @@
 - [Using ClaudeCode - Ollama - macOS](../../2-the-runner/ollama/claudecode/README.md)
 - Read, inspect, satisfy prerequisites, deploy - all using local AI on M1 Macbook Pro
 
-> Clone the repo and cd to directory before launching claude. 
+> node --version (v26.0.0)
+
+> Clone the repo: git clone git@github.com:bilawalsidhu/gods-eye-view.git
+
+> cd to directory before launching claude: cd gods-eye-view
 
 > ollama launch claude --model qwen3.5:35b-a3b-coding-nvfp4
 
@@ -27,4 +31,4 @@
 <img width="1721" height="1074" alt="Screenshot 2026-09-27 at 1 59 40 AM" src="https://github.com/user-attachments/assets/ead08bad-3d79-4861-8614-aca4e51447a5" />
 
 
-> Play around and add API keys manually later. You can pretty much use your local ClaudeCode to inspect repos, ask security risks, prerequisites, and deploy!
+> Play around and add API keys manually later. You can pretty much use your local Claude to inspect repos, ask security risks, satisfy prerequisites, and deploy!
