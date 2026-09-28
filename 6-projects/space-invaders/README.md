@@ -1,6 +1,6 @@
-# Space Invaders - Cloned - Modernized - Local ClaudeCode
+# Space Invaders - Cloned - Modernized - Local Coding Agent
 
-- Macbook M1 Pro, 32GB - Ollama - ClaudeCode
+- Macbook Pro M1 32GB + Ollama + ClaudeCode + qwen3.5:35b-a3b-coding-nvfp4
 - Runtime: 15 mins code update + 5 mins push to new github repo
 - [Original write-up on local AI](../../2-the-runner/ollama/claudecode/README.md)
 
