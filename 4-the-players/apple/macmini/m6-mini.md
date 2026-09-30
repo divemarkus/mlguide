@@ -1,5 +1,7 @@
 # Apple Mac Mini - M6 32GB 1TB
 
+<img width="1672" height="941" alt="Apple-MacMini-M632GB" src="https://github.com/user-attachments/assets/f3e2aaf3-80e8-4238-ba88-89f021ae122b" />
+
 
 This is the architecture I’d use for your Mac mini M6 32GB / 1TB as a dedicated local-AI control plane. The key design is to separate models → runners → agents → applications, rather than treating Ollama/LM Studio/etc. as the AI itself.
 
