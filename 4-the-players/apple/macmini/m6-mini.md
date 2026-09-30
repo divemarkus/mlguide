@@ -7,12 +7,15 @@ This is the architecture I’d use for your Mac mini M6 32GB / 1TB as a dedicate
 
 Your existing ML guide already uses this same conceptual model: models are the “brain,” runners are the “body,” and agent frameworks are the “nervous system.”
 
-Local AI architecture
+## Local AI architecture
+
 The infographic puts oMLX as the primary M6 runner, with Ollama and LM Studio alongside it. That's particularly relevant because oMLX is currently designed specifically around Apple Silicon/MLX, supports MLX-format Hugging Face models, and adds persistent SSD-backed KV caching that can be useful for coding agents.
 
 MLX is the underlying Apple-native ML foundation: it is optimized for Apple Silicon's unified-memory architecture and can run computation across CPU/GPU without the traditional device-memory transfers.
 
 For your use case, I'd think of the stack like this:
+
+```text
                          ┌──────────────────────────────┐
                          │       MAC MINI M6            │
                          │       32 GB / 1 TB           │
@@ -46,21 +49,27 @@ For your use case, I'd think of the stack like this:
                          │ RAG / Knowledge        │
                          │ Automation             │
                          └────────────────────────┘
-						 
-One important architectural point
+```
+
+## One important architectural point
+
 I would not try to make the Mac mini do everything.
 
 Your existing Jetson Orin Nano Super remains an excellent edge/Frigate machine. Your project documentation already positions it specifically for Frigate and edge ML workloads.
 
 So I'd make the LAN architecture:
-Jetson → cameras / Frigate → Home Assistant → Mac mini AI
-while:
-Mac mini → LLMs / agents / voice / coding / generation
+
+- Jetson → cameras / Frigate → Home Assistant → Mac mini AI
+- Mac mini → LLMs / agents / voice / coding / generation
+
 That gives you a distributed local-AI system rather than one overloaded machine.
+
 And the nice part is that MLX is increasingly designed for exactly this kind of Apple-Silicon environment; Apple demonstrated distributed inference/training across multiple Macs at WWDC26. YouTube
-Your eventual AI hierarchy
+
+## Your eventual AI hierarchy
+
 | Layer | Your Mac mini |
-|---|---|
+| --- | --- |
 | **Hardware** | M6 / 32GB unified memory / 1TB |
 | **ML framework** | **MLX** |
 | **Primary runner** | **oMLX** |
