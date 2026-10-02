@@ -2,7 +2,7 @@
 
 ## Scenario
 
-> Ordered this [RayNeo AR Glasses](../7-augmented-virtual/ar-glasses/final-comparison.md) and after liking them, ordered two accessories
+> Ordered this [RayNeo AR Glasses](../07-augmented-virtual/ar-glasses/final-comparison.md) and after liking them, ordered two accessories
 
 > I did NOT pay attention to check-out and didn't realized what happened. After several days I received two of same accessories vs one of each.
 
