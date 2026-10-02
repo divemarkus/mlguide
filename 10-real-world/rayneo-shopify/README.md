@@ -51,10 +51,14 @@ Codex's current browser capabilities specifically support testing website flows,
 
 > I guess we ain't building anything with Codex until end of this month!
 
+---
+
 # Local AI (ClaudeCode) to the Rescue
 
 - Launched [ClaudeCode on macOS](../../03-the-agent/claudecode/README.md)
 - Pasted the same prompt from GPT to ClaudeCode
+
+---
 
 ## ClaudeCode went into action
 
@@ -65,7 +69,11 @@ Codex's current browser capabilities specifically support testing website flows,
 - [Summary](SUMMARY.md)
 - [Visual Summary](visual-summary.html)
 
-### ClaudeCode Says...
+### ClaudeCode Report
+
+- Download the "visual-summary.html" or see pasted image below:
+ 
+<img width="2317" height="7075" alt="xodtRqX3Ew" src="https://github.com/user-attachments/assets/fdb58bf9-27ca-4309-bab1-6b314adc2313" />
 
 
 ---
