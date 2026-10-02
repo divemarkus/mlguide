@@ -58,6 +58,11 @@ Codex's current browser capabilities specifically support testing website flows,
 
 ## ClaudeCode went into action
 
+- [Bug Report](BUG_REPORT.md)
+- [Bug Reproduction Report](BUG_REPRODUCTION_REPORT.md)
+- [Test Results](TEST_RESULTS.md)
+- [Final Report](FINAL_REPORT.md)
+- [Visual Summary](visual-summary.html)
 
 
 
