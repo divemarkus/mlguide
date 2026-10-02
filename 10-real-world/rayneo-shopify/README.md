@@ -6,18 +6,22 @@
 
 > I did NOT pay attention to check-out and didn't realized what happened. After several days I received two of same accessories vs one of each.
 
+<img width="765" height="436" alt="RayNeo-Glasses" src="https://github.com/user-attachments/assets/80e05270-a6a9-41ad-b630-b83f2be89525" />
+
+---
+
 ## Contact RayNeo Support
 
 > Explain they have some bug as I reproduced manually on my end
 
 > RayNeo Support response: Hello, Thank you for your contact. I attempted to add 1x Lens Shade and 1x Sound Tube to the shopping cart, but these two items were not combined into one item. If possible, could you please provide the screen recording of your purchase process so that I can confirm it? We apologize for any inconvenience caused. Looking forward to your reply. Kind regards, RayNeo Support Team
 
+---
+
 ## My Response
 
-- First off screen recording are for amateurs
-- So I will help RayNeo with their Shopify issue
-
-> Use my base GPT subscription to begin...
+- Since screen recording are terrible tedious and reserved for super users, I will help RayNeo with their Shopify issue using Agentic AI.
+- Use my paid (base-sub) GPT subscription to begin...
 
 ```
 Yes — if you run me through Codex with Browser/Computer Use enabled, this is exactly the kind of task Codex can take over and execute end-to-end.
@@ -45,16 +49,23 @@ Codex's current browser capabilities specifically support testing website flows,
 
 ```
 
-> Nice, I will use Codex, as I already have it installed on my Mac
+- Nice, I will use Codex, as I already have it installed on my Mac
 
 <img width="785" height="372" alt="Codex-No-Bueno" src="https://github.com/user-attachments/assets/488c4d88-d60b-4df4-9934-cdb69f194dd4" />
 
 > I guess we ain't building anything with Codex until end of this month!
 
+---
+
 # Local AI (ClaudeCode) to the Rescue
 
+- ClaudeCode - as in locally hosted on macOS and not from Anthropic datacenter.
 - Launched [ClaudeCode on macOS](../../03-the-agent/claudecode/README.md)
-- Pasted the same prompt from GPT to ClaudeCode
+- Pasted the same prompt from GPT to ClaudeCode.
+- Make sure to let Claude use tools: Browse the web, run code, call APIs, and access external databases. 
+- Claude will also need to install Selenium and other python or developer tools.
+
+---
 
 ## ClaudeCode went into action
 
@@ -65,8 +76,11 @@ Codex's current browser capabilities specifically support testing website flows,
 - [Summary](SUMMARY.md)
 - [Visual Summary](visual-summary.html)
 
-### ClaudeCode Says...
+### ClaudeCode Report
 
+- Download the "visual-summary.html" or see pasted image below:
+ 
+<img width="2317" height="7075" alt="xodtRqX3Ew" src="https://github.com/user-attachments/assets/fdb58bf9-27ca-4309-bab1-6b314adc2313" />
 
 ---
 
