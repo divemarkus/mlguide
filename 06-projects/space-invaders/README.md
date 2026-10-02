@@ -2,7 +2,7 @@
 
 - Macbook Pro M1 32GB + Ollama + ClaudeCode + qwen3.5:35b-a3b-coding-nvfp4
 - Runtime: 15 mins code update + 5 mins push to new github repo
-- [Original write-up on local AI](../../3-the-agent/claudecode/README.md)
+- [Original write-up on local AI](../../03-the-agent/claudecode/README.md)
 
 ## Executive summary
 
