@@ -6,7 +6,7 @@
 
 > I did NOT pay attention to check-out and didn't realized what happened. After several days I received two of same accessories vs one of each.
 
-<img width="1530" height="873" alt="RayNeo-Glasses" src="https://github.com/user-attachments/assets/0065eac9-49a1-4e83-8ecd-b7b49a64f2fc" />
+<img width="765" height="436" alt="RayNeo-Glasses" src="https://github.com/user-attachments/assets/80e05270-a6a9-41ad-b630-b83f2be89525" />
 
 ---
 
