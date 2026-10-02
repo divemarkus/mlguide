@@ -47,6 +47,9 @@ Codex's current browser capabilities specifically support testing website flows,
 
 > Nice, I will use Codex, as I already have it installed on my Mac
 
+<img width="785" height="372" alt="Codex-No-Bueno" src="https://github.com/user-attachments/assets/488c4d88-d60b-4df4-9934-cdb69f194dd4" />
+
+> I guess we ain't building anything with Codex until end of this month!
 
 # Local AI (ClaudeCode) to the Rescue
 
