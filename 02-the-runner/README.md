@@ -1,315 +1,332 @@
-# The Runner - Body
+# 🫀 The Runner — The "Body" of Local AI
 
-And I would **update the original analogy**, because the local-AI ecosystem has evolved significantly. In particular, Ollama and LM Studio are no longer merely "wrappers around llama.cpp"; they have become fairly sophisticated **model runtimes, servers, API layers, and application platforms**.
+The **Runner** is the software that turns a model's weights into a functioning inference system.
 
-The cleanest way to teach this is to distinguish **engine → runtime/server → application → agent**.
+A model file sitting on an SSD is just data. The runner loads that model into memory, prepares its tokenizer and configuration, executes the neural-network operations, manages CPU/GPU/NPU acceleration, maintains inference state such as the KV cache, and produces the model's output.
 
----
+The original idea was:
 
-# 🧠 The Runner: The "Body" of a Local AI
+> **The Runner (The Body): Tools like Ollama, LM Studio, or llama.cpp are the "bodies." They are actual programs that talk to your hardware and, when configured to do so, can communicate over a network.**
 
-The original statement was:
+That is still a useful beginner analogy, but modern local AI has become more layered.
 
-> **The Runner (The Body): Tools like Ollama, LM Studio, or llama.cpp are the "bodies." They are actual programs written in languages like C++ or Go. They are the ones that talk to your hardware (CPU/GPU) and, if you allow them, your internet connection.**
+The cleanest way to understand it is:
 
-That's fundamentally correct, but I'd make it more precise:
+> **Engine → Runtime/Server → Application → Agent**
 
-> **The Runner is the software that loads a model into memory, executes its mathematical operations, manages CPU/GPU/NPU acceleration, handles tokenization and context, and often exposes an API that applications can use to communicate with the model.**
-
-And there's an important distinction:
-
-**The runner itself may have networking capabilities, while the model does not.**
-
-That distinction becomes very important for privacy.
+These layers often overlap, but the distinction helps explain what each component actually does.
 
 ---
 
-# 1. The Four Layers
-
-Think about local AI like this:
+# 1. The Local AI Stack
 
 ```text
-┌──────────────────────────────────────────┐
-│                 YOU                      │
-└──────────────────┬───────────────────────┘
-                   │
-                   ▼
-┌──────────────────────────────────────────┐
-│             APPLICATION                  │
-│                                          │
-│ LM Studio / Open WebUI / custom app      │
-└──────────────────┬───────────────────────┘
-                   │
-                   ▼
-┌──────────────────────────────────────────┐
-│          RUNTIME / SERVER                │
-│                                          │
-│ Ollama / llama.cpp / MLX / ONNX Runtime  │
-└──────────────────┬───────────────────────┘
-                   │
-                   ▼
-┌──────────────────────────────────────────┐
-│                  MODEL                   │
-│                                          │
-│ Qwen / Llama / Gemma / Mistral / etc.    │
-└──────────────────┬───────────────────────┘
-                   │
-                   ▼
-┌──────────────────────────────────────────┐
-│               HARDWARE                   │
-│                                          │
-│ CPU / GPU / NPU / RAM / VRAM             │
-└──────────────────────────────────────────┘
+┌──────────────────────────────────────────────┐
+│                    USER                      │
+└───────────────────────┬──────────────────────┘
+                        │
+                        ▼
+┌──────────────────────────────────────────────┐
+│                APPLICATION                   │
+│                                              │
+│ LM Studio • Open WebUI • IDE • Custom App    │
+└───────────────────────┬──────────────────────┘
+                        │
+                        ▼
+┌──────────────────────────────────────────────┐
+│              RUNTIME / SERVER                │
+│                                              │
+│ Ollama • llama-server • llmster • vLLM       │
+└───────────────────────┬──────────────────────┘
+                        │
+                        ▼
+┌──────────────────────────────────────────────┐
+│              INFERENCE ENGINE                │
+│                                              │
+│ llama.cpp • MLX • ONNX Runtime •             │
+│ TensorRT-LLM • other accelerator runtimes    │
+└───────────────────────┬──────────────────────┘
+                        │
+                        ▼
+┌──────────────────────────────────────────────┐
+│                    MODEL                     │
+│                                              │
+│ Qwen • Llama • Gemma • Mistral • Nemotron    │
+│                                              │
+│ Weights + Architecture + Tokenizer           │
+└───────────────────────┬──────────────────────┘
+                        │
+                        ▼
+┌──────────────────────────────────────────────┐
+│                   HARDWARE                   │
+│                                              │
+│ CPU • GPU • NPU • RAM • VRAM • Unified RAM   │
+└──────────────────────────────────────────────┘
 ```
 
-Then you can add another layer:
+Not every system contains every layer as a separate program.
+
+For example:
 
 ```text
-                 APPLICATION
-                      │
-                      ▼
-                   AGENT
-              ┌───────┼────────┐
-              ▼       ▼        ▼
-           Browser  Python    Files
-              │       │        │
-              └───────┼────────┘
-                      ▼
-                   MODEL
+Ollama
+ ├── runtime
+ ├── model management
+ ├── server
+ └── inference stack
+
+LM Studio
+ ├── application
+ ├── runtime management
+ ├── server
+ ├── CLI
+ └── llama.cpp / MLX engines
+
+llama.cpp
+ ├── inference engine
+ ├── CLI
+ ├── server
+ └── hardware backends
 ```
 
-The **model doesn't become capable of these things** merely because you put it inside an agent.
-
-The agent/runtime provides the capabilities.
+The boundaries are therefore conceptual rather than absolute.
 
 ---
 
 # 2. What Does a Runner Actually Do?
 
-When you type:
+When you enter:
 
 ```text
 What is the capital of France?
 ```
 
-a lot more happens than:
+the computer does considerably more than:
 
 ```text
 prompt → model → answer
 ```
 
-A simplified execution path is:
+A simplified inference path looks like this:
 
 ```text
 Prompt
-  │
-  ▼
+   │
+   ▼
 Tokenizer
-  │
-  ▼
+   │
+   ▼
 Tokens
-  │
-  ▼
-Model weights loaded in RAM/VRAM
-  │
-  ▼
+   │
+   ▼
+Model weights + configuration
+   │
+   ▼
 Neural-network operations
-  │
-  ▼
-GPU / CPU / NPU kernels
-  │
-  ▼
+   │
+   ▼
+CPU / GPU / NPU kernels
+   │
+   ▼
 Logits
-  │
-  ▼
-Sampling
-  │
-  ▼
+   │
+   ▼
+Sampling / decoding
+   │
+   ▼
 Next token
-  │
-  └───────────────┐
+   │
+   └──────────────┐
                   ▼
-              repeat
+               Repeat
                   │
                   ▼
-              Response
+               Response
 ```
 
-The runner coordinates essentially all of this.
+The runner coordinates this process.
+
+It is responsible for things such as:
+
+- loading model files
+- allocating memory
+- initializing the hardware backend
+- tokenization
+- executing neural-network operations
+- managing context
+- managing the KV cache
+- sampling/decoding
+- streaming output
+- GPU/CPU/NPU offloading
+- batching multiple requests
+- exposing APIs
+- loading and unloading models
+
+Modern inference servers can also provide:
+
+- structured output
+- tool/function calling
+- multimodal inputs
+- embeddings
+- speculative decoding
+- monitoring
+- concurrent requests
+
+The exact capabilities depend on the engine and runtime.
 
 ---
 
-# 3. The Runner Has to Load the Model
+# 3. A Model File Is Not a Running Model
 
 Suppose you have:
 
 ```text
-Qwen3-14B-Q4_K_M.gguf
+Qwen-XXXX-Q4_K_M.gguf
 ```
 
-sitting on your SSD.
+on your SSD.
 
-Nothing is happening.
+Nothing is executing.
 
-It's just a file.
+It is simply a file containing model data.
 
-When you tell Ollama or LM Studio to use it:
+Conceptually:
 
 ```text
 SSD
  │
  ▼
+Model file
+ │
+ ▼
 Runner
  │
- ├── reads model metadata
- ├── reads tensors
+ ├── reads metadata
+ ├── loads tensors
  ├── allocates memory
  ├── initializes backend
  ├── initializes tokenizer
- └── loads model
+ └── prepares inference
        │
        ▼
-    RAM/VRAM
+   RAM / VRAM
 ```
 
-Now the model is "alive" in the sense that the runtime can execute it.
+Only after the runner loads and initializes the model can the hardware execute it.
+
+This is why:
+
+> **Model = learned parameters and architecture**
+
+while:
+
+> **Runner = software that executes those parameters**
 
 ---
 
-# 4. The Runner Is Also a Hardware Abstraction Layer
+# 4. The Runner Is the Hardware Translator
 
-This is one of the coolest aspects of modern local AI.
-
-You might have:
+The model should not have to know whether it is running on:
 
 ```text
-NVIDIA RTX 3090 Ti
-```
-
-or:
-
-```text
-Apple M5 Pro
-```
-
-or:
-
-```text
+RTX 3090 Ti
+Apple Silicon
 AMD Radeon
-```
-
-or:
-
-```text
 Intel GPU
+NVIDIA data-center GPU
+CPU
+NPU
 ```
 
-or even:
+The inference software provides the hardware-specific implementation.
+
+For example:
 
 ```text
-CPU only
+                    Inference Runtime
+                           │
+        ┌──────────────────┼──────────────────┐
+        ▼                  ▼                  ▼
+      CUDA                Metal             ROCm/HIP
+        │                  │                  │
+     NVIDIA             Apple GPU          AMD GPU
 ```
 
-The **model doesn't fundamentally care**.
+Other backends can include Vulkan, SYCL, OpenCL, CANN, WebGPU and specialized accelerator APIs.
 
-The runtime provides the hardware-specific implementation.
-
-For example, llama.cpp currently supports backends including:
-
-* CUDA → NVIDIA
-* HIP → AMD
-* Metal → Apple Silicon
-* Vulkan → GPUs
-* SYCL → Intel
-* OpenCL → Adreno
-* CANN → Ascend
-* CPU backends
-* WebGPU
-* RPC/remote devices
-
-and supports hybrid CPU/GPU inference. ([GitHub][1])
-
-That's an enormous evolution from the original "llama.cpp is a little C++ program that runs Llama" description.
+This abstraction is one of the most important reasons local AI works across such a wide variety of hardware.
 
 ---
 
-# 5. llama.cpp — The Engine
+# 5. llama.cpp — The Inference Engine
 
-This is where I would change the analogy slightly.
+[llama.cpp](https://github.com/ggml-org/llama.cpp) is best described as an **inference engine, library and toolkit**, rather than simply an application.
 
-## llama.cpp isn't really the "AI application."
+Its project describes itself as:
 
-It is better thought of as an **inference engine/library and toolkit**.
+> LLM inference in C/C++
 
-Its project description is extremely explicit:
+It is built on the **ggml** tensor ecosystem and is designed for efficient inference across a very wide range of hardware.
 
-> **"LLM inference in C/C++."**
-
-It is built around the **ggml** tensor/inference ecosystem. ([GitHub][1])
-
-Today it includes:
+Today llama.cpp includes:
 
 ```text
-llama
+llama.cpp
+│
 ├── inference library
 ├── CLI
-├── server
+├── llama-server
 ├── model loading
 ├── quantization
 ├── multimodal/VLM support
-├── GPU backends
 ├── CPU backends
-├── grammar/structured generation
-└── APIs
+├── GPU backends
+├── structured generation
+├── tool/function calling
+└── REST APIs
 ```
 
-And it can now directly launch a model from Hugging Face, for example:
+It supports CPU+GPU hybrid inference, multiple quantization levels, NVIDIA CUDA, AMD HIP, Apple Metal, Vulkan, SYCL and other backends.
+
+It can also download and run compatible models directly from Hugging Face:
 
 ```bash
 llama cli -hf ggml-org/Qwen3.5-0.8B-GGUF
 ```
 
-or start an OpenAI-compatible server:
+and launch an OpenAI-compatible server:
 
 ```bash
 llama serve -hf ggml-org/Qwen3.5-0.8B-GGUF
 ```
 
-according to the current project documentation. ([GitHub][1])
+The current `llama-server` also supports features such as continuous batching, parallel multi-user inference, multimodal input, embeddings, structured JSON, tool/function calling and speculative decoding.
+
+**Why it matters:**
+
+llama.cpp is one of the foundational pieces of the modern local-LLM ecosystem.
+
+It is particularly valuable when you want:
+
+- maximum control
+- broad hardware compatibility
+- GGUF models
+- CPU inference
+- GPU offloading
+- hybrid CPU/GPU inference
+- lightweight servers
+- embedded/local deployments
+- direct experimentation with inference
 
 ---
 
-# 6. Why llama.cpp Is So Important
+# 6. Ollama — Runtime + Model Management + Server
 
-A huge portion of the local LLM ecosystem builds upon or interoperates with the work done in this ecosystem.
+[Ollama](https://ollama.com) sits at a higher level than llama.cpp.
 
-For example:
+It is best thought of as a **local model runtime, model-management system and API server**.
 
-```text
-                 llama.cpp / ggml
-                       │
-          ┌────────────┼────────────┐
-          │            │            │
-       GGUF          kernels      runtime
-          │            │            │
-          └────────────┼────────────┘
-                       │
-              Local inference
-```
-
-That's why understanding llama.cpp gives you a much better understanding of local LLMs generally.
-
----
-
-# 7. Ollama — More Than a Runner
-
-Ollama is where the analogy gets more interesting.
-
-[Ollama](https://ollama.com?utm_source=chatgpt.com)
-
-Ollama is essentially a **local model management + inference + serving platform**.
-
-You can think:
+Conceptually:
 
 ```text
 Ollama
@@ -320,422 +337,525 @@ Ollama
 ├── Inference
 ├── Hardware acceleration
 ├── Local HTTP API
-├── OpenAI compatibility
-├── Anthropic compatibility
-├── Python library
-├── JavaScript library
+├── OpenAI-compatible API
+├── Anthropic-compatible API
+├── Python/JavaScript integrations
 └── Application integrations
 ```
 
-Its current documentation explicitly positions it for using open models in desktop applications and coding agents, as well as building applications around models. ([Ollama][2])
-
----
-
-# 8. Ollama's Local Server
-
-When Ollama is running, you can have:
+For example:
 
 ```text
-                   Ollama
-                     │
-             localhost:11434
-                     │
-       ┌─────────────┼─────────────┐
-       │             │             │
-    OpenWebUI      Python       VS Code
-       │             │             │
-       └─────────────┼─────────────┘
-                     │
-                   Model
+Open WebUI
+     │
+     ▼
+Ollama API
+     │
+     ▼
+Local model
+     │
+     ▼
+GPU
 ```
 
-The current local API is:
+Ollama's local API is available at:
 
 ```text
 http://localhost:11434/api
 ```
 
-and Ollama also exposes OpenAI-compatible endpoints under:
+and its OpenAI-compatible API is available at:
 
 ```text
 http://localhost:11434/v1
 ```
 
-Local requests don't require an API key. ([Ollama][3])
+Local requests do not require an API key.
 
-That's enormously useful.
+Ollama now also has a distinct cloud capability. Therefore, it is important not to equate:
 
-It means your model becomes a **local AI service** rather than merely something you chat with.
+> **Ollama = always completely offline**
 
----
+The correct statement is:
 
-# 9. Ollama Talks to Your GPU
+> **Ollama can run models locally, while also providing separate cloud-model capabilities.**
 
-This is where the "body" analogy becomes very good.
-
-Your model says, metaphorically:
-
-> "I need to perform this enormous matrix multiplication."
-
-Ollama's runtime says:
-
-> "Okay. I'll execute that using CUDA."
-
-For your RTX 3090 Ti, for example:
-
-```text
-Qwen
-  │
-  ▼
-Ollama
-  │
-  ▼
-CUDA
-  │
-  ▼
-RTX 3090 Ti
-```
-
-Current Ollama documentation lists RTX 30-series GPUs including the **RTX 3090 Ti** as supported NVIDIA hardware. ([Ollama][4])
+For a privacy-first deployment, Ollama can also be configured to disable its cloud features.
 
 ---
 
-# 10. Ollama Is Not NVIDIA CUDA
+# 7. Ollama and Hardware
 
-Another important distinction:
-
-```text
-Model
- ↓
-Ollama
- ↓
-CUDA
- ↓
-NVIDIA Driver
- ↓
-GPU
-```
-
-These are different layers.
-
-### CUDA
-
-NVIDIA's GPU computing platform.
-
-### Ollama
-
-The AI model runtime/server.
-
-### Model
-
-The learned parameters.
-
-So:
-
-> **CUDA isn't the model runtime.**
-
-It's one of the hardware acceleration technologies the runtime can use.
-
----
-
-# 11. Ollama on Apple
-
-On Apple hardware the path is different:
-
-```text
-Model
- ↓
-Ollama
- ↓
-Metal
- ↓
-Apple GPU
- ↓
-Unified Memory
-```
-
-Ollama currently supports Apple GPU acceleration through **Metal**. ([Ollama][4])
-
-So the same Ollama application can have:
-
-```text
-Windows + NVIDIA
-        ↓
-      CUDA
-
-Linux + AMD
-        ↓
-      ROCm/HIP
-
-macOS
-        ↓
-      Metal
-```
-
-That's a major reason runtimes matter.
-
----
-
-# 12. Ollama Also Supports Vulkan
-
-This is particularly interesting for heterogeneous hardware.
-
-Ollama currently provides additional GPU support through Vulkan on Windows and Linux. ([Ollama][4])
-
-Conceptually:
-
-```text
-                 Ollama
-                    │
-       ┌────────────┼────────────┐
-       ▼            ▼            ▼
-     CUDA          ROCm        Vulkan
-       │            │            │
-    NVIDIA         AMD       Various GPUs
-```
-
-That makes the runner considerably more hardware-independent than the model itself.
-
----
-
-# 13. LM Studio — The GUI + Runtime Platform
-
-[LM Studio](https://lmstudio.ai?utm_source=chatgpt.com)
-
-LM Studio is a different layer of the stack.
-
-It provides:
-
-```text
-                  LM Studio
-                      │
-       ┌──────────────┼──────────────┐
-       │              │              │
-      GUI          Runtime          API
-       │              │              │
-    Model Hub     llama.cpp         HTTP
-       │              │
-       └──────────────┘
-```
-
-Current LM Studio documentation says it can run:
-
-* **GGUF via llama.cpp**
-* **MLX on Apple Silicon**
-
-and provides local model serving and APIs. ([LM Studio][5])
-
----
-
-# 14. LM Studio Has Evolved Significantly
-
-This is an important 2026 update to the guide.
-
-LM Studio isn't merely:
-
-> "A nice GUI for llama.cpp."
-
-Its architecture now includes a standalone server/runtime called:
-
-```text
-llmster
-```
-
-LM Studio introduced this in 0.4.0 as a **headless daemon** that can run without the GUI. It can operate on Linux servers, GPU rigs, CI systems and other machines. ([LM Studio][6])
-
-So:
-
-```text
-Old mental model:
-
-LM Studio
-   ↓
-GUI
-   ↓
-llama.cpp
-```
-
-is now incomplete.
-
-A better model:
-
-```text
-                   LM Studio
-                       │
-             ┌─────────┴─────────┐
-             │                   │
-            GUI               llmster
-                                 │
-                     ┌───────────┴───────────┐
-                     │                       │
-                 llama.cpp                 MLX
-                     │                       │
-                  GGUF                  Apple models
-```
-
----
-
-# 15. LM Studio Can Now Be a Server
-
-You can run LM Studio without treating it as a desktop chat application.
+Ollama provides hardware-specific acceleration through different backends.
 
 For example:
 
 ```text
-                    LM Studio
-                       │
-                  llmster daemon
-                       │
-                 local API server
-                       │
-       ┌───────────────┼────────────────┐
-       │               │                │
-    Python           VS Code         Browser
+RTX 3090 Ti
+     │
+     ▼
+   CUDA
+     │
+     ▼
+   Ollama
+     │
+     ▼
+   Qwen
 ```
-
-LM Studio 0.4.0 added the standalone daemon, local server functionality and newer stateful APIs. ([LM Studio][6])
-
-That's a big deal for your **homelab-oriented guide**.
-
----
-
-# 16. LM Studio Also Does Something Interesting With MLX
 
 On Apple Silicon:
 
 ```text
-LM Studio
+Apple Silicon
      │
-     ├── llama.cpp
-     │      └── GGUF
+     ▼
+   Metal
      │
-     └── MLX
-            └── MLX models
+     ▼
+   Ollama
+     │
+     ▼
+   Qwen
 ```
 
-Current LM Studio documentation explicitly supports both engines on Apple Silicon. ([LM Studio][5])
+Ollama currently supports NVIDIA GPUs including the RTX 30-series, AMD GPUs through ROCm/HIP, Apple GPUs through Metal, and additional Windows/Linux GPU support through Vulkan.
 
-So the user doesn't necessarily need to understand all the runtime complexity.
+For your RTX 3090 Ti specifically, Ollama lists the card as supported NVIDIA hardware.
 
-LM Studio can select/manage the appropriate runtime.
+Ollama can also report whether a model is running entirely on the GPU, entirely in system memory, or split between CPU and GPU.
 
----
-
-# 17. This Is What a Modern Runner Looks Like
-
-The old concept:
+For example:
 
 ```text
-"Run this model."
-```
-
-has evolved into:
-
-```text
-                 LOCAL AI RUNTIME
-                        │
-       ┌────────────────┼─────────────────┐
-       │                │                 │
-   Model Loading     Hardware          Serving
-       │                │                 │
-    GGUF/MLX        CUDA/Metal        REST API
-       │             ROCm/Vulkan       OpenAI API
-       │                │               MCP
-       └────────────────┼─────────────────┘
-                        │
-                     Model
-```
-
-This is a much better definition of **Runner** for your guide.
-
----
-
-# 18. The Runner Doesn't Necessarily Need Internet
-
-This is important for the privacy discussion.
-
-Once you have:
-
-```text
-model.gguf
-```
-
-and:
-
-```text
-llama.cpp
-```
-
-you can run:
-
-```text
-┌───────────────┐
-│ Your Computer │
-│               │
-│ llama.cpp     │
-│      │        │
-│      ▼        │
-│    Model      │
-└───────────────┘
-
-       INTERNET
-          X
-```
-
-No Internet is necessary for inference.
-
-Likewise:
-
-```text
-Ollama
- ↓
-Local Model
-```
-
-can operate locally.
-
-Ollama's current documentation explicitly distinguishes local models from cloud models; local models run on your computer, while cloud models are a separate capability. ([Ollama][2])
-
----
-
-# 19. But the Runner Can Have Networking
-
-This is where the original statement needs nuance.
-
-The runner may expose:
-
-```text
-localhost:11434
+100% GPU
 ```
 
 or:
 
 ```text
-localhost:1234
+48% CPU / 52% GPU
 ```
 
-for local applications.
+This is important when a model is larger than available VRAM.
 
-That is networking.
+---
 
-But:
+# 8. LM Studio — Application + Runtime Platform
+
+[LM Studio](https://lmstudio.ai) occupies a different position.
+
+It is primarily a **local AI application platform**, but it also contains substantial runtime and server functionality.
+
+Conceptually:
 
 ```text
-localhost
+                 LM Studio
+                     │
+          ┌──────────┼──────────┐
+          ▼          ▼          ▼
+         GUI       Runtime     API
+          │          │          │
+      Model Hub      │       Applications
+                     │
+              ┌──────┴──────┐
+              ▼             ▼
+          llama.cpp         MLX
+              │             │
+             GGUF      MLX models
 ```
 
-is fundamentally different from:
+LM Studio currently supports:
+
+- GGUF models through llama.cpp
+- MLX models on Apple Silicon
+- local model management
+- Hugging Face model discovery/download
+- local APIs
+- network model serving
+- MCP
+- structured output
+- tool use
+- CLI workflows
+
+---
+
+# 9. LM Studio Is No Longer "Just a GUI"
+
+This is one of the biggest updates to the old local-AI mental model.
+
+LM Studio introduced **llmster**, a standalone, headless version of its core runtime.
 
 ```text
-Internet
+Old mental model:
+
+LM Studio
+    │
+    ▼
+   GUI
+    │
+    ▼
+llama.cpp
 ```
+
+That is now incomplete.
+
+A better model is:
+
+```text
+                    LM Studio
+                        │
+              ┌─────────┴─────────┐
+              ▼                   ▼
+             GUI               llmster
+                                  │
+                       ┌──────────┴──────────┐
+                       ▼                     ▼
+                   llama.cpp               MLX
+                       │                     │
+                     GGUF              MLX models
+```
+
+`llmster` can run without the GUI on:
+
+- Linux servers
+- GPU workstations
+- cloud machines
+- CI systems
+- local headless systems
+
+For example:
+
+```bash
+lms daemon up
+lms get <model>
+lms server start
+```
+
+This makes LM Studio much more relevant to homelab and server deployments than its older "desktop GUI" reputation suggests.
+
+---
+
+# 10. LM Studio and Parallel Inference
+
+A modern AI server doesn't necessarily have to process:
+
+```text
+User 1
+   ↓
+Model
+   ↓
+User 2
+   ↓
+Model
+```
+
+one request at a time.
+
+Modern inference engines can use **continuous batching** to process multiple requests concurrently.
+
+LM Studio's llama.cpp engine supports parallel requests and continuous batching.
+
+Conceptually:
+
+```text
+User 1 ──┐
+User 2 ──┼──► Model
+User 3 ──┤
+User 4 ──┘
+```
+
+This is an important transition:
+
+> A powerful desktop GPU can become a multi-user AI inference server.
+
+This matters enormously in a homelab.
+
+---
+
+# 11. MLX — Apple's ML Framework
+
+[MLX](https://github.com/ml-explore/mlx) deserves a special category.
+
+MLX is an **array and machine-learning framework**, originally designed specifically around Apple Silicon's architecture.
+
+Its major architectural advantage is Apple's unified memory.
+
+```text
+          Apple Unified Memory
+        ┌───────────────────────┐
+        │                       │
+        │    CPU + GPU share    │
+        │    the same memory    │
+        │                       │
+        └───────────────────────┘
+```
+
+MLX is designed so arrays can be accessed by CPU and GPU without the traditional explicit device-to-device copies required by many other architectures.
+
+That makes it particularly attractive for:
+
+- Apple Silicon local LLMs
+- model experimentation
+- fine-tuning
+- LoRA
+- inference
+- multimodal workloads
+- research
+
+An important 2026 update:
+
+> **Do not describe MLX as strictly "Apple-only" anymore.**
+
+The MLX project now also provides CUDA and CPU Linux packages.
+
+However, its defining strength and original design remain closely associated with Apple Silicon and unified memory.
+
+---
+
+# 12. ONNX Runtime — Portable Inference
+
+**ONNX Runtime** occupies another part of the ecosystem.
+
+ONNX is a model representation designed for interoperability, while **ONNX Runtime** is the software that executes ONNX models.
+
+For generative AI, Microsoft's ONNX Runtime GenAI adds generation-oriented APIs and model/runtime functionality.
+
+Think:
+
+```text
+Model
+  │
+  ▼
+ONNX representation
+  │
+  ▼
+ONNX Runtime
+  │
+  ├── CPU
+  ├── GPU
+  └── accelerator-specific execution providers
+```
+
+ONNX Runtime is particularly useful when your priority is:
+
+- cross-platform deployment
+- Windows
+- edge AI
+- enterprise applications
+- hardware abstraction
+- integration with Microsoft's AI ecosystem
+- portable inference pipelines
+
+It is not simply another GGUF runner.
+
+---
+
+# 13. TensorRT-LLM — NVIDIA High-Performance Inference
+
+For NVIDIA-heavy environments, another important runner/inference stack is **TensorRT-LLM**.
+
+TensorRT-LLM is designed specifically to optimize and serve LLM workloads on NVIDIA GPUs.
+
+Conceptually:
+
+```text
+Model
+  │
+  ▼
+TensorRT-LLM
+  │
+  ▼
+Optimized TensorRT engine/runtime
+  │
+  ▼
+CUDA
+  │
+  ▼
+NVIDIA GPU
+```
+
+It is much more oriented toward high-performance serving than beginner-friendly desktop inference.
+
+It supports technologies including:
+
+- in-flight batching
+- paged KV caching
+- quantization
+- multi-GPU inference
+- multi-node deployment
+- speculative decoding
+- optimized model implementations
+- production-scale serving
+
+This makes TensorRT-LLM particularly relevant for:
+
+- NVIDIA servers
+- datacenters
+- high-throughput inference
+- multi-GPU systems
+- production AI services
+
+For a home user with a single RTX 3090 Ti, Ollama or llama.cpp is generally much simpler.
+
+For a large NVIDIA inference cluster, TensorRT-LLM becomes much more interesting.
+
+---
+
+# 14. Other Important Inference Runtimes
+
+The ecosystem is considerably larger than Ollama and llama.cpp.
+
+A useful high-level map is:
+
+| Runtime / Engine | Primary role | Best fit |
+|---|---|---|
+| **llama.cpp** | General local inference engine | Local LLMs, GGUF, broad hardware |
+| **Ollama** | Model runtime + management + API | Beginners, developers, homelabs |
+| **LM Studio / llmster** | Desktop + headless AI platform | Desktop users and local servers |
+| **MLX** | ML framework optimized around Apple Silicon | Macs, Apple research/fine-tuning |
+| **ONNX Runtime GenAI** | Portable inference/runtime | Windows, edge, enterprise |
+| **TensorRT-LLM** | NVIDIA-optimized LLM inference | High-performance NVIDIA serving |
+| **vLLM** | High-throughput LLM serving | GPU servers, production inference |
+| **SGLang** | High-performance serving/runtime | Advanced serving and agent workloads |
+
+The important lesson is:
+
+> **There is no single "best runner."**
+
+The correct runtime depends on the hardware, model format, operating system, workload, and whether you are running one user or serving many.
+
+---
+
+# 15. Runner vs Application
+
+This distinction is worth emphasizing.
+
+### Runner
+
+Makes the model execute.
+
+```text
+Model
+ ↓
+Runner
+ ↓
+Hardware
+```
+
+### Application
+
+Makes the model useful to a human.
+
+```text
+User
+ ↓
+Application
+ ↓
+Runner
+ ↓
+Model
+```
+
+Examples:
+
+**Runner**
+
+```text
+llama.cpp
+Ollama
+llmster
+MLX
+ONNX Runtime
+TensorRT-LLM
+vLLM
+```
+
+**Application**
+
+```text
+LM Studio
+Open WebUI
+IDE
+Custom Python application
+Mobile application
+```
+
+Although LM Studio itself spans both categories.
+
+---
+
+# 16. The Runner Does Not Give the Model Internet Access
+
+This is one of the most important concepts in the entire guide.
+
+A local model does not automatically know how to:
+
+- browse the web
+- execute Python
+- execute shell commands
+- read your filesystem
+- query a database
+- send an email
+- control Docker
+- access Git
+- access your camera
+
+Those capabilities come from surrounding software.
 
 For example:
 
 ```text
-Python
+             MODEL
+               │
+               ▼
+             AGENT
+               │
+       ┌───────┼────────┐
+       ▼       ▼        ▼
+    Browser  Python    Files
+       │       │        │
+       └───────┼────────┘
+               │
+            Internet
+            (optional)
+```
+
+The model might *request*:
+
+> "Search the web for the latest NVIDIA news."
+
+But the model itself isn't performing the HTTP request.
+
+The agent/tool layer performs it and returns the result to the model.
+
+---
+
+# 17. The Runner Can Have Networking
+
+There is an important distinction between:
+
+> **Networking capability**
+
+and:
+
+> **Internet access by the model.**
+
+For example, Ollama normally exposes a local HTTP API:
+
+```text
+localhost:11434
+```
+
+That is networking, but it doesn't mean the model is browsing the Internet.
+
+A typical local architecture is:
+
+```text
+Browser
    │
-   │ HTTP
+   ▼
+Open WebUI
+   │
    ▼
 localhost:11434
    │
@@ -743,111 +863,33 @@ localhost:11434
 Ollama
    │
    ▼
-Qwen
+Local Model
 ```
 
-Everything can remain on your machine.
+Everything can remain on the same computer.
 
 ---
 
-# 20. And You Can Deliberately Put the Runner on the LAN
+# 18. Localhost vs LAN vs Internet
 
-For example:
+These should not be treated as the same thing.
 
-```text
-               Home LAN
-
-        ┌────────────────────┐
-        │                    │
-     Laptop              Desktop
-        │                    │
-        └─────────┬──────────┘
-                  │
-                  ▼
-          Ollama Server
-          192.168.1.50
-                  │
-                  ▼
-             RTX 3090 Ti
-                  │
-                  ▼
-                Qwen
-```
-
-Now your laptop can use the AI running on your desktop.
-
-That's still **local/self-hosted inference**, but the network boundary has changed.
-
-And that's why security matters.
-
----
-
-# 21. The Runner Can Also Reach the Internet
-
-For example:
+### Local-only
 
 ```text
-                 Model
-                   │
-                   ▼
-                 Agent
-                   │
-              Web Tool
-                   │
-                   ▼
-               Internet
-```
+Computer
+ ├── Application
+ ├── Runner
+ └── Model
 
-But here's the critical distinction:
-
-**The model didn't acquire networking capability.**
-
-The application/agent gave it a tool.
-
-For example:
-
-```text
-Qwen
- ↓
-"I need current information"
- ↓
-Agent
- ↓
-Search API
- ↓
-Internet
- ↓
-Results
- ↓
-Qwen
-```
-
-That's **tool use**, not an intrinsic capability of the weights.
-
----
-
-# 22. This Becomes a Security Boundary
-
-This is where your networking/security background makes the subject particularly interesting.
-
-Consider three configurations.
-
-### Completely isolated
-
-```text
-             ┌───────────────┐
-             │ Local Model   │
-             │               │
-             │ Runner        │
-             └───────────────┘
-                     X
-                Internet
+        X
+     Internet
 ```
 
 ### Local API
 
 ```text
-Applications
+Application
      │
      ▼
 localhost
@@ -862,127 +904,219 @@ Model
 ### LAN AI server
 
 ```text
-LAN
- │
- ▼
-AI Server
- │
- ▼
-Runner
- │
- ▼
-Model
+Laptop ───────┐
+              │
+Desktop ──────┼──► AI Server
+              │       │
+Phone ────────┘       ▼
+                    Model
 ```
 
 ### Internet-enabled agent
 
 ```text
-                  Model
-                    │
-                    ▼
-                  Agent
-                    │
-            ┌───────┴────────┐
-            ▼                ▼
-          Files           Internet
-```
-
-Those are four very different security models.
-
----
-
-# 23. llama.cpp Is Particularly Interesting Here
-
-Current llama.cpp isn't just a local executable anymore.
-
-It provides:
-
-```text
-llama-cli
-llama-server
-llama library
-```
-
-and its server provides an OpenAI-compatible API. ([GitHub][1])
-
-It can also use remote compute through its RPC backend, although the project explicitly warns that this functionality is currently proof-of-concept, fragile and insecure and should not be exposed to an open network. ([GitHub][7])
-
-That's an excellent example of why:
-
-> **"Local AI" does not automatically mean "secure AI."**
-
-Network exposure is still a configuration decision.
-
----
-
-# 24. And This Is Where Your Docker Stack Fits
-
-Your existing architecture:
-
-```text
-OpenWebUI
-     │
-     ▼
-  Ollama
-     │
-     ▼
- Local LLM
-```
-
-is actually very clean.
-
-You have:
-
-```text
-Browser
-   │
-   ▼
-Open WebUI
-   │
-   ▼
-Ollama API
-   │
-   ▼
 Model
-   │
-   ▼
-GPU
+  │
+  ▼
+Agent
+  │
+  ├── Files
+  ├── Shell
+  ├── Browser
+  └── Internet
 ```
 
-Your uploaded Ollama stack follows this architecture, with Open WebUI pointing at Ollama's `11434` endpoint.
-
-Then you can add:
-
-```text
-               Open WebUI
-                   │
-          ┌────────┴────────┐
-          ▼                 ▼
-       Ollama             Qdrant
-          │                 │
-          ▼                 ▼
-       Model              Memory
-          │                 │
-          └────────┬────────┘
-                   ▼
-                Flowise
-                   │
-              Agent Tools
-```
-
-Now you're no longer simply "running an LLM."
-
-You're operating an **AI platform**.
+These represent very different security models.
 
 ---
 
-# 25. The Most Important Difference: Engine vs Runtime vs Application
+# 19. Local AI Does Not Automatically Mean Secure AI
 
-I'd actually revise the guide to use these terms.
+This distinction is especially important for self-hosted systems.
 
-### Engine
+Consider:
 
-The low-level inference machinery.
+```text
+Local model
++
+local runner
+```
+
+This can be highly private.
+
+But:
+
+```text
+Local model
++
+runner
++
+LAN API
++
+shell access
++
+browser
++
+filesystem
++
+Internet
+```
+
+is a completely different security environment.
+
+An AI server exposed to your LAN or Internet is still a network service.
+
+Therefore:
+
+> **"Local" describes where computation happens. It does not automatically describe how secure the system is.**
+
+Treat an AI runtime like any other network service.
+
+Use:
+
+- authentication where appropriate
+- firewall rules
+- VLAN segmentation
+- least privilege
+- container isolation
+- restricted filesystem access
+- restricted network access
+- logging
+- monitoring
+
+This becomes even more important when an agent can execute tools.
+
+---
+
+# 20. Your Homelab Example
+
+Your existing architecture is an excellent example:
+
+```text
+                    Browser
+                       │
+                       ▼
+                 ┌───────────┐
+                 │ Open WebUI│
+                 └─────┬─────┘
+                       │
+                       ▼
+                 ┌───────────┐
+                 │  Ollama   │
+                 │   :11434  │
+                 └─────┬─────┘
+                       │
+                       ▼
+                 ┌───────────┐
+                 │Local Model│
+                 └─────┬─────┘
+                       │
+                       ▼
+                 ┌───────────┐
+                 │RTX 3090 Ti│
+                 └───────────┘
+```
+
+Then additional components can be added:
+
+```text
+                     Open WebUI
+                         │
+                ┌────────┴────────┐
+                ▼                 ▼
+              Ollama            Qdrant
+                │                 │
+                ▼                 ▼
+             Model             Vector DB
+                │                 │
+                └────────┬────────┘
+                         ▼
+                       Agent
+                         │
+             ┌───────────┼───────────┐
+             ▼           ▼           ▼
+          Browser      Python       Files
+```
+
+At that point, you are no longer simply running a chatbot.
+
+You are operating a **local AI platform**.
+
+---
+
+# 21. The Modern Runner Architecture
+
+The most useful architecture for this guide is therefore:
+
+```text
+┌─────────────────────────────────────────────────────────┐
+│                         USER                            │
+└───────────────────────────┬─────────────────────────────┘
+                            │
+                            ▼
+┌─────────────────────────────────────────────────────────┐
+│                     APPLICATION                         │
+│                                                         │
+│ LM Studio • Open WebUI • IDE • Custom Application       │
+└───────────────────────────┬─────────────────────────────┘
+                            │
+                            ▼
+┌─────────────────────────────────────────────────────────┐
+│                  RUNTIME / MODEL SERVER                 │
+│                                                         │
+│ Ollama • llama-server • llmster • vLLM • SGLang         │
+└───────────────────────────┬─────────────────────────────┘
+                            │
+                            ▼
+┌─────────────────────────────────────────────────────────┐
+│                    INFERENCE ENGINE                     │
+│                                                         │
+│ llama.cpp • MLX • ONNX Runtime • TensorRT-LLM           │
+└───────────────────────────┬─────────────────────────────┘
+                            │
+                            ▼
+┌─────────────────────────────────────────────────────────┐
+│                         MODEL                           │
+│                                                         │
+│ Qwen • Llama • Gemma • Mistral • Nemotron • etc.        │
+│                                                         │
+│ Weights + Architecture + Tokenizer + Configuration      │
+└───────────────────────────┬─────────────────────────────┘
+                            │
+                            ▼
+┌─────────────────────────────────────────────────────────┐
+│                        HARDWARE                         │
+│                                                         │
+│ CPU • NVIDIA GPU • AMD GPU • Apple GPU • NPU            │
+│ RAM • VRAM • Unified Memory                             │
+└─────────────────────────────────────────────────────────┘
+```
+
+And separately:
+
+```text
+                    OPTIONAL AGENT LAYER
+                              │
+              ┌───────────────┼────────────────┐
+              ▼               ▼                ▼
+           Browser          Python           Files
+              │               │                │
+              └───────────────┼────────────────┘
+                              │
+                         APIs / Internet
+                              │
+                           Optional
+```
+
+---
+
+# 22. Engine vs Runtime vs Application vs Agent
+
+This is the terminology I recommend using throughout the guide.
+
+### 🧮 Inference Engine
+
+The low-level machinery that executes the neural network.
 
 Examples:
 
@@ -993,261 +1127,167 @@ ONNX Runtime
 TensorRT-LLM
 ```
 
-### Runtime / Server
+### 🫀 Runtime / Model Server
 
-Manages models and exposes inference capabilities.
+Loads models, manages inference and often exposes APIs.
 
 Examples:
 
 ```text
 Ollama
-llmster
 llama-server
+llmster
+vLLM
+SGLang
 ```
 
-### Application
+### 🖥️ Application
 
-Gives the human a useful interface.
+Provides a user-facing experience.
 
 Examples:
 
 ```text
 LM Studio
 Open WebUI
+IDE
+Custom application
 ```
 
-Although these boundaries overlap heavily.
+### 🤖 Agent
 
-### Agent framework
-
-Adds tools, memory and autonomous workflows.
+Adds autonomous behavior and tool use.
 
 Examples:
 
 ```text
+OpenClaw
+Hermes
+LangChain / LangGraph
+coding agents
 Flowise
-OpenCode
-LangGraph
 ```
+
+These categories overlap. They are **architectural roles**, not rigid product classifications.
 
 ---
 
-# 26. Updated Architecture
+# 23. Comparison: The Major Local Runtimes
 
-I'd replace the old diagram in the guide with this:
-
-```text
-┌─────────────────────────────────────────────────────────┐
-│                        USER                             │
-└───────────────────────────┬─────────────────────────────┘
-                            │
-                            ▼
-┌─────────────────────────────────────────────────────────┐
-│                    APPLICATION                          │
-│                                                         │
-│ LM Studio • Open WebUI • Custom App • IDE              │
-└───────────────────────────┬─────────────────────────────┘
-                            │
-                            ▼
-┌─────────────────────────────────────────────────────────┐
-│                 RUNTIME / MODEL SERVER                  │
-│                                                         │
-│ Ollama • llama-server • llmster                         │
-└───────────────────────────┬─────────────────────────────┘
-                            │
-                            ▼
-┌─────────────────────────────────────────────────────────┐
-│                   INFERENCE ENGINE                      │
-│                                                         │
-│ llama.cpp • MLX • ONNX Runtime • TensorRT               │
-└───────────────────────────┬─────────────────────────────┘
-                            │
-                            ▼
-┌─────────────────────────────────────────────────────────┐
-│                       MODEL                             │
-│                                                         │
-│ Qwen • Llama • Gemma • Mistral • DeepSeek               │
-│                                                         │
-│ Weights + Architecture + Tokenizer                      │
-└───────────────────────────┬─────────────────────────────┘
-                            │
-                            ▼
-┌─────────────────────────────────────────────────────────┐
-│                      HARDWARE                           │
-│                                                         │
-│ CPU • NVIDIA GPU • AMD GPU • Apple GPU • NPU            │
-│ RAM • VRAM • Unified Memory                             │
-└─────────────────────────────────────────────────────────┘
-```
-
-And independently:
-
-```text
-                    OPTIONAL
-                  AGENT LAYER
-                       │
-       ┌───────────────┼────────────────┐
-       ▼               ▼                ▼
-    Browser          Python           Files
-       │               │                │
-       └───────────────┼────────────────┘
-                       │
-                    Internet
-                    (optional)
-```
+| | llama.cpp | Ollama | LM Studio | MLX | ONNX Runtime | TensorRT-LLM |
+|---|---|---|---|---|---|---|
+| Primary role | Inference engine | Runtime/server | AI platform | ML framework | Portable runtime | NVIDIA LLM runtime |
+| GUI | Optional | Minimal | Excellent | No | No | No |
+| CLI | Excellent | Excellent | Excellent | Excellent | Yes | Yes |
+| API server | Yes | Yes | Yes | Via ecosystem | Yes | Yes |
+| GGUF | Excellent | Excellent | Excellent | Supported in current MLX core | No | Not primary |
+| MLX | No | No | Yes | Native | No | No |
+| NVIDIA | CUDA | CUDA | CUDA/llama.cpp | CUDA available | Provider-dependent | Excellent |
+| AMD | HIP/Vulkan | ROCm/Vulkan | Runtime-dependent | CUDA/CPU focus | Provider-dependent | No |
+| Apple | Metal | Metal | MLX + llama.cpp | Excellent | Supported paths | No |
+| CPU inference | Excellent | Yes | Yes | Yes | Excellent | Primarily GPU |
+| Hybrid CPU/GPU | Yes | Yes | Yes | Unified memory model | Provider-dependent | GPU-focused |
+| Best for | Control/portability | Easy local AI servers | Desktop + server | Apple ML | Portable deployment | NVIDIA performance |
 
 ---
 
-# 27. Current Runner Comparison
+# 24. The "Body" Analogy — Final Version
 
-|                      | **llama.cpp**    | **Ollama**           | **LM Studio**         |
-| -------------------- | ---------------- | -------------------- | --------------------- |
-| Primary role         | Inference engine | Model runtime/server | Desktop AI platform   |
-| Language/core        | C/C++            | Go + inference stack | App + native runtimes |
-| GUI                  | Optional/web UI  | Minimal              | ⭐⭐⭐⭐⭐                 |
-| CLI                  | ⭐⭐⭐⭐⭐            | ⭐⭐⭐⭐⭐                | ⭐⭐⭐⭐                  |
-| API                  | ✅                | ✅                    | ✅                     |
-| GGUF                 | ⭐⭐⭐⭐⭐            | ⭐⭐⭐⭐⭐                | ⭐⭐⭐⭐⭐                 |
-| MLX                  | ❌                | Metal backend        | ⭐⭐⭐⭐⭐ Mac             |
-| NVIDIA               | CUDA             | CUDA                 | CUDA/llama.cpp        |
-| AMD                  | HIP/Vulkan       | ROCm/Vulkan          | Supported runtimes    |
-| Apple                | Metal            | Metal                | MLX + Metal           |
-| Server               | ⭐⭐⭐⭐⭐            | ⭐⭐⭐⭐⭐                | ⭐⭐⭐⭐⭐                 |
-| Beginner             | ⭐⭐⭐              | ⭐⭐⭐⭐                 | ⭐⭐⭐⭐⭐                 |
-| Developer            | ⭐⭐⭐⭐⭐            | ⭐⭐⭐⭐⭐                | ⭐⭐⭐⭐⭐                 |
-| Homelab              | ⭐⭐⭐⭐⭐            | ⭐⭐⭐⭐⭐                | ⭐⭐⭐⭐                  |
-| Fine-grained control | ⭐⭐⭐⭐⭐            | ⭐⭐⭐⭐                 | ⭐⭐⭐⭐                  |
-
-LM Studio's current architecture makes the last few rows particularly different from older versions: it now has a headless `llmster` daemon, local APIs, MCP capabilities and runtime management. ([LM Studio][6])
-
----
-
-# 28. One More Important 2026 Development: Parallel Inference
-
-This is another thing I'd add to the guide.
-
-A local runner isn't necessarily serving:
-
-```text
-User 1
-  ↓
-Model
-  ↓
-User 2
-  ↓
-Model
-```
-
-Modern inference engines can process multiple requests efficiently.
-
-LM Studio 0.4 introduced **continuous batching and parallel requests** for its llama.cpp engine, allowing multiple requests to the same model rather than simply queueing them one after another. ([LM Studio][6])
-
-This matters enormously when your local machine becomes:
-
-```text
-              AI SERVER
-                  │
-       ┌──────────┼──────────┐
-       ▼          ▼          ▼
-     User 1     User 2     User 3
-       │          │          │
-       └──────────┼──────────┘
-                  ▼
-                Model
-```
-
-That's when a desktop GPU starts looking like a genuine **AI inference server** rather than just a chatbot machine.
-
----
-
-# 29. Your "Body" Analogy — Updated
-
-I'd retain the analogy because it's excellent for beginners, but make it more sophisticated:
+The analogy is still useful, but it should now include the entire AI organism.
 
 ### 🧠 Model = Brain
 
-Contains learned parameters.
+Contains the learned parameters and architecture.
 
-It knows patterns.
+It provides the learned capability.
 
-It doesn't inherently browse, execute programs, access files or operate a network connection.
+It does not inherently browse the Internet, execute programs or access your files.
 
 ### 🫀 Runtime / Engine = Body
 
-Loads the brain.
+Loads the model and performs its computations.
 
-Moves its computations.
+It manages:
 
-Feeds it data.
-
-Uses CPU/GPU/NPU.
-
-Manages memory.
+- CPU/GPU/NPU
+- memory
+- model loading
+- inference
+- KV cache
+- token generation
 
 ### 🖥️ Application = Interface
 
-Lets you interact with it.
+Provides the interface through which humans interact with the AI.
 
 ### 🤖 Agent = Nervous System
 
 Coordinates:
 
 ```text
-Think
+Goal
  ↓
-Choose tool
+Model
  ↓
-Execute action
+Choose action
+ ↓
+Tool
  ↓
 Observe result
  ↓
-Think again
+Model
+ ↓
+Repeat
 ```
 
-### 🌐 Tools = Senses / Limbs
+### 🖐️ Tools = Senses and Limbs
+
+Examples:
 
 ```text
 Browser
 Filesystem
 Python
 Shell
+Git
 APIs
 Databases
 Cameras
 Microphones
 ```
 
+### 🛡️ Security / Sandbox = Protective Boundary
+
+Controls what the agent is actually allowed to access.
+
+This distinction becomes increasingly important as AI moves from answering questions to taking actions.
+
 ---
 
-# 30. The Updated Statement for Your Guide
+# 25. The Canonical Statement
 
-I would replace the original paragraph with this:
-
-> ## 🫀 The Runner — The Body
+> ## 🫀 The Runner — The "Body"
 >
-> The **runner** is the software that turns a model file into a functioning inference system. It loads the model's weights into memory, executes the neural-network operations, manages CPU/GPU/NPU acceleration, handles tokenization and context, and generates the model's output.
+> The **runner** is the software that turns a model file into a functioning inference system. It loads the model's weights into memory, prepares the model for execution, performs the neural-network computations, manages CPU/GPU/NPU acceleration, handles context and KV-cache state, and generates the model's output.
 >
-> Examples include **llama.cpp, Ollama, LM Studio's runtime/server stack, MLX, ONNX Runtime, and TensorRT-based runtimes**.
+> Examples include **llama.cpp, Ollama, LM Studio's runtime/server stack, MLX, ONNX Runtime, TensorRT-LLM, vLLM, and SGLang**.
 >
-> A runner may also expose a local or network API so other applications can use the model. For example, Ollama provides a local API at `localhost:11434`, while llama.cpp provides `llama-server`, and LM Studio provides local OpenAI-compatible and other APIs. ([Ollama][3])
+> A runner may also expose an API so other applications can communicate with the model. For example, Ollama provides local HTTP and OpenAI-compatible APIs, llama.cpp provides `llama-server`, and LM Studio provides local APIs and the headless `llmster` runtime.
 >
-> The runner is also responsible for translating the model's mathematical operations into instructions that your hardware can execute. Depending on the system, this can involve **CUDA on NVIDIA, ROCm/HIP on AMD, Metal on Apple Silicon, Vulkan, CPU instruction sets, or other accelerator backends**. ([Ollama][4])
+> The runner also translates the model's mathematical operations into instructions that the available hardware can execute. Depending on the platform, this can involve **CUDA, ROCm/HIP, Metal, Vulkan, CPU instruction sets, or other accelerator backends**.
 >
-> **The model itself does not automatically gain these capabilities.** Internet access, web browsing, Python execution, shell access, filesystem access, databases, and other tools are provided by the surrounding application or agent system.
+> The model itself does not automatically gain Internet access, web browsing, Python execution, shell access, filesystem access, database access or other tools. Those capabilities are provided by the surrounding application or agent system.
 >
-> In other words:
+> **In other words:**
 >
 > **Model = what the AI has learned.**
-> **Runtime = how the AI thinks on your hardware.**
-> **Application = how you interact with it.**
-> **Agent = how it uses tools to accomplish tasks.**
-
-That is the version I'd use as the **canonical architecture explanation** in your ML Guide. It also sets us up perfectly for the next layer: **what actually happens inside the GPU when a runner performs inference — tensors, matrix multiplication, attention, KV cache, GPU offloading, context length, tokens/sec, and why VRAM/RAM requirements behave the way they do.**
-
-[1]: https://github.com/ggml-org/llama.cpp/blob/master/README.md "llama.cpp/README.md at master · ggml-org/llama.cpp · GitHub"
-[2]: https://docs.ollama.com/ "Ollama documentation - Ollama"
-[3]: https://docs.ollama.com/api "Introduction - Ollama"
-[4]: https://docs.ollama.com/gpu "Hardware support - Ollama"
-[5]: https://lmstudio.ai/docs/app "Welcome to LM Studio Docs! | LM Studio"
-[6]: https://lmstudio.ai/blog/0.4.0 "Introducing LM Studio 0.4.0 | LM Studio Blog | LM Studio"
-[7]: https://github.com/ggml-org/llama.cpp/blob/master/tools/rpc/README.md "llama.cpp/tools/rpc/README.md at master · ggml-org/llama.cpp · GitHub"
+>
+> **Inference engine = how the neural network is executed.**
+>
+> **Runtime/server = how the model is loaded, managed and exposed.**
+>
+> **Application = how humans interact with it.**
+>
+> **Agent = how the AI uses tools to accomplish tasks.**
+>
+> **Security runtime = what the AI is actually allowed to do.**
