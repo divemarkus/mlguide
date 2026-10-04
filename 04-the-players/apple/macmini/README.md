@@ -13,4 +13,5 @@
 
 ## Comparison
 
+<img width="1312" height="1199" alt="Mac mini Generations_ Local LLM Comparison" src="https://github.com/user-attachments/assets/3cc38341-689b-4cc7-8712-8b980dd50c00" />
 
