@@ -541,10 +541,10 @@ For your environment, I would build the Mac mini around this model:
        llama.cpp / MLX             │
               │                    ├─ Shell
               ▼                    ├─ Files
-         Metal GPU                ├─ Git
+         Metal GPU                 ├─ Git
               │                    ├─ APIs
               ▼                    ├─ MCP
-       Apple Silicon              └─ Computer Use
+       Apple Silicon               └─ Computer Use
               │
               ▼
        Unified Memory
@@ -1165,7 +1165,7 @@ I would deploy your Mac mini as:
 ```text
 ┌───────────────────────────────────────────────┐
 │                MAC MINI                       │
-│              Apple Silicon                   │
+│              Apple Silicon                    │
 │                                               │
 │  macOS                                        │
 │    │                                          │
