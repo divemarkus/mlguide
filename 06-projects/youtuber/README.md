@@ -4,6 +4,10 @@ In fact, **Machine Learning is one of the better niches for a faceless YouTube c
 
 And your existing ML Guide is almost perfectly suited for this. It already has the foundation of a privacy-first, local-first curriculum: Ollama, LM Studio, Docker, Qdrant, Flowise, agents, Jetson, etc. requirements
 
+
+<img width="1672" height="941" alt="Private Local AI YouTube Factory" src="https://github.com/user-attachments/assets/4086aea4-f958-4de0-8777-d984222804e0" />
+
+
 ---
 
 ## The concept I'd recommend
