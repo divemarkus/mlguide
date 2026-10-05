@@ -187,7 +187,7 @@ The new architecture becomes:
                     │
         ┌───────────┴───────────┐
         │                       │
-     Docker                  VMs
+     Docker                   VMs
         │                       │
         └───────────┬───────────┘
                     │
@@ -332,10 +332,10 @@ I'd think about it as several layers.
       Ollama    llama.cpp       Frigate    Automations
          │         │              │
          └────┬────┘              │
-              │                    │
+              │                   │
           LLM Models           Cameras
-              │                    │
-              └────────┬───────────┘
+              │                   │
+              └────────┬──────────┘
                        │
                     NVIDIA GPU
                        │
@@ -802,7 +802,7 @@ That is a very different design philosophy.
 
 This is probably the most interesting option for your particular project.
 
-PNY RTX A2000 12GB GDDR6$672.71·newegg.com
+PNY RTX A2000 12GB GDDR6 - $672.71 ·newegg.com
 
 The key characteristics are:
 
