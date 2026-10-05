@@ -84,7 +84,7 @@ This is particularly useful for LLM inference because the model can occupy a lar
 
 Apple Silicon also provides good performance per watt, making a Mac Mini attractive as an **always-on local AI server**.
 
-The original StratoBuilds project used an M4 Pro Mac Mini. The same architectural concept applies to newer Apple Silicon Mac Minis; model selection should simply be matched to the amount of unified memory available.
+The same architectural concept applies to newer Apple Silicon Mac Minis; model selection should simply be matched to the amount of unified memory available.
 
 ---
 
@@ -175,7 +175,7 @@ The important architectural distinction is:
 
 # 5. Home Assistant on the Mac Mini
 
-Home Assistant can run on an Apple Silicon Mac through a virtual machine using **Home Assistant OS**.
+Home Assistant can run on an Apple Silicon Mac through a virtual machine using **Home Assistant OS**. [Link here to VM](https://www.home-assistant.io/installation/macos/)
 
 Home Assistant's current macOS installation documentation supports running the Home Assistant OS image in a VM on Apple Silicon Macs.
 
