@@ -688,9 +688,7 @@ It is useful for:
 - Experimenting with prompts
 - Managing local AI outside Home Assistant
 
-The original StratoBuilds architecture uses Open WebUI for this purpose, and that remains a useful companion to Home Assistant.
-
-I would **not** make Open WebUI part of the voice pipeline.
+I would **not** make Open WebUI part of the voice pipeline, yet.
 
 Keep the roles separate:
 
@@ -708,7 +706,7 @@ Both ultimately use the same local AI backend.
 
 # 18. Caching and Pre-Computed Information
 
-The original project makes a particularly interesting observation about latency: don't make an LLM perform expensive work every time someone asks a common question.
+Don't make an LLM perform expensive work every time someone asks a common question.
 
 For example, instead of asking a large model to analyze weather information every time:
 
@@ -749,9 +747,9 @@ This concept remains highly relevant.
 
 # 19. Recommended Model Strategy
 
-For your future Mac Mini, I'd modernize the original model strategy substantially.
+For Mac Mini, I'd modernize the model strategy substantially.
 
-Rather than locking the guide to specific 2025 models, use this strategy:
+Use this strategy:
 
 | Workload | Model Type | Priority |
 |---|---|---|
