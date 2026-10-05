@@ -778,259 +778,497 @@ Unraid
 
 ---
 
+Absolutely. I’d keep the main Unraid write-up intact and replace the GPU section with a more accurate **AI-focused comparison**, making the **RTX 2000 Ada 16GB** the preferred low-power GPU for your Unraid design.
+
+### Revised GPU section
+
 # 22. Should You Put a GPU in the Unraid Server?
 
-## For your use case:
+## For your use case: **Yes**
 
-### **Yes.**
+For your Home Lab, I would install a GPU in Unraid.
 
-But I would **not** put a giant GPU in it.
+But I would **not** put a huge gaming GPU such as the RTX 3090 Ti in the server.
 
-Your Ryzen/3090 Ti workstation is already the machine for serious local AI.
-
-Your Unraid GPU should instead be:
-
-> **low-power, always-on acceleration.**
-
-That is a very different design philosophy.
-
----
-
-# 23. The GPU I'd Look At First
-
-## NVIDIA RTX A2000 12GB
-
-This is probably the most interesting option for your particular project.
-
-PNY RTX A2000 12GB GDDR6 - $672.71 ·newegg.com
-
-The key characteristics are:
-
-| Feature | RTX A2000 |
-|---|---:|
-| Architecture | Ampere |
-| VRAM | **12 GB** |
-| Memory | GDDR6 ECC |
-| Bus | 192-bit |
-| PCIe | 4.0 x16 |
-| Power | **~70 W** |
-| External power | **No** |
-| Form factor | Low profile |
-| CUDA | Yes |
-| Tensor cores | Yes |
-| RT cores | Yes |
-| NVENC/NVDEC | Yes |
-| Good for 24/7 server | **Excellent** |
-
-The critical part:
-
-### It gets its power entirely from the PCIe slot.
-
-No 6-pin.
-
-No 8-pin.
-
-No special PSU cable.
-
-That's exactly what you're asking for.
-
----
-
-# 24. Why I Like the A2000 for Unraid
-
-It's not because it's a monster AI GPU.
-
-It isn't.
-
-The point is the combination:
+You already have the 3090 Ti in your Ryzen 9 9900X3D workstation. It makes much more sense to divide the AI workloads between:
 
 ```text
-             RTX A2000 12GB
-
-                 70 W
-                   │
-                   ▼
-             ┌───────────┐
-             │  Ampere   │
-             │           │
-             │ 12GB VRAM │
-             │           │
-             │ CUDA      │
-             │ Tensor    │
-             │ NVENC     │
-             │ NVDEC     │
-             └───────────┘
+                     HOME LAB AI
+                          │
+             ┌────────────┴────────────┐
+             │                         │
+          UNRAID                 Ryzen Workstation
+             │                         │
+     RTX 2000 Ada 16GB            RTX 3090 Ti
+             │                         │
+       Always-on AI                 Heavy AI
 ```
 
-It gives you a surprisingly broad set of capabilities without turning your NAS into a 300–500 W AI server.
+The Unraid GPU should therefore prioritize:
+
+- Low power consumption
+- No external power connector
+- 24/7 reliability
+- Enough VRAM for useful local LLMs
+- CUDA/Tensor acceleration
+- Frigate/video acceleration
+- Whisper
+- Vision models
+- Embeddings
+- Docker compatibility
+- Low-profile form factor
+
+That makes the **RTX 2000 Ada 16GB** particularly attractive.
 
 ---
 
-# 25. Cheaper / Lower-Power Alternative
+# 23. Recommended GPU: NVIDIA RTX 2000 Ada 16GB
 
-## NVIDIA T600 4GB
+The **RTX 2000 Ada Generation 16GB** is now my preferred GPU for your Unraid server.
 
-The T600 is much smaller and only consumes about **40 W**. NVIDIA's own datasheet specifies PCIe 3.0 x16 and 40 W maximum power. [NVIDIA](https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/productspage/quadro/quadro-desktop/proviz-print-nvidia-T600-datasheet-us-nvidia-1670029-r5-web.pdf)
+This is important because it is **not simply a 16GB version of the RTX A2000**.
 
-NVIDIA T600 4GB$299.00 · newegg.com
-
-But there is a major tradeoff:
+It is a newer generation:
 
 ```text
-T600
-  │
-  └── 4 GB VRAM
+RTX A2000
+    │
+    └── Ampere
+
+RTX 2000 Ada
+    │
+    └── Ada Lovelace
 ```
 
-For AI:
+The RTX 2000 Ada combines:
 
-**4 GB is restrictive.**
+- 16GB GDDR6 ECC
+- Ada Lovelace architecture
+- 2,816 CUDA cores
+- 4th-generation Tensor Cores
+- 3rd-generation RT Cores
+- 70W maximum power
+- PCIe-powered operation
+- No external power connector
+- Low-profile, two-slot design
+- CUDA
+- NVENC/NVDEC
+- AV1 encode/decode
 
-It's excellent for:
-
-- video decoding
-- transcoding
-- display
-- lightweight CUDA workloads
-- Frigate
-- small models
-
-but I'd hesitate to buy one specifically for your **LLM ambitions**.
-
----
-
-# 26. Another Interesting Option — T1000
-
-The T1000 family is also interesting because of its low power envelope and workstation/server-friendly form factor.
-
-But I'd still favor:
-
-### A2000 12GB
-
-because the additional VRAM dramatically increases its usefulness for AI.
+That combination is unusually well suited to an **always-on AI server**.
 
 ---
 
-# 27. The Weird Sleeper: Tesla P4
+# 24. RTX 2000 Ada vs RTX A2000 12GB
 
-There's another interesting possibility:
+The RTX A2000 12GB was my original recommendation, but after looking specifically at the **RTX 2000 Ada 16GB**, I'd choose the newer card if the price difference is reasonable.
 
-**Tesla P4 — 24 GB**
+| | **RTX A2000 12GB** | **RTX 2000 Ada 16GB** |
+|---|---:|---:|
+| Architecture | Ampere | **Ada Lovelace** |
+| VRAM | 12GB | **16GB** |
+| VRAM | GDDR6 ECC | GDDR6 ECC |
+| CUDA cores | **3,328** | 2,816 |
+| Tensor cores | Gen 3 | **Gen 4** |
+| RT cores | Gen 2 | **Gen 3** |
+| Memory bus | **192-bit** | 128-bit |
+| Memory bandwidth | **288 GB/s** | 224 GB/s |
+| FP32 | ~8 TFLOPS | **~12 TFLOPS** |
+| Power | 70W | **70W** |
+| External power | **No** | **No** |
+| PCIe | Gen 4 x16 | Gen 4 x8 |
+| AV1 decode | Yes | Yes |
+| AV1 encode | No | **Yes** |
+| ECC | Yes | **Yes** |
+| Form factor | Low profile | **Low profile** |
+| Local LLM | Very good | **Better overall** |
+| 24/7 server | Excellent | **Excellent** |
 
-It is a very low-power PCIe accelerator at roughly the 75 W slot-power class.
+The interesting tradeoff is that the A2000 actually has **higher memory bandwidth**, while the RTX 2000 Ada has:
 
-And:
+**more VRAM + newer architecture + substantially newer Tensor/RT capabilities.**
+
+For the AI workloads we're targeting, I favor the RTX 2000 Ada.
+
+---
+
+# 25. Why 16GB VRAM Matters
+
+The biggest advantage isn't necessarily raw GPU speed.
+
+It's **model capacity**.
+
+Your old RTX 3070 Ti has only:
 
 ```text
-24 GB VRAM
+8GB VRAM
 ```
 
-is extremely attractive for LLM workloads.
+The RTX 2000 Ada has:
 
-But there's a catch.
+```text
+16GB VRAM
+```
 
-It's an older Pascal-generation accelerator and is:
+That's a 2× increase.
 
-- passive cooled
-- datacenter oriented
-- no display outputs
-- older CUDA capability
-- dependent on good chassis airflow
-- considerably less attractive for modern AI than Ampere
+For local LLMs, that can be more important than having a faster GPU.
 
-For a purpose-built server with strong airflow, it can be interesting.
+For example:
 
-For your Unraid box:
+```text
+                 Model size
 
-### I wouldn't choose it.
+                   8B
+                    │
+          ┌─────────┴─────────┐
+          │                   │
+       3070 Ti          RTX 2000 Ada
+          ✓                   ✓
+
+
+                  ~14B
+                    │
+          ┌─────────┴─────────┐
+          │                   │
+       3070 Ti          RTX 2000 Ada
+       difficult              ✓
+```
+
+A model that barely fits — or requires CPU offloading — on an 8GB GPU can fit much more comfortably on 16GB.
+
+And the extra VRAM also gives room for:
+
+- Larger context windows
+- KV cache
+- Vision models
+- Embedding models
+- Multiple models
+- CUDA runtime overhead
+- Concurrent workloads
 
 ---
 
-# 28. My GPU Ranking for Your Unraid
+# 26. RTX 2000 Ada vs Your RTX 3070 Ti
 
-| GPU | VRAM | Power | External power | AI | Frigate | My rating |
-|---|---:|---:|---|---|---|---|
-| **RTX A2000 12GB** | **12GB** | ~70W | No | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | **Best** |
-| RTX A2000 6GB | 6GB | ~70W | No | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | Very good |
-| T1000 8GB | 8GB | ~50W | No | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | Good |
-| T600 4GB | 4GB | **40W** | No | ⭐⭐ | ⭐⭐⭐⭐⭐ | Good budget |
-| T400 4GB | 4GB | ~30W | No | ⭐⭐ | ⭐⭐⭐⭐ | Lightweight |
-| Tesla P4 | 24GB | ~75W | No | ⭐⭐⭐ | ⭐⭐⭐⭐ | Interesting but old |
-| RTX 3090 Ti | 24GB | ~450W | Yes | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ | **Overkill** |
+This is an especially important comparison because the RTX 2000 Ada can potentially replace your dedicated **RTX 3070 Ti/i7-6700K Ubuntu LLM machine**.
 
-For your Unraid server, I would **not** move the 3090 Ti into it.
+| | **RTX 3070 Ti** | **RTX 2000 Ada 16GB** |
+|---|---:|---:|
+| Architecture | Ampere | **Ada** |
+| VRAM | 8GB | **16GB** |
+| Memory bandwidth | **608 GB/s** | 224 GB/s |
+| CUDA cores | **6,144** | 2,816 |
+| Tensor cores | 192 | 88 |
+| FP32 | **~21.7 TFLOPS** | ~12 TFLOPS |
+| Power | ~290W | **70W** |
+| External power | Yes | **No** |
+| ECC | No | **Yes** |
+| AV1 encode | No | **Yes** |
+| Low profile | No | **Yes** |
+| 24/7 server | Poorer fit | **Excellent** |
+| Small LLM speed | **Faster** | Slower |
+| Larger LLM capacity | Limited by 8GB | **Much better** |
 
-Keep that GPU in your Ryzen 9900X3D workstation.
+This illustrates the tradeoff perfectly.
+
+### RTX 3070 Ti
+
+**Faster GPU, smaller VRAM.**
+
+### RTX 2000 Ada
+
+**Slower GPU, much larger VRAM and dramatically lower power.**
+
+For your Home Lab, I prefer the latter.
 
 ---
 
-# 29. The Architecture I'd Build for You
+# 27. Why I Would Retire the 3070 Ti LLM Server
 
-Considering the rest of your lab, I'd eventually make Unraid the **always-on infrastructure/AI hub**:
+Your existing machine is:
+
+```text
+Intel i7-6700K
+32GB RAM
+RTX 3070 Ti
+Ubuntu
+```
+
+It is a perfectly capable LLM machine, but it is becoming redundant.
+
+You already have:
+
+```text
+Ryzen 9 9900X3D
+96GB RAM
+RTX 3090 Ti
+```
+
+for heavyweight local AI.
+
+So the architecture becomes cleaner if you consolidate the always-on workloads into Unraid:
+
+```text
+OLD
+
+i7-6700K
+   │
+RTX 3070 Ti
+   │
+Ubuntu
+   │
+Ollama
+```
+
+becomes:
+
+```text
+NEW
+
+Unraid
+   │
+RTX 2000 Ada 16GB
+   │
+   ├── Ollama
+   ├── Open WebUI
+   ├── Frigate
+   ├── Whisper
+   ├── vision models
+   └── embeddings
+```
+
+And the 3090 Ti remains your high-performance AI machine.
+
+---
+
+# 28. The GPU Workload Split I Recommend
+
+### RTX 2000 Ada — Unraid
+
+Think:
+
+**Always-on / lightweight / infrastructure AI**
+
+```text
+RTX 2000 Ada 16GB
+│
+├── Ollama
+│   ├── Qwen 7B/8B
+│   ├── Gemma
+│   └── other small/medium models
+│
+├── Frigate
+│
+├── Whisper
+│
+├── Vision models
+│
+├── Embeddings
+│
+└── AI automation
+```
+
+### RTX 3090 Ti — Ryzen workstation
+
+Think:
+
+**Heavy AI**
+
+```text
+RTX 3090 Ti 24GB
+│
+├── Large Qwen models
+├── Large VLMs
+├── Coding models
+├── ComfyUI
+├── Flux
+├── AI agents
+├── Model experimentation
+└── High-throughput inference
+```
+
+This gives you two distinct AI tiers without wasting 450W of GPU power on the server.
+
+---
+
+# 29. Alternative Low-Power NVIDIA GPUs
+
+The RTX 2000 Ada isn't the only option.
+
+| GPU | VRAM | Power | External Power | AI Capability | Unraid Recommendation |
+|---|---:|---:|---|---|---|
+| **RTX 2000 Ada** | **16GB** | **70W** | **No** | ⭐⭐⭐⭐⭐ | 🥇 **Best** |
+| RTX A2000 | 12GB | 70W | No | ⭐⭐⭐⭐ | 🥈 Excellent used |
+| RTX A2000 | 6GB | 70W | No | ⭐⭐⭐ | Good |
+| RTX A400 | 4GB | ~50W | No | ⭐⭐ | Video/light AI |
+| T1000 | 8GB | ~50W | No | ⭐⭐⭐ | Good |
+| T600 | 4GB | 40W | No | ⭐⭐ | Budget |
+| Tesla P4 | 24GB | ~75W | No | ⭐⭐⭐ | Interesting but old |
+| RTX 4000 SFF Ada | 20GB | 70W | No | ⭐⭐⭐⭐⭐ | **Excellent, expensive** |
+| RTX 3090 Ti | 24GB | ~450W | Yes | ⭐⭐⭐⭐⭐ | Overkill |
+
+---
+
+# 30. RTX 4000 SFF Ada — The Step-Up Option
+
+There is one card I'd keep in mind if you find a good deal:
+
+### RTX 4000 SFF Ada 20GB
+
+It has:
+
+- 20GB VRAM
+- Ada architecture
+- 6,144 CUDA cores
+- 70W power
+- No external power
+- Low-profile form factor
+
+This is essentially the **dream low-power AI accelerator** for a compact server.
+
+The problem is price.
+
+If the RTX 2000 Ada is reasonably priced, it makes much more sense.
+
+But if you find a used RTX 4000 SFF Ada at a significant discount, it deserves serious consideration.
+
+---
+
+# 31. Tesla P4 — Why I Don't Recommend It
+
+The Tesla P4 is tempting because it has:
+
+**24GB VRAM**
+
+while consuming roughly:
+
+**75W**
+
+However, it is based on the much older Pascal architecture.
+
+It also has:
+
+- Passive cooling
+- Older CUDA capability
+- No display outputs
+- Older Tensor/AI capabilities
+- Greater dependency on good server airflow
+
+For a purpose-built inference server, it's interesting.
+
+For your Unraid system:
+
+### I'd choose the RTX 2000 Ada.
+
+Modern architecture matters more than simply having 24GB of old VRAM.
+
+---
+
+# 32. Final GPU Recommendation
+
+For the Unraid AI server, my ranking is now:
+
+### 🥇 RTX 2000 Ada 16GB
+
+**Best overall balance**
+
+```text
+16GB
++
+Ada
++
+70W
++
+PCIe-only
++
+ECC
++
+low profile
++
+CUDA
++
+Tensor
++
+NVENC/NVDEC
+```
+
+### 🥈 RTX A2000 12GB
+
+Excellent if purchased used at a substantially lower price.
+
+### 🥉 RTX 4000 SFF Ada 20GB
+
+Potentially the **best technical solution**, but generally too expensive unless you find an unusually good deal.
+
+### Budget
+
+T1000 / T600
+
+Good if the primary objective is:
+
+> Frigate + video + occasional small AI.
+
+---
+
+# 33. Final Home Lab AI Architecture
+
+The resulting architecture I'd recommend for you is:
 
 ```text
                          HOME LAB
                             │
-                    ┌───────┴───────┐
-                    │               │
-                 Unraid          Ryzen Workstation
-                 Server              │
-                    │             RTX 3090 Ti
-                    │                 │
-          ┌─────────┼─────────┐       │
-          │         │         │       │
-        Docker     VMs       GPU      │
-          │         │         │       │
-          │         │      A2000      │
-          │         │         │       │
-          │         │         ├── Frigate
-          │         │         ├── Ollama
-          │         │         ├── llama.cpp
-          │         │         └── Whisper
-          │         │
-          │       Home Assistant
-          │
-          ├── Open WebUI
-          ├── Qdrant
-          ├── n8n
-          ├── Immich
-          ├── Paperless
-          ├── OpenHands
-          ├── Frigate
-          └── monitoring
+            ┌───────────────┴────────────────┐
+            │                                │
+         UNRAID                         RYZEN WORKSTATION
+            │                                │
+    RTX 2000 Ada 16GB                    RTX 3090 Ti
+            │                                │
+       Always-On AI                       Heavy AI
+            │                                │
+    ┌───────┼────────┐              ┌───────┼────────┐
+    │       │        │              │       │        │
+ Ollama  Frigate  Whisper         Qwen    VLM     ComfyUI
+    │
+ Open WebUI
+    │
+ Qdrant
+    │
+ n8n
+    │
+ Home Assistant
 ```
 
-Then the **3090 Ti becomes the heavy AI engine**:
+This also gives you a very clean reason to retire the **i7-6700K/3070 Ti Ubuntu server**:
 
 ```text
-3090 Ti
- ├── large LLMs
- ├── Qwen
- ├── vision models
- ├── ComfyUI
- ├── Flux
- ├── serious agent workloads
- └── model experimentation
+             BEFORE
+
+       i7-6700K + 3070 Ti
+              │
+           ~290W GPU
+              │
+         LLM server
+
+
+             AFTER
+
+            Unraid
+              │
+       RTX 2000 Ada
+              │
+             70W
+              │
+   AI + Frigate + HA + Docker
 ```
 
-while the **A2000 becomes the always-on utility GPU**:
+And your **3090 Ti remains untouched** for the workloads where GPU horsepower actually matters.
 
-```text
-A2000
- ├── Frigate
- ├── video decode
- ├── lightweight LLM
- ├── Whisper
- ├── embeddings
- ├── small vision models
- └── occasional AI workloads
-```
-
-That division makes a lot of sense.
+**So my revised recommendation is: buy the RTX 2000 Ada 16GB for Unraid, retire the 3070 Ti LLM box, and treat the 3090 Ti as your high-performance local-AI tier.**
 
 ---
 
-# 30. And There Is an Even Better Trick
+# 34. And There Is an Even Better Trick
 
 You don't necessarily need to run **all** AI on the Unraid GPU.
 
@@ -1074,7 +1312,7 @@ That is much more powerful than treating the Unraid GPU as simply "the GPU for O
 
 ---
 
-# 31. Cool Things You Could Build
+# 35. Cool Things You Could Build
 
 Here are some of the things I'd actually consider worthwhile in **your** lab.
 
@@ -1237,7 +1475,7 @@ For example:
 
 ---
 
-# 32. My Recommendation
+# 36. My Recommendation
 
 If you were building this **today**, I would not overhaul your existing Unraid server yet.
 
@@ -1308,7 +1546,7 @@ Instead expose the 3090 Ti workstation as a **second local inference endpoint**.
 
 ---
 
-# 33. And Unraid 8 Makes This More Interesting
+# 37. And Unraid 8 Makes This More Interesting
 
 The Unraid 8 announcement is probably the most important thing to know if you're considering expanding your Unraid investment.
 
