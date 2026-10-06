@@ -116,7 +116,7 @@ unless you've customized the configuration. [GitHub](https://github.com/jundot/o
 
 # 3. Open the Admin Dashboard
 
-Once oMLX is running, open your browser:
+Once oMLX is running, open your browser. If you see API Key creation, proceed to create API key & keep the password safe.
 
 ```text
 http://localhost:8000/admin
