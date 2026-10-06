@@ -503,3 +503,31 @@ Its real strength is the combination of:
 And in your home lab, I'd use it as a **portable AI endpoint that can run small models locally while accessing your 3090 Ti for serious inference**.
 
 That gives you the best of both worlds without pretending the Z2 is something it isn't.
+
+---
+
+# Update on Memory Allocation
+
+I would revise the LLM section to say:
+The Legion Go 2 has 32GB of shared LPDDR5X-7500 memory. Its integrated Radeon GPU does not have dedicated VRAM, but the BIOS exposes a UMA Frame Buffer Size setting that allows the user to reserve a portion of system memory for graphics. The available allocation options depend on BIOS/driver version. For local LLM use, Auto or a moderate UMA allocation is preferable to simply maximizing VRAM, because the LLM, OS, CPU and GPU all compete for the same 32GB physical memory.
+
+That's more technically accurate.
+One particularly interesting experiment
+When you get the Go 2, I'd like to test three configurations:
+- Configuration	Purpose
+- UMA Auto	Maximum flexibility
+- UMA 8GB	Balanced GPU/LLM workload
+- UMA 16GB	Maximum fixed GPU allocation
+
+Then run the same Qwen 3 8B Q4 GGUF through llama.cpp/Ollama and measure:
+- prompt processing tok/s
+- generation tok/s
+- GPU utilization
+- CPU utilization
+- available RAM
+- power consumption
+- temperature
+- battery drain
+
+That would give us a real Legion Go 2 LLM profile, rather than relying on theoretical specifications.
+And given that you're specifically looking at the 32GB Costco Z2, I think that 32GB shared-memory architecture is actually one of the most interesting aspects of this machine for our local-LLM experiment.
