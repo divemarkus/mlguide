@@ -7,7 +7,6 @@ The current oMLX project provides a macOS/Homebrew service, an `/admin` dashboar
 
 ![Dark-mode oMLX admin dashboard showing server status, serving metrics, active models, and navigation](images/omlx-admin-dashboard.png)
 
-
 ---
 
 ## 1. Installation with Homebrew
