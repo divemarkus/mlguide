@@ -4,6 +4,10 @@ oMLX is particularly interesting on Apple Silicon because it gives you a **nativ
 
 The current oMLX project provides a macOS/Homebrew service, an `/admin` dashboard, built-in chat, model downloading, model management, benchmarking, and per-model configuration. [GitHub](https://github.com/jundot/omlx/blob/main/README.md)
 
+
+![Dark-mode oMLX admin dashboard showing server status, serving metrics, active models, and navigation](images/omlx-admin-dashboard.png)
+
+
 ---
 
 ## 1. Installation with Homebrew
