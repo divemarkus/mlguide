@@ -1,13 +1,12 @@
 # OpenAI
 
-> **OpenAI is building an AI platform where the model is increasingly becoming an agent that can reason, use tools, operate software, write code, research, and execute multi-step work—not merely a chatbot.**
+> **OpenAI is by no means local, privacy focused AI company. But OpenAI has tools that can be used with local LLMs. Also, for complex tasks that your local LLM can't accomplish, you can try OpenAI's product(s).**
 
-OpenAI itself describes the company as an AI research and deployment company whose mission is to ensure AGI benefits humanity. Its current structure combines the nonprofit OpenAI Foundation with OpenAI Group, a public benefit corporation. [OpenAI](https://openai.com/about/)
+OpenAI itself describes the company as an AI research and deployment company. [OpenAI](https://openai.com/about/)
 
 ---
 
 # OpenAI: From Model → Assistant → Agent → Platform
-
 
 
 The evolution is easier to understand as a progression:
