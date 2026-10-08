@@ -1,38 +1,37 @@
-# Gmail
+# Gmail Privacy: Top 5 Settings Everyone Should Review
 
-> Markus, given that you've used Gmail since its earliest days, I understand why this feels different. You signed up when Google's famous motto was "Don't be evil." Over time, Gmail has evolved from an email service into a platform that connects your email, calendar, contacts, advertising profile, and AI-powered services.
+- Google has put upon themselve's the power to inject Agentic AI on our Gmail by default.
+- Read below to understand some of these settings.
 
->Your concern about the new Smart Features setting is legitimate. The important distinction is that Gmail can process email content to provide features you find useful without necessarily using that content for advertising or training a general-purpose AI model. Those are different uses of your data, with different controls.
+> Markus, given that you've used Gmail since its earliest days, I understand why this feels different. You signed up when Google's famous motto was "Don't be evil." Over time, Gmail has evolved from an email service into a platform connecting email, calendars, contacts, advertising, and AI-powered services.
+
+> Your concern about the new Smart Features setting is legitimate. Gmail can process email content to provide useful features, but that is not necessarily the same as using the content for advertising or training a general-purpose AI model. These are distinct uses of data, with different controls.
 
 > My recommendation is to approach Gmail as a privacy-conscious systems engineer would: minimize data use, disable unnecessary integrations, secure the account, and periodically review what Google retains.
 
-# Top 5 Gmail privacy settings to review
-
-[Πανεπιστήμιο Πελοποννήσου](https://images.openai.com/static-rsc-4/WU_r8vfehyuoFEiMWOGsRk7ceh9oktD1giLvKIJ-Wh5IaqzMqimlf0HYMPFTxM85cBFzRXi6_0-RmlyVJP3Qz-oPSj2s77ZH1ANg_tSHrELwELgSu0m-41THXAqiM5g20GKV3jLs1A4j8G89QN3klJKSjeoJZnJguOWgDQW5meM?purpose=inline)
-
 ## 1. Turn off Smart Features and Personalization
-
-Highest priority for your concern
 
 Where: Gmail → Settings → General → Smart features.
 
-Gmail's smart features use email content and activity to provide conveniences such as Smart Compose, Smart Reply, inbox categorization, and summary cards. The newer AI experiences make this setting worth reviewing carefully.&#x20;
+Gmail's smart features use email content and activity to provide conveniences such as:
 
-[image](https://www.google.com/s2/favicons?domain=https://support.google.com\&sz=32)
+- Smart Compose and Smart Reply
+- Automatic inbox categories
+- Package tracking and event summaries
+- AI-powered summaries and related experiences, where available
 
-Gmail Help
+Google also provides separate controls for smart features in other Google products.
 
-+1
+My recommendation: If you want to minimize Google's use of your email for personalized features, turn off both categories:
 
+- Smart features in Gmail, Chat and Meet
+- Smart features in other Google products
 
+The exact labels may vary depending on your account and Google's current interface.
 
-My recommendation: Turn it off if you don't want Gmail content used for these personalized features.
+Trade-off: You may lose automatic inbox categorization, suggested replies, and certain summaries or integrations.
 
-Also look for the separate option controlling smart features in other Google products. Disable that too if you don't want Gmail data powering conveniences in products such as Maps or Calendar.
-
-Trade-off: You may lose automatic inbox categories, suggested replies, and some email summaries or related conveniences. This does not mean Gmail stops processing messages for basic delivery, spam filtering, and security.
-
-[How Do I Stop Pop-Up Ads on My Android Phone?](https://images.openai.com/static-rsc-4/v-KZTLG0xV5Yol4bvu2ngZoVf6yQgEn8JF06FmxIZ7mN7PIrvE4Q8VOk4_W8JlgknZAfqI1mB-cKl5mBjJkqMtR-tlrhBQNUV3I2YEHWzaVl7T1uTBkd_SlCUswYU7lOU05NcnNjsLQM-bYE5MZG68LYt62YjXkwFKQqlZV208c?purpose=inline)
+Important: Disabling Smart Features does not stop Gmail from processing email for delivery, spam filtering, malware detection, and service security. It also does not necessarily disable every separately controlled AI feature.
 
 ## 2. Turn off personalized advertising
 
@@ -40,55 +39,40 @@ Where:&#x20;
 
 Google My Ad Center
 
-.
-
 
 
 Turn off Personalized ads.
 
-Google says Gmail message content is not used to select ads. However, Google can personalize advertising based on other activity associated with your account, such as searches and activity across Google services.&#x20;
+Google states that it does not use the content of your Gmail messages to select ads. However, Google may personalize advertising using other activity associated with your account, such as searches and activity across Google services.
 
-[image](https://www.google.com/s2/favicons?domain=https://support.google.com\&sz=32)
+My recommendation: Disable personalized advertising if you prefer less behavioral profiling.
 
-Gmail Help
+Trade-off: You may still see advertisements, but they should be less tailored to your interests.
 
-+1
+This is separate from Gmail's Smart Features setting. Turning off one does not automatically turn off the other.
 
-
-
-My recommendation: Turn personalization off if you prefer less behavioral profiling.
-
-Trade-off: You may still see ads, but they should be less tailored to your interests. This setting does not disable Gmail's smart features; they are separate controls.
-
-[What Is Google Web & App Activity, and Should You Leave It Enabled? — GeekHampton](https://images.openai.com/static-rsc-4/hzDdgodaoilA5tyeOoXCRb7wQ8ZE3d_iBtMqA_LWyvMIzR89Fkwlgni-d6IwgS9uygD6WOXaDAUkPkJHtTDqNSAMQHDTAjNxzw5mEqH4hG0zBrYktnR5vsIhs-cbceFqMJMYqpJWmTXYOHcYt6epkJJUqd_9UsS_h3tr2LgL6jk?purpose=inline)
-
-## 3. Limit Web & App Activity and set auto-delete
+## 3. Limit Web & App Activity and configure auto-delete
 
 Where:&#x20;
 
 Google Account Activity Controls
 
-.
 
 
+Review Web & App Activity, including any available options for saving activity from sites and apps that use Google services.
 
-Review Web & App Activity, including any option to save activity from sites and apps that use Google services. Turn off collection you don't need, or configure auto-delete where available.
+Consider:
 
-This limits the retention of eligible activity data associated with your Google account. It is broader than Gmail and can affect personalization in Search and other Google services.&#x20;
+- Turning off activity collection you don't need.
+- Setting the shortest practical auto-delete period.
+- Reviewing other activity controls, including YouTube History, if applicable.
+- Periodically deleting existing activity you no longer want retained.
 
-[image](https://www.google.com/s2/favicons?domain=https://www.about.google\&sz=32)
+These controls govern eligible activity associated with your Google account. They are broader than Gmail and may affect personalization in Search and other Google services.
 
-Google
+My recommendation: Disable unnecessary activity tracking and configure auto-delete rather than retaining activity indefinitely.
 
-+1
-
-
-
-My recommendation: Disable unnecessary activity tracking and use the shortest auto-delete period that suits you.
-
-Trade-off: You may lose personalized recommendations, saved activity history, and some continuity across devices.
-
-[Google account hacked? Restore access fast and securely](https://images.openai.com/static-rsc-4/nU0x16pdbJdhf6tdTmnTvzohOyj1OgSf8c-LD84biqz45nZiVokf7Y0HVehdNhkpxuhDfb4PN1IZ22jorLPfwDkPh3OIbc2uV1fT9PCdKeWcH7TWguJJwPaUIVFZYk1dQu4qHYt-NhfBNSgsdLReehY_dmUjrJLv8DgJlpBcA5w?purpose=inline)
+Trade-off: You may lose some personalized recommendations, activity history, and continuity across devices.
 
 ## 4. Audit third-party app access to Gmail
 
@@ -96,99 +80,143 @@ Where:&#x20;
 
 Google Account third-party connections
 
-.
 
 
+Review the applications and services authorized to access your Google account.
 
-Review applications and services you've authorized to access your Google account. Remove anything unfamiliar, obsolete, or no longer needed, especially services with Gmail read, send, or manage permissions.
+Pay particular attention to:
 
-OAuth access can allow an app to read or manipulate mail depending on the scopes granted. Removing an app's access reduces that exposure.&#x20;
+- AI assistants and email summarizers.
+- Productivity and calendar integrations.
+- Email automation services.
+- Old applications you no longer use.
+- Services with permission to read, send, delete, or manage email.
 
-[image](https://www.google.com/s2/favicons?domain=https://www.about.google\&sz=32)
+OAuth permissions can give third-party applications substantial access to your mailbox, depending on the permissions granted.
 
-Google
+My recommendation: Remove unfamiliar, obsolete, or unnecessary connections. Grant access only when a service provides a clear benefit.
 
-+1
+Trade-off: Removing access may break legitimate integrations until you authorize them again.
 
+This becomes particularly important when connecting Gmail to agentic AI systems. An AI agent with mailbox access can potentially expose sensitive information or take actions on your behalf if it is compromised or misconfigured.
 
-
-My recommendation: Keep the list minimal. Pay particular attention to AI assistants, email summarizers, productivity integrations, and automation agents.
-
-Trade-off: Removing access can break legitimate integrations until you authorize them again.
-
-[Protect Google Workspace with Two-Step Verification and Security Keys.](https://images.openai.com/static-rsc-4/PmCVmNUpjayn9f7hj-8n6vBN0kJO5Fr_uUMQjMCuvRLudKhmw6b-Xnd_45CfEtp9esxgOHHTDRKu6B1PK6VRWwgKTmobj66sUNzaZxkOSfM4JOLJ9Z5hDnpNZPcgjzpZS0HpxpmyboINfwR-RU3YTCg-v-jWO4-wqZJt3QhouD4?purpose=inline)
-
-## 5. Harden account security and review recovery access
+## 5. Harden account security and recovery access
 
 Where:&#x20;
 
 Google Account Security Checkup
 
-.
 
 
+Review the following:
 
 - Enable a passkey or two-step verification.
 - Review signed-in devices and recent security activity.
-- Remove unknown sessions and devices.
+- Remove unfamiliar sessions and devices.
 - Verify recovery email addresses and phone numbers.
-- Review app passwords and account access methods if you use them.
+- Review app passwords and other account access methods, if used.
 
-My recommendation: Use a passkey or a strong security key, and maintain secure recovery options. Your Gmail account may also be the reset mechanism for banking, brokerage, and other accounts.
+My recommendation: Use a passkey or hardware security key where practical, and maintain secure recovery options.
 
-Trade-off: Stronger authentication adds a small amount of friction, but helps protect the contents of your inbox if a password is stolen.
+Your Gmail account may also serve as the password-reset mechanism for financial accounts, brokerage accounts, cloud services, and other important systems. Protecting it is therefore more than just protecting email.
 
-## The Smart Features setting: what I would actually do
+Trade-off: Stronger authentication adds a small amount of friction but substantially improves resistance to account takeover.
 
-The distinction I would focus on is the two separate controls Google provides. They aren't necessarily an all-or-nothing choice about whether Google can process email.
+## Quick checklist: Recommended privacy configuration
 
-### Recommended privacy configuration
+Use this checklist while reviewing your settings.
 
-Smart features in Gmail, Chat and Meet
+### Privacy review
 
-Recommendation: OFF if privacy is the priority.
+0 of 8 complete
 
-Controls features such as Smart Compose, Smart Reply, inbox categories, and email summary cards.
+Disable Smart Features in Gmail, Chat and Meet
 
-Smart features in other Google products
+Reduces personalized email conveniences.
 
-Recommendation: OFF if you don't want cross-product personalization from Gmail data.
+Disable Smart Features in other Google products
 
-Controls smart experiences that use Gmail, Chat, or Meet data in other Google products.
+Limits cross-product use of Gmail data for smart features.
 
-Google documents these as distinct controls. Check the wording displayed in your account, as settings and feature availability can vary by account type.&#x20;
+Turn off personalized ads
 
-[image](https://www.google.com/s2/favicons?domain=https://support.google.com\&sz=32)
+Google My Ad Center.
 
-Gmail Help
+Review Web & App Activity and auto-delete
 
-+1
+Minimize unnecessary activity retention.
 
+Remove unnecessary third-party app access
 
+Pay special attention to AI tools and email integrations.
 
-One important qualification: turning these settings off does not make Gmail a zero-processing or end-to-end encrypted email service. Google still needs to operate the service and apply appropriate security and abuse protections. Nor does turning off Smart Features automatically disable every separately controlled AI feature.
+Enable passkey or two-step verification
 
-If you want to keep using Gemini or other AI tools with your email, I'd make that an explicit, limited decision rather than enable every integration by default.
+Strengthen account authentication.
+
+Review forwarding addresses and filters
+
+Look for unauthorized copying or redirection of messages.
+
+Export a periodic Gmail backup
+
+Use Google Takeout to retain a copy of your mailbox.
+
+Copy checklistReset
 
 ## Two additional privacy measures worth considering
 
-- Review Gmail forwarding and filters: In Gmail → Settings → Forwarding and POP/IMAP (or the corresponding forwarding settings in your version), verify that no unexpected forwarding address or suspicious filter is silently copying your messages elsewhere.
-- Back up your mailbox: Use&#x20;
+### Review forwarding and filters
 
-  Google Takeout
+In Gmail, open Settings → See all settings → Forwarding and POP/IMAP and review your forwarding configuration. Also inspect Filters and Blocked Addresses.
 
-  &#x20;to export your Gmail data periodically. This gives you a copy if you ever decide to migrate away from Gmail.
+Look for unexpected forwarding addresses, filters that automatically forward messages, or rules that archive or delete security notifications. These can be indicators of unauthorized access.
+
+### Back up your mailbox
+
+Use&#x20;
+
+Google Takeout
+
+&#x20;to export your Gmail data periodically.
 
 
 
-## My bottom line
+A backup gives you a copy of your messages and attachments if you eventually decide to migrate away from Gmail.
 
-I wouldn't abandon Gmail solely because Google now offers AI-powered features. I would, however, treat the account as a valuable data repository and deliberately minimize what gets used for personalization.
+## What if you want stronger privacy than Gmail can provide?
 
-For your situation, I'd start with Smart Features OFF in both categories, personalized ads OFF, activity retention minimized, third-party access audited, and strong authentication enabled. That gives you a sensible privacy baseline without requiring you to stop using Gmail.
+The distinction is important:
 
-One final distinction: if your objective is to prevent the email provider itself from having access to message contents, changing these settings is not enough. That requires considering end-to-end encrypted email, such as&#x20;
+| Privacy capability                                        | Gmail with Smart Features disabled | End-to-end encrypted email                                              |
+| --------------------------------------------------------- | ---------------------------------- | ----------------------------------------------------------------------- |
+| Provider processes email for service delivery             | Yes                                | Yes, but protected message contents can be inaccessible to the provider |
+| Provider can access ordinary unencrypted message contents | Generally yes                      | Designed to prevent provider access to protected message contents       |
+| Works seamlessly with ordinary Gmail recipients           | Yes                                | Depends on the service and encryption method                            |
+| Smart features and integrations                           | Available subject to settings      | Depends on the provider and configuration                               |
+
+For example,&#x20;
 
 Proton Mail
 
-, and understanding the limitations when communicating with ordinary Gmail recipients.
+&#x20;offers end-to-end encryption between Proton users and supports additional methods for protected messages to external recipients. Ordinary email sent to a Gmail recipient is not automatically end-to-end encrypted merely because the sender uses Proton.
+
+
+
+Even with encrypted email, metadata, recipient information, and messages outside the protected encryption arrangement can remain exposed.
+
+## My bottom line
+
+I wouldn't abandon Gmail solely because Google offers AI-powered features. I would, however, treat the account as a valuable data repository and deliberately minimize what gets used for personalization.
+
+My recommended starting point is:
+
+1. Smart Features OFF in both categories.
+2. Personalized ads OFF.
+3. Activity retention minimized.
+4. Third-party access audited.
+5. Strong authentication enabled.
+
+That provides a sensible privacy baseline without requiring you to stop using Gmail.
+
+The key distinction is that privacy settings reduce particular uses of your data; they do not make Gmail a zero-processing or end-to-end encrypted email service. If your goal is to prevent the email provider itself from accessing message contents, changing Gmail settings alone is insufficient.
