@@ -1,3 +1,5 @@
+# Gmail - Smart Features
+
 ## Source review
 
 I found three particularly relevant Google sources:
@@ -8,8 +10,6 @@ I found three particularly relevant Google sources:
 
   &#x20;— January 7, 2025. Google explains why it split the Workspace controls and explicitly says the change did not alter underlying data-handling practices.&#x20;
 
-  [image](https://www.google.com/s2/favicons?domain=https://workspace.google.com\&sz=32)
-
   Google Workspace Blog
 
 
@@ -19,11 +19,10 @@ I found three particularly relevant Google sources:
 
   &#x20;— Google's detailed explanation of what each setting enables, what turning it off disables, and how the controls work independently.&#x20;
 
-  [image](https://www.google.com/s2/favicons?domain=https://support.google.com\&sz=32)
-
+  
   Google Meet Help
 
-  +1
+  
 
 
 -
@@ -32,7 +31,7 @@ I found three particularly relevant Google sources:
 
   &#x20;— Google's earlier explanation of the Gmail control, including its stated position on advertising and automated processing.&#x20;
 
-  [image](https://www.google.com/s2/favicons?domain=https://blog.google\&sz=32)
+  
 
   blog.google
 
