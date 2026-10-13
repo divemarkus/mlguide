@@ -15,3 +15,6 @@
 
 <img width="1312" height="1199" alt="Mac mini Generations_ Local LLM Comparison" src="https://github.com/user-attachments/assets/3cc38341-689b-4cc7-8712-8b980dd50c00" />
 
+## Unified Memory is Important
+
+<img width="1312" height="1199" alt="Unified Memory on M6 Mac mini" src="https://github.com/user-attachments/assets/f3016fe3-9675-48fb-8007-37c8d361af2b" />
