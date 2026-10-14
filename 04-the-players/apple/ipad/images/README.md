@@ -7,3 +7,12 @@
 - z-image turbo, 6-steps, small portrait, 5 minutes
 
 <img width="704" height="832" alt="ginger_cat__aiming_long_rifle_with_hat__ww1" src="https://github.com/user-attachments/assets/89374b5e-d82b-49da-a0ce-712d3950189f" />
+
+---
+
+> German Shepherd dog, WWI theme, in a bunker, dog wearing WWI gear, no helmet and have a binoculars. Funny but serious
+
+- German Shepherd Trench Spotter
+- z-image turbo, 6-steps, small portrait, 5 minutes
+
+<img width="704" height="832" alt="german_shepherd_dog__wwi_theme__in_a_bunker" src="https://github.com/user-attachments/assets/4aeb81ee-dcb5-4406-a400-47fabb99c1c6" />
