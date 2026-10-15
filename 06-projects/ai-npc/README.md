@@ -3,11 +3,7 @@
 
 My recommendation: yes—PC is the right platform to experiment with AI-assisted NPCs, using mods and plugins where the game permits them. The real opportunity is to turn a scripted NPC into a character you can talk to naturally, give instructions, build a relationship with, and influence through actual gameplay.
 
-The technology is already moving beyond simple chatbot demos. NVIDIA's June 2026 developer announcement describes an ACE Game Agent SDK with agent, chat, and retrieval-augmented generation (RAG) APIs, alongside Unreal Engine 5 plugins for speech recognition, local language models, and text-to-speech.&#x20;
-
-[image](https://www.google.com/s2/favicons?domain=https://developer.nvidia.com\&sz=32)
-
-NVIDIA Technical Blog
+The technology is already moving beyond simple chatbot demos. NVIDIA's June 2026 developer announcement describes an ACE Game Agent SDK with agent, chat, and retrieval-augmented generation (RAG) APIs, alongside Unreal Engine 5 plugins for speech recognition, local language models, and text-to-speech.
 
 
 
@@ -15,27 +11,27 @@ The important distinction is that making an NPC talk intelligently is much easie
 
 ## 1. What an AI-assisted NPC should look like
 
-Level 0 — Traditional NPC
+### Level 0: Traditional NPC
 
-Today’s baseline
+**Today’s baseline**
 
 Repeats recorded dialogue, follows a behavior tree, and reacts to a fixed collection of triggers. The possible conversations are authored in advance.
 
-Level 1 — Conversational NPC
+### Level 1: Conversational NPC
 
-Natural voice and contextual responses
+**Natural voice and contextual responses**
 
 You can ask questions, interrupt, discuss the local area, and hear a voiced response. The NPC may still have no authority to change anything in the game.
 
-Level 2 — Action-capable NPC
+### Level 2: Action-capable NPC
 
-The real breakthrough
+**The real breakthrough**
 
 You say, “Get in the car, follow me, and wait at the garage.” The AI converts your request into validated game actions and the NPC executes them using the game's movement and interaction systems.
 
-Level 3 — Persistent world character
+### Level 3: Persistent world character
 
-The long-term vision
+**The long-term vision**
 
 The NPC remembers your actions, has goals and relationships, reacts to world events, and can change its behavior across multiple sessions. Multiple NPCs can coordinate without losing their individual identities.
 
@@ -45,73 +41,47 @@ For a GTA-style game, Level 2 is the most useful first target. It produces tangi
 
 The repositories are useful, but they occupy different layers of the system. They are not interchangeable plug-and-play NPC mods.
 
-NVIDIA ACE — local AI and in-game reasoning
+### NVIDIA ACE: Local AI and in-game reasoning
 
-Best local-AI direction
+**Best local-AI direction**
 
-ACE provides agent, chat, and RAG APIs. The announced UE5 plugins add local speech recognition, language-model inference, and speech synthesis, with C++ and Blueprint integration. This is the closest match to a privacy-conscious, RTX-powered NPC system.&#x20;
-
-[image](https://www.google.com/s2/favicons?domain=https://developer.nvidia.com\&sz=32)
-
-NVIDIA Technical Blog
+ACE provides agent, chat, and RAG APIs. The announced UE5 plugins add local speech recognition, language-model inference, and speech synthesis, with C++ and Blueprint integration. This is the closest match to a privacy-conscious, RTX-powered NPC system.
 
 
 
-Start: [NVIDIA ACE resources](https://developer.nvidia.com/blog/build-on-device-ai-companions-with-the-nvidia-ace-game-agent-sdk-and-unreal-engine-5-plugins/) · [NVIDIA/ACE on GitHub](https://github.com/NVIDIA/ACE)
+**Start:** [NVIDIA ACE resources](https://developer.nvidia.com/blog/build-on-device-ai-companions-with-the-nvidia-ace-game-agent-sdk-and-unreal-engine-5-plugins/) · [NVIDIA/ACE on GitHub](https://github.com/NVIDIA/ACE)
 
-Convai — conversations, character identity, and actions
+### Convai: Conversations, character identity, and actions
 
-Convai's Unreal integration supports conversational characters and action-taking. Its modding framework documents combining the Convai C++ SDK with UE4SS to add features to some already-released Unreal games. The framework documentation describes games using Unreal Engine 4.12 through 5.2, so don't assume it will automatically work with newer UE titles.&#x20;
-
-[image](https://www.google.com/s2/favicons?domain=https://github.com\&sz=32)
-
-GitHub
-
-+1
+Convai's Unreal integration supports conversational characters and action-taking. Its modding framework documents combining the Convai C++ SDK with UE4SS to add features to some already-released Unreal games. The framework documentation describes games using Unreal Engine 4.12 through 5.2, so don't assume it will automatically work with newer UE titles.
 
 
 
-Start: [Convai modding framework](https://docs.convai.com/api-docs/plugins-and-integrations/modding-framework)
+**Start:** [Convai modding framework](https://docs.convai.com/api-docs/plugins-and-integrations/modding-framework)
 
-Pipecat C++ client — voice communications bridge
+### Pipecat C++ client: Voice communications bridge
 
-This native C++ SDK connects an application to a Pipecat voice agent over Daily/WebRTC, SmallWebRTC, or WebSocket transports. It handles the client side of the audio and messaging path, not NPC movement or game-world logic.&#x20;
-
-[image](https://www.google.com/s2/favicons?domain=https://github.com\&sz=32)
-
-GitHub
-
-+1
+This native C++ SDK connects an application to a Pipecat voice agent over Daily/WebRTC, SmallWebRTC, or WebSocket transports. It handles the client side of the audio and messaging path, not NPC movement or game-world logic.
 
 
 
-Start: [pipecat-client-cxx](https://github.com/pipecat-ai/pipecat-client-cxx)
+**Start:** [pipecat-client-cxx](https://github.com/pipecat-ai/pipecat-client-cxx)
 
-Pipecat Unreal demo — proof of concept
+### Pipecat Unreal demo: Proof of concept
 
-The demo connects an Unreal Engine 5.8 scene to a voice agent. You ask a glowing orb to change the environment, and the agent triggers world changes. It is a useful reference for wiring spoken requests into game actions, although its documented example uses Deepgram, OpenAI, and Cartesia services rather than a fully local AI pipeline.&#x20;
-
-[image](https://www.google.com/s2/favicons?domain=https://developer.nvidia.com\&sz=32)
-
-NVIDIA Technical Blog
-
-+1
+The demo connects an Unreal Engine 5.8 scene to a voice agent. You ask a glowing orb to change the environment, and the agent triggers world changes. It is a useful reference for wiring spoken requests into game actions, although its documented example uses Deepgram, OpenAI, and Cartesia services rather than a fully local AI pipeline.
 
 
 
-Start: [pipecat-unreal-demo](https://github.com/pipecat-ai/pipecat-unreal-demo)
+**Start:** [pipecat-unreal-demo](https://github.com/pipecat-ai/pipecat-unreal-demo)
 
-Pipecat Unreal Room — closest interactive reference
+### Pipecat Unreal Room: Closest interactive reference
 
-This is the most illustrative sample of the experience you describe: three characters in one Unreal environment, each with a separate personality and voice, spatialized so nearby characters can hear the player. It also demonstrates commands such as following the player, waiting, returning to tasks, and manipulating nearby objects.&#x20;
-
-[image](https://www.google.com/s2/favicons?domain=https://github.com\&sz=32)
-
-jptaylor/pipecat-unreal-room · GitHub
+This is the most illustrative sample of the experience you describe: three characters in one Unreal environment, each with a separate personality and voice, spatialized so nearby characters can hear the player. It also demonstrates commands such as following the player, waiting, returning to tasks, and manipulating nearby objects.
 
 
 
-Start: [pipecat-unreal-room](https://github.com/jptaylor/pipecat-unreal-room)
+**Start:** [pipecat-unreal-room](https://github.com/jptaylor/pipecat-unreal-room)
 
 ### The architectural decision
 
@@ -123,13 +93,7 @@ I would combine the ideas rather than commit immediately to one vendor:
 - Character memory: structured local storage plus retrieval.
 - Actions: a deliberately restricted interface that invokes the game's own commands and checks their results.
 
-For your privacy-first approach, I would initially use the Pipecat projects as integration references, not assume their cloud-backed example pipeline is the final architecture. The room example also has explicit requirements for Unreal Engine 5.8 and service API keys, so budget some setup time.&#x20;
-
-[image](https://www.google.com/s2/favicons?domain=https://github.com\&sz=32)
-
-jptaylor/pipecat-unreal-room · GitHub
-
-+1
+For your privacy-first approach, I would initially use the Pipecat projects as integration references, not assume their cloud-backed example pipeline is the final architecture. The room example also has explicit requirements for Unreal Engine 5.8 and service API keys, so budget some setup time.
 
 
 
@@ -139,35 +103,23 @@ This is where the technical challenge changes significantly.
 
 A PC game can be moddable without being designed for arbitrary AI integration. GTA uses a proprietary engine, unlike Unreal projects that expose C++ modules and Blueprints. NVIDIA ACE and the Pipecat Unreal plugin cannot simply be dropped into the GTA installation as ordinary UE plugins.
 
-GTA V — Story Mode: plausible modding target
+### GTA V Story Mode: Plausible modding target
 
-GTA V already has an established ecosystem for injecting scripts and adding gameplay modifications. ScriptHookVDotNet, for example, supports C# scripts running in the game. An AI mod could use a compatible script framework to inspect supported game objects, display a conversation UI, and issue actions through the mod API.&#x20;
-
-[image](https://www.google.com/s2/favicons?domain=https://github.com\&sz=32)
-
-GitHub
-
-+1
+GTA V already has an established ecosystem for injecting scripts and adding gameplay modifications. ScriptHookVDotNet, for example, supports C# scripts running in the game. An AI mod could use a compatible script framework to inspect supported game objects, display a conversation UI, and issue actions through the mod API.
 
 
 
-GTA V — AI-controlled NPC behavior: feasible, but constrained
+### GTA V AI-controlled NPCs: Feasible, but constrained
 
 A prototype could support conversation, simple follow/wait commands, and limited memory. Access to the precise state of pedestrians, mission scripting, voice animation, and robust interaction with arbitrary world objects depends on what the particular mod APIs expose. This would be custom mod engineering, not a drop-in SDK installation.
 
-GTA Online: do not use as the prototype target
+### GTA Online: Not a prototype target
 
-Injected scripts and gameplay modifications can conflict with anti-cheat and online rules. Keep the experiment isolated to Story Mode; do not attempt to circumvent anti-cheat or let the AI automate online gameplay. Rockstar's published policy explains the distinction between single-player modifications and modifications that compromise GTA Online.&#x20;
-
-[image](https://www.google.com/s2/favicons?domain=https://support.rockstargames.com\&sz=32)
-
-Rockstar Games Customer Support
-
-+1
+Injected scripts and gameplay modifications can conflict with anti-cheat and online rules. Keep the experiment isolated to Story Mode; do not attempt to circumvent anti-cheat or let the AI automate online gameplay. Rockstar's published policy explains the distinction between single-player modifications and modifications that compromise GTA Online.
 
 
 
-GTA VI on PC: future opportunity, not an established target
+### GTA VI on PC: Future opportunity, not an established target
 
 I would not design around a presumed GTA VI mod API or claim that an AI plugin will be compatible. A working prototype depends on the actual PC release, its protections, available modding interfaces, and community tooling.
 
@@ -175,25 +127,11 @@ I would not design around a presumed GTA VI mod API or claim that an AI plugin w
 
 Do not start by attempting to replace all pedestrian logic. Start with a single NPC whose behavior you can control, and put the AI outside the part of the game that needs frame-rate-sensitive execution.
 
-Player microphone / push-to-talk
-
-Speech input, cancellation, transcript
-
-Voice + AI agent
-
-ASR → local LLM → character rules and memory
-
-Validated action interface
-
-Structured commands, allowed targets, timeouts
-
-GTA mod adapter
-
-Script framework → in-game movement, tasks, dialogue UI
-
-Game feedback
-
-Success/failure → AI response and updated memory
+1. **Player microphone / push-to-talk:** speech input, cancellation, and transcript.
+2. **Voice and AI agent:** ASR, local LLM, character rules, and memory.
+3. **Validated action interface:** structured commands, allowed targets, and timeouts.
+4. **GTA mod adapter:** script framework for in-game movement, tasks, and dialogue UI.
+5. **Game feedback:** action success or failure returned to the AI for its response and memory update.
 
 The action interface is the critical component. The model should return a structured intent such as:
 
@@ -214,11 +152,7 @@ This design also gives you an escape hatch: when AI inference is slow or unavail
 
 Given your Ryzen 9 9900X3D, 96 GB RAM, and RTX 3090 Ti, you have a strong development system for testing local inference alongside an existing PC game. The main variable is whether GPU inference competes with rendering for VRAM and compute.
 
-The standalone ACE SDK's bundled small language model uses approximately 3.8 GB VRAM; NVIDIA specifies an Ampere-or-newer GPU and Windows 10/11 for that SDK. The SDK's model size and performance claims are not a guarantee of acceptable latency when running a demanding game at the same time.&#x20;
-
-[image](https://www.google.com/s2/favicons?domain=https://github.com\&sz=32)
-
-GitHub
+The standalone ACE SDK's bundled small language model uses approximately 3.8 GB VRAM; NVIDIA specifies an Ampere-or-newer GPU and Windows 10/11 for that SDK. The SDK's model size and performance claims are not a guarantee of acceptable latency when running a demanding game at the same time.
 
 
 
@@ -231,13 +165,7 @@ GitHub
 | Actions             | Whitelisted structured commands                                          | Keeps AI decisions separate from game execution                              |
 | Telemetry           | JSONL logs with timings, requests, and action results                    | Makes debugging hallucinated actions and latency manageable                  |
 
-One important distinction: ACE's Unreal plugins and its general Game Agent SDK are separate integration paths. The general SDK is designed for native applications; it is not a ready-made mod for GTA.&#x20;
-
-[image](https://www.google.com/s2/favicons?domain=https://developer.nvidia.com\&sz=32)
-
-NVIDIA Technical Blog
-
-+1
+One important distinction: ACE's Unreal plugins and its general Game Agent SDK are separate integration paths. The general SDK is designed for native applications; it is not a ready-made mod for GTA.
 
 
 
@@ -245,33 +173,23 @@ I would begin with the standalone Game Agent SDK sample on Windows, verify local
 
 ## 5. A practical build roadmap
 
-## 01
-
-Build the AI proof of concept
+### Step 1: Build the AI proof of concept
 
 Start with NVIDIA's [Game Agent SDK](https://github.com/NVIDIA/game-agent-sdk). Run its Agent and Chat samples, then replace the demonstration tools with a small interface containing `get_nearby_npcs()`, `get_player_state()`, and `request_npc_action()`. Do not modify GTA yet.
 
-## 02
-
-Build a GTA V Story Mode mod
+### Step 2: Build a GTA V Story Mode mod
 
 Use a compatible ScriptHookVDotNet release and a basic interaction UI. Start with one ordinary pedestrian and a small command set: talk, follow, stay, stop following, and dismiss. Map only to game functions exposed by the mod API.
 
-## 03
-
-Add voice and personality
+### Step 3: Add voice and personality
 
 Add push-to-talk, transcription, synthesized responses, a character-specific system prompt, and saved memory. Test whether the NPC can maintain a consistent personality over a 10–15 minute session without inventing mission outcomes or claiming failed actions succeeded.
 
-## 04
-
-Connect real world-state feedback
+### Step 4: Connect real world-state feedback
 
 The mod should return authoritative results after each action. For example, if a follow command fails because the NPC is too far away, the AI should acknowledge the failure and suggest finding another nearby character rather than pretending it worked.
 
-## 05
-
-Add persistence and emergent behavior
+### Step 5: Add persistence and emergent behavior
 
 Store relationships, favors, past encounters, and current goals. Expand from one NPC to a few, introducing independent memory and explicit proximity rules. Only add mission-critical actions after the basic command loop is stable.
 
@@ -279,33 +197,21 @@ Store relationships, favors, past encounters, and current goals. Expand from one
 
 Imagine walking into a bar in Los Santos. Instead of selecting a canned dialogue prompt, you talk directly to the bartender.
 
-You
+**You:** “Anything interesting happening around here tonight?”
 
-“Anything interesting happening around here tonight?”
-
-Bartender — AI
-
-“Two guys from Vespucci were arguing about a car deal earlier. One of them looked pretty nervous. I wouldn't get involved unless you've got a reason.”
+**Bartender:** “Two guys from Vespucci were arguing about a car deal earlier. One of them looked pretty nervous. I wouldn't get involved unless you've got a reason.”
 
 The answer should be based on authored lore or actual world-state data, not an invented game event.
 
-You
+**You:** “Find out where the car deal is happening.”
 
-“Find out where the car deal is happening.”
-
-Bartender — AI
-
-“I can point you toward the area, but I'm not following strangers into trouble.”
+**Bartender:** “I can point you toward the area, but I'm not following strangers into trouble.”
 
 The NPC makes a personality-driven decision; any resulting clue must come from a supported game action.
 
-You
+**You:** “Fair enough. Remember that I'm the guy who helped you last week.”
 
-“Fair enough. Remember that I'm the guy who helped you last week.”
-
-Bartender — AI
-
-“Right, I remember you. You didn't have to do that. Drinks are on me next time.”
+**Bartender:** “Right, I remember you. You didn't have to do that. Drinks are on me next time.”
 
 Persistent memory can retain the prior event, but the drink discount would require a real game-state change to be more than dialogue.
 
