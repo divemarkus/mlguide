@@ -1,20 +1,12 @@
 # PocketPal AI: Running local LLMs on your iPad, Galaxy Fold, and iPhone
 
-# PocketPal AI
-
-On-device inference · Open source · GGUF · llama.cpp
+**On-device inference · Offline capable · iOS and Android · GGUF · llama.cpp**
 
 PocketPal is more than a chat interface. It packages a native LLM inference engine into a mobile app, allowing compatible models to execute directly on your device without relying on a remote inference server.
 
-Local inference
+**Downloads:** [GitHub repository](https://github.com/a-ghorbani/pocketpal-ai) · [iOS app](https://apps.apple.com/us/app/pocketpal-ai/id6502579498) · [Android app](https://play.google.com/store/apps/details?id=com.pocketpalai)
 
-Offline operation
-
-iOS + Android
-
-[GitHub repository](https://github.com/a-ghorbani/pocketpal-ai?utm_source=chatgpt.com) · [iOS app](https://apps.apple.com/us/app/pocketpal-ai/id6502579498?utm_source=chatgpt.com) · [Android app](https://play.google.com/store/apps/details?id=com.pocketpalai\&utm_source=chatgpt.com)
-
-[PocketPal软件下载-PocketPal中文版最新下载v1.10.24 - 乐玩手游网](https://images.openai.com/static-rsc-4/CHs0uDcFeT7NkDkPdW49geJp7s220PICyBKWdPS0joz4w031WNkczLx0XaPwzsDRpN3IObSKaJrLDrpKDVAY0UZrPtDkq26yJcqPZQ4zFNlFL04usPY1DTlE68muHKltTkTSKnh7KSk8VtLVU27I0aVGQpPQvDKD9SkRSKRhrkw?purpose=inline)
+![PocketPal model manager screens](https://images.openai.com/static-rsc-4/CHs0uDcFeT7NkDkPdW49geJp7s220PICyBKWdPS0joz4w031WNkczLx0XaPwzsDRpN3IObSKaJrLDrpKDVAY0UZrPtDkq26yJcqPZQ4zFNlFL04usPY1DTlE68muHKltTkTSKnh7KSk8VtLVU27I0aVGQpPQvDKD9SkRSKRhrkw?purpose=inline)
 
 My initial assessment is positive. This project fits your interest in privacy-first local AI, but its real value is bringing an actual model runtime onto devices you already carry, rather than connecting another mobile interface to your home server.
 
@@ -24,23 +16,23 @@ The important distinction is that PocketPal's capabilities depend on the device'
 
 I inspected the project's README, package manifest, native iOS and Android build configuration, and the agent execution code.
 
-Inference engine: llama.cpp
+### Inference engine: llama.cpp
 
 The `llama.rn` React Native native bridge is pinned to `0.13.0-rc.7` in the manifest. It provides the path from the JavaScript chat interface to native GGUF inference.
 
-Hardware acceleration
+### Hardware acceleration
 
 The README identifies CPU inference, Metal on Apple devices, OpenCL/Adreno GPU acceleration on Android, and a Qualcomm Hexagon NPU path. Actual backend availability depends on the device and build.
 
-Models and formats
+### Models and formats
 
 The documented model path is GGUF. Gemma, Qwen, Phi, and Llama are examples, not a guarantee that every model from each family will work.
 
-Voice and local storage
+### Voice and local storage
 
 Text-to-speech uses ONNX Runtime and bundled native speech integrations. Chat history is backed by WatermelonDB, with settings persisted separately.
 
-Sources: [README](https://github.com/a-ghorbani/pocketpal-ai/blob/main/README.md?utm_source=chatgpt.com), [package.json](https://github.com/a-ghorbani/pocketpal-ai/blob/main/package.json?utm_source=chatgpt.com), [iOS Podfile](https://github.com/a-ghorbani/pocketpal-ai/blob/main/ios/Podfile?utm_source=chatgpt.com), [Android build configuration](https://github.com/a-ghorbani/pocketpal-ai/blob/main/android/app/build.gradle?utm_source=chatgpt.com), and [AgentRunner](https://github.com/a-ghorbani/pocketpal-ai/blob/main/src/services/agent/AgentRunner.ts?utm_source=chatgpt.com).
+Sources: [README](https://github.com/a-ghorbani/pocketpal-ai/blob/main/README.md), [package.json](https://github.com/a-ghorbani/pocketpal-ai/blob/main/package.json), [iOS Podfile](https://github.com/a-ghorbani/pocketpal-ai/blob/main/ios/Podfile), [Android build configuration](https://github.com/a-ghorbani/pocketpal-ai/blob/main/android/app/build.gradle), and [AgentRunner](https://github.com/a-ghorbani/pocketpal-ai/blob/main/src/services/agent/AgentRunner.ts).
 
 One caveat: the repository's documentation describes supported acceleration paths, but I have not independently built the application on your devices or measured their performance. Treat performance estimates below as planning guidance, not benchmark results.
 
@@ -60,23 +52,17 @@ The main caveat is that an iPad with 8 GB of RAM and an iPad with 16 GB or more 
 
 ### A useful model-size guide
 
-[SLM Definition - What is an SLM (Small Language Model)?](https://images.openai.com/static-rsc-4/YC44FUQYPsWtzSHRgjdD9vIGMpN01NrMBgg-j0MqCtZjcHHbhL3fxYIat-4zNJo8_nXHg_Xpv_2ZZGDyhQSzVKPTwp5dnyaEO2js9dKpflmcTpyb2WIOnIqNsuOK7iAmUpX3myQxpPfI5H7rpmiMGVkIzF8R17fD741B7LCZ144?purpose=inline)
+#### 1B–3B parameters: Mobile sweet spot
 
-1B–3B parameters — the mobile sweet spot
-
-Start here
+**Start here.**
 
 Basic explanations, summarization, rewriting, simple coding questions, and structured responses. A useful balance between memory, latency, and battery use.
 
-[Small Language Models (SLMs): A Practical Guide to Architecture and Deployment | Towards AI](https://images.openai.com/static-rsc-4/tD0wvEKbWg38aAXGugy3fLZAQTPMX71_cPFhTM2o6VO5WR6QfXyA8WAUBO0RQG9aaedoJeROeBvaXUZa-VBu71bworX__PgQ2kk2Q2GZgJXlorMG9Jpm3FAT4iOz_7Y8Pk0AhADsLIzRKxNT6vHvn2-LKV9SS90bsdMaIhIbFtE?purpose=inline)
-
-7B–8B parameters — the quality experiment
+#### 7B–8B parameters: Quality experiment
 
 Potentially better reasoning and technical answers. Memory pressure grows significantly once the KV cache, inference buffers, operating system, and other apps are accounted for.
 
-[Deepexi Technology IPO 2025 (1384 HK) | HKEX AI — IPOX](https://images.openai.com/static-rsc-4/KYIBzD6HgRF4ruWAUNTVfQP_aXAphqNn8--nw6QWptgH6FtVkchI1rYLea89kyYnVkAbse13YSrD1n2846mJhA-0l7C62HXXKAkcc8yS1aS0LZxnfaP56wOkHQzmnfV6cO0IFW2yNCVUMQOcbF7hRrgDbpXNxE8_7VTJAJWKH_Q?purpose=inline)
-
-14B and above — only after testing
+#### 14B and above: Test first
 
 Some large-memory tablets may run suitably quantized models, but load time, available memory, thermal throttling, context length, and usable speed become much more important.
 
@@ -86,29 +72,10 @@ These are model-selection guidelines, not published PocketPal benchmarks. I woul
 
 The architecture is one of the strongest parts of this project.
 
-PocketPal UI
-
-React Native · Chat · Pals · Model manager
-
-Native bridge
-
-llama.rn via JSI
-
-llama.cpp inference engine
-
-Loads and evaluates a compatible GGUF model
-
-CPU
-
-Fallback
-
-GPU
-
-Metal / Adreno
-
-NPU
-
-Qualcomm path
+1. **PocketPal UI:** React Native chat, Pals, and model manager.
+2. **Native bridge:** llama.rn via JSI.
+3. **Inference engine:** llama.cpp loads and evaluates a compatible GGUF model.
+4. **Hardware backend:** CPU fallback, GPU acceleration (Metal or Adreno), or a Qualcomm NPU path, depending on device and build.
 
 Conceptual architecture based on the project README. The exact backend used depends on device and build configuration.
 
@@ -141,7 +108,7 @@ This is where PocketPal becomes especially interesting for an engineering-orient
 | HTML rendering             | Can display structured HTML produced by the model inside chat                                                 |
 | Remote model server        | The latest release includes functionality for connecting to a server and loading/unloading its models         |
 
-Sources: [AgentRunner](https://github.com/a-ghorbani/pocketpal-ai/blob/main/src/services/agent/AgentRunner.ts?utm_source=chatgpt.com), [Talent registry](https://github.com/a-ghorbani/pocketpal-ai/blob/main/src/services/talents/TalentRegistry.ts?utm_source=chatgpt.com), [Model store](https://github.com/a-ghorbani/pocketpal-ai/blob/main/src/store/ModelStore.ts?utm_source=chatgpt.com), [latest release notes](https://github.com/a-ghorbani/pocketpal-ai/releases/tag/v1.20.0?utm_source=chatgpt.com).
+Sources: [AgentRunner](https://github.com/a-ghorbani/pocketpal-ai/blob/main/src/services/agent/AgentRunner.ts), [Talent registry](https://github.com/a-ghorbani/pocketpal-ai/blob/main/src/services/talents/TalentRegistry.ts), [Model store](https://github.com/a-ghorbani/pocketpal-ai/blob/main/src/store/ModelStore.ts), and [latest release notes](https://github.com/a-ghorbani/pocketpal-ai/releases/tag/v1.20.0).
 
 ### The agent functionality is real, but bounded
 
@@ -157,21 +124,21 @@ One important nuance: PocketPal has more functionality than the short README fea
 
 The October 14, 2026 release, v1.20.0, adds functionality for connecting to a remote model server and loading or unloading models through the phone interface. It also includes improvements to Android downloads and CPU selection.
 
-Source: [PocketPal v1.20.0 release](https://github.com/a-ghorbani/pocketpal-ai/releases/tag/v1.20.0?utm_source=chatgpt.com).
+Source: [PocketPal v1.20.0 release](https://github.com/a-ghorbani/pocketpal-ai/releases/tag/v1.20.0).
 
 That gives you two distinct operating modes.
 
-Mode A — fully local
+### Mode A: Fully local
 
 Model weights, inference, and chat history live on the device. After model download, basic chat can work without internet access.
 
-Best for privacy and offline use
+**Best for:** Privacy and offline use.
 
-Mode B — remote inference
+### Mode B: Remote inference
 
 The phone becomes an interface to a compatible model server. The server does the computation, enabling larger models than the device can run comfortably.
 
-Best for heavier technical workloads
+**Best for:** Heavier technical workloads.
 
 ### How I would use it with your local AI setup
 
@@ -179,19 +146,9 @@ You already have experience with Ollama, OpenWebUI, and other local inference to
 
 A possible topology:
 
-iPad
-
-iPhone
-
-Galaxy Fold
-
-Private network or VPN
-
-Authenticated access to your home infrastructure
-
-Ollama / compatible model server
-
-Your workstation or dedicated inference host
+1. **Mobile clients:** iPad, iPhone, or Galaxy Fold.
+2. **Private network or VPN:** authenticated access to your home infrastructure.
+3. **Model server:** Ollama or a compatible service on your workstation or dedicated inference host.
 
 Proposed architecture, not an assertion that PocketPal has been tested against your specific server configuration.
 
@@ -213,7 +170,7 @@ For a privacy-first user, I would distinguish three things: local model computat
 | Benchmark sharing | README says users can opt to share results to the leaderboard                              | Keep sharing disabled unless you want to contribute          |
 | PalsHub           | Marketplace, authentication, and purchasing features have server dependencies              | Separate from basic local chat                               |
 
-References: [SearchProviderStore](https://github.com/a-ghorbani/pocketpal-ai/blob/main/src/store/SearchProviderStore.ts?utm_source=chatgpt.com), [URL allowlist](https://github.com/a-ghorbani/pocketpal-ai/blob/main/src/services/talents/readUrlAllowlist.ts?utm_source=chatgpt.com), [README privacy notice](https://github.com/a-ghorbani/pocketpal-ai/blob/main/README.md?utm_source=chatgpt.com).
+References: [SearchProviderStore](https://github.com/a-ghorbani/pocketpal-ai/blob/main/src/store/SearchProviderStore.ts), [URL allowlist](https://github.com/a-ghorbani/pocketpal-ai/blob/main/src/services/talents/readUrlAllowlist.ts), and [README privacy notice](https://github.com/a-ghorbani/pocketpal-ai/blob/main/README.md).
 
 ### My security concerns
 
@@ -234,43 +191,16 @@ The MIT license is a positive for inspectability and modification. However, open
 
 I would run a small, controlled test before deciding whether PocketPal earns a permanent place in your mobile setup.
 
-## Device evaluation checklist
+### Device evaluation checklist
 
-0 of 8 completed
-
-Reset
-
-Install the official app
-
-Use the official App Store or Google Play listing; verify the app launches and the model manager works.
-
-Load a small GGUF model
-
-Start with a 1B–3B instruct model with a suitable mobile quantization.
-
-Measure baseline performance
-
-Record model load time, tokens/sec, memory usage if exposed, and first-token latency.
-
-Run a technical prompt
-
-Use the same networking or Python troubleshooting question on each device.
-
-Test sustained generation
-
-Generate a longer answer and observe heat, speed degradation, battery impact, and stability.
-
-Test offline operation
-
-After the model is downloaded, enable airplane mode and verify a new chat works.
-
-Test remote inference separately
-
-Only after local testing, configure a compatible model server over a trusted network and verify the actual API behavior.
-
-Audit optional sharing
-
-Check benchmark submission, web search consent, account features, and app permissions.
+- [ ] **Install the official app.** Use the App Store or Google Play listing; verify the app launches and the model manager works.
+- [ ] **Load a small GGUF model.** Start with a 1B–3B instruct model using a suitable mobile quantization.
+- [ ] **Measure baseline performance.** Record model load time, tokens per second, memory use if exposed, and first-token latency.
+- [ ] **Run a technical prompt.** Use the same networking or Python troubleshooting question on each device.
+- [ ] **Test sustained generation.** Generate a longer answer and observe heat, speed degradation, battery impact, and stability.
+- [ ] **Test offline operation.** After downloading a model, enable airplane mode and verify that a new chat works.
+- [ ] **Test remote inference separately.** After local testing, configure a compatible model server over a trusted network and verify API behavior.
+- [ ] **Audit optional sharing.** Check benchmark submission, web-search consent, account features, and app permissions.
 
 ### Model selection: test the same model everywhere
 
@@ -298,50 +228,38 @@ Its weakness is that a phone-sized model is still constrained by memory, thermal
 
 The exact device models will determine which models and acceleration paths are worth testing. Use the quick selector below to identify them.
 
-iPad model and memory
+### iPad model and memory
 
-iPad Pro with an M-series chip
+- iPad Pro with an M-series chip
+- iPad Air with an M-series chip
+- Other iPad or older model
+- Not sure
 
-iPad Air with an M-series chip
+### Samsung Galaxy Fold generation
 
-Other iPad / older model
+- Galaxy Z Fold7
+- Galaxy Z Fold6
+- Galaxy Z Fold5 or older
+- Not sure
 
-Not sure
+### iPhone model
 
-Samsung Galaxy Fold generation
+- iPhone 17 Pro or newer
+- iPhone 16 Pro or Pro Max
+- Other iPhone
+- Not sure
 
-Galaxy Z Fold7
+### What do you want to optimize for?
 
-Galaxy Z Fold6
-
-Fold5 or older
-
-Not sure
-
-iPhone model
-
-iPhone 17 Pro or newer
-
-iPhone 16 Pro / Pro Max
-
-Other iPhone
-
-Not sure
-
-What do you want to optimize for?
-
-Fully offline, private AI
-
-Remote access to my homelab models
-
-Both: local AI and homelab access
-
-Build my device-specific test matrix
+- Fully offline, private AI
+- Remote access to homelab models
+- Both local AI and homelab access
+- A device-specific test matrix
 
 ## References
 
-- [PocketPal AI — source repository and README](https://github.com/a-ghorbani/pocketpal-ai?utm_source=chatgpt.com)
-- [PocketPal AI — latest release v1.20.0, October 14, 2026](https://github.com/a-ghorbani/pocketpal-ai/releases/tag/v1.20.0?utm_source=chatgpt.com)
-- [llama.cpp — inference engine](https://github.com/ggml-org/llama.cpp?utm_source=chatgpt.com)
-- [llama.rn — React Native inference bridge](https://github.com/mybigday/llama.rn?utm_source=chatgpt.com)
-- [ONNX Runtime](https://onnxruntime.ai/?utm_source=chatgpt.com)
+- [PocketPal AI — source repository and README](https://github.com/a-ghorbani/pocketpal-ai)
+- [PocketPal AI — latest release v1.20.0, October 14, 2026](https://github.com/a-ghorbani/pocketpal-ai/releases/tag/v1.20.0)
+- [llama.cpp — inference engine](https://github.com/ggml-org/llama.cpp)
+- [llama.rn — React Native inference bridge](https://github.com/mybigday/llama.rn)
+- [ONNX Runtime](https://onnxruntime.ai/)
