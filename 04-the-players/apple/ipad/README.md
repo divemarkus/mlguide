@@ -51,13 +51,11 @@ These are workload-level assessments, not guarantees that every listed model or 
 
 ## 3. Draw Things: a proven image-generation use case
 
-[x/z-image-turbo - Ollama](https://images.openai.com/static-rsc-4/lBOm7nEXhnObsPN6F_CSHbW0tZuw_KvToOLGuboNJPxj5yubHmvl3xoakf7N0vSjR8X9TVzL-_882xEYzETs_LenK6Q9dkhFWTYncLb5z-rLzb4fRoTcDYX6lUzaDcNiIOfWEaRLj-TWWtHqXzSM6z-CwydMTeOB1zHD-sOMo_8?purpose=inline)
+![Image generated with Z-Image Turbo in Draw Things on the iPad Air 5](https://images.openai.com/static-rsc-4/lBOm7nEXhnObsPN6F_CSHbW0tZuw_KvToOLGuboNJPxj5yubHmvl3xoakf7N0vSjR8X9TVzL-_882xEYzETs_LenK6Q9dkhFWTYncLb5z-rLzb4fRoTcDYX6lUzaDcNiIOfWEaRLj-TWWtHqXzSM6z-CwydMTeOB1zHD-sOMo_8?purpose=inline)
 
-Draw Things + Z-Image Turbo
+*Draw Things + Z-Image Turbo*
 
-Successful on-device use
-
-Your iPad Air 5 has already demonstrated that it can run Z-Image Turbo through Draw Things and generate an image in approximately five minutes. This is a practical result from your actual setup, rather than a theoretical compatibility estimate.
+> **Successful on-device use:** The iPad Air 5 has demonstrated that it can run Z-Image Turbo through Draw Things and generate an image in approximately five minutes. This is a practical result from the actual setup, rather than a theoretical compatibility estimate.
 
 ### Why this matters
 
@@ -99,8 +97,8 @@ A model's downloadable file size is therefore not the same as its total runtime 
 
 | Storage configuration  | Assessment                                                         |
 | ---------------------- | ------------------------------------------------------------------ |
-| 64GB internal storage  | Usable, but requires careful management                            |
-| 256GB internal storage | Preferred for multiple models and generated images                 |
+| 256GB internal storage  | Usable, but requires careful management                            |
+| 1TB internal storage | Preferred for multiple models and generated images                 |
 | External USB-C SSD     | Useful for supported file workflows and archiving                  |
 | Cloud storage          | Optional for backup and transfer; not required for local inference |
 
@@ -120,7 +118,7 @@ External storage does not increase the iPad's 8GB unified memory. Also, an app m
 
 ## 7. How it fits into a local AI lab
 
-Your iPad Air 5 is best viewed as a portable inference endpoint, not a replacement for a desktop AI workstation.
+The iPad Air 5 is best viewed as a portable inference endpoint, not a replacement for a desktop AI workstation.
 
 | Device role                                | Best use                                                                             |
 | ------------------------------------------ | ------------------------------------------------------------------------------------ |
@@ -133,10 +131,13 @@ This division lets the iPad handle self-contained tasks while more powerful mach
 
 ## Final assessment
 
-The iPad Air 5 is still a worthwhile edge-AI device. Its strongest argument is no longer just that it might run a compact language model: you have already demonstrated practical image generation with Draw Things and Z-Image Turbo in roughly five minutes.
+The iPad Air 5 is still a worthwhile edge-AI device. Its strongest argument is no longer just that it might run a compact language model: it has demonstrated practical image generation with Draw Things and Z-Image Turbo in roughly five minutes.
 
 For this device, the best approach is to prioritize compatible, optimized models and manageable workloads rather than chasing the largest parameter count.
 
 The primary constraints remain 8GB unified memory, fanless cooling, and app-specific model support. Within those limits, it can serve as a capable offline AI companion for text, images, and other supported inference tasks.
 
-References: [Apple — iPad Air (5th generation) technical specifications](https://support.apple.com/en-us/111887) · [Draw Things — local AI image generation](https://drawthings.ai/).
+### References
+
+- [Apple: iPad Air (5th generation) technical specifications](https://support.apple.com/en-us/111887)
+- [Draw Things: local AI image generation](https://drawthings.ai/)
