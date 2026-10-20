@@ -2,7 +2,7 @@
 
 The 5th-generation iPad Air remains a capable local AI device thanks to its Apple M1 chip and 8GB of unified memory. Its capabilities extend beyond running small language models: [Draw Things with Z-Image Turbo](./images/README.md) is a demonstrated, successful image-generation use case on this exact iPad, producing images in approximately five minutes.
 
-That makes it a useful example of practical edge AI: running models directly on a consumer device without requiring a cloud inference service.
+That makes it a useful example of practical edge AI: running models directly on a consumer device without requiring a cloud inference service. [Sample prompt using Google's local AI - Gemma](../../../09-sample-prompts/bitcoin-encryption/gemma/gemma%204-e2b-it.md)
 
 ## 1. Hardware specifications
 
