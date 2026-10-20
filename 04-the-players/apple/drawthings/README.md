@@ -1,4 +1,4 @@
-# 🎨 Draw Things (macOS) — Complete Local AI Image Generation Guide (2026)
+# 🎨 Draw Things — Complete Local AI Image Generation Guide (2026)
 
 > **Updated:** October 2026  
 > **Focus:** Local/offline image generation on Apple Silicon  
