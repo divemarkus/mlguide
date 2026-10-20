@@ -6,7 +6,7 @@
 
 ![Draw Things macOS](https://drawthings.ai/images/macOS-Draw-Things-V2-1230x1000-3.webp?purpose=fullsize)
 
-![Draw Things Apple Store]
+[Draw Things Apple Store]
 (https://apps.apple.com/us/app/draw-things-offline-ai-art/id6444050820)
 
 ---
