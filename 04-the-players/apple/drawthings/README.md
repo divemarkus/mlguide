@@ -6,6 +6,9 @@
 
 ![Draw Things macOS](https://drawthings.ai/images/macOS-Draw-Things-V2-1230x1000-3.webp?purpose=fullsize)
 
+![Draw Things Apple Store]
+(https://apps.apple.com/us/app/draw-things-offline-ai-art/id6444050820)
+
 ---
 
 ## Table of Contents
@@ -16,26 +19,29 @@
 - [Apple Silicon and Draw Things](#-apple-silicon-and-draw-things)
 - [Key Features](#-key-features)
 - [Current Draw Things Model Landscape](#-current-draw-things-model-landscape)
-- [Best Models in 2026](#-best-models-in-2026)
-  - [FLUX.2 [klein] 4B](#1-flux2-klein-4b)
-  - [FLUX.2 [klein] 9B](#2-flux2-klein-9b)
-  - [FLUX.2 [dev]](#3-flux2-dev)
-  - [Z-Image Turbo](#4-z-image-turbo)
-  - [Qwen Image 2512](#5-qwen-image-2512)
-  - [Qwen Image Edit](#6-qwen-image-edit)
-  - [SDXL](#7-sdxl-and-sdxl-finetunes)
-  - [Anima / ERNIE Image / Krea 2 / Ideogram 4](#8-newer-model-families)
+        - [FLUX.2 [klein] 4B](#1-flux2-klein-4b)
+        - [FLUX.2 [klein] 9B](#2-flux2-klein-9b)
+        - [FLUX.2 [dev]](#3-flux2-dev)
+        - [Z-Image Turbo](#4-z-image-turbo)
+        - [Qwen Image 2512](#5-qwen-image-2512)
+        - [Qwen Image Edit](#6-qwen-image-edit)
+        - [SDXL and SDXL Fine-Tunes](#7-sdxl-and-sdxl-fine-tunes)
+        - [Newer Model Families](#8-newer-model-families)
 - [Model Recommendations by Mac](#-model-recommendations-by-mac)
 - [Performance and Memory](#-performance-and-memory)
-- [What to Download First](#-what-to-download-first)
+- [Resolution Matters](#-resolution-matters)
+- [Recommended Resolution Strategy](#-recommended-resolution-strategy)
+- [What I Would Download](#-what-i-would-download)
 - [Uncensored Models](#-uncensored-models)
 - [Privacy and Offline Operation](#-privacy-and-offline-operation)
 - [LoRAs, ControlNet and Editing](#-loras-controlnet-and-editing)
-- [Resolution and Workflow Recommendations](#-resolution-and-workflow-recommendations)
+- [Model Testing Strategy](#-model-testing-strategy)
 - [Pro Local Workflow](#-pro-local-workflow)
 - [Limitations](#-limitations)
-- [Quick Reference](#-quick-reference)
+- [Final Recommendations](#-final-recommendations)
+- [The 2026 Draw Things Mental Model](#-the-2026-draw-things-mental-model)
 - [Additional Resources](#-additional-resources)
+- [Bottom Line](#-bottom-line)
 
 ---
 
