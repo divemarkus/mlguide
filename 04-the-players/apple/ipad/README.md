@@ -51,7 +51,7 @@ The iPad is not limited to a single AI application. Different apps use different
 
 These are workload-level assessments, not guarantees that every listed model or framework has a compatible iPadOS implementation.
 
-## 3. Draw Things: a proven image-generation use case
+## 3. [Draw Things: a proven image-generation use case](../drawthings/README.md)
 
 ![Image generated with Z-Image Turbo in Draw Things on the iPad Air 5](https://images.openai.com/static-rsc-4/lBOm7nEXhnObsPN6F_CSHbW0tZuw_KvToOLGuboNJPxj5yubHmvl3xoakf7N0vSjR8X9TVzL-_882xEYzETs_LenK6Q9dkhFWTYncLb5z-rLzb4fRoTcDYX6lUzaDcNiIOfWEaRLj-TWWtHqXzSM6z-CwydMTeOB1zHD-sOMo_8?purpose=inline)
 
