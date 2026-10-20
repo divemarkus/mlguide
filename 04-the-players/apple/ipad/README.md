@@ -14,7 +14,7 @@ That makes it a useful example of practical edge AI: running models directly on 
 | GPU              | 8-core Apple GPU                                                   |
 | Neural Engine    | 16-core                                                            |
 | Unified memory   | 8GB                                                                |
-| Storage          | 64GB or 256GB                                                      |
+| Storage          | 256GB to 1TB                                                      |
 | Display          | 10.9-inch Liquid Retina IPS                                        |
 | Resolution       | 2360 × 1640, 264 PPI                                               |
 | Brightness       | 500 nits                                                           |
@@ -51,7 +51,7 @@ These are workload-level assessments, not guarantees that every listed model or 
 
 ## 3. Draw Things: a proven image-generation use case
 
-[x/z-image-turbo - Ollama 框架](https://images.openai.com/static-rsc-4/lBOm7nEXhnObsPN6F_CSHbW0tZuw_KvToOLGuboNJPxj5yubHmvl3xoakf7N0vSjR8X9TVzL-_882xEYzETs_LenK6Q9dkhFWTYncLb5z-rLzb4fRoTcDYX6lUzaDcNiIOfWEaRLj-TWWtHqXzSM6z-CwydMTeOB1zHD-sOMo_8?purpose=inline)
+[x/z-image-turbo - Ollama](https://images.openai.com/static-rsc-4/lBOm7nEXhnObsPN6F_CSHbW0tZuw_KvToOLGuboNJPxj5yubHmvl3xoakf7N0vSjR8X9TVzL-_882xEYzETs_LenK6Q9dkhFWTYncLb5z-rLzb4fRoTcDYX6lUzaDcNiIOfWEaRLj-TWWtHqXzSM6z-CwydMTeOB1zHD-sOMo_8?purpose=inline)
 
 Draw Things + Z-Image Turbo
 
