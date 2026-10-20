@@ -53,3 +53,4 @@
 ## Highlights
 - [Run ClaudeCode local on MacOS](./03-the-agent/claudecode/README.md)
 - [Run Gemma local on Smartphones](./04-the-players/google/edge-ai-gallery/README.md)
+- [M1 iPad, 8GB Unified Memory](./04-the-players/apple/ipad/README.md)
