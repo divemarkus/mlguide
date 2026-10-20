@@ -6,8 +6,7 @@
 
 ![Draw Things macOS](https://drawthings.ai/images/macOS-Draw-Things-V2-1230x1000-3.webp?purpose=fullsize)
 
-[Draw Things Apple Store]
-(https://apps.apple.com/us/app/draw-things-offline-ai-art/id6444050820)
+[Draw Things on the App Store](https://apps.apple.com/us/app/draw-things-offline-ai-art/id6444050820)
 
 ---
 
@@ -19,14 +18,14 @@
 - [Apple Silicon and Draw Things](#-apple-silicon-and-draw-things)
 - [Key Features](#-key-features)
 - [Current Draw Things Model Landscape](#-current-draw-things-model-landscape)
-        - [FLUX.2 [klein] 4B](#1-flux2-klein-4b)
-        - [FLUX.2 [klein] 9B](#2-flux2-klein-9b)
-        - [FLUX.2 [dev]](#3-flux2-dev)
-        - [Z-Image Turbo](#4-z-image-turbo)
-        - [Qwen Image 2512](#5-qwen-image-2512)
-        - [Qwen Image Edit](#6-qwen-image-edit)
-        - [SDXL and SDXL Fine-Tunes](#7-sdxl-and-sdxl-fine-tunes)
-        - [Newer Model Families](#8-newer-model-families)
+  - [FLUX.2 [klein] 4B](#1-flux2-klein-4b)
+  - [FLUX.2 [klein] 9B](#2-flux2-klein-9b)
+  - [FLUX.2 [dev]](#3-flux2-dev)
+  - [Z-Image Turbo](#4-z-image-turbo)
+  - [Qwen Image 2512](#5-qwen-image-2512)
+  - [Qwen Image Edit](#6-qwen-image-edit)
+  - [SDXL and SDXL Fine-Tunes](#7-sdxl-and-sdxl-fine-tunes)
+  - [Newer Model Families](#8-newer-model-families)
 - [Model Recommendations by Mac](#-model-recommendations-by-mac)
 - [Performance and Memory](#-performance-and-memory)
 - [Resolution Matters](#-resolution-matters)
@@ -45,7 +44,7 @@
 
 ---
 
-# 🧠 What Draw Things Actually Is
+## 🧠 What Draw Things Actually Is
 
 **Draw Things** is a native Apple application for running image and video generation models locally on Apple hardware.
 
@@ -76,7 +75,7 @@ Draw Things is also sandboxed and distributed through Apple's App Store. Its cur
 
 ---
 
-# 🚀 Why Draw Things Matters in 2026
+## 🚀 Why Draw Things Matters in 2026
 
 The original Draw Things guide was centered around:
 
@@ -109,7 +108,7 @@ The current Draw Things release history shows continued support additions throug
 
 ---
 
-# 🧩 How Draw Things Fits the Local AI Stack
+## 🧩 How Draw Things Fits the Local AI Stack
 
 A useful local-first architecture is:
 
@@ -142,44 +141,20 @@ Draw Things
         ├── Text → Image
         ├── Image → Image
         ├── Inpainting
-        ├── Upscaling
-        └── Video
-```
-
-This makes Draw Things complementary to your Ollama/LM Studio environment rather than a replacement for it.
-
 ---
 
-# 🍎 Apple Silicon and Draw Things
+## 🍎 Apple Silicon and Draw Things
 
 Apple Silicon is particularly well suited to local image generation because CPU, GPU and system memory share a unified memory architecture.
 
 Important variables are:
 
-1. Unified memory capacity
-2. GPU core count
-3. Memory bandwidth
-4. Model precision/quantization
-5. Resolution
-6. Number of steps
-7. Context/reference-image complexity
-8. Whether the model uses Apple Neural Engine acceleration
-
-Draw Things has continued optimizing its inference stack specifically for Apple hardware.
-
-In April 2026, Draw Things added Apple Neural Engine support for 8-bit S models on M3/M4. On M4, Draw Things reports up to 1.8× acceleration for the supported operations, while also reducing energy use and heat in some workloads.  [source](https://engineering.drawthings.ai/p/making-apple-neural-engine-work-in)
-
-This is important:
-
 > **The Neural Engine is not simply replacing the GPU.**
 
-Draw Things uses Core ML selectively as an accelerator inside its own inference runtime.
+Describe what you want and generate an image.
+## 🧩 Key Features
 
----
-
-# 🧩 Key Features
-
-## 1. Text → Image
+### 1. Text → Image
 
 Describe what you want and generate an image.
 
@@ -191,7 +166,7 @@ rain-soaked streets, neon reflections,
 
 ---
 
-## 2. Image → Image
+### 2. Image → Image
 
 Use an existing image as a starting point and transform it.
 
@@ -205,7 +180,7 @@ Useful for:
 
 ---
 
-## 3. Inpainting
+### 3. Inpainting
 
 Paint/mask an area and regenerate only that region.
 
@@ -219,7 +194,7 @@ Useful for:
 
 ---
 
-## 4. Outpainting / Canvas Work
+### 4. Outpainting / Canvas Work
 
 Extend an image beyond its original boundaries.
 
@@ -233,7 +208,7 @@ This is particularly useful for:
 
 ---
 
-## 5. LoRA
+### 5. LoRA
 
 LoRAs provide a relatively small set of learned weights that can modify a base model.
 
@@ -249,7 +224,7 @@ Current Draw Things releases support LoRA workflows for multiple newer model fam
 
 ---
 
-## 6. Control / Structural Guidance
+### 6. Control / Structural Guidance
 
 Depending on the model and workflow, Draw Things supports techniques such as:
 
@@ -263,7 +238,7 @@ Depending on the model and workflow, Draw Things supports techniques such as:
 
 ---
 
-# 🚀 Current Draw Things Model Landscape
+## 🚀 Current Draw Things Model Landscape
 
 The most important change in 2026 is that there is no longer one obvious "best model."
 
@@ -286,9 +261,9 @@ Different models excel at different tasks.
 
 ---
 
-# 1. 🔥 FLUX.2 [klein] 4B
+### 1. 🔥 FLUX.2 [klein] 4B
 
-## Best new lightweight general-purpose choice
+#### Best new lightweight general-purpose choice
 
 FLUX.2 [klein] is one of the most important additions to Draw Things.
 
@@ -303,7 +278,7 @@ It supports:
 
 Draw Things added native FLUX.2 [klein] support in January 2026.  [source](https://drawthings.ai/downloads/)
 
-### Why I like it for your Macs
+#### Why I like it for your Macs
 
 ```text
 M1 32GB       → GOOD
@@ -315,9 +290,9 @@ It is one of the first models I would install on all three systems.
 
 ---
 
-# 2. 🔥 FLUX.2 [klein] 9B
+### 2. 🔥 FLUX.2 [klein] 9B
 
-## Best balance of modern quality and local capability
+#### Best balance of modern quality and local capability
 
 This is the model you were referring to.
 
@@ -325,13 +300,13 @@ FLUX.2 [klein] 9B is a 9-billion-parameter rectified-flow model supporting text-
 
 The official model card describes it as a distilled model designed for very fast generation. Draw Things added support for the FLUX.2 [klein] series and subsequently added 9B-KV support.  [source](https://huggingface.co/black-forest-labs/FLUX.2-klein-9B)  [source](https://drawthings.ai/downloads/)
 
-### Important memory distinction
+#### Important memory distinction
 
 The full BF16 model is much larger than the quantized versions. Black Forest Labs lists approximately 29GB VRAM for the full 9B model.
 
 Draw Things uses its own quantized variants and optimized runtime, so you should not equate the official BF16 memory requirement with the memory requirement of every Draw Things build.  [source](https://huggingface.co/black-forest-labs/FLUX.2-klein-9B)
 
-### Your Macs
+#### Your Macs
 
 ```text
 M1 32GB       → POSSIBLE, but heavy
@@ -343,9 +318,9 @@ For the 9B model, use the Draw Things recommended/quantized variant rather than 
 
 ---
 
-# 3. 🔥 FLUX.2 [dev]
+### 3. 🔥 FLUX.2 [dev]
 
-## Quality-first FLUX
+#### Quality-first FLUX
 
 FLUX.2 [dev] is a larger, heavier model.
 
@@ -370,9 +345,9 @@ For your three machines, FLUX.2 [klein] is the much better starting point.
 
 ---
 
-# 4. ⚡ Z-Image Turbo
+### 4. ⚡ Z-Image Turbo
 
-## Best "always loaded" model
+#### Best "always loaded" model
 
 This is one of the most important models for lower-memory Apple Silicon.
 
@@ -384,7 +359,7 @@ That is dramatically smaller than Qwen Image's roughly 11 GiB requirement.
 
 Draw Things also reports that its implementation can be up to 54% faster than other available implementations across Apple devices.  [source](https://releases.drawthings.ai/p/quantify-z-image-turbo-efficiency)
 
-### This is my #1 recommendation for your M1
+#### This is my #1 recommendation for your M1
 
 ```text
 M1 32GB       → ⭐⭐⭐⭐⭐
@@ -403,9 +378,9 @@ It is ideal for:
 
 ---
 
-# 5. 🧠 Qwen Image 2512
+### 5. 🧠 Qwen Image 2512
 
-## Best for difficult prompts and text
+#### Best for difficult prompts and text
 
 Qwen Image became one of the important open image models supported by Draw Things.
 
@@ -438,7 +413,7 @@ The same general memory lesson applies to the newer Qwen Image family:
 
  [source](https://releases.drawthings.ai/p/introducing-qwen-image-support)
 
-### Your Macs
+#### Your Macs
 
 ```text
 M1 32GB       → GOOD with 6-bit
@@ -448,7 +423,7 @@ M6 32GB       → GOOD with 6-bit
 
 ---
 
-# 6. 🖼️ Qwen Image Edit
+### 6. 🖼️ Qwen Image Edit
 
 For editing an existing image rather than simply generating from text, Qwen Image Edit deserves its own category.
 
@@ -471,7 +446,7 @@ Draw Things' own test set demonstrates that current image-editing models can per
 
 ---
 
-# 7. 🧱 SDXL and SDXL Fine-Tunes
+### 7. 🧱 SDXL and SDXL Fine-Tunes
 
 SDXL is no longer the cutting edge, but it remains extremely useful.
 
@@ -493,29 +468,29 @@ Examples include:
 - anime/illustration models
 - specialized photography models
 
-### Where SDXL still wins
+#### Where SDXL still wins
 
 If you find a specialized LoRA/checkpoint that does exactly what you want, SDXL can remain the better tool despite newer models being technically stronger.
 
 ---
 
-# 8. 🆕 Newer Model Families
+### 8. 🆕 Newer Model Families
 
 Draw Things' 2026 releases have expanded considerably beyond FLUX and Qwen.
 
-### Anima
+#### Anima
 
 Draw Things added Anima Preview 3 support, including model import and LoRA workflows.  [source](https://drawthings.ai/downloads/)
 
-### ERNIE Image
+#### ERNIE Image
 
 Draw Things added ERNIE Image with model import, LoRA import and LoRA training support.  [source](https://drawthings.ai/downloads/)
 
-### Krea 2
+#### Krea 2
 
 Current Draw Things releases support importing Krea 2 models and, in earlier 2026 releases, Krea 2-series workflows.  [source](https://drawthings.ai/downloads/)
 
-### Ideogram 4
+#### Ideogram 4
 
 Draw Things added support for Ideogram 4-series models and LoRAs in July 2026.  [source](https://drawthings.ai/downloads/)
 
@@ -525,11 +500,11 @@ Start with a small, complementary model library.
 
 ---
 
-# 🖥️ Model Recommendations by Mac
+## 🖥️ Model Recommendations by Mac
 
-## Your M1 MacBook Pro — 32GB
+### Your M1 MacBook Pro — 32GB
 
-### Best choices
+#### Best choices
 
 | Model | Recommendation |
 |---|---|
@@ -540,7 +515,7 @@ Start with a small, complementary model library.
 | SDXL | ⭐⭐⭐⭐ |
 | FLUX.2 [dev] | ❌ |
 
-### Important M1 limitation
+#### Important M1 limitation
 
 Older Apple Silicon has less favorable support for some BF16 workloads. Draw Things specifically notes that BF16 support on older M1/M2 hardware is limited.
 
@@ -550,13 +525,13 @@ Therefore:
 
 ---
 
-# 💻 M4 Max MacBook Pro — 36GB
+### 💻 M4 Max MacBook Pro — 36GB
 
 M4 Max is a major step up.
 
 Apple's M4 Max can have up to a 40-core GPU and up to 546GB/s unified-memory bandwidth. The 36GB configuration is a real M4 Max configuration, although the 36GB version is paired with the lower 14-core CPU/32-core GPU configuration in Apple's MacBook Pro lineup.  [source](https://www.apple.com/mac/compare/?modelList=MacBook-Pro-16-M4-Max%2CMacBook-Pro-16-M3)
 
-### Best choices
+#### Best choices
 
 | Model | Recommendation |
 |---|---|
@@ -567,7 +542,7 @@ Apple's M4 Max can have up to a 40-core GPU and up to 546GB/s unified-memory ban
 | FLUX.2 [dev] | ⭐⭐⭐⭐ |
 | SDXL | ⭐⭐⭐⭐ |
 
-### The sweet spot
+#### The sweet spot
 
 For this machine:
 
@@ -591,7 +566,7 @@ without trying to run enormous BF16 models.
 
 ---
 
-# 🖥️ Mac mini M6 — 32GB
+### 🖥️ Mac mini M6 — 32GB
 
 The M6 Mac mini is a particularly interesting Draw Things machine because it combines 32GB unified memory with much newer Apple compute.
 
@@ -606,7 +581,7 @@ Apple's M6 Mac mini has:
 
 Apple claims up to 4× faster AI performance than the previous M4 Mac mini.  [source](https://support.apple.com/en-us/128108)  [source](https://www.apple.com/newsroom/2026/08/apple-unveils-a-more-powerful-mac-mini-featuring-the-all-new-m6-and-m5-pro/)
 
-### Best choices
+#### Best choices
 
 | Model | Recommendation |
 |---|---|
@@ -617,7 +592,7 @@ Apple claims up to 4× faster AI performance than the previous M4 Mac mini.  [so
 | FLUX.2 [dev] | ⭐⭐⭐ |
 | SDXL | ⭐⭐⭐⭐ |
 
-### Important point
+#### Important point
 
 The M6 is faster than the M4 Max in some newer AI operations, but **32GB is still 32GB**.
 
@@ -639,9 +614,9 @@ The M6 32GB can execute a supported model very quickly, but it cannot magically 
 
 ---
 
-# ⚡ Performance and Memory
+## ⚡ Performance and Memory
 
-## The most important rule
+### The most important rule
 
 For local image generation:
 
@@ -660,9 +635,9 @@ Do not plan on using 100% of physical memory.
 
 ---
 
-## Practical memory tiers
+### Practical memory tiers
 
-### 32GB Mac
+#### 32GB Mac
 
 Best target:
 
@@ -672,7 +647,7 @@ Best target:
 quantized 9B models
 ```
 
-### 36GB M4 Max
+#### 36GB M4 Max
 
 Best target:
 
@@ -682,17 +657,17 @@ Best target:
 selected larger models
 ```
 
-### 48GB+
+#### 48GB+
 
 Now larger models become much more comfortable.
 
-### 64GB+
+#### 64GB+
 
 This is where large FLUX/Qwen workflows become substantially easier.
 
 ---
 
-# 📐 Resolution Matters
+## 📐 Resolution Matters
 
 A model that comfortably generates:
 
@@ -724,9 +699,9 @@ Judge it by whether it can:
 
 ---
 
-# 🎯 Recommended Resolution Strategy
+## 🎯 Recommended Resolution Strategy
 
-## 32GB systems
+### 32GB systems
 
 Start:
 
@@ -765,11 +740,11 @@ Draw Things also supports dedicated upscaling/restoration workflows, including S
 
 ---
 
-# 🏆 What I Would Download
+## 🏆 What I Would Download
 
 Rather than downloading 20 models, build a small library.
 
-## M1 MacBook Pro 32GB
+### M1 MacBook Pro 32GB
 
 ```text
 1. Z-Image Turbo
@@ -780,7 +755,7 @@ Rather than downloading 20 models, build a small library.
 
 ---
 
-## M4 Max 36GB
+### M4 Max 36GB
 
 ```text
 1. FLUX.2 [klein] 9B
@@ -792,7 +767,7 @@ Rather than downloading 20 models, build a small library.
 
 ---
 
-## M6 Mac mini 32GB
+### M6 Mac mini 32GB
 
 ```text
 1. FLUX.2 [klein] 4B
@@ -804,11 +779,11 @@ Rather than downloading 20 models, build a small library.
 
 ---
 
-# 🔞 Uncensored Models
+## 🔞 Uncensored Models
 
-## Can Draw Things handle them?
+### Can Draw Things handle them?
 
-### Generally: yes, with an important distinction.
+#### Generally: yes, with an important distinction.
 
 Draw Things is a **model runtime**, not the model itself.
 
@@ -840,7 +815,7 @@ There are three separate layers:
 
 A community model may have different safety behavior from an official model, but compatibility, licensing and model-specific behavior must be checked individually.
 
-### FLUX.2 [klein] is NOT an uncensored model
+#### FLUX.2 [klein] is NOT an uncensored model
 
 This is especially important given your question about FLUX.2.
 
@@ -854,7 +829,7 @@ FLUX.2 [klein] 9B
 uncensored model
 ```
 
-### What "uncensored" means here
+#### What "uncensored" means here
 
 For local image generation, people generally use the term to describe community models whose weights have not been safety-tuned to refuse certain categories of prompts.
 
@@ -870,7 +845,7 @@ And local operation does **not** override the model's license or applicable law.
 
 ---
 
-# 🔒 Privacy and Offline Operation
+## 🔒 Privacy and Offline Operation
 
 Draw Things is particularly attractive if your objective is:
 
@@ -902,7 +877,7 @@ Once the required model assets are present locally, generation itself can be per
 
 ---
 
-# 🧠 LoRAs, ControlNet and Editing
+## 🧠 LoRAs, ControlNet and Editing
 
 A modern Draw Things workflow is not simply:
 
@@ -946,7 +921,7 @@ is often the better strategy.
 
 ---
 
-# 🧪 Model Testing Strategy
+## 🧪 Model Testing Strategy
 
 Do not simply ask:
 
@@ -987,7 +962,7 @@ Draw Things has also begun publishing its own human-evaluated Test Set, which is
 
 ---
 
-# 🧰 Pro Local Workflow
+## 🧰 Pro Local Workflow
 
 For your environment I would use:
 
@@ -1033,21 +1008,21 @@ Home Assistant / web dashboard / asset pipeline
 
 ---
 
-# ⚠️ Limitations
+## ⚠️ Limitations
 
-## 1. Memory remains king
+### 1. Memory remains king
 
 A 32GB Mac cannot become a 64GB Mac because the M6 GPU is faster.
 
 ---
 
-## 2. Larger resolution costs more
+### 2. Larger resolution costs more
 
 2K generation can be dramatically more demanding than 768/1024 generation.
 
 ---
 
-## 3. Newer ≠ always better
+### 3. Newer ≠ always better
 
 A newer model may be:
 
@@ -1059,7 +1034,7 @@ A newer model may be:
 
 ---
 
-## 4. Community model compatibility varies
+### 4. Community model compatibility varies
 
 A model found online is not automatically compatible with Draw Things.
 
@@ -1074,7 +1049,7 @@ Check:
 
 ---
 
-## 5. Model licenses matter
+### 5. Model licenses matter
 
 "Open weights" does not necessarily mean:
 
@@ -1092,11 +1067,11 @@ Always check the model's license.
 
 ---
 
-# 🏁 Final Recommendations
+## 🏁 Final Recommendations
 
-## 🥇 Best all-around model for your 32GB Macs
+### 🥇 Best all-around model for your 32GB Macs
 
-### Z-Image Turbo
+#### Z-Image Turbo
 
 Why:
 
@@ -1111,9 +1086,9 @@ Why:
 
 ---
 
-## 🥇 Best newer general-purpose model
+### 🥇 Best newer general-purpose model
 
-### FLUX.2 [klein] 4B
+#### FLUX.2 [klein] 4B
 
 Excellent choice for:
 
@@ -1123,9 +1098,9 @@ Excellent choice for:
 
 ---
 
-## 🥇 Best quality/size compromise
+### 🥇 Best quality/size compromise
 
-### FLUX.2 [klein] 9B
+#### FLUX.2 [klein] 9B
 
 Especially good on:
 
@@ -1137,23 +1112,23 @@ and usable on the 32GB systems with appropriate quantization and resolution.
 
 ---
 
-## 🥇 Best for text and complex prompts
+### 🥇 Best for text and complex prompts
 
-### Qwen Image 2512
+#### Qwen Image 2512
 
 Use the quantized version on your 32/36GB machines.
 
 ---
 
-## 🥇 Best mature ecosystem
+### 🥇 Best mature ecosystem
 
-### SDXL + specialist checkpoint/LoRA
+#### SDXL + specialist checkpoint/LoRA
 
 Still worth keeping because the community ecosystem is enormous.
 
 ---
 
-# 🧠 The 2026 Draw Things Mental Model
+## 🧠 The 2026 Draw Things Mental Model
 
 The old model:
 
@@ -1213,7 +1188,7 @@ SDXL
 
 ---
 
-# 🔗 Additional Resources
+## 🔗 Additional Resources
 
 - Draw Things: https://drawthings.ai/
 - Draw Things Downloads / release history: https://drawthings.ai/downloads/
@@ -1227,7 +1202,7 @@ SDXL
 
 ---
 
-# 📌 Bottom Line
+## 📌 Bottom Line
 
 **Draw Things in 2026 is much more than a Stable Diffusion app.**
 
