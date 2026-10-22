@@ -287,7 +287,7 @@ git status
 
 ### 6.2 Review the bootstrap script
 
-Inspect the bootstrap script and macOS defaults before running them:
+Open README.md file. Inspect the bootstrap script and macOS defaults before running them:
 
 ```bash
 sed -n '1,260p' bootstrap.sh
@@ -342,6 +342,8 @@ Run:
 ```bash
 p10k configure
 ```
+
+>If the p10k configure command doesn't work, just open a new shell tab & follow instructions. Don't stress if the screen image is not what's being defined.
 
 Verify SSH aliases, Git identity, environment variables, and configured shell plugins.
 
