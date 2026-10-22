@@ -406,7 +406,7 @@ The dotfiles Brewfile should manage the UTM application installation.
 
 ### 8.2 Deploy Home Assistant OS
 
-Use a dedicated Home Assistant OS VM rather than Home Assistant Core in a container. This retains the standard Home Assistant OS/Supervisor experience.
+[Use this documentation](home-assistant.md) Use a dedicated Home Assistant OS VM rather than Home Assistant Core in a container. This retains the standard Home Assistant OS/Supervisor experience.
 
 Official documentation:
 
