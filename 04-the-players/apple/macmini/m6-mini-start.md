@@ -93,16 +93,6 @@ Complete macOS Setup Assistant and create the required administrator and daily-u
 
 Open **System Settings → General → Software Update** and install available stable updates.
 
-Verify the installation:
-
-```bash
-sw_vers
-uname -m
-system_profiler SPHardwareDataType
-```
-
-On Apple Silicon, `uname -m` should normally return `arm64`.
-
 Avoid major macOS upgrades until compatibility with UTM, Docker Desktop, AI runtimes, and required services has been checked.
 
 ### 2.2 Set the hostname
@@ -234,7 +224,7 @@ Keep SSH and Screen Sharing on trusted networks. Do not expose either directly t
 
 ---
 
-## 5. 55-Inch OLED TV Setup
+## 5. 55-Inch OLED TV Setup (Optional - Skip)
 
 The OLED is both the Mac mini's primary display and an entertainment screen.
 
@@ -286,8 +276,8 @@ The existing dotfiles repository is the canonical source for installing applicat
 Replace the placeholder URL with the actual repository URL.
 
 ```bash
-mkdir -p ~/repos/personal
-cd ~/repos/personal
+mkdir -p ~/repos
+cd ~/repos
 
 git clone <YOUR_DOTFILES_REPO_URL> dotfiles
 cd dotfiles
