@@ -390,6 +390,10 @@ If an application is missing, inspect the relevant Brewfile and bootstrap output
 
 ---
 
+>Once you've reached this point, you can test out local AI (Ollama, Draw Things, etc. Find write-up somewhere in this repo.)
+
+---
+
 ## 8. Virtualization and Home Assistant
 
 ### 8.1 Virtualization platform: UTM
