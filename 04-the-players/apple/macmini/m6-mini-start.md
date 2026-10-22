@@ -559,10 +559,11 @@ ollama --version
 ollama list
 ```
 
-Run a model supported by the installed version:
+What everyone wants. Run ClaudeCode served by Ollama, using latest model for Apple Silicon:
 
 ```bash
-ollama run <MODEL_NAME>
+ollama pull qwen3.6:27b-coding-nvfp4
+ollama launch claude --model qwen3.6:27b-coding-nvfp4
 ```
 
 The Ollama HTTP API commonly uses port `11434`. Keep it bound to localhost unless LAN access is explicitly required. If exposing it to the LAN, restrict access through network and firewall controls.
