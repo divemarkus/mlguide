@@ -191,7 +191,7 @@ ssh <username>@<mac-mini-ip>
 
 Replace the placeholders with the actual account and reserved address.
 
-### 4.2 SSH keys
+### 4.2 SSH keys [See additional write-up](m6-mini-ssh.md)
 
 Reuse the SSH configuration and public keys managed by the dotfiles repository. Provision private keys securely; never commit them to Git.
 
@@ -224,7 +224,7 @@ Keep SSH and Screen Sharing on trusted networks. Do not expose either directly t
 
 ---
 
-## 5. 55-Inch OLED TV Setup (Optional - Skip)
+## 5. 55-Inch OLED TV Setup (Optional - Skip to Step 6)
 
 The OLED is both the Mac mini's primary display and an entertainment screen.
 
