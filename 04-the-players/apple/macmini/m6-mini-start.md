@@ -563,11 +563,16 @@ ollama list
 
 ```bash
 ollama pull qwen3.6:27b-coding-nvfp4
+# or
+ollama pull qwen3.6:35b-a3b-coding-nvfp4
 cd [your project directory]
 ollama launch claude --model qwen3.6:27b-coding-nvfp4
+# or
+ollama launch claude --model qwen3.6:35b-a3b-coding-nvfp4
 ```
 
 - The above is a sample of Apple Silicon + MLX + Coding Agent.
+- Depends on version of Ollama/Claude will work on which model above.
 - The Ollama HTTP API commonly uses port `11434`. Keep it bound to localhost unless LAN access is explicitly required.
 
 ---
