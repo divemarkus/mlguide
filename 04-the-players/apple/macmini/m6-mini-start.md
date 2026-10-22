@@ -559,14 +559,22 @@ ollama --version
 ollama list
 ```
 
-What everyone wants. Run ClaudeCode served by Ollama, using latest model for Apple Silicon:
+[ClaudeCode served by Ollama](../../../03-the-agent/claudecode/README.md)
 
 ```bash
 ollama pull qwen3.6:27b-coding-nvfp4
+cd [your project directory]
 ollama launch claude --model qwen3.6:27b-coding-nvfp4
 ```
 
-The Ollama HTTP API commonly uses port `11434`. Keep it bound to localhost unless LAN access is explicitly required. If exposing it to the LAN, restrict access through network and firewall controls.
+- The above is a sample of Apple Silicon + MLX + Coding Agent.
+- The Ollama HTTP API commonly uses port `11434`. Keep it bound to localhost unless LAN access is explicitly required.
+
+---
+
+>Try out [Draw Things](../drawthings/README.md). Download z-image-turbo model and give that a go.
+
+---
 
 ### 10.3 Unified memory
 
