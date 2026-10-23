@@ -150,6 +150,8 @@ pmset -g
 pmset -g custom
 ```
 
+>Future self to add this to dotfiles, dedicated to Mini - sudo pmset -a sleep 0 displaysleep 10 disksleep 10
+
 Do not assume that a running Mac automatically starts every VM and container after a reboot.
 
 ### 3.2 Validate always-on operation
