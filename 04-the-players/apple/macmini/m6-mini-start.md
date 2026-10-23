@@ -562,12 +562,8 @@ ollama list
 [ClaudeCode served by Ollama](../../../03-the-agent/claudecode/README.md)
 
 ```bash
-ollama pull qwen3.6:27b-coding-nvfp4
-# or
 ollama pull qwen3.6:35b-a3b-coding-nvfp4
 cd [your project directory]
-ollama launch claude --model qwen3.6:27b-coding-nvfp4
-# or
 ollama launch claude --model qwen3.6:35b-a3b-coding-nvfp4
 ```
 
