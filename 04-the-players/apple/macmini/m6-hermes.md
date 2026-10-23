@@ -1,5 +1,9 @@
 # Hermes Agent on your M6 Mac mini: deployment plan
 
+
+<img width="1536" height="1024" alt="Hermes_Agent_AI_Command_Center" src="https://github.com/user-attachments/assets/23ebd74b-1ac8-4ea8-a325-66e089d49645" />
+
+
 I'd build this as a privacy-first, always-on local AI appliance: Hermes Agent provides the agentic capabilities, a local MLX inference server provides the language model, Home Assistant runs separately in its VM, and Discord is your initial remote interface.
 
 There are four separate decisions to make:
