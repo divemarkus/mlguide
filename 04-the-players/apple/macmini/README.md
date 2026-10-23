@@ -1,26 +1,3 @@
-# Mac Mini Comparison - Focused on running local LLM
-
-- Low Power & Always "on"
-- Will host all your local LLM's for home/remote use
-- Better with MLX models
-- Experiment with oMLX as main Runner
-- Use Hermes as Agentic AI
-- ClaudeCode for Coding
-- Home Assistant, Frigate NVR...
-- [See here for detailed use](m6-mini.md)
-
----
-
-## Comparison
-
-<img width="1312" height="1199" alt="Mac mini Generations_ Local LLM Comparison" src="https://github.com/user-attachments/assets/3cc38341-689b-4cc7-8712-8b980dd50c00" />
-
-## Unified Memory is Important
-
-<img width="1312" height="1199" alt="Unified Memory on M6 Mac mini" src="https://github.com/user-attachments/assets/f3016fe3-9675-48fb-8007-37c8d361af2b" />
-
----
-
 # Apple Mac Mini - M6 32GB 1TB
 
 <img width="1672" height="941" alt="Apple-MacMini-M632GB" src="https://github.com/user-attachments/assets/f3e2aaf3-80e8-4238-ba88-89f021ae122b" />
@@ -123,3 +100,27 @@ It's:
 > “Mac mini becomes the AI brain of the homelab.”
 
 Your cameras, Home Assistant, Git repositories, documents, voice interface, development environment and future tools become senses and actuators, while the Mac provides the local reasoning layer. That fits very well with the privacy-first architecture already established in your ML project, where inference is intended to remain local unless you explicitly enable an external service.
+
+---
+
+# Mac Mini Comparison - Focused on running local LLM
+
+- Low Power & Always "on"
+- Will host all your local LLM's for home/remote use
+- Better with MLX models
+- Experiment with oMLX as main Runner
+- Use Hermes as Agentic AI
+- ClaudeCode for Coding
+- Home Assistant, Frigate NVR...
+- [See here for detailed use](m6-mini.md)
+
+---
+
+## Comparison
+
+<img width="1312" height="1199" alt="Mac mini Generations_ Local LLM Comparison" src="https://github.com/user-attachments/assets/3cc38341-689b-4cc7-8712-8b980dd50c00" />
+
+## Unified Memory is Important
+
+<img width="1312" height="1199" alt="Unified Memory on M6 Mac mini" src="https://github.com/user-attachments/assets/f3016fe3-9675-48fb-8007-37c8d361af2b" />
+
