@@ -1,6 +1,6 @@
 # ChatGPT App vs. Claude Code + Ollama on your M6 Mac mini
 
->ChatGPT App was formerly Codex App on macOS
+> ChatGPT App was formerly Codex App on macOS
 
 Keep Claude Code + Ollama as baseline, and evaluate the ChatGPT desktop app as a complementary coding agent—not an automatic replacement. The deciding factor is how much of ChatGPT's agentic workflow you can run against your local models, versus which features depend on OpenAI-hosted models or services.
 
@@ -14,15 +14,7 @@ A polished desktop app doesn't automatically mean a better coding agent, and sup
 
 ## 1. Feature-by-feature comparison
 
-Ollama now documents a direct integration that adds compatible local models to the ChatGPT desktop app's Codex mode. That makes the comparison much more concrete than simply comparing ChatGPT's hosted models against Claude Code.&#x20;
-
-[image](https://www.google.com/s2/favicons?domain=https://github.com\&sz=32)
-
-GitHub
-
-+1
-
-
+Ollama now documents a direct integration that adds compatible local models to the ChatGPT desktop app's Codex mode. That makes the comparison much more concrete than simply comparing ChatGPT's hosted models against Claude Code.
 
 | Capability                  | ChatGPT desktop + Codex + Ollama                                                                                | Claude Code + Ollama                                                               |
 | --------------------------- | --------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
@@ -45,21 +37,15 @@ Sources: [Ollama's ChatGPT integration guide](https://github.com/ollama/ollama/b
 
 Your M6 mini's 32GB unified memory is the constraint that matters most. Neither app makes a model more capable simply by wrapping it in a better UI.
 
-[Qwen IA - Suite de modelos de lenguaje de Alibaba Cloud](https://images.openai.com/static-rsc-4/wDD9nK6dE97GsQ5vEzRgKYoxUuxEtIY-N12SfyVm4syJFQV4zhNtaHPPwnYKpzJJMrWcA_zCmUVkSYiz21ZlAOspMgo0BNypfB9mjPG5sgkcBkIJ4e74-3-Nw3b9r9X8Z7lnKRFC3orEXKdA_8TjL4dYbsfomT7PiBz26UH2dHc?purpose=inline)
-
-Qwen coding models through Ollama
+### Qwen coding models through Ollama
 
 Good candidates for routine Python, shell scripts, configuration files, refactoring, test generation, and repository questions. Your `qwen3.6:27b-coding-nvfp4` candidate is worth testing, provided the exact model tag is available and compatible with your installed Ollama version.
 
-[library](https://images.openai.com/static-rsc-4/iC1pWAxAtGlF4Ppu29pYJyVUYAbL82h0-gEOW2HQi0zMl9OmzSvHrPi1eTJDH-AVbmsne3GGNBazLlCcbxkWQRLQOFsa4cFgyFS1jyYu5fe69eCBdVZE0k1UFHCLXSwVpZTS1U9emNxTbqerTeI9EEnS2WHR7fvgsEfo6fwCP3o?purpose=inline)
-
-Ollama as the common backend
+### Ollama as the common backend
 
 You can test the same local model in both workflows, where each integration supports it. That helps separate differences in the coding agent from differences in model quality. Do not assume all Claude Code model-routing options or Codex features are interchangeable.
 
-[NVIDIA GeForce RTX 3090 TI - buy at Digitec](https://images.openai.com/static-rsc-4/tdp7srF5WLjAIaE0SY0oAbylaSa5dhOafghXNHQDRQvGbIn3YLj2p-VKDQ0nSmb0qcm9xJT39tR7WBe6VXAgmwtZZTNkqSAlqWawd4dsu8oisqVL6aWuwv41i9Yuvkc19nSj1ZdBi7EOlNQM1_JyG2QRbFrhsJ7LYS9WSBJxgpQ?purpose=inline)
-
-Your RTX 3090 Ti workstation
+### Your RTX 3090 Ti workstation
 
 Keep it for larger CUDA workloads and heavier models. The Mac mini is best treated as your quiet, efficient coding and infrastructure node; the workstation can handle tasks where GPU memory and throughput matter more.
 
@@ -67,27 +53,19 @@ One important qualification: a model's advertised context length is not the same
 
 ## 3. Where Codex could be better for you
 
-Reviewing and managing changes
+### Reviewing and managing changes
 
 Codex has a dedicated review workflow, which is useful for inspecting diffs, checking what an agent changed, and iterating before committing. That could fit your GitHub infrastructure and dotfiles repositories nicely.
 
-Supervising multiple tasks
+### Supervising multiple tasks
 
 Codex's desktop app emphasizes managing multiple agents and parallel work. You could delegate separate tasks for your `secops`, `endpoint-config`, and `mlplatform` repositories, then review each branch or diff. Parallelism is useful only if memory and the selected model can handle it reliably.
 
-Web and local application testing
+### Web and local application testing
 
 Codex's built-in browser can help inspect locally running web apps and annotate pages to request changes. This is attractive for web UI work, though it is not equivalent to unrestricted web browsing or guaranteed browser automation on every site.
 
-These are documented workflow strengths, not evidence that Codex will consistently write better code than Claude Code with the same model.&#x20;
-
-[image](https://www.google.com/s2/favicons?domain=https://openai.com\&sz=32)
-
-OpenAI
-
-+1
-
-
+These are documented workflow strengths, not evidence that Codex will consistently write better code than Claude Code with the same model.
 
 ## 4. Where I'd keep Claude Code
 
@@ -104,13 +82,7 @@ The important nuance is that agent reliability is more than code generation. The
 
 ## 5. How I'd install and evaluate Codex on your M6
 
-Ollama's current integration documentation specifies Ollama v0.34.0 or newer for the ChatGPT desktop integration. The documented setup is through Ollama's desktop app, under Apps.&#x20;
-
-[image](https://www.google.com/s2/favicons?domain=https://github.com\&sz=32)
-
-GitHub
-
-
+Ollama's current integration documentation specifies Ollama v0.34.0 or newer for the ChatGPT desktop integration. The documented setup is through Ollama's desktop app, under Apps.
 
 ### Initial setup
 
@@ -142,12 +114,6 @@ Score each agent from 1–5 on correctness, autonomy, tool use, recovery, and ti
 
 For your Home Lab, I'd use Codex + Ollama as an additional interface for experimentation, code review, browser-assisted development, and parallel tasks, while retaining Claude Code for the workflows you already trust.
 
-There is one privacy caveat worth emphasizing: Ollama documents that local-model requests are routed locally, but its web-search integration requires Ollama sign-in, and the normal ChatGPT model path remains separate. Don't equate local inference with the entire application being offline.&#x20;
-
-[image](https://www.google.com/s2/favicons?domain=https://github.com\&sz=32)
-
-GitHub
-
-+1
+There is one privacy caveat worth emphasizing: Ollama documents that local-model requests are routed locally, but its web-search integration requires Ollama sign-in, and the normal ChatGPT model path remains separate. Don't equate local inference with the entire application being offline.
 
 
