@@ -1,5 +1,5 @@
 
-# 🍎 macOS Local AI Setup Guide — Ollama MLX + Claude Code + Qwen3.5 Coding Models
+# 🍎 macOS Local AI Setup Guide — Ollama MLX + Claude Code + Qwen3.6 Coding Models
 
 > A practical guide for running modern local LLM workflows on a MacBook Pro using Apple Silicon, Ollama MLX acceleration, and Claude Code.
 
@@ -47,7 +47,7 @@ Claude Code
      ↓
 Ollama
      ↓
-Qwen3.5 Coding Model (MLX accelerated)
+Qwen3.6 Coding Model (MLX accelerated)
      ↓
 Apple Silicon GPU + Unified Memory
 ```
@@ -65,12 +65,12 @@ It is advisable to get a better MBP:
 | Apple MacBook Pro (16-inch, 2021, M1 Pro) | ✅ Worked well |
 | 32GB Unified Memory                       | ✅ Stable      |
 | Ollama + Claude Code                      | ✅ Functional  |
-| Qwen3.5 35B Coding Model                  | ✅ Usable      |
+| Qwen3.6 35B Coding Model                  | ✅ Usable      |
 
 Screenshot confirms:
 
 ```bash
-ollama launch claude --model qwen3.5:35b-a3b-coding-nvfp4
+ollama launch claude --model qwen3.6:35b-a3b-coding-nvfp4
 ```
 
 …and Claude Code successfully used the local model for:
@@ -140,7 +140,7 @@ Compared to older CPU-heavy inference:
 ### Tested model
 
 ```bash
-ollama pull qwen3.5:35b-a3b-coding-nvfp4
+ollama pull qwen3.6:35b-a3b-coding-nvfp4
 ```
 
 Screenshot shows:
@@ -191,7 +191,7 @@ http://localhost:11434
 ## Your tested model
 
 ```bash
-ollama pull qwen3.5:35b-a3b-coding-nvfp4
+ollama pull qwen3.6:35b-a3b-coding-nvfp4
 ```
 
 ---
@@ -217,7 +217,7 @@ brew install --cask claude-code
 Example workflow:
 
 ```bash
-ollama launch claude --model qwen3.5:35b-a3b-coding-nvfp4
+ollama launch claude --model qwen3.6:35b-a3b-coding-nvfp4
 ```
 
 Screenshot demonstrates this exact workflow successfully.
@@ -280,7 +280,7 @@ This aligns well with:
 | -------------- | ------------------- |
 | 7B models      | Excellent           |
 | 13B models     | Excellent           |
-| 35B coding MoE | Surprisingly usable |
+| 35B MoE (Qwen3.6) | Surprisingly usable |
 | Ollama         | Smooth              |
 | Claude Code    | Works well          |
 
@@ -320,7 +320,7 @@ Screenshot is valuable because it demonstrates:
 
 ✅ M1 Pro 32GB is enough for meaningful local AI workflows
 ✅ Claude Code can operate against local models
-✅ Qwen coding models work well locally (this model precisely)
+✅ Qwen3.6 coding models work well locally on Apple Silicon (this model precisely)
 ✅ macOS is now a legitimate AI dev platform
 ⚠️ Context Length with bigger projects has not been tested
 

@@ -9,7 +9,7 @@ Your known machine is a **MacBook Pro M1 with 32 GB unified memory**, so I've al
 | Rank | Model | MLX Footprint | Context | Vision | Coding | Agents | 32 GB M1 | Primary Use |
 |---:|---|---:|---:|:---:|:---:|:---:|:---:|---|
 | 🥇 **1** | **Qwen3.8 27B MLX** | **18 GB** | **256K** | ✅ | ★★★★★ | ★★★★★ | 🟢 | **Best overall** |
-| 🥈 **2** | **Qwen3.5 35B-A3B MLX / NVFP4** | **22 GB** | **256K** | ✅ | ★★★★★ | ★★★★★ | 🟡 | **Best high-end model** |
+| 🥈 **2** | **Qwen3.6 35B-A3B MLX / NVFP4** | **22 GB** | **256K** | ✅ | ★★★★★ | ★★★★★ | 🟡 | **Best high-end model** |
 | 🥉 **3** | **Muse Glimmer 30B MLX** | **19 GB** | **128K+** | ✅ | ★★★★★ | ★★★★★ | 🟡 | **Best agentic model** |
 | **4** | **Qwen3.6 27B MLX** | **19 GB** | **256K** | ✅ | ★★★★★ | ★★★★★ | 🟢 | **Coding / reasoning** |
 | **5** | **Gemma 4 31B MLX** | **19 GB** | **256K** | ✅ | ★★★★½ | ★★★★½ | 🟡 | **Dense reasoning** |
@@ -72,12 +72,12 @@ That's an unusually good **capability / memory / Apple Silicon** combination.
 
 ---
 
-# 🥈 2. Qwen3.5 35B-A3B MLX
+# 🥈 2. Qwen3.6 35B-A3B MLX / NVFP4
 
 This is the **heavy hitter I'd test on your M1**.
 
 ```bash
-ollama run qwen3.5:35b-mlx
+ollama run qwen3.6:35b-a3b-coding-nvfp4
 ```
 
 Current MLX build:
@@ -91,12 +91,12 @@ Current MLX build:
 | Vision | ✅ |
 | Architecture | MoE |
 
-Ollama currently lists the MLX version at **22 GB**. ([Ollama Qwen3.5](https://ollama.com/library/qwen3.5))
+Ollama currently lists the MLX version at **22 GB**. ([Ollama Qwen3.6](https://ollama.com/library/qwen3.6))
 
 The architecture is particularly interesting:
 
 ```text
-             Qwen3.5
+             Qwen3.6
                 │
               35B
                 │
@@ -115,7 +115,7 @@ Ollama's MLX engine now supports **NVFP4**, and its testing shows NVFP4 can prod
 For coding agents, there is also:
 
 ```bash
-ollama run qwen3.5:35b-a3b-coding-nvfp4
+ollama run qwen3.6:35b-a3b-coding-nvfp4
 ```
 
 This is the one I'd put behind:
@@ -273,39 +273,39 @@ This would be one of my **benchmark-against-Qwen** models on your Mac.
 
 ---
 
-# 7. Qwen3.5 27B MLX / NVFP4
+# 7. Qwen3.6 27B MLX / NVFP4
 
 ```bash
-ollama run qwen3.5:27b-mlx
+ollama run qwen3.6:27b-coding-nvfp4
 ```
 
 Current MLX footprint:
 
-**20 GB / 256K / Text + Image**. ([Ollama Qwen3.5](https://ollama.com/library/qwen3.5))
+**20 GB / 256K / Text + Image**. ([Ollama Qwen3.6](https://ollama.com/library/qwen3.6))
 
 There is also:
 
 ```bash
-ollama run qwen3.5:27b-nvfp4
+ollama run qwen3.6:27b-coding-nvfp4
 ```
 
 which uses the MLX backend.
 
-Ollama's current tags show the MLX/NVFP4 version at approximately **20 GB**. ([Ollama Qwen3.5 tags](https://ollama.com/library/qwen3.5/tags))
+Ollama's current tags show the MLX/NVFP4 version at approximately **20 GB**. ([Ollama Qwen3.6 tags](https://ollama.com/library/qwen3.6/tags))
 
 For your Mac, I'd favor the NVFP4 version when available.
 
 ---
 
-# 8. Qwen3.5 9B MLX
+# 8. Qwen3.6 9B MLX
 
 This is where the **speed/utility ratio** gets very good.
 
 ```bash
-ollama run qwen3.5:9b-mlx
+ollama run qwen3.6:9b-mlx
 ```
 
-| | Qwen3.5 9B |
+| | Qwen3.6 9B |
 |---|---:|
 | MLX size | **8.9 GB** |
 | Context | **256K** |
@@ -314,7 +314,7 @@ ollama run qwen3.5:9b-mlx
 | Agents | ★★★★ |
 | 32 GB M1 | 🟢🟢 |
 
-Ollama currently lists the MLX version at **8.9 GB**, with 256K context and image input. ([Ollama Qwen3.5 9B MLX](https://ollama.com/library/qwen3.5%3A9b-mlx))
+Ollama currently lists the MLX version at **8.9 GB**, with 256K context and image input. ([Ollama Qwen3.6 9B MLX](https://ollama.com/library/qwen3.6%3A9b-mlx))
 
 This is probably the model I'd use when you want your MacBook to remain responsive while you're doing other things.
 
@@ -341,15 +341,15 @@ The combination of the small footprint and Gemma 4's MTP optimization makes this
 
 ---
 
-# 10. Qwen3.5 4B MLX
+# 10. Qwen3.6 4B MLX
 
 ```bash
-ollama run qwen3.5:4b-mlx
+ollama run qwen3.6:4b-mlx
 ```
 
 Current MLX footprint:
 
-**~4 GB / 256K / Text + Image**. ([Ollama Qwen3.5](https://ollama.com/library/qwen3.5))
+**~4 GB / 256K / Text + Image**. ([Ollama Qwen3.6](https://ollama.com/library/qwen3.6))
 
 This isn't the model I'd use when you want maximum reasoning capability, but it becomes extremely useful for:
 
@@ -369,7 +369,7 @@ There are many impressive MLX conversions that are technically available but are
 
 For example, Qwen3.8 currently has a **BF16 MLX build around 56 GB**. ([Ollama Qwen3.8 tags](https://ollama.com/library/qwen3.8/tags))
 
-Likewise, Qwen3.5 27B has an MLX BF16 version around **55 GB**. ([Ollama Qwen3.5 tags](https://ollama.com/library/qwen3.5/tags))
+Likewise, Qwen3.6 35B has an MLX BF16 version around **55 GB**. ([Ollama Qwen3.6 tags](https://ollama.com/library/qwen3.6/tags))
 
 Those are interesting for **64 GB+ Apple Silicon**, not your 32 GB machine.
 
@@ -381,7 +381,7 @@ This is how I'd think about MLX models for your hardware:
 
 | Apple Unified Memory | MLX Sweet Spot | Examples |
 |---:|---|---|
-| **16 GB** | 3–12B | Qwen3.5 4B/9B, Gemma 4 12B |
+| **16 GB** | 3–12B | Qwen3.6 4B/9B, Gemma 4 12B |
 | **24 GB** | 7–27B | Qwen3.8 27B |
 | **32 GB** | **9–35B quantized** | **Your M1** |
 | **48 GB** | 27–70B | Serious local AI |
@@ -414,7 +414,7 @@ If I were setting up your machine, I'd install these **six** first:
 | Priority | Model | Role |
 |---:|---|---|
 | 🥇 | **Qwen3.8 27B MLX** | Main local AI |
-| 🥈 | **Qwen3.5 35B-A3B NVFP4** | Heavy coding/reasoning |
+| 🥈 | **Qwen3.6 35B-A3B NVFP4** | Heavy coding/reasoning |
 | 🥉 | **Muse Glimmer 30B MLX** | Agentic AI |
 | 4 | **Qwen3.6 27B MLX** | Coding/reasoning comparison |
 | 5 | **Gemma 4 31B MLX** | Dense-model comparison |
@@ -427,7 +427,7 @@ If I were setting up your machine, I'd install these **six** first:
 ollama run qwen3.8:27b-mlx
 
 # 2. Heavy coding/reasoning
-ollama run qwen3.5:35b-a3b-nvfp4
+ollama run qwen3.6:35b-a3b-coding-nvfp4
 
 # 3. Agentic
 ollama run muse-glimmer:30b-mlx
@@ -489,7 +489,7 @@ On **M5/M5 Pro/M5 Max**, Ollama additionally reports that MLX can use Apple's **
 | Model | Why |
 |---|---|
 | **Qwen3.8 27B MLX** | Best overall balance |
-| **Qwen3.5 35B-A3B NVFP4** | Maximum capability I'd seriously test |
+| **Qwen3.6 35B-A3B NVFP4** | Maximum capability I'd seriously test |
 | **Muse Glimmer 30B MLX** | Most interesting agent-focused model |
 
 Then keep **Gemma 4 12B MLX** around as the fast model.

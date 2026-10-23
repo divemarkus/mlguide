@@ -3,7 +3,7 @@ Getting started with [Claude Code](https://www.anthropic.com/claude-code) using 
 Setup:
 
 ```bash
-ollama launch claude --model qwen3.5:35b-a3b-coding-nvfp4
+ollama launch claude --model qwen3.6:35b-a3b-coding-nvfp4
 ```
 
 is already the important part. The rest is mostly about:
@@ -69,7 +69,7 @@ Claude Code becomes much smarter when it can:
 * inspect configs
 * inspect existing architecture
 
-This is where local coding models like Qwen3.5 Coding shine.
+This is where local coding models like Qwen3.6 Coding shine.
 
 ---
 
@@ -211,10 +211,10 @@ Your existing prompt engineering examples are actually very good examples of thi
 Your model:
 
 ```text
-qwen3.5:35b-a3b-coding-nvfp4
+qwen3.6:35b-a3b-coding-nvfp4
 ```
 
-is VERY capable locally.
+is VERY capable locally on Apple Silicon.
 
 But there are tradeoffs.
 
@@ -238,7 +238,7 @@ But there are tradeoffs.
 * advanced planning compared to cloud Claude Opus
 
 Still:
-Qwen3.5 Coding is one of the strongest local coding models available right now.
+Qwen3.6 Coding is one of the strongest local coding models available right now for Apple Silicon.
 
 ---
 

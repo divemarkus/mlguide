@@ -9,7 +9,7 @@
 
 > cd to directory before launching claude: cd gods-eye-view
 
-> ollama launch claude --model qwen3.5:35b-a3b-coding-nvfp4
+> ollama launch claude --model qwen3.6:35b-a3b-coding-nvfp4
 
 > Type: "Read this repo. Learn how I can install this App without using Pinokio. I have node version 26, running on M1 Macbook Pro 32GB Unified Memory."
 

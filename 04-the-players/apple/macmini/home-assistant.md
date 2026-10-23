@@ -237,7 +237,7 @@ It downloads and manages models and provides an API that other applications can 
 For example:
 
 ```bash
-ollama run qwen3.5:9b
+ollama run qwen3.6:9b
 ```
 
 or another model appropriate for the Mac Mini's available memory.
