@@ -281,15 +281,16 @@ Replace the placeholder URL with the actual repository URL.
 mkdir -p ~/repos
 cd ~/repos
 
-git clone <YOUR_DOTFILES_REPO_URL> dotfiles
+git clone git@github.com:divemarkus/dotfiles.git dotfiles
 cd dotfiles
 
 git status
 ```
 
-### 6.2 Review the bootstrap script
+### 6.2 Review the README.md and bootstrap script
 
-Open README.md file. Inspect the bootstrap script and macOS defaults before running them:
+- Open README.md file. 
+- Inspect the bootstrap script and macOS defaults before running them:
 
 ```bash
 sed -n '1,260p' bootstrap.sh
@@ -467,7 +468,7 @@ Configure Home Assistant to reach Frigate and MQTT over the LAN as appropriate. 
 
 ---
 
-## 9. Docker and Container Services
+## 9. Docker and Container Services (Optional)
 
 ### 9.1 Docker Desktop
 
