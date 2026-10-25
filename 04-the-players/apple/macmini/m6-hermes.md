@@ -441,3 +441,9 @@ One final consideration: Hermes Agent's local inference can be private, but Disc
 
 <img width="1536" height="1024" alt="Hermes_Firewall_Segmentation" src="https://github.com/user-attachments/assets/54325b02-8f28-410e-b6ae-83200dd4b16f" />
 
+## Full-Stack security suite
+- Deploy Wazuh and install agent on M6 Mac Mini
+- Wazuh can collect macOS security events and file-integrity data, but it does not automatically inspect every action performed by Hermes Agent
+
+<img width="1536" height="1024" alt="Hermes_Network_Architecture" src="https://github.com/user-attachments/assets/66a5ca2d-9c02-43b5-af43-ec9fe7019315" />
+
