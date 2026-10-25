@@ -435,3 +435,9 @@ For your M6 Mac mini, I would start with Hermes Desktop + Ollama's MLX-enabled G
 This gives you a useful local assistant without immediately introducing multiple inference servers or unnecessary infrastructure. LM Studio remains an excellent alternative for GUI-based model experimentation, but I wouldn't install both servers on day one.
 
 One final consideration: Hermes Agent's local inference can be private, but Discord is still a hosted service. Keep secrets out of chat, restrict the bot's users and permissions, and treat every tool-enabled agent as a privileged system that needs a deliberate security boundary.
+
+# Security concerns
+- Segment the Hermes Mac Mini server (see infographic diagram)
+
+<img width="1536" height="1024" alt="Hermes_Firewall_Segmentation" src="https://github.com/user-attachments/assets/54325b02-8f28-410e-b6ae-83200dd4b16f" />
+
