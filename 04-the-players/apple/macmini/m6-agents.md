@@ -1,3 +1,15 @@
+# AI Agents - Mac Mini 2026 Guide
+
+<img width="1586" height="992" alt="image" src="https://github.com/user-attachments/assets/96b3732d-6191-43f9-97c7-ae4a36fbe6e7" />
+
+Here's the updated AI Agents for Mac mini — 2026 Field Guide, designed as a shareable infographic.
+
+It compares Hermes Agent, OpenClaw, Claude Code, OpenAI Codex, Goose, OpenHands, and coding tools such as Aider, Cline, and Roo Code, highlighting their strengths, trade-offs, and best-fit use cases. It also maps useful add-ons—including MLX/Ollama, MCP, Home Assistant, Discord, web search, GitHub, n8n, and Wazuh—and proposes a practical always-on Mac mini architecture.
+
+My recommendation for your setup: start with Hermes Agent as the always-on personal assistant, a local MLX model for inference, Discord for remote interaction, and integrations for Home Assistant and your homelab. Add specialized coding agents when you need them rather than trying to make one agent do everything.
+
+---
+
 # ChatGPT App vs. Claude Code + Ollama on your M6 Mac mini
 
 > ChatGPT App was formerly Codex App on macOS
