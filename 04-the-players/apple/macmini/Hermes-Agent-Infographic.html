@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hermes Agent - Knowledge Base Infographic</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #1a1a2e 100%);
+            min-height: 100vh;
+            font-family: 'SF Mono', 'Consolas', monospace;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+            border-radius: 12px;
+            box-shadow: 0 4px 30px rgba(99, 102, 241, 0.4);
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .header .subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+        }
+
+        /* Bento Grid Layout */
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        @media (max-width: 1200px) {
+            .bento-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+        }
+
+        .card h3 {
+            color: #6366f1;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card p {
+            color: #a1a1aa;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .card-icon {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        /* Main Content Cards */
+        .overview-card {
+            grid-column: span 2;
+            grid-row: span 2;
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+        }
+
+        .overview-card h3 {
+            color: white;
+            font-size: 1.3rem;
+        }
+
+        .overview-card .card-icon {
+            color: white;
+        }
+
+        .model-specs {
+            grid-column: span 2;
+            grid-row: span 2;
+            background: rgba(99, 102, 241, 0.1);
+            border-left: 3px solid #6366f1;
+        }
+
+        .model-specs .card-icon {
+            color: #6366f1;
+            margin-bottom: 0;
+        }
+
+        .architecture-diagram {
+            grid-column: span 2;
+            grid-row: span 2;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .capabilities-grid {
+            grid-column: span 2;
+            grid-row: span 1;
+        }
+
+        .use-cases {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .installation {
+            grid-column: span 2;
+            grid-row: span 1;
+        }
+
+        .app-display {
+            grid-column: span 2;
+            grid-row: span 1;
+        }
+
+        /* Architecture Visualization */
+        .arch-layer {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px;
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 8px;
+            margin: 5px 0;
+        }
+
+        .arch-layer.blue {
+            background: rgba(99, 102, 241, 0.2);
+            border-left: 3px solid #6366f1;
+        }
+
+        .arch-layer.purple {
+            background: rgba(139, 92, 246, 0.2);
+            border-left: 3px solid #8b5cf6;
+        }
+
+        .arch-layer.green {
+            background: rgba(16, 185, 129, 0.2);
+            border-left: 3px solid #10b981;
+        }
+
+        .arch-layer.orange {
+            background: rgba(245, 158, 11, 0.2);
+            border-left: 3px solid #f59e0b;
+        }
+
+        .layer-label {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .layer-dots {
+            display: flex;
+            gap: 4px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .tool-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-blue { background: #6366f1; color: white; }
+        .badge-purple { background: #8b5cf6; color: white; }
+        .badge-green { background: #10b981; color: white; }
+        .badge-orange { background: #f59e0b; color: white; }
+
+        /* Use Cases */
+        .use-case-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .use-case-item {
+            background: rgba(99, 102, 241, 0.1);
+            border-radius: 8px;
+            padding: 10px;
+        }
+
+        .use-case-item h4 {
+            color: #6366f1;
+            font-size: 0.95rem;
+            margin-bottom: 5px;
+        }
+
+        .use-case-item p {
+            color: #a1a1aa;
+            font-size: 0.85rem;
+            margin: 0;
+        }
+
+        /* Model Specs */
+        .model-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .model-table th {
+            text-align: left;
+            padding: 8px;
+            border-bottom: 2px solid #6366f1;
+            color: #6366f1;
+        }
+
+        .model-table td {
+            padding: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: #a1a1aa;
+        }
+
+        .model-table tr:hover {
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        /* Installation Steps */
+        .install-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px;
+            background: rgba(99, 102, 241, 0.05);
+            border-radius: 6px;
+        }
+
+        .step-number {
+            background: #6366f1;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        /* App Display */
+        .app-display-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .app-feature {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            border-radius: 8px;
+            padding: 12px;
+            color: white;
+        }
+
+        .app-feature strong {
+            display: block;
+            margin-bottom: 4px;
+            font-size: 0.95rem;
+        }
+
+        .app-feature span {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #a1a1aa;
+            font-size: 0.85rem;
+            padding: 20px;
+        }
+
+        .footer code {
+            background: rgba(99, 102, 241, 0.2);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'SF Mono', Monaco, monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌀 Hermes Agent Knowledge Base</h1>
+            <p class="subtitle">Visual Summary • October 30, 2026 • Local Apple Silicon • Qwen3.5-4B-MLX-4bit</p>
+        </div>
+
+        <div class="bento-grid">
+            <!-- Overview -->
+            <div class="card overview-card">
+                <h3><span class="card-icon">🎯</span> What is Hermes?</h3>
+                <p>Hermes is a local-first AI agent framework built by Nous Research. It bridges natural language inputs to executable actions across your machine, leveraging Apple Silicon MLX hardware acceleration for privacy-preserving, offline-capable intelligence.</p>
+                <p style="margin-top: 10px;"><strong>Model:</strong> Qwen3.5-4B (4-bit MLX quantized)</p>
+                <p><strong>Backend:</strong> llama.cpp / MLX runtime</p>
+                <p><strong>Platform:</strong> macOS 14+ (Apple Silicon M1/M2/M3/M4)</p>
+            </div>
+
+            <!-- Model Specs -->
+            <div class="card model-specs">
+                <h3><span class="card-icon">🤖</span> Model Specifications</h3>
+                <table class="model-table">
+                    <tr>
+                        <th>Model</th>
+                        <th>Quantization</th>
+                        <th>VRAM Required</th>
+                        <th>Performance</th>
+                    </tr>
+                    <tr>
+                        <td>Qwen3.5-4B</td>
+                        <td>4-bit MLX</td>
+                        <td>~4GB</td>
+                        <td>⚡ Native MLX</td>
+                    </tr>
+                    <tr>
+                        <td>Llama-3-8B</td>
+                        <td>4-bit GGUF</td>
+                        <td>~8GB</td>
+                        <td>Good Quality</td>
+                    </tr>
+                    <tr>
+                        <td>Mistral-7B</td>
+                        <td>4-bit GGUF</td>
+                        <td>~7GB</td>
+                        <td>Fast</td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Architecture -->
+            <div class="card architecture-diagram">
+                <h3><span class="card-icon">🏗️</span> Architecture Layers</h3>
+                <div class="arch-layer blue">
+                    <span class="layer-label">User Input</span>
+                    <div class="layer-dots"><div class="dot" style="background:#6366f1"></div><div class="dot" style="background:#6366f1"></div><div class="dot" style="background:#6366f1"></div></div>
+                </div>
+                <div class="arch-layer purple">
+                    <span class="layer-label">Model Inference</span>
+                    <div class="layer-dots"><div class="dot" style="background:#8b5cf6"></div><div class="dot" style="background:#8b5cf6"></div></div>
+                </div>
+                <div class="arch-layer green">
+                    <span class="layer-label">Tool Execution</span>
+                    <div class="layer-dots"><div class="dot" style="background:#10b981"></div><div class="dot" style="background:#10b981"></div><div class="dot" style="background:#10b981"></div></div>
+                </div>
+                <div class="arch-layer orange">
+                    <span class="layer-label">Memory & Skills</span>
+                    <div class="layer-dots"><div class="dot" style="background:#f59e0b"></div><div class="dot" style="background:#f59e0b"></div></div>
+                </div>
+                <div style="margin-top: 10px; padding-top: 10px; border-top: 1px dashed rgba(255,255,255,0.3);">
+                    <p style="font-size: 0.85rem; color: #a1a1aa;">/Users/ceo/.hermes/ → skills/ | memories/ | cache/scratch/</p>
+                </div>
+            </div>
+
+            <!-- Capabilities -->
+            <div class="card capabilities-grid">
+                <h3><span class="card-icon">🛠️</span> 18+ Tool Categories</h3>
+                <div class="use-case-grid">
+                    <div class="use-case-item">
+                        <h4>🔍 Browser</h4>
+                        <p>web_search, web_extract, blocked-page-recovery</p>
+                    </div>
+                    <div class="use-case-item">
+                        <h4>💻 Terminal</h4>
+                        <p>terminal, python-debugpy, node-inspect-debugger</p>
+                    </div>
+                    <div class="use-case-item">
+                        <h4>📊 Productivity</h4>
+                        <p>xlsx, powerpoint, docx, google-workspace</p>
+                    </div>
+                    <div class="use-case-item">
+                        <h4>🎨 Creative</h4>
+                        <p>architecture-diagram, popular-web-designs, p5js</p>
+                    </div>
+                    <div class="use-case-item">
+                        <h4>📧 Email</h4>
+                        <p>email-inbox-triage, himalaya, xurl</p>
+                    </div>
+                    <div class="use-case-item">
+                        <h4>🤖 Multi-Agent</h4>
+                        <p>claude-code, opencode, autonomous-ai-agents</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Use Cases -->
+            <div class="card use-cases">
+                <h3><span class="card-icon">📋</span> Primary Use Cases</h3>
+                <div class="use-case-grid">
+                    <div class="use-case-item">
+                        <h4>🏠 Home Automation</h4>
+                        <p>Home Assistant integration, debugging, monitoring</p>
+                    </div>
+                    <div class="use-case-item">
+                        <h4>📈 Trading</h4>
+                        <p>Stock & crypto monitoring, market research, data export</p>
+                    </div>
+                    <div class="use-case-item">
+                        <h4>💻 Development</h4>
+                        <p>Code inspection, debugging, review, simplification</p>
+                    </div>
+                    <div class="use-case-item">
+                        <h4>📚 Knowledge</h4>
+                        <p>Obsidian notes, session search, task management</p>
+                    </div>
+                    <div class="use-case-item">
+                        <h4>🎨 Design</h4>
+                        <p>Architecture diagrams, web designs, animations</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Installation -->
+            <div class="card installation">
+                <h3><span class="card-icon">⚙️</span> Installation & Config</h3>
+                <div class="install-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <span>brew install hermes</span>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <span>hermes model set "Qwen3.5-MLX-4bit"</span>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <span>hermes profile create --name "ceo"</span>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <span>Verify: hermes status</span>
+                    </div>
+                </div>
+                <p style="margin-top: 10px; font-size: 0.85rem; color: #a1a1aa;">Configured in ~/.hermes/config.yaml | ~/.hermes/profiles/</p>
+            </div>
+
+            <!-- App Display -->
+            <div class="card app-display">
+                <h3><span class="card-icon">🖥️</span> Desktop App Features</h3>
+                <div class="app-display-grid">
+                    <div class="app-feature">
+                        <strong>Preview Panes</strong>
+                        <span>Real-time application viewing (IDE, browser, terminal)</span>
+                    </div>
+                    <div class="app-feature">
+                        <strong>System Notifications</strong>
+                        <span>Alerts for long jobs, deadlines, security events</span>
+                    </div>
+                    <div class="app-feature">
+                        <strong>Terminal Access</strong>
+                        <span>Direct CLI command execution</span>
+                    </div>
+                    <div class="app-feature">
+                        <strong>Connectors</strong>
+                        <span>Gmail, Notion, Linear MCP servers</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Stats -->
+            <div class="card">
+                <h3><span class="card-icon">📊</span> Key Statistics</h3>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
+                    <div style="text-align: center; padding: 10px; background: rgba(99, 102, 241, 0.1); border-radius: 8px;">
+                        <p style="font-size: 1.5rem; color: #6366f1; font-weight: 700;">18+</p>
+                        <p style="font-size: 0.85rem; color: #a1a1aa;">Tool Categories</p>
+                    </div>
+                    <div style="text-align: center; padding: 10px; background: rgba(139, 92, 246, 0.1); border-radius: 8px;">
+                        <p style="font-size: 1.5rem; color: #8b5cf6; font-weight: 700;">100%</p>
+                        <p style="font-size: 0.85rem; color: #a1a1aa;">Local Inference</p>
+                    </div>
+                    <div style="text-align: center; padding: 10px; background: rgba(16, 185, 129, 0.1); border-radius: 8px;">
+                        <p style="font-size: 1.5rem; color: #10b981; font-weight: 700;">M1/M2/M3</p>
+                        <p style="font-size: 0.85rem; color: #a1a1aa;">Apple Silicon</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Model: <code>Qwen3.5-4B-MLX-4bit</code> | Platform: macOS 26.6.2 | Provider: custom</p>
+            <p>Knowledge Base v1.0 | Oct 30, 2026 | Creator: CEO</p>
+        </div>
+    </div>
+</body>
+</html>
