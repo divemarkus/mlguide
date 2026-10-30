@@ -1,4 +1,4 @@
-# Hermes Agent + oMLX on Apple Silicon: Local AI Deployment Guide
+# oMLX + Hermes Agent on Apple Silicon: Local AI Deployment Guide
 
 Designed for 32GB unified memory, an always-on Mac mini, and local inference.
 
