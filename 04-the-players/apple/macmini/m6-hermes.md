@@ -618,3 +618,8 @@ What would you like to do first?
 
 ```
 
+## Hermes - Let's build something
+
+> Can you build a small, animated guide to how Hermes works?
+
+- [Response generated HTML](hermes-workflow-guide.html)
