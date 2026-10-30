@@ -4,11 +4,11 @@
 <img width="1536" height="1024" alt="Hermes_Agent_AI_Command_Center" src="https://github.com/user-attachments/assets/23ebd74b-1ac8-4ea8-a325-66e089d49645" />
 
 
-I'd build this as a privacy-first, always-on local AI appliance: Hermes Agent provides the agentic capabilities, a local MLX inference server provides the language model, Home Assistant runs separately in its VM, and Discord is your initial remote interface.
+ Hermes Agent provides the agentic capabilities, a local MLX inference server provides the language model, Home Assistant runs separately in its VM, and Discord is your initial remote interface.
 
 There are four separate decisions to make:
 
-1. Install Hermes Agent Desktop — the graphical application and its CLI, with persistent background services.
+1. [Install Hermes Agent Desktop](https://hermes-agent.nousresearch.com/) — the graphical application and its CLI, with persistent background services. This is not in the dotfiles.
 2. Run Gemma locally using MLX — choose an inference server that actually serves MLX models, rather than assuming Ollama uses MLX.
 3. Integrate Home Assistant — give Hermes controlled access to HA entities, scripts and automations.
 4. Configure Discord — allow you to interact with Hermes remotely without exposing its administrative interfaces to the internet.
