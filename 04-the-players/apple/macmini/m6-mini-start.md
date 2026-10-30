@@ -545,11 +545,13 @@ The dotfiles AI Brewfile includes:
 
 - Ollama
 - LM Studio
-- oMLX
+- oMLX (Update: there is now an app for this, edited dotfiles)
 - Claude Code
 - CMake
 - LLVM
 - Draw Things
+
+> Hermes Agent was left out because like oMLX there is now a full app
 
 Use native Apple Silicon builds wherever available.
 
