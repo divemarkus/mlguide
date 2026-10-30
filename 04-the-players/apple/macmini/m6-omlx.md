@@ -133,13 +133,17 @@ In the oMLX dashboard:
 5. Wait for the download and verification to finish.
 6. Load the model.
 
+<img width="1728" height="1117" alt="omlx-model-downloader" src="https://github.com/user-attachments/assets/ef1413c2-1402-440d-816e-0c30497f3417" />
+
 The default model directory is:
 
 ```text
-~/.omlx/models/
+~/.omlx/models/mlx-community
 ```
 
 oMLX can discover models in its configured model directory, including supported nested model folders. You can also use models from your existing Hugging Face or LM Studio model directories.
+
+<img width="1728" height="1117" alt="omlx-model-load" src="https://github.com/user-attachments/assets/935b6af8-bd12-4907-898a-06834732e5a2" />
 
 ### Step 4.3: Set sensible resource limits
 
@@ -169,6 +173,9 @@ For your 32GB system, start at 64K rather than immediately trying 128K or 256K. 
 
 ## 5. Connect Hermes Desktop to oMLX
 
+
+<img width="1728" height="1117" alt="hermes-local-gateway" src="https://github.com/user-attachments/assets/dd32abbe-e7cc-4ea3-8077-f11b4dfd3e12" />
+
 This is the central part of the deployment.
 
 You are not installing another model inside Hermes. You are connecting Hermes to the model server already running in oMLX.
@@ -189,11 +196,15 @@ mlx-community/Qwen3.5-4B-MLX-4bit
 
 Use the exact ID returned by your server. If you've configured a model alias in oMLX, use the alias instead.
 
+
 ### Step 5.2: Configure Hermes Desktop
 
 Open Hermes Desktop and go to its provider/model settings.
 
 Choose the custom OpenAI-compatible endpoint option. Depending on the Desktop release, this may be presented under Settings → Providers or through the model-selection workflow.
+
+<img width="1728" height="1117" alt="hermes-model-local" src="https://github.com/user-attachments/assets/5a4a75e3-7572-4167-994b-eb1758895793" />
+
 
 Enter:
 
@@ -214,6 +225,9 @@ hermes model
 ```
 
 Select Custom endpoint, enter the values above and save. This changes the same Hermes configuration used by the application.
+
+<img width="1728" height="1117" alt="hermes-model-selection" src="https://github.com/user-attachments/assets/cafcb10a-a46e-4cbe-96cd-dd4e6d0e2d15" />
+
 
 ### Step 5.3: Verify the Hermes configuration
 
@@ -269,6 +283,11 @@ Ask:
 > Identify your current model provider, model name, and the tools you can access. Do not execute any actions yet.
 
 If the connection works, Hermes should respond using your local model.
+
+- Add an image and ask Hermes to describe them
+
+<img width="1728" height="1117" alt="hermes-describe-image" src="https://github.com/user-attachments/assets/00e4784e-4293-4c9d-9542-b638aaf9f225" />
+
 
 ## 6. Configure Hermes for your actual use cases
 
