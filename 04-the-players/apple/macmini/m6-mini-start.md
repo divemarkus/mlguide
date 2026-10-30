@@ -578,7 +578,9 @@ ollama launch claude --model qwen3.6:35b-a3b-coding-nvfp4
 
 ---
 
->Try out [Draw Things](../drawthings/README.md). Download z-image-turbo model and give that a go.
+> Try out [Draw Things](../drawthings/README.md). Download z-image-turbo model and give that a go.
+
+> Straight right to business[oMLX+HermesAgent](m6-omlx.md)
 
 ---
 

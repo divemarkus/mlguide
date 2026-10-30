@@ -7,6 +7,8 @@ Designed for 32GB unified memory, an always-on Mac mini, and local inference.
 
 This guide assumes you already have Hermes Desktop installed and working, oMLX installed and running, and your M6 Mac mini configured with 32GB unified memory. We'll concentrate on model selection, connecting the two applications, configuring Hermes Desktop, and building a reliable always-on setup.
 
+> Update: oMLX now has an App, download and install that version. Dotfiles has been updated and oMLX removed.
+
 My architectural recommendation is to make oMLX your dedicated inference server and Hermes Agent your always-on agent platform.
 
 They have different jobs:
