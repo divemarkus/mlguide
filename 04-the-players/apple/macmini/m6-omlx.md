@@ -1,11 +1,12 @@
 # oMLX + Hermes Agent on Apple Silicon: Local AI Deployment Guide
 
-Designed for 32GB unified memory, an always-on Mac mini, and local inference.
+Designed for an always-on Mac mini, and local inference. [Visit oMLX](https://omlx.ai/)
+
 
 <img width="1536" height="1024" alt="MacMini-Local-AI-Command-Center" src="https://github.com/user-attachments/assets/00e9d30e-29a2-4379-92ea-b9dad292f534" />
 
 
-This guide assumes you already have Hermes Desktop installed and working, oMLX installed and running, and your M6 Mac mini configured with 32GB unified memory. We'll concentrate on model selection, connecting the two applications, configuring Hermes Desktop, and building a reliable always-on setup.
+This guide assumes you already have Hermes Desktop installed and working, oMLX installed and running, and your M6 Mac mini configured. We'll concentrate on model selection, connecting the two applications, configuring Hermes Desktop, and building a reliable always-on setup.
 
 > Update: oMLX now has an App, download and install that version. Dotfiles has been updated and oMLX removed.
 
