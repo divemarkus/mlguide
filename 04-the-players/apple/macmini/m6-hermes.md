@@ -447,3 +447,174 @@ One final consideration: Hermes Agent's local inference can be private, but Disc
 
 <img width="1536" height="1024" alt="Hermes_Network_Architecture" src="https://github.com/user-attachments/assets/66a5ca2d-9c02-43b5-af43-ec9fe7019315" />
 
+---
+
+# Hermes - Formal Introduction
+
+```bash
+Perfect. Given your 25+ years as a tech veteran, I'll tailor this to your operational needs.
+
+---
+
+## **Hermes Agent Executive Briefing**
+
+**Identity**: Qwen3.5-4B-MLX-4bit (custom provider)  
+**Platform**: macOS 26.6.2 (Apple Silicon)  
+**User**: CEO (Tech Veteran)
+
+### **Architecture & Origin**
+
+Hermes is an AI agent framework built by Nous Research. Think of it as an "agent infrastructure" that bridges your natural language inputs to executable actions across the machine.
+
+- **Model**: Qwen3.5-4B (MLX-optimized for Apple Silicon, 4-bit quantization for efficiency)  
+- **Provider**: "custom" (self-hosted/local)  
+- **Interface**: macOS desktop app with preview panes, notifications, terminal access  
+- **Core**: Python-based tool calling via `hermes_tools` module  
+
+### **Setup & Configuration**
+
+**Required**: macOS 14+ (ARM64)  
+**Storage**: Your home directory `/Users/ceo/.hermes/` (skills/, plugins/, cron/, memories/)  
+**Connectors**: Hosted (Gmail, Notion, Linear) and local MCP servers (Linear MCP, local dev tools)  
+
+**Active Profile**: `default` (CEO profile in `/Users/ceo/.hermes/profiles/` would be separate)
+
+**Notifications**: System-level alerts enabled for long jobs, deadlines, security events.
+
+### **Capabilities (Capability Matrix)**
+
+The `hermes_tools` module provides access to 18+ category clusters:
+
+| **Category** | **Example Tools** | **Relevant to You** |
+|--------------|------------------|---------------------|
+| **Browser** | `web_search`, `web_extract`, `blocked-page-recovery`, `browser_vault` | Market research, competitor intel, securing APIs |
+| **Tools** | `browser_exec` | Run inline browser-based actions (form fills, logins via vault) |
+| **Research** | `arxiv`, `grounded-citations`, `competitor-news-monitor` | R&D, publication tracking |
+| **Software Dev** | `codebase-inspection`, `requesting-code-review`, `python-debugpy`, `node-inspect-debugger` | Code audits, debugging complex systems |
+| **Productivity** | `docx`, `xlsx`, `powerpoint`, `google-workspace` | Reporting, data analysis, calendar/events |
+| **Social Media** | `xurl`, `gif-search`, `songsee` | Social monitoring, media content |
+| **Media** | `youtube-content`, `songwriting-and-ai-music` | Content pipelines |
+| **Email** | `email-inbox-triage`, `himalaya` | Inbox triage, terminal mail |
+| **Desktop UI** | `desktop_project`, `gui_tour`, `focus_pane` | Visual management, dev environment tools |
+| **Creative** | `architecture-diagram`, `baoyu-infographic`, `manim-video`, `p5js`, `popular-web-designs` | Visual comms, architecture diagrams, prototyping |
+| **Note Taking** | `obsidian`, `note-taking` | Knowledge management |
+| **Autonomous AI Agents** | `claude-code`, `opencode`, `computer_use` | Multi-agent orchestration, delegated coding |
+
+**Additional Utilities**:
+
+- `manage_connections` — Connector management (Gmail, Notion, etc.)
+- `skill_view` — Load procedural skills for tasks (code review, planning)
+- `session_search` — Search past sessions for context
+- `process_manage` — Background process control
+- `todo_list` — Task management
+
+### **Use-Cases for Your Domain**
+
+#### **1. Home Assistant (Home Automation)**
+
+- **`desktop_project`** — Create dedicated HA dev workspaces
+- **`python-debugpy`** / **`node-inspect-debugger`** — Debug custom integration scripts
+- **`codebase-inspection`** — Audit HA custom logic (LOC, complexity ratios)
+- **`google-workspace`** — Sync HA events to calendar/logs
+- **`obsidian`** — Maintain HA config references, system docs
+- **`github`** — Manage HA cloud integration via GitHub
+
+#### **2. Trading (Stocks & Crypto)**
+
+- **`blocked-page-recovery`** — Handle API 429s (rate limits on trading platforms)
+- **`web_search`** / **`web_extract`** — Real-time market data, news feeds
+- **`product-price-monitor`** — Monitor products/assets, detect price changes
+- **`email-inbox-triage`** — API order confirmations, alerts
+- **`xlsx`** — Export historical trading data, build trade logs
+- **`powerpoint`** — Generate trading analysis decks
+
+#### **3. Developer Infrastructure**
+
+- **`systematic-debugging`** — 4-phase debugging framework (understand → reproduce → isolate → fix)
+- **`requesting-code-review`** — Pre-commit security scans (security, quality gates)
+- **`simplify-code`** — Parallel 4-agent cleanup of recent changes
+- **`autonomous-ai-agents`** — Multi-agent workstreams (e.g., code + test + doc + QA)
+- **`api`** — Systematic API integration (verify, call, context-aware)
+- **`skill_view`** — Load skills like `codebase-inspection` for targeted audits
+- **`terminal`** — Direct CLI command execution
+
+#### **4. Knowledge Management**
+
+- **`session_search`** — Query past conversations
+- **`obsidian`** — Maintain personal knowledge base
+- **`skill_manage`** — Create/update procedural skills (e.g., `home-assistant-setup`)
+
+#### **5. General Operating System**
+
+- **`weekly-review-planning`** — Weekly reset: commitments, stalled work
+- **`todo_list`** — Track multi-step tasks
+- **`manif`** — Comprehensive state managements (sudo, Docker, services)
+- **`desktop_preview`** — Live application/preview pane access
+
+#### **6. Creative & Design**
+
+- **`popular-web-designs`** — 54 real design systems (Stripe, Linear, Vercel) as HTML/CSS
+- **`architecture-diagram`** — SVG diagrams (infra, architecture)
+- **`manim-video`** — Animated math/algo explanations
+- **`p5js`** — p5.js art, shaders, interactive UI
+
+### **Quality Gates & Operating Procedures**
+
+- **Skill Safety**: Skills loaded first (e.g., `skill_view(name='codebase-inspection')`)
+- **Memory Discipline**: Memory stays under ~50k chars (consolidate stale entries)
+- **Verification**: Always verify files, API results, external state changes
+- **Parallelism**: Batch independent tool calls (e.g., multiple web_extracts)
+- **Error Recovery**: Retry failed fetches, use fallbacks (e.g., browser_exec after web_extract)
+
+### **Recommended Integration for You**
+
+Given your profile (Tech Veteran, CEO):
+
+1. **Use Hermes as an orchestration layer** — "I want to automate X with Home Assistant" → use `desktop_project` + `codebase-inspection`
+2. **Use skills for precision** — Load `home-assistant-integration` (if you create one) before calling `python-debugpy`
+3. **Use memory sparingly** — Store only high-signal facts (e.g., "CEO owns X domain", "HA uses MQTT on port 4567")
+4. **Use tools, not proxies** — Call `terminal` for direct CLI, not `web_search` for CLI access
+5. **Leverage connectors** — `manage_connections` for Gmail, Notion, GitHub integrations
+
+### **Quick Access Patterns**
+
+- **Data Fetch**: `web_search` / `web_extract` (prioritize citations)
+- **Code/Automation**: `python-debugpy` / `node-inspect-debugger` / `codebase-inspection`
+- **Reports/Analysis**: `xlsx` / `powerpoint` / `manif`
+- **Design/Comms**: `popular-web-designs` / `architecture-diagram`
+- **Multi-Agent Work**: `autonomous-ai-agents` (claude-code, opencode, computer_use)
+- **Direct CLI**: `terminal` (for shell/terminal/ssh)
+
+### **Example Profiles**
+
+Create under `/Users/ceo/.hermes/profiles/`:
+
+**`ceo`** — Your profile:
+- Use `skill_manage` to load `home-assistant-integration`, `trading-monitor`, `system-audit`
+- Set notification triggers for HA events, trading alerts
+- Store in memory: "CEO, Tech Veteran, 25+ years, owns domain x.com", "HA uses MQTT port 4567"
+
+**`developer`** — Dev-focused profile:
+- Load `codebase-inspection`, `requesting-code-review`, `python-debugpy`
+- Set auto-review triggers on `git push`
+
+---
+
+## **Next Steps**
+
+Tell me where you want to go. Examples:
+
+- "Set up Home Assistant integration with Hermes"
+- "Monitor crypto prices and create a trading dashboard"
+- "Debug a complex integration in my home system"
+- "Create a visual architecture diagram for X"
+- "Generate a report on Y"
+
+Hermes can handle this. Just specify the **goal** and **context** (e.g., "debug HA Z-Wave integration").
+
+---
+
+What would you like to do first?
+
+```
+
