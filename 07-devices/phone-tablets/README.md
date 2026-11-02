@@ -39,6 +39,8 @@ Arguably the strongest combination of polished GUI, easy model discovery, and Ap
 - No login required.
 - LM Link lets you connect to models running on your computer.
 
+> Sample prompt [can be found here](./ipad-vision.md)
+
   Official: [App Store](https://apps.apple.com/us/app/locally-ai-by-lm-studio/id6741426692) · [LM Studio acquisition announcement](https://lmstudio.ai/blog/locally-ai-joins-lm-studio)
 
 ---
