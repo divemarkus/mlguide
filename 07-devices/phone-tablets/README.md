@@ -24,9 +24,9 @@ However, don't confuse MLX with a universal mobile model format. MLX is Apple's 
 
 ### 1. Apps worth considering
 
-**1. Locally AI by LM Studio**
+#### 1. Locally AI by LM Studio
 
-My Apple recommendation
+<kbd>My Apple recommendation</kbd>
 
 iPhone · iPad · Mac | Free
 
@@ -41,9 +41,11 @@ Arguably the strongest combination of polished GUI, easy model discovery, and Ap
 
   Official: [App Store](https://apps.apple.com/us/app/locally-ai-by-lm-studio/id6741426692) · [LM Studio acquisition announcement](https://lmstudio.ai/blog/locally-ai-joins-lm-studio)
 
-**2. Google AI Edge Gallery**
+---
 
-Best experimental AI toolkit
+#### 2. Google AI Edge Gallery
+
+<kbd>Best experimental AI toolkit</kbd>
 
 iPhone · Free · Open source
 
@@ -59,9 +61,11 @@ Google's official on-device AI experimentation environment.
 
   Official: [App Store](https://apps.apple.com/us/app/google-ai-edge-gallery/id6749645337) · [Google AI Edge documentation](https://developers.google.com/edge/litert-lm/overview)
 
-**3. PocketPal AI**
+---
 
-Best open model flexibility
+#### 3. PocketPal AI
+
+<kbd>Best open model flexibility</kbd>
 
 iPhone · iPad · Free with optional purchases
 
@@ -77,11 +81,13 @@ A very interesting option if you want to experiment with models beyond a curated
 
   Official: [Website](https://www.pocketpal.dev/) · [App Store](https://apps.apple.com/us/app/pocketpal-ai/id6502579498) · [GitHub](https://github.com/a-ghorbani/pocketpal-ai)
 
-**4. Layla AI**
+---
 
-Paid
+#### 4. Layla AI
 
-iPhone · iPad · $19.99 listed
+<kbd>Paid · $19.99 listed</kbd>
+
+iPhone · iPad
 
 A legitimate application, not a questionable imitation of an AI app.
 
