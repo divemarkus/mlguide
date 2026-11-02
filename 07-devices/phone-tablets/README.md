@@ -134,9 +134,9 @@ There is also an important hardware distinction: Android applications can target
 
 ### 1. Apps worth considering
 
-**1. Google AI Edge Gallery**
+#### 1. Google AI Edge Gallery
 
-Best official Google option
+<kbd>Best official Google option</kbd>
 
 Android · Free · Open source
 
@@ -153,9 +153,11 @@ Google's official on-device AI playground.
 
   Official: [Google Play](https://play.google.com/store/apps/details?id=com.google.ai.edge.gallery) · [GitHub](https://github.com/google-ai-edge/gallery)
 
-**2. PocketPal AI**
+---
 
-My overall Android recommendation
+#### 2. PocketPal AI
+
+<kbd>My overall Android recommendation</kbd>
 
 Android · iOS · Free with optional purchase
 
@@ -172,9 +174,11 @@ Probably the best match for your model-download requirements.
 
   Official: [Website](https://www.pocketpal.dev/) · [GitHub](https://github.com/a-ghorbani/pocketpal-ai)
 
-**3. Layla AI**
+---
 
-$19.99
+#### 3. Layla AI
+
+<kbd>Paid · $19.99</kbd>
 
 Android · iOS · Proprietary
 
@@ -191,9 +195,11 @@ A legitimate paid local-AI application with a much broader assistant experience 
 
   Official: [Google Play](https://play.google.com/store/apps/details?id=com.layla) · [Technical overview](https://www.layla-network.ai/local-llm-android) · [Documentation](https://help.layla-network.ai/)
 
-**4. LM Playground**
+---
 
-Best additional discovery
+#### 4. LM Playground
+
+<kbd>Best additional discovery</kbd>
 
 Android · Free · Open source (MIT)
 
@@ -211,9 +217,11 @@ This is one I would add to your shortlist.
 
   Official: [Google Play](https://play.google.com/store/apps/details?id=com.druk.lmplayground) · [GitHub](https://github.com/andriydruk/LMPlayground) (search LM Playground by Andriy Druk)
 
-**5. MLC Chat**
+---
 
-Advanced alternative
+#### 5. MLC Chat
+
+<kbd>Advanced alternative</kbd>
 
 Android · iOS · Free · Open source
 
