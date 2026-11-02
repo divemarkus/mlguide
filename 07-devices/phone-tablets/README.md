@@ -39,7 +39,7 @@ Arguably the strongest combination of polished GUI, easy model discovery, and Ap
 - No login required.
 - LM Link lets you connect to models running on your computer.
 
-  Official: [App Store](https://apps.apple.com/us/app/locally-ai-by-lm-studio/id6741426692?utm_source=chatgpt.com) · [LM Studio acquisition announcement](https://lmstudio.ai/blog/locally-ai-joins-lm-studio?utm_source=chatgpt.com)
+  Official: [App Store](https://apps.apple.com/us/app/locally-ai-by-lm-studio/id6741426692) · [LM Studio acquisition announcement](https://lmstudio.ai/blog/locally-ai-joins-lm-studio)
 
 **2. Google AI Edge Gallery**
 
@@ -57,7 +57,7 @@ Google's official on-device AI experimentation environment.
 - Prompt Lab with inference parameters.
 - Agent Skills and offline mobile actions.
 
-  Official: [App Store](https://apps.apple.com/us/app/google-ai-edge-gallery/id6749645337?utm_source=chatgpt.com) · [Google AI Edge documentation](https://developers.google.com/edge/litert-lm/overview?utm_source=chatgpt.com)
+  Official: [App Store](https://apps.apple.com/us/app/google-ai-edge-gallery/id6749645337) · [Google AI Edge documentation](https://developers.google.com/edge/litert-lm/overview)
 
 **3. PocketPal AI**
 
@@ -75,7 +75,7 @@ A very interesting option if you want to experiment with models beyond a curated
 - Metal acceleration on Apple devices.
 - Offline inference.
 
-  Official: [Website](https://www.pocketpal.dev/?utm_source=chatgpt.com) · [App Store](https://apps.apple.com/us/app/pocketpal-ai/id6502579498?utm_source=chatgpt.com) · [GitHub](https://github.com/a-ghorbani/pocketpal-ai?utm_source=chatgpt.com)
+  Official: [Website](https://www.pocketpal.dev/) · [App Store](https://apps.apple.com/us/app/pocketpal-ai/id6502579498) · [GitHub](https://github.com/a-ghorbani/pocketpal-ai)
 
 **4. Layla AI**
 
@@ -93,7 +93,7 @@ A legitimate application, not a questionable imitation of an AI app.
 - Programmable agents.
 - Local image generation capabilities.
 
-  Official: [App Store](https://apps.apple.com/us/app/layla/id6456886656?utm_source=chatgpt.com) · [Documentation](https://help.layla-network.ai/?utm_source=chatgpt.com)
+  Official: [App Store](https://apps.apple.com/us/app/layla/id6456886656) · [Documentation](https://help.layla-network.ai/)
 
 ### 2. Apple comparison
 
@@ -151,7 +151,7 @@ Google's official on-device AI playground.
 - Agent Skills and mobile actions.
 - Fully on-device inference.
 
-  Official: [Google Play](https://play.google.com/store/apps/details?id=com.google.ai.edge.gallery&utm_source=chatgpt.com) · [GitHub](https://github.com/google-ai-edge/gallery?utm_source=chatgpt.com)
+  Official: [Google Play](https://play.google.com/store/apps/details?id=com.google.ai.edge.gallery) · [GitHub](https://github.com/google-ai-edge/gallery)
 
 **2. PocketPal AI**
 
@@ -170,7 +170,7 @@ Probably the best match for your model-download requirements.
 - Performance benchmarking.
 - Offline inference.
 
-  Official: [Website](https://www.pocketpal.dev/?utm_source=chatgpt.com) · [GitHub](https://github.com/a-ghorbani/pocketpal-ai?utm_source=chatgpt.com)
+  Official: [Website](https://www.pocketpal.dev/) · [GitHub](https://github.com/a-ghorbani/pocketpal-ai)
 
 **3. Layla AI**
 
@@ -189,7 +189,7 @@ A legitimate paid local-AI application with a much broader assistant experience 
 - Voice, agents and Python integrations.
 - Additional image-generation capabilities.
 
-  Official: [Google Play](https://play.google.com/store/apps/details?id=com.layla&utm_source=chatgpt.com) · [Technical overview](https://www.layla-network.ai/local-llm-android?utm_source=chatgpt.com) · [Documentation](https://help.layla-network.ai/?utm_source=chatgpt.com)
+  Official: [Google Play](https://play.google.com/store/apps/details?id=com.layla) · [Technical overview](https://www.layla-network.ai/local-llm-android) · [Documentation](https://help.layla-network.ai/)
 
 **4. LM Playground**
 
@@ -209,7 +209,7 @@ This is one I would add to your shortlist.
 - Download resumption and storage selection.
 - Token-per-second measurements.
 
-  Official: [Google Play](https://play.google.com/store/apps/details?id=com.druk.lmplayground&utm_source=chatgpt.com) · [GitHub](https://github.com?utm_source=chatgpt.com) (search LM Playground by Andriy Druk)
+  Official: [Google Play](https://play.google.com/store/apps/details?id=com.druk.lmplayground) · [GitHub](https://github.com/andriydruk/LMPlayground) (search LM Playground by Andriy Druk)
 
 **5. MLC Chat**
 
@@ -226,7 +226,7 @@ A more technical model deployment environment.
 - Android APK and iOS App Store versions.
 - Requires compatible, prepared model libraries.
 
-  Official: [GitHub](https://github.com/mlc-ai/mlc-llm?utm_source=chatgpt.com) · [Documentation](https://llm.mlc.ai/?utm_source=chatgpt.com)
+  Official: [GitHub](https://github.com/mlc-ai/mlc-llm) · [Documentation](https://llm.mlc.ai/)
 
 ### 2. Android comparison
 
@@ -247,7 +247,7 @@ A more technical model deployment environment.
 
 PocketPal optional purchases. Support and acceleration depend on the specific model, hardware, and application version.
 
-Sources: official [Google AI Edge](https://developers.google.com/edge/litert-lm/overview?utm_source=chatgpt.com), [PocketPal](https://github.com/a-ghorbani/pocketpal-ai?utm_source=chatgpt.com), [Layla](https://www.layla-network.ai/local-llm-android?utm_source=chatgpt.com), [LM Playground](https://play.google.com/store/apps/details?id=com.druk.lmplayground&utm_source=chatgpt.com), and [MLC-LLM](https://github.com/mlc-ai/mlc-llm?utm_source=chatgpt.com).
+Sources: official [Google AI Edge](https://developers.google.com/edge/litert-lm/overview), [PocketPal](https://github.com/a-ghorbani/pocketpal-ai), [Layla](https://www.layla-network.ai/local-llm-android), [LM Playground](https://play.google.com/store/apps/details?id=com.druk.lmplayground), and [MLC-LLM](https://github.com/mlc-ai/mlc-llm).
 
 ### 3. Is Layla worth $19.99?
 
@@ -351,26 +351,32 @@ An important distinction: a model being available on Hugging Face does not guara
 
 ## Part 4 — Apple versus Android: Which ecosystem wins?
 
-## My assessment
+### My assessment
 
-Apple
-
-Best polished experience
-
-- MLX optimization
-- Excellent integrated GUI
-- Locally AI
-- Strong iPad experience
-
-Android
-Android
-
-Best model flexibility
-
-- GGUF ecosystem
-- llama.cpp
-- Custom model imports
-- More runtime choices
+<table>
+<tr>
+<td width="50%" valign="top">
+<h3>Apple</h3>
+<p><kbd>Best polished experience</kbd></p>
+<ul>
+<li>MLX optimization</li>
+<li>Excellent integrated GUI</li>
+<li>Locally AI</li>
+<li>Strong iPad experience</li>
+</ul>
+</td>
+<td width="50%" valign="top">
+<h3>Android</h3>
+<p><kbd>Best model flexibility</kbd></p>
+<ul>
+<li>GGUF ecosystem</li>
+<li>llama.cpp</li>
+<li>Custom model imports</li>
+<li>More runtime choices</li>
+</ul>
+</td>
+</tr>
+</table>
 
 | Category                    | Winner                              |
 | --------------------------- | ----------------------------------- |
