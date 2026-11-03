@@ -1,8 +1,9 @@
 # Locally AI by LM Studio 
 
 - iPhone 16e
-- Very small and capable model
-- Liquid AI's - LFM 2.5 VL 1.6B
+- [Liquid AI - Very small and capable model](https://youtu.be/6XedR2Feb6k)
+- LFM 2.5 VL 1.6B
+- iPhone 16e has 8GB memory & Liquid AI is supposed to use less than 2GB
 
 > Took photo of book I own and ask to summarize. Instant and summary is excellent (screenshot doesn't show full respone).
 
