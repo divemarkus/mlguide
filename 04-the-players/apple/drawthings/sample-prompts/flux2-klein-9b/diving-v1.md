@@ -53,3 +53,9 @@ If your Draw Things model configuration exposes a negative-prompt field, try:
 cartoon, illustration, painting, 3D render, CGI, fantasy island, oversaturated colors, artificial turquoise water, distorted boat, malformed yacht, unrealistic boat proportions, duplicated vessels, floating objects, warped decks, malformed windows, incorrect perspective, blurry details, low resolution, excessive haze, text, watermark, logo, frame, border
 
 My recommendation: Generate several images at 1280 × 720 or 1536 × 864, select the best composition, and upscale that result. With this particular scene, realistic boat geometry and water reflections are more important than simply pushing the resolution higher.
+
+---
+
+# Output of prompt
+
+<img width="1536" height="832" alt="a_beautiful_tropical_island_1661440129" src="https://github.com/user-attachments/assets/e3a482cf-53b4-4660-8ae9-2cf5abded041" />
