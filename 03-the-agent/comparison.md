@@ -1,6 +1,8 @@
 # Agent Comparisons
 
-### Local-model AI agent comparison
+## Local-model AI agent comparison
+
+### November 2026 Update: Hermes-Agent Desktop has native local model management
 
 | Feature                         | [Bionic](https://lmstudio.ai/docs/bionic?utm_source=chatgpt.com) | [Hermes Agent](https://hermes-agent.nousresearch.com/?utm_source=chatgpt.com) | [OpenClaw](https://docs.openclaw.ai/?utm_source=chatgpt.com)      | [Goose](https://block.github.io/goose/?utm_source=chatgpt.com) | [Cline](https://cline.bot/?utm_source=chatgpt.com)                    | [OpenHands](https://openhands.dev/?utm_source=chatgpt.com) | [Continue](https://continue.dev/?utm_source=chatgpt.com)    |
 | ------------------------------- | ---------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------- | -------------------------------------------------------------- | --------------------------------------------------------------------- | ---------------------------------------------------------- | ----------------------------------------------------------- |
