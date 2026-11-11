@@ -56,4 +56,5 @@ My recommendation: Generate several images at 1280 × 720 or 1536 × 864, select
 
 ## Output of prompt
 
+<img width="1536" height="832" alt="beautiful_tropical_island_584242676" src="https://github.com/user-attachments/assets/e8134bb1-8b6d-486f-939a-45e2bb10117c" />
 
