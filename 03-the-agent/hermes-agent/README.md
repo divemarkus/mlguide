@@ -1,1047 +1,866 @@
-# Hermes Agent on Apple Silicon macOS
+# Hermes Agent
 
-**Hermes Desktop • Local LLMs • Autonomous Agents • Always-On AI**
+**Open-source autonomous AI agent platform by Nous Research**
 
-> A GUI-first guide to running Hermes Agent on an Apple Silicon Mac as a personal AI workstation or always-on homelab control plane. The Desktop application is the primary installation and management interface. CLI commands are retained only for optional administration, diagnostics, and automation.
+> Hermes combines an agent runtime, model providers, tools, persistent memory, reusable skills, automation, and multiple interfaces. Its native Desktop application includes managed local-model inference through llama.cpp. Official Hermes Mobile is in beta; a separate third-party Android app named Hermes Agent is available on Google Play and is identified below to avoid confusion.
 
-**Documentation baseline:** October 30, 2026  
-**Latest stable release checked:** Hermes Agent v0.22.5 (October 22, 2026)
+**Research date:** November 10, 2026  
+**Latest stable core release verified:** `v0.23.1` — November 9, 2026  
+**Official repository:** https://github.com/NousResearch/hermes-agent  
+**Official website:** https://hermes-agent.nousresearch.com/
 
 ---
 
-## Table of Contents
+## Contents
 
-1. [Overview](#overview)
-2. [What Hermes Is](#what-hermes-is)
-3. [Hermes Desktop: The Primary Interface](#hermes-desktop-the-primary-interface)
-4. [Architecture](#architecture)
-5. [Why Apple Silicon](#why-apple-silicon)
-6. [Install Hermes Desktop](#install-hermes-desktop)
-7. [First-Run Setup](#first-run-setup)
-8. [Local Models Through the GUI](#local-models-through-the-gui)
-9. [External and Remote Model Providers](#external-and-remote-model-providers)
-10. [The Gateway and 24/7 Operation](#the-gateway-and-247-operation)
-11. [Desktop Features and Agent Capabilities](#desktop-features-and-agent-capabilities)
-12. [Skills, Plugins, Connectors, and MCP](#skills-plugins-connectors-and-mcp)
-13. [Memory and Persistent State](#memory-and-persistent-state)
-14. [Always-On Use Cases](#always-on-use-cases)
-15. [Recommended Mac mini Architecture](#recommended-mac-mini-architecture)
-16. [Hybrid Mac mini + RTX Workstation](#hybrid-mac-mini--rtx-workstation)
-17. [Security Model](#security-model)
-18. [Resource Planning](#resource-planning)
-19. [Operations and Optional CLI](#operations-and-optional-cli)
-20. [Deployment Scenarios](#deployment-scenarios)
-21. [Troubleshooting](#troubleshooting)
-22. [Recommended Configuration](#recommended-configuration)
-23. [Summary](#summary)
-24. [References](#references)
+- [Overview](#overview)
+- [Current release status](#current-release-status)
+- [Architecture](#architecture)
+- [Hermes Desktop](#hermes-desktop)
+- [Native local model management](#native-local-model-management)
+- [Model providers and inference](#model-providers-and-inference)
+- [Agent capabilities](#agent-capabilities)
+- [Memory and learning](#memory-and-learning)
+- [Skills, plugins, and MCP](#skills-plugins-and-mcp)
+- [Bots, group chats, and delegation](#bots-group-chats-and-delegation)
+- [Gateway and Webapp](#gateway-and-webapp)
+- [Mobile applications: iOS and Android](#mobile-applications-ios-and-android)
+- [Platform support](#platform-support)
+- [Security and privacy](#security-and-privacy)
+- [Configuration and persistent data](#configuration-and-persistent-data)
+- [Release channels and updates](#release-channels-and-updates)
+- [Known limitations and distinctions](#known-limitations-and-distinctions)
+- [References](#references)
 
 ---
 
 ## Overview
 
-[Hermes Agent](https://github.com/NousResearch/hermes-agent) is an autonomous AI agent developed by **Nous Research**. It is designed to do more than generate responses: it can plan multi-step work, use tools, work with files, interact with APIs, browse, run scheduled tasks, maintain memory, and communicate through supported messaging platforms.
+Hermes Agent is an open-source autonomous AI agent developed by **Nous Research**. It is designed to plan and execute multi-step tasks, use tools, inspect results, maintain context, and improve reusable workflows over time.
 
-Hermes is best understood as an **agent runtime**, with a model provider supplying the reasoning and language-generation capability.
+Hermes is more than a chat interface or inference server. It provides the agent loop and the surrounding infrastructure:
 
-Hermes Desktop makes that runtime accessible through a graphical application. It is not a separate chatbot implementation: Desktop, the Gateway, and the terminal interfaces use the same underlying agent state.
+- Reasoning, planning, and tool selection.
+- Tool execution and result handling.
+- Persistent sessions and memory.
+- Reusable skills and a learning loop.
+- Local and hosted model providers.
+- Native Desktop applications.
+- Managed local inference through llama.cpp.
+- Plugins and Model Context Protocol (MCP).
+- Specialist bots, group chats, and subagent delegation.
+- Scheduled jobs and persistent Gateway operation.
+- A browser-accessible workspace.
+- Official Hermes Mobile beta for iOS and Android.
 
-For an Apple Silicon deployment, a useful division of responsibilities is:
+The model supplies inference. Hermes supplies the agent runtime, tools, state, memory, and execution workflow.
 
-- **Hermes Desktop:** interactive GUI for chat, configuration, sessions, and management.
-- **Hermes Gateway:** persistent backend for sessions, scheduled work, and messaging integrations.
-- **Local or remote model server:** performs inference.
-- **Tools, skills, plugins, and connectors:** give the agent controlled access to systems and workflows.
+## Current release status
 
-The Mac mini can therefore act as an always-available agent host, while a more powerful RTX workstation can provide larger-model inference when needed.
+### Latest stable core release
 
-## What Hermes Is
+| Item | Status |
+|---|---|
+| Latest stable release checked | `v0.23.1` |
+| Release date | November 9, 2026 |
+| Previous major release | `v0.23.0 — The Hearth Release` |
+| Desktop | Native application for macOS, Windows, and Linux |
+| Local inference | Managed llama.cpp runtime |
+| Official mobile app | iOS and Android beta |
+| License | MIT |
+| Repository | [NousResearch/hermes-agent](https://github.com/NousResearch/hermes-agent) |
 
-A useful mental model:
+`v0.23.1` is a stable patch release. Its primary published fix addresses the plugin catalog exceeding the 2 MiB limit accepted by older clients. Those clients could silently fall back to a bundled, stale catalog. The limit was raised to 16 MiB so the live catalog can be used again.
+
+The release notes report approximately 618 merged PRs since `v0.23.0`. The full curated changelog for that development window is deferred to `v0.24.0`.
+
+**Version distinction:** the core Agent release, standalone Desktop package, Microsoft Store build, and mobile beta have separate packaging and update schedules. A new core release does not necessarily mean every Desktop installer or mobile build has changed on the same day.
+
+Source: [Hermes Agent releases](https://github.com/NousResearch/hermes-agent/releases)
+
+### v0.23.0 — The Hearth Release
+
+The November 5, 2026 release introduced a major consolidation of the agent architecture:
+
+- The Desktop workspace can be served in a browser through the Gateway.
+- A single Gateway owns each conversation/session.
+- Desktop, Webapp, CLI, TUI, editors, bots, and scheduled work attach to the shared session architecture.
+- Desktop can maintain connections to multiple Hermes instances.
+- Group Chats route their own conversations.
+- Plugin catalog and plugin update behavior were expanded.
+- Delegation became more configurable.
+- The plugin catalog grew from approximately 600 to more than 1,050 entries.
+- Memory and long-lived Gateway performance received further work.
+
+The central change is a unified agent environment with multiple interfaces, rather than separate agent processes and independent conversation histories for each interface.
+
+Source: [v0.23.0 release](https://github.com/NousResearch/hermes-agent/releases/tag/v0.23.0)
+
+---
+
+## Architecture
 
 ```text
                          USER
                            |
+          +----------------+----------------+
+          |                |                |
+          v                v                v
+       Desktop           Webapp          Mobile
+          |                |                |
+          +----------------+----------------+
+                           |
                            v
-                 +-------------------+
-                 |   Hermes Agent    |
-                 |                   |
-                 | Reasoning         |
-                 | Planning          |
-                 | Context           |
-                 | Memory            |
-                 | Tool selection    |
-                 | Skills            |
-                 | Delegation        |
-                 +---------+---------+
+                    HERMES GATEWAY
+                           |
+                           v
+                    HERMES AGENT CORE
+          +----------------+----------------+
+          |                |                |
+          v                v                v
+       Reasoning         Memory           Skills
+       Planning          Sessions         Learning
+       Delegation        Profiles         Context
+          |                |                |
+          +----------------+----------------+
+                           |
+                           v
+                     TOOL EXECUTION
+          +----------------+----------------+
+          |                |                |
+          v                v                v
+       Built-in          Plugins           MCP
+        Tools           Extensions        Servers
+          |                |                |
+          +----------------+----------------+
+                           |
+                           v
+                    MODEL PROVIDERS
                            |
               +------------+------------+
-              |            |            |
-              v            v            v
-          Model API      Tools        State
-              |            |            |
-              |       Shell / Files    |
-              |       Browser / API   |
-              |       MCP / Plugins   |
-              |       Git / Docker    |
-              |                       |
-              +------------+----------+
-                           |
-                           v
-                     ACTION / RESULT
+              |                         |
+              v                         v
+        Local inference            Hosted APIs
+        llama.cpp                  Supported providers
 ```
 
-The model is the reasoning engine. Hermes provides the surrounding agent loop: it selects tools, executes actions, observes results, manages context, and continues until the task is complete or requires user input.
-
-Hermes can work with local models and supported hosted providers. It is not tied to one model family or inference engine.
-
-## Hermes Desktop: The Primary Interface
-
-Hermes Desktop is the recommended way to install and manage Hermes on an Apple Silicon Mac.
-
-The important architectural point is that Desktop is a GUI for the **same Hermes Agent core** used by the Gateway and terminal interfaces. It shares configuration, API keys, sessions, skills, and memory. Work started in Desktop can be continued through another supported interface, and vice versa.
-
-### Desktop versus other interfaces
-
-| Interface | Intended use |
+| Component | Responsibility |
 |---|---|
-| **Hermes Desktop** | Primary GUI for chat, configuration, model selection, sessions, and agent management |
-| Gateway | Persistent backend for sessions, scheduled jobs, and messaging |
-| CLI | Optional terminal-based administration, diagnostics, scripting, and automation |
-| TUI | Terminal chat interface |
-| Webapp | Browser-based workspace served by the Gateway; distinct from the older admin dashboard |
+| Agent core | Reasoning, planning, context, tool selection, execution |
+| Model provider | Language and multimodal inference |
+| Gateway | Persistent runtime, sessions, scheduling, shared state |
+| Desktop | Native graphical interface and configuration |
+| Webapp | Browser-accessible workspace |
+| Mobile | Official mobile client for a Hermes environment |
+| Memory | Persistent contextual information |
+| Skills | Reusable procedural knowledge |
+| Plugins | Extensible tools, hooks, interfaces, and integrations |
+| MCP | Standardized access to external tools and resources |
 
-For this guide, Desktop is the normal day-to-day interface. The CLI is not required for the standard macOS installation or ordinary GUI-based model setup.
+---
 
-### What Desktop changes
+## Hermes Desktop
 
-The Desktop application provides a more accessible workflow for:
+Hermes Desktop is the native graphical application for Hermes Agent. It uses the same agent core and configuration as the Gateway and terminal interfaces. It is not a separate lightweight chatbot.
 
-- Chatting with Hermes and managing conversations.
-- Selecting model providers and models.
-- Installing and managing supported local models.
-- Managing profiles and sessions.
-- Configuring plugins, connectors, and integrations.
-- Reviewing agent activity and tool execution.
-- Working with files and project context.
-- Managing Gateway-related functionality.
+### Desktop capabilities
 
-The precise layout and available controls can evolve between releases. Use the current in-app Settings and navigation labels rather than relying on screenshots from older builds.
+- Conversations and session management.
+- Provider and model configuration.
+- Native local model management.
+- Profiles and agent configuration.
+- Skills and capabilities.
+- Plugins and MCP servers.
+- Gateway settings and status.
+- Scheduled jobs.
+- Files, artifacts, and previews.
+- Git review and development workflows.
+- Tool execution and approval workflows.
+- Group Chats and specialist bots.
+- Security review workflows exposed by installed plugins.
 
-## Architecture
+### Shared state
 
-Hermes is made up of several cooperating layers.
+Desktop, Gateway, and other supported interfaces use the same underlying Hermes state, including configuration, provider credentials, sessions, skills, memory, profiles, and tool settings.
 
-### 1. Desktop client
+A conversation can be continued through another supported interface because the Gateway owns the session.
 
-The GUI is the interactive control surface. It connects to the Gateway and presents the agent's sessions, configuration, and capabilities.
+### Desktop platforms
 
-### 2. Agent core and Gateway
+The official Desktop documentation lists:
 
-The Gateway is the persistent backend. It coordinates sessions and provides the runtime used by Desktop and supported messaging integrations. It can continue running after the Desktop window is closed.
+- macOS — Apple Silicon.
+- Windows — native application.
+- Linux — supported distributions.
 
-### 3. Model provider
+The macOS Desktop package is Apple Silicon-only; Intel macOS is not listed as a supported Desktop target.
 
-Hermes sends inference requests to a configured provider. Options include:
+Official documentation: [Hermes Desktop](https://hermes-agent.nousresearch.com/docs/user-guide/desktop)
 
-- Hermes-managed local llama.cpp runtime.
-- An existing local llama.cpp server.
-- Ollama through a compatible provider configuration.
-- MLX-based servers such as oMLX through an OpenAI-compatible endpoint.
-- Remote OpenAI-compatible endpoints.
-- Supported hosted providers and model aggregators.
+---
 
-### 4. Tool system
+## Native local model management
 
-Tools let Hermes interact with systems beyond the model API:
+Hermes Desktop includes a managed local-model workflow built around **llama.cpp**.
+
+Hermes can install or activate its pinned inference runtime, evaluate models against the machine's hardware, select a compatible build and quantization, and manage the local inference server.
+
+**A separately installed inference runner is not required for the standard local-model workflow.**
+
+### GUI workflow
+
+1. Open **Settings → Providers → Local Models**, or select **Run models locally** during onboarding.
+2. Select **Install runtime**.
+3. Hermes installs or activates the pinned llama.cpp runtime appropriate to the detected hardware.
+4. Browse the model catalog.
+5. Select **Download**.
+6. Select **Use** to make the model available to new chats.
+
+The runtime is managed by Hermes. It starts and stops with the application, and its configuration persists across application restarts. A hosted provider can be selected again through the model picker.
+
+### What Hermes manages
+
+| Feature | Behavior |
+|---|---|
+| Runtime installation | Activates a bundled runtime when available or installs managed components |
+| Runtime selection | Chooses a supported build for the detected platform and hardware |
+| Runtime integrity | Uses pinned components and SHA-256 verification |
+| Model catalog | Displays curated models and hardware-specific fit information |
+| Quantization | Selects a suitable quality/size build for the available hardware |
+| Memory estimation | Accounts for weights, context, runtime buffers, vision projector, and MTP |
+| Context sizing | Starts with a context window that fits and can grow toward the model's native maximum |
+| Idle unloading | Unloads idle models after 15 minutes |
+| Downloads | Supports pause/resume for supported engine and model downloads |
+| Model discovery | Curated catalog plus Hugging Face search |
+| Existing GGUF files | Can link an existing local GGUF file into the model library |
+| Activation | Starts the managed server and selects the model for new chats |
+
+### Hardware-aware model selection
+
+The model catalog presents information such as:
+
+- Estimated memory fit.
+- Initial and maximum context window.
+- Hardware-specific download size.
+- Quantization/build selection.
+- Whether the model fits in GPU memory or requires system RAM spill.
+
+The documented fit indicators are:
+
+- **Green:** fits in GPU memory.
+- **Amber:** uses system RAM and may run more slowly.
+- **Red:** too large for the current machine.
+
+Hermes recommends a high-quality model that fits in GPU or unified memory and targets a predicted performance floor where possible. This is an estimate, not a benchmark guarantee.
+
+### Memory management
+
+Hermes estimates more than model-file size. Its calculations include:
+
+- Model weights.
+- Context/KV state.
+- Runtime buffers.
+- Vision projector.
+- Multi-token prediction (MTP) buffers.
+- Other launch-time allocations.
+
+Models start with a context window that fits the available memory. Context can grow as the conversation requires, subject to the model's native maximum and available resources.
+
+When a model exceeds GPU memory, Hermes may place some weights in system RAM. This can preserve functionality but reduce performance. If a larger context cannot fit, generation becomes too slow, or the model reaches its native context maximum, conversation compression is used rather than assuming the server accepted an unsupported context.
+
+Idle models are unloaded after 15 minutes and reloaded when needed.
+
+### Runtime and download integrity
+
+The Local Models documentation describes a pinned runtime-component process:
+
+- Engine components are downloaded from URLs and SHA-256 pins in `pm/lock.json`.
+- Model weights, split GGUF parts, vision projectors, and draft models use the managed downloader.
+- Partial downloads are retained in a writable cache.
+- Range-capable hosts allow missing byte ranges to resume.
+- Completed files are reused.
+- Engine archives are verified before activation.
+
+### Hardware backends
+
+The managed runtime supports backend families where the platform/device combination is supported:
+
+| Backend | Hardware / platform |
+|---|---|
+| Metal | macOS / Apple Silicon |
+| CUDA | Supported NVIDIA GPUs |
+| Vulkan | Supported x64 GPU targets and Linux ARM64 configurations |
+| HIP / ROCm | Explicitly selected supported x64 configurations |
+| CPU | Fallback where supported |
+
+Automatic backend selection prefers CUDA for NVIDIA and Vulkan for supported AMD/Intel GPU configurations, then falls back to an available supported backend. Driver and platform requirements apply.
+
+### External inference servers
+
+The integrated runtime is the standard Desktop workflow, not an exclusive restriction.
+
+Hermes can detect an already-running `llama-server` and use it instead of starting its own. It can also connect to a custom OpenAI-compatible endpoint. These are optional advanced configurations; they are not prerequisites for local inference in Hermes Desktop.
+
+### Local inference and privacy
+
+After the runtime and model have been downloaded, local inference can run without a hosted model account, API key, or network access for inference.
+
+This applies to local model inference. Web retrieval, hosted providers, external APIs, and other network-dependent features still require connectivity.
+
+Official documentation: [Local Models](https://hermes-agent.nousresearch.com/docs/user-guide/local-models)
+
+---
+
+## Model providers and inference
+
+Hermes separates the agent runtime from the model provider.
+
+### Local inference
+
+The managed local-model path uses llama.cpp and GGUF model builds, selecting a supported acceleration backend for the detected hardware.
+
+### Hosted and API-based inference
+
+Hermes also supports hosted providers and compatible API endpoints. Available providers and model catalogs evolve over time.
+
+The Desktop provider interface manages provider credentials, model selection, and custom endpoints. Custom endpoints support API-mode selection, including automatic detection, Chat Completions, Responses API, and Anthropic Messages.
+
+### Provider flexibility
+
+Changing the model provider does not replace the Hermes agent system. Memory, skills, tools, and sessions remain part of Hermes and are not tied to one inference engine.
+
+---
+
+## Agent capabilities
+
+Hermes operates through an iterative agent loop:
 
 ```text
-Shell and command execution
-Filesystem
-Git and source repositories
-Browser
-HTTP and APIs
-Computer use
-MCP servers
-Docker and sandbox backends
-Plugins and custom integrations
+Goal
+ |
+ v
+Understand request
+ |
+ v
+Plan work
+ |
+ v
+Select tools
+ |
+ v
+Execute action
+ |
+ v
+Observe output
+ |
+ v
+Evaluate result
+ |
+ +------> Continue / delegate
+ |
+ v
+Complete or request approval
 ```
 
-Tool availability depends on the configured environment, permissions, plugins, and platform.
+### Reasoning and planning
 
-### 5. Skills
+Hermes can decompose complex requests into steps, maintain task context, decide when tools are needed, and continue based on tool results.
 
-Skills package reusable instructions and workflows. A skill can describe how to perform a repeatable task, which tools to use, what checks to perform, and how to report the result.
+### Tool execution
+
+Depending on platform, profile, permissions, and installed extensions, tools can include:
+
+- Shell and command execution.
+- Filesystem operations.
+- Git and repository operations.
+- Browser interaction.
+- Web search and extraction.
+- Computer use.
+- Image and document handling.
+- HTTP and API calls.
+- MCP-provided tools.
+- Plugin-defined tools.
+- Sandboxed terminal execution.
+
+### Browser and computer use
+
+Hermes supports browser and computer-use workflows where the corresponding capability is available and configured. These tools can interact with websites and supported desktop environments.
+
+Computer-use access should be treated as privileged because it may operate inside authenticated user sessions.
+
+### Scheduled automation
+
+Scheduled jobs are managed through the Gateway. They can execute recurring or one-time workflows, retain results, and deliver outputs to configured destinations. The scheduler is part of the persistent runtime, not dependent on keeping a chat window open.
+
+### Files and artifacts
+
+Hermes can work with files, project workspaces, and generated artifacts where the relevant tools and permissions are enabled. The Desktop/Webapp workspace includes file browsing, previews, and related workflows.
+
+### Multimodal capabilities
+
+Image input, audio, document handling, and other multimodal features depend on the selected model and enabled tools/providers. Not every local model supports every modality.
+
+---
+
+## Memory and learning
+
+Hermes emphasizes persistent memory and a learning loop.
+
+### Persistent memory
+
+- **Sessions** preserve interaction history.
+- **Memory** stores selected contextual knowledge for future use.
+- **Skills** preserve reusable procedures.
+
+### Learning loop
+
+Hermes can create skills from experience, improve skills during use, and persist knowledge that may be useful later.
+
+```text
+Perform task
+    |
+    v
+Observe outcome
+    |
+    v
+Identify reusable knowledge
+    |
+    v
+Create or update skill
+    |
+    v
+Persist knowledge
+    |
+    v
+Reuse in future tasks
+```
+
+This is a procedural learning system. It does not mean Hermes automatically changes the underlying model weights during normal use.
+
+Session management and conversation compression help maintain context during long-running interactions.
+
+---
+
+## Skills, plugins, and MCP
+
+### Skills
+
+Skills are reusable procedures that teach Hermes how to perform a workflow. They can contain instructions, decision rules, tool guidance, validation steps, expected outputs, and supporting files.
 
 Example:
 
 ```text
-Skill: Docker Health Review
+Skill: Infrastructure Health Review
 
-1. Check Docker daemon availability.
-2. List running and stopped containers.
-3. Identify unhealthy or restarting containers.
+1. Check approved hosts and services.
+2. Collect service and resource status.
+3. Identify abnormal conditions.
 4. Inspect relevant logs.
-5. Check resource utilization.
-6. Summarize likely causes.
-7. Recommend remediation.
-8. Restart a service only when explicitly authorized.
+5. Determine likely causes.
+6. Separate confirmed findings from hypotheses.
+7. Produce an actionable report.
+8. Require approval before making changes.
 ```
 
-### 6. Memory and session state
+Hermes can create and improve skills as part of its learning workflow. The project documents compatibility with the Agent Skills open standard.
 
-Hermes stores local configuration and agent state in its Hermes home directory. The exact directory layout can change, so use the current documentation before scripting against internal files.
+### Plugins
 
-A typical installation uses:
+Plugins extend or modify Hermes without requiring changes to the agent core. They can provide:
 
-```text
-~/.hermes/
-```
+- Tools and integrations.
+- Hooks and workflows.
+- Themes and interfaces.
+- Memory backends.
+- Terminal backends.
+- Additional capabilities.
 
-Treat this directory as sensitive. It may contain configuration, session data, credentials or credential references, logs, skills, scheduled-job definitions, and other state.
+The Hermes Marketplace unifies discovery of plugins, connectors, and skills. The v0.23 development cycle expanded the catalog to more than 1,050 entries.
+
+The v0.23.1 patch fixed a catalog-size limit that caused older clients to use a stale bundled catalog.
+
+### MCP
+
+Model Context Protocol support lets Hermes connect to external servers that expose tools and resources. MCP servers can provide access to databases, files, internal services, and specialized tools.
+
+MCP is an extension mechanism, not a requirement for the core agent.
+
+Resources: [Hermes Marketplace](https://hermes-agent.nousresearch.com/marketplace) · [Official documentation](https://hermes-agent.nousresearch.com/docs)
 
 ---
 
-## Why Apple Silicon
+## Bots, group chats, and delegation
 
-Apple Silicon is attractive for local inference because CPU and GPU share unified memory. This allows model weights and inference buffers to use a common memory pool rather than requiring all model data to fit in a discrete GPU's VRAM.
+### Specialist bots
+
+Bot Mode supports named specialist agents with distinct instructions and configuration, including model/provider, memory/profile, skills, tools, and MCP servers.
+
+### Group Chats
+
+Group Chat capabilities include multiple bots in one conversation, mentions and routing, lead-bot routing options, shared room context, room purpose and notes, per-member activity state, and scheduled jobs that can post into group rooms.
+
+### Subagents and delegation
+
+Hermes can delegate work to isolated subagents for parallel workstreams. Delegation can be configured to use different models, providers, or profiles.
 
 ```text
-             Apple Silicon SoC
-        +--------------------------+
-        |                          |
-        |       Unified Memory     |
-        |                          |
-        |    CPU           GPU     |
-        |     |             |      |
-        |     +------┬------+      |
-        |            |             |
-        +------------+-------------+
-                     |
-               macOS / Hermes
+                    Coordinator
+                         |
+             +-----------+-----------+
+             |           |           |
+             v           v           v
+          Research    Code review  Security
+             |           |           |
+             +-----------+-----------+
+                         |
+                         v
+                 Consolidated result
 ```
 
-The trade-off is that macOS, the agent, model weights, KV cache, runtime buffers, and other applications all compete for the same memory.
+Delegation is an orchestration capability, not a guarantee that individual subagent results are correct. The coordinating agent must evaluate and synthesize the results.
 
-For local LLM workloads, unified memory capacity is usually more important than a small difference in CPU clock speed.
+---
 
-### Why a Mac mini works well
+## Gateway and Webapp
 
-- Low idle power relative to a discrete-GPU workstation.
-- Small footprint and quiet operation.
-- Apple Silicon GPU acceleration through Metal.
-- Unified-memory configurations suitable for local models.
-- Fast internal storage.
-- Wired Ethernet.
-- Native macOS background-service support.
-- Good fit for a continuously available agent host.
+The Gateway is the persistent runtime that coordinates Hermes sessions and background work.
 
-The Mac mini does not need to be the fastest inference machine in the lab. It can provide the agent, scheduling, memory, integrations, and control plane while another system handles larger inference jobs.
+It provides:
 
-## Install Hermes Desktop
+- Shared session ownership.
+- Persistent agent operation.
+- Scheduled jobs.
+- Webapp serving.
+- Configured integration support.
+- Shared state across supported interfaces.
 
-### Recommended installation path
+### Shared session model
 
-1. Open the official [Hermes Desktop download page](https://hermes-agent.nousresearch.com/desktop).
-2. Download the macOS installer for Apple Silicon.
-3. Open the downloaded disk image.
-4. Drag Hermes into Applications if prompted.
-5. Launch Hermes Desktop from Applications.
-6. Approve the normal macOS first-launch prompt if shown.
-7. Complete the guided setup inside the app.
+```text
+             Hermes Gateway
+                    |
+       +------------+------------+
+       |            |            |
+       v            v            v
+    Desktop       Webapp       Other clients
+       |            |            |
+       +------------+------------+
+                    |
+              Shared sessions
+                    |
+                 Agent core
+                    |
+               Model provider
+```
 
-**Do not install Hermes through a terminal installer for this GUI-first deployment.** The Desktop installer is the primary installation method in this guide.
+### Webapp
 
-### Platform note
+The Webapp serves the Desktop workspace through a browser. It is distinct from the older Web Dashboard.
 
-The official macOS Desktop build targets Apple Silicon. Intel Macs are not a supported macOS Desktop target. Check the official platform-support page before attempting deployment on other architectures.
+The workspace includes sessions, profiles, capabilities, artifacts, scheduled jobs, host file tree, Git review, previews, and a terminal interface.
 
-### Version baseline
+The Webapp is served by the Gateway. The documented default port is `9120`, although the configured port may differ.
 
-As checked on October 30, 2026, the latest stable GitHub release is **v0.22.5**, dated October 22, 2026. Release cadence is rapid; check the [official releases page](https://github.com/NousResearch/hermes-agent/releases) before updating this guide or pinning a production deployment.
+### Webapp security
 
-## First-Run Setup
+The Webapp can expose powerful host capabilities. Authentication and network exposure must be treated as security-sensitive.
 
-The exact onboarding sequence may change, but the general GUI workflow is:
+- Plain HTTP does not encrypt traffic.
+- HTTPS is strongly recommended for remote access.
+- Do not expose the Webapp directly to the public internet without appropriate authentication and access controls.
+- A Webapp user can invoke tools with the permissions of the Hermes host account.
 
-1. Launch Hermes Desktop.
-2. Follow the guided setup conversation.
-3. Choose a provider.
-4. If using a hosted provider, authenticate or enter the required API credentials through the app.
-5. If using a local model, choose the local-model path.
-6. Select a model that fits the Mac's memory.
-7. Start a test conversation and confirm that the model responds.
-8. Review the active profile, permissions, and available tools before enabling automation.
+Official documentation: [Hermes Desktop and Web Access](https://hermes-agent.nousresearch.com/docs/user-guide/desktop)
 
-### Start with a working chat
+---
 
-Do not begin by configuring every integration. First confirm that a normal conversation works with one provider and one model.
+## Mobile applications: iOS and Android
 
-Then add capabilities incrementally:
+There are **two distinct products that must not be confused**:
 
-1. Model and provider.
-2. Basic chat.
-3. Files and workspace access.
-4. Skills and plugins.
-5. Connectors and MCP.
-6. Gateway and messaging.
-7. Scheduled jobs.
-8. More powerful tools and automation.
+1. **Hermes Mobile by Nous Research** — the official first-party mobile companion application, currently in beta.
+2. **Hermes Agent - Android by Hen Works** — a separate third-party Android application available on Google Play.
 
-This order makes troubleshooting much easier.
+The Google Play link supplied for this README is the Hen Works application, not the official Nous Research mobile beta.
 
-## Local Models Through the GUI
+### Official Hermes Mobile — Nous Research
 
-One of the most important changes in current Hermes Desktop is the managed local-model workflow.
+Nous Research released the official Hermes Mobile beta around NousCon 2026 (October 31 / November 1).
 
-Hermes can download and manage a supported llama.cpp runtime, select an appropriate build for the machine, and choose model variants based on hardware. This removes the need to manually install llama.cpp, download a GGUF file separately, or tune GPU layers and context settings for the standard managed path.
+Official beta page: [Hermes Mobile Beta](https://hermes-agent.nousresearch.com/mobile)
 
-### GUI workflow
+The official page currently asks users to select a platform and join the beta waitlist. Nous Research announced on November 3 that the first beta filled quickly and that it was working to expand capacity and prepare the app for wider release.
 
-In Hermes Desktop:
+#### iOS
 
-1. Open **Settings**.
-2. Open **Providers**.
-3. Select **Local Models**.
-4. Click **Install runtime**.
-5. Wait for the runtime download, verification, and installation to complete.
-6. Browse the model catalog.
-7. Review the model's memory-fit and context information.
-8. Select **Download**.
-9. When the model is ready, select **Use**.
-10. Start a new chat and confirm the local model is selected.
+- Official beta distribution: Apple TestFlight.
+- Public beta capacity was limited.
+- The official mobile page is the authoritative source for current enrollment.
+- No general public App Store release was verified as of November 10, 2026.
 
-The local server is managed by Hermes. It starts and stops with Hermes as documented, and the Desktop UI provides the supported update path for the managed runtime.
+#### Android
 
-### Model selection and memory fit
+- Official beta distribution: Firebase App Distribution.
+- Public beta capacity was limited.
+- The official mobile page is the authoritative source for current enrollment.
+- No general public Google Play release by Nous Research was verified as of November 10, 2026.
 
-The model catalog evaluates models against the machine before download. Depending on the model and hardware, the UI can show whether it fits in GPU/unified memory, whether it requires system RAM spill, its context window, and the selected download size.
+#### Official mobile beta update
 
-Prefer a model that fits comfortably in unified memory. Do not select a model solely because its weight file appears to fit: context state, runtime buffers, vision components, and concurrent workloads also consume memory.
+A November 3 beta update announcement reported iOS Build 41 and Android Build 22.
 
-### Finding additional models
+Reported improvements included:
 
-The Local Models page includes a way to find models beyond the curated catalog. The app can search Hugging Face and evaluate candidate files against the machine. Community models may not carry the same validation status as curated models.
+**Both platforms**
+- More accurate bot activity state.
+- Upload fixes.
+- Bot screen-viewer fixes.
+- Better distinction between models with similar names from the same provider.
 
-You can also add an existing GGUF model file through the model-management interface where supported. This links the file into the library rather than requiring a second full copy.
+**iOS**
+- Smoother scrolling during streamed responses.
+- Improved keyboard and message layout behavior.
+- Better image sizing.
+- Thinking-level selection for new chats.
+- Improved bot activity updates.
+- Connection fixes for certain local dashboards.
 
-### What runs locally?
+**Android**
+- Chat transcript and scrolling fixes.
+- Voice input support on Android 11 and later.
+- Live voice history fixes.
+- Improved menu behavior.
+- Corrected subagent progress display.
+- Notification pairing fixes.
+- Connection fixes for certain local dashboards.
 
-The managed local-model feature uses llama.cpp with Metal or CPU on macOS. It does not mean Hermes automatically uses Apple's Neural Engine.
+These are beta-build notes, not a guarantee that every feature is available in every tester build.
 
-After a model has been downloaded, local inference can run without sending prompts to a hosted model provider. Other features—such as web browsing, external APIs, messaging platforms, and remote tools—may still require network access.
+#### Official mobile architecture
 
-### Manual inference servers remain optional
+Hermes Mobile is a companion client for a Hermes Agent environment. The agent runtime, model provider, tools, memory, and persistent state remain part of the Hermes environment. The mobile app provides the mobile interface.
 
-The managed runtime is the easiest starting point, not a restriction.
+The official mobile application is not documented as a replacement for the Desktop local inference runtime or as an independent on-device llama.cpp host.
 
-If you already operate Ollama, oMLX, or a separately managed llama.cpp server, configure it as a custom provider using its OpenAI-compatible endpoint. This is useful when you want to manage model lifecycle independently of Hermes.
+### Third-party Android app — Hen Works
 
-Examples:
+The supplied Google Play listing is:
 
-| Backend | Typical endpoint | Model format |
+[Hermes Agent - Android — Google Play](https://play.google.com/store/apps/details?id=com.hermesagent.android&hl=en_US)
+
+**Developer:** Hen Works  
+**Package ID:** `com.hermesagent.android`  
+**Latest listing update observed:** October 26, 2026  
+**Rating observed:** 4.6 / 5, approximately 4.3K reviews  
+**Downloads observed:** 50K+
+
+This application is published by **Hen Works**, not Nous Research. Its Google Play listing says it is built on the open-source `hermes-agent` framework. It should therefore be described as a third-party Android implementation, not as the official Nous Research mobile app.
+
+#### Features listed by Hen Works
+
+- Android AI assistant interface.
+- Multiple provider support: OpenAI, Anthropic, Google, OpenRouter.
+- Local model support through LiteRT-LM.
+- Built-in terminal with Bash, Python, and Git.
+- On-device code execution.
+- Persistent memory and session management.
+- Web search and extraction.
+- Image generation through Fal.ai integration.
+- Text-to-speech through Edge TTS.
+- Web-based monitoring dashboard.
+- Pairing with a Hermes Desktop installation.
+
+The app's local inference path is listed as **LiteRT-LM**, which is distinct from the llama.cpp runtime managed by Hermes Desktop.
+
+The Play listing says approximately 200 MB of initial storage is required and that hosted AI API calls require an internet connection and user-supplied API keys.
+
+#### Latest Google Play update observed
+
+The current listing shows an October 26, 2026 update. Its published notes include:
+
+- Editing Hermes personality and standing instructions through Settings → Personality (`SOUL.md`).
+- Additional terminal appearance options and JetBrains Mono font.
+- Fixes for `nano`, `less`, and `clear`.
+- Keyboard/API-key input fixes.
+- Better handling of missing API keys.
+- Long-text paste crash fix.
+- Terminal/Web Hermes updates blocked in favor of the app's Settings update path.
+
+The listing also advertises file attachments for PDF, Word, slides, and text in earlier 3.1 release notes.
+
+The app's Data Safety disclosure says it may collect and share financial information, app activity, and device or other IDs. Review the current listing and its privacy policy before use.
+
+**Important distinction:** the Hen Works application is a separate third-party product. Its feature set, release schedule, local inference implementation, data handling, and support are controlled by Hen Works. It is not the official Nous Research Hermes Mobile beta.
+
+### Mobile app comparison
+
+| Attribute | Official Hermes Mobile | Hen Works Hermes Agent Android |
 |---|---|---|
-| llama.cpp server | `http://127.0.0.1:8080/v1` | GGUF |
-| Ollama | `http://127.0.0.1:11434/v1` where compatible | Ollama-managed |
-| oMLX | `http://127.0.0.1:8000/v1` | MLX |
-| Remote local server | Your LAN endpoint | Depends on server |
+| Publisher | Nous Research | Hen Works |
+| iOS | Official beta | No iOS counterpart verified here |
+| Android | Official beta | Google Play release |
+| Distribution | TestFlight / Firebase beta | Google Play |
+| Status on Nov. 10, 2026 | Limited beta / waitlist | Public Play Store listing |
+| Relationship to Hermes | First-party companion app | Third-party app built on the open-source framework |
+| Local inference engine | Not documented as on-device model hosting | LiteRT-LM listed |
+| Desktop pairing | Companion to Hermes environment | Listing advertises Desktop pairing |
+| Update cadence | Separate mobile beta builds | Hen Works Play Store updates |
 
-Use the provider configuration in Desktop and test the endpoint. Avoid exposing inference APIs to the LAN unless authentication and firewall restrictions are in place.
+**Authenticity warning:** Nous Research previously warned about look-alike applications using Hermes branding. The official mobile beta is linked from the Nous Research Hermes website. The Hen Works app is a distinct third-party application; it should not be represented as the official Nous mobile app.
 
-### llama.cpp versus MLX/oMLX
+---
 
-| Backend | Strengths | Considerations |
+## Platform support
+
+Support varies by platform, distribution channel, and feature.
+
+| Platform | Application / interface | Local model management |
 |---|---|---|
-| Hermes-managed llama.cpp | Simplest GUI setup; model/runtime management; GGUF ecosystem | Less manual control over runtime flags |
-| Self-managed llama.cpp | Fine-grained control over context, KV cache, parallelism, and server settings | More operational work |
-| Ollama | Convenient model lifecycle and broad ecosystem | Performance and feature behavior depend on model/runtime |
-| oMLX | Apple Silicon-native MLX serving; OpenAI-compatible API | Requires separate setup and model compatibility checks |
+| macOS Apple Silicon | Native Hermes Desktop | Yes — managed llama.cpp / Metal or CPU |
+| Windows x64 | Native Hermes Desktop | Yes — supported CUDA, Vulkan, or CPU backends |
+| Linux x64 | Supported Hermes interfaces | Yes — supported CUDA, Vulkan, HIP, or CPU backends |
+| Linux ARM64 | Supported Hermes interfaces | Supported backend combinations, subject to hardware and driver support |
+| iOS | Official Hermes Mobile beta | Not documented as an on-device Desktop model manager |
+| Android | Official Hermes Mobile beta | Not documented as an on-device Desktop model manager |
+| Android | Hen Works third-party app | LiteRT-LM local models listed by the developer |
 
-For a first deployment, start with Hermes-managed local models. Add oMLX or another custom endpoint only when you have a specific performance, model-format, or operational reason.
+Do not assume that a backend is supported on every hardware/OS combination. Consult the Local Models documentation for current driver and platform requirements.
 
-## External and Remote Model Providers
+---
 
-Hermes can use hosted providers as well as local models. This is useful when a task benefits from a model that is too large or slow for the Mac.
+## Security and privacy
 
-Typical choices include:
+Hermes can be granted access to powerful tools and should be treated as an automation system with permissions, not simply as a chatbot.
 
-- Nous Portal and supported Nous model access.
-- OpenRouter and supported model aggregators.
-- OpenAI-compatible providers.
-- Other providers listed in the current Hermes provider catalog.
+Potentially sensitive capabilities include shell execution, filesystem access, browser sessions, Git repositories, API credentials, computer-use operations, container management, and external tools.
 
-Configure providers in the Desktop application's provider/model settings. Use the app's authentication flow where available, and do not paste credentials into chat messages.
+### Security principles
 
-### Hybrid provider strategy
+1. Apply least privilege to the operating-system account running Hermes.
+2. Limit filesystem access to required workspaces.
+3. Prefer read-only permissions for monitoring tasks.
+4. Use scoped credentials and minimum required API permissions.
+5. Require approval for destructive or externally visible actions.
+6. Review plugin dependencies and requested permissions.
+7. Protect Gateway and Webapp authentication.
+8. Restrict network exposure.
+9. Use sandboxing for higher-risk command execution.
+10. Keep credentials and private session data out of source control.
 
-A practical approach is to use a local model for routine, private, and low-cost tasks, then switch to a stronger hosted or LAN-hosted model for complex reasoning or coding.
+### Local inference versus external services
 
-Be aware that switching providers changes where prompts and context are processed. A local agent interface does not make a cloud provider local.
+Local model inference can remain on the host after the model and runtime are downloaded. This does not mean every Hermes feature is offline. Hosted providers, external APIs, web retrieval, and network-dependent plugins still require connectivity and may process data outside the local machine.
 
-## The Gateway and 24/7 Operation
+### Sandboxing
 
-The Gateway is the persistent backend that makes Hermes more than an app that only works while a chat window is open.
+Hermes supports configurable terminal execution backends, including container-oriented isolation options where supported. A container is not automatically a secure sandbox: host mounts, privileged mode, Docker socket access, credentials, and network permissions determine the effective boundary.
 
-It supports the runtime used by Desktop, sessions, scheduled jobs, and messaging integrations. Current Desktop architecture can attach to a running Gateway or start one when needed. The Gateway is not inherently tied to the lifetime of the Desktop window; it can remain running after the app is closed.
+### Mobile privacy
 
-### Desktop-first Gateway management
+The official Nous mobile beta and the Hen Works Android application are separate products with separate data handling and privacy policies. Do not assume that their permissions, telemetry, credential storage, or network behavior are identical.
 
-Use the Gateway controls and status information exposed in Hermes Desktop Settings. The app is the preferred place to inspect and manage the local runtime.
+---
 
-For an always-on deployment:
+## Configuration and persistent data
 
-1. Complete a working Desktop setup first.
-2. Confirm that the Gateway is running.
-3. Use the app's Gateway controls to enable or install persistent background operation where offered.
-4. Confirm the Gateway reports a healthy state.
-5. Configure messaging integrations and scheduled jobs only after the base Gateway works.
-6. Reboot the Mac and verify that the Gateway returns.
-7. Close the Desktop window and verify that scheduled and messaging functions remain available.
-
-The precise labels can vary by release. The important distinction is between the **Desktop window** and the **persistent Gateway service**.
-
-### macOS launchd
-
-On macOS, a persistent Hermes Gateway can be supervised by `launchd`. The service definition is normally stored under the user's LaunchAgents directory.
-
-Typical service path:
-
-```text
-~/Library/LaunchAgents/ai.hermes.gateway.plist
-```
-
-The Desktop app should be the normal management interface. The optional CLI commands below are useful when diagnosing service state or working remotely.
-
-### 24/7 Mac configuration
-
-Recommended macOS settings and operational practices:
-
-- Prevent automatic system sleep while connected to power.
-- Keep Ethernet connected.
-- Configure automatic restart after power failure where supported.
-- Use a UPS if the Mac hosts important automations.
-- Keep macOS updates deliberate and schedule reboots.
-- Maintain free SSD space for models, logs, and agent state.
-- Monitor memory pressure and model-server health.
-- Review Gateway logs after upgrades or unexpected restarts.
-- Test the service after a full reboot, not only after logging out and back in.
-
-A persistent Gateway does not guarantee that every model provider or external integration is always available. Monitor each dependency independently.
-
-## Desktop Features and Agent Capabilities
-
-Hermes Desktop is the control surface; the agent's actual capabilities depend on enabled tools, permissions, provider support, and platform.
-
-### Chat and sessions
-
-- Maintain multiple conversations.
-- Resume previous sessions.
-- Work across supported profiles.
-- Continue work through another Hermes interface because the state is shared.
-
-### Files and workspaces
-
-Hermes can work with files and project directories when the relevant access is configured. Keep the working directory scoped to the task. Avoid giving the agent unrestricted access to personal files or system locations.
-
-### Browser and computer use
-
-Where supported and enabled, Hermes can use browser and computer-interaction tools. These capabilities should be treated as privileged access: a task that can click buttons or operate a logged-in browser may be able to change real account data.
-
-### Scheduled jobs
-
-Hermes supports scheduled tasks through its Gateway runtime. Examples include periodic research, repository checks, and homelab health reports.
-
-### Messaging
-
-Supported messaging integrations can provide a remote interface to the agent. The Gateway must remain available for these workflows.
-
-### Delegation and subagents
-
-Hermes can delegate work to subagents where configured. Delegation may use different models or profiles. Review permissions and provider routing before allowing subagents to execute tools.
-
-## Skills, Plugins, Connectors, and MCP
-
-These mechanisms extend Hermes, but they serve different purposes.
-
-| Mechanism | Purpose |
-|---|---|
-| Skills | Reusable instructions and workflows |
-| Plugins | Installable extensions that can add tools, hooks, themes, and integrations |
-| Connectors | Connect Hermes to external services and accounts |
-| MCP | Protocol for exposing tools and resources from external servers |
-| Custom tools | User-defined integrations and operations |
-
-Use the Desktop interface and plugin catalog where possible to discover, install, configure, and update extensions. Review the permissions and dependencies requested by a plugin before approving installation.
-
-### Example integrations
-
-- GitHub repository review.
-- Home Assistant.
-- Docker and container monitoring.
-- Local filesystem and project workflows.
-- Browser automation.
-- External APIs.
-- Messaging platforms.
-
-A connector or MCP server may require credentials and network access. Keep those permissions scoped to the minimum needed.
-
-## Memory and Persistent State
-
-Hermes can retain information across sessions through its memory and session systems. It also supports skills that can be created and refined over time.
-
-This is useful for an always-on assistant, but persistent state should be treated as operational data:
-
-- Back up the Hermes home directory using a method that protects secrets.
-- Do not commit `.env`, API keys, session databases, or private logs to Git.
-- Review what information the agent is asked to retain.
-- Keep separate profiles for materially different trust boundaries.
-- Test restore procedures before relying on the system.
-
-Do not build external scripts around undocumented internal file names or database schemas. Use supported UI or documented interfaces wherever possible.
-
-## Always-On Use Cases
-
-The Mac mini can continue working while the user is away, provided the Gateway, provider, tools, and network dependencies remain available.
-
-### 1. Daily AI and technology research
-
-Example scheduled task:
-
-```text
-Every morning at 07:00:
-
-Research important developments in:
-- Local LLMs and inference
-- AI agents and agent frameworks
-- Apple Silicon AI
-- Model releases and benchmarks
-- Security and infrastructure
-
-Prioritize primary sources and release notes.
-Separate confirmed facts from speculation.
-Produce a concise briefing with links and why each item matters.
-```
-
-### 2. GitHub repository monitoring
-
-```text
-Every morning:
-
-Review selected repositories for:
-- New issues
-- Pull requests
-- Failed CI workflows
-- Security advisories
-- Dependency updates
-- Significant upstream releases
-
-Summarize only actionable changes.
-Do not merge, close, or modify issues without approval.
-```
-
-### 3. Homelab monitoring
-
-```text
-Every 6 hours:
-
-Check approved homelab systems for:
-- Host availability
-- Docker container health
-- Disk utilization
-- Memory pressure
-- Network reachability
-- Selected service health
-
-Collect relevant logs for abnormal conditions.
-Report likely causes and recommended actions.
-Do not restart services without approval.
-```
-
-### 4. Docker operations assistant
-
-Hermes can be given access to Docker through an appropriately restricted tool environment.
-
-Potential tasks:
-
-- List containers and health states.
-- Inspect container logs.
-- Identify restart loops.
-- Summarize resource consumption.
-- Compare deployed image tags with approved update sources.
-
-Avoid unrestricted Docker socket access. Control of the Docker daemon is effectively powerful host-level access.
-
-### 5. Home Assistant
-
-A possible architecture:
-
-```text
-Home Assistant
-      ^
-      | API / MCP / approved integration
-      |
-Hermes Gateway
-      |
-Hermes Agent
-      |
-Configured model provider
-```
-
-Potential tasks:
-
-- Summarize home status.
-- Explain sensor anomalies.
-- Identify unavailable devices.
-- Propose automations.
-- Execute approved actions.
-
-Start with read-only access. Add control actions only after testing and defining approval boundaries.
-
-### 6. Personal assistant through messaging
-
-Hermes can be reachable through supported messaging integrations, such as Telegram, Discord, or Slack, depending on the current connector/plugin support and configuration.
-
-This is useful when the Mac mini is unattended. Protect bot accounts and restrict who can interact with the agent.
-
-## Recommended Mac mini Architecture
-
-For an always-on Apple Silicon host:
-
-```text
-                         LAN
-                          |
-                 +------------------+
-                 |     Mac mini     |
-                 |     macOS        |
-                 +--------+---------+
-                          |
-                 +--------v---------+
-                 | Hermes Desktop   |
-                 | GUI / Settings   |
-                 +--------+---------+
-                          |
-                 +--------v---------+
-                 | Hermes Gateway   |
-                 | Persistent agent |
-                 +---+----------+---+
-                     |          |
-                     v          v
-               Model Provider  Tools
-                     |          |
-              +------+----+     +----------------+
-              |           |                      |
-              v           v                      v
-         Local model   Remote model          Integrations
-         llama.cpp     LAN / hosted          GitHub / HA
-         Metal GPU     API                   Docker / APIs
-```
-
-Recommended responsibilities:
-
-- Desktop for interactive configuration and management.
-- Gateway for persistent sessions, scheduled jobs, and messaging.
-- Local model for private and routine inference.
-- RTX workstation for larger models or higher-throughput inference.
-- Restricted tool environments for shell, Docker, filesystem, and network actions.
-
-## Hybrid Mac mini + RTX Workstation
-
-A hybrid design is particularly useful when the Mac mini is the always-on control plane and an NVIDIA workstation supplies heavier inference.
-
-```text
-                         YOUR LAN
-                            |
-              +-------------+-------------+
-              |                           |
-              v                           v
-       +--------------+           +------------------+
-       |   Mac mini   |           | RTX Workstation  |
-       |    macOS     |           | Ubuntu           |
-       |              |           |                  |
-       | Hermes       |  OpenAI   | Ollama / vLLM /  |
-       | Desktop      |  API      | other model API  |
-       | Gateway      +---------->+                  |
-       |              |           | Larger models    |
-       | Small local  |           | Heavy inference  |
-       | models       |           |                  |
-       +------+-------+           +------------------+
-              |
-       +------+---------+
-       |        |       |
-       v        v       v
-     GitHub   Home    Homelab
-              Assistant
-```
-
-The Mac mini remains available even when the RTX workstation is powered down. When the workstation is online, Hermes can use its model endpoint for tasks that benefit from larger models.
-
-Keep the model endpoint private to the LAN or VPN. Use authentication and firewall rules; do not expose an unauthenticated inference API to the internet.
-
-## Security Model
-
-An autonomous agent should be treated as a privileged automation system, not simply a chatbot.
-
-Hermes may be granted access to:
-
-- Files and directories.
-- Shell commands.
-- Git repositories.
-- Docker.
-- Browsers and logged-in sessions.
-- Network services.
-- API credentials.
-- Messaging systems.
-- Home automation.
-
-The agent's permissions should be **smaller than the permissions of the human administrator**.
-
-### Recommended controls
-
-1. Use a dedicated macOS account for the always-on agent where practical.
-2. Restrict filesystem access to explicit workspaces.
-3. Prefer read-only access for monitoring tasks.
-4. Use separate API credentials with minimum required scopes.
-5. Keep secrets out of prompts, Git repositories, and logs.
-6. Require approval for destructive or externally visible actions.
-7. Restrict inbound messaging to known users.
-8. Keep the Gateway and model APIs off public interfaces unless protected.
-9. Use a Docker sandbox or other isolation backend for higher-risk command execution.
-10. Review plugin dependencies and requested permissions.
-
-### Docker sandbox
-
-A sandboxed terminal backend can reduce the impact of command execution:
-
-```text
-Hermes Agent
-     |
-     v
-Restricted terminal backend
-     |
-     v
-Sandbox container
-     |
-     +-- CPU / memory limits
-     +-- Restricted filesystem
-     +-- Restricted network
-     +-- No unnecessary credentials
-```
-
-A sandbox is not automatically secure merely because it uses Docker. Avoid mounting the host filesystem or Docker socket into the sandbox unless absolutely necessary.
-
-### Privacy boundaries
-
-A local model keeps inference on the local machine after the model has been downloaded. However, Hermes can still access the internet for browser searches, APIs, messaging, and remote providers.
-
-For a privacy-sensitive deployment, explicitly decide which data may be sent to:
-
-- Hosted model providers.
-- Web search providers.
-- Messaging platforms.
-- Third-party APIs.
-- Plugin and MCP services.
-
-## Resource Planning
-
-The main hardware constraint for local inference is memory.
-
-Memory is shared by:
-
-- macOS.
-- Hermes Desktop and Gateway.
-- Model weights.
-- KV cache.
-- Inference runtime buffers.
-- Other applications and services.
-
-The model file size alone is not a reliable measure of whether a model will run well. Context length, cache precision, runtime buffers, and concurrent sessions all matter.
-
-### Practical memory tiers
-
-| Unified memory | Practical role |
-|---:|---|
-| 16 GB | Small local models and light single-user workloads |
-| 24 GB | More comfortable small-model agent host |
-| 32 GB | Strong general-purpose local agent; 9B–14B class models depending on context and quantization |
-| 48 GB | More headroom for larger models, longer context, and concurrent workloads |
-| 64 GB+ | Larger local models and more simultaneous workloads |
-
-These are planning guidelines, not guarantees. Use the model-fit information shown by Hermes Desktop for the exact model/runtime combination.
-
-### Suggested hardware
-
-| Component | Recommendation |
-|---|---|
-| Memory | 32 GB minimum for a capable local agent host; more is preferable |
-| Storage | 1 TB recommended if keeping several models locally |
-| Network | Wired Ethernet |
-| Power | UPS for important always-on workflows |
-| Cooling | Ensure adequate ventilation |
-| OS | Supported macOS version for the current Desktop release |
-
-### Storage layout
-
-A practical arrangement:
-
-```text
-Mac mini internal SSD
-|
-+-- Hermes application
-+-- Hermes state and configuration
-+-- Active local models
-+-- Runtime files
-+-- Logs and session data
-
-External Thunderbolt / USB4 storage
-|
-+-- Model archive
-+-- Backups
-+-- Large datasets
-```
-
-Keep frequently used models on fast storage. Back up agent state and configuration, but ensure backups are encrypted and access-controlled.
-
-## Operations and Optional CLI
-
-The GUI is the primary management path. The following commands are **not installation instructions**. They are optional tools for an administrator who wants to inspect or troubleshoot an already-installed Hermes environment.
-
-Open Terminal only when a GUI status page does not provide enough information or when automating an administrative check.
-
-### Basic diagnostics
-
-```bash
-# Show available Hermes commands
-hermes --help
-
-# Show Gateway status
-hermes gateway status
-
-# List configured profiles and Gateway state
-hermes gateway list
-
-# Follow Gateway logs
-tail -f ~/.hermes/logs/gateway.log
-```
-
-### Gateway lifecycle
-
-```bash
-# Start the installed background service
-hermes gateway start
-
-# Stop it
-hermes gateway stop
-
-# Restart it
-hermes gateway restart
-
-# Inspect status
-hermes gateway status
-```
-
-Use the Desktop Gateway controls for normal operation. These commands are useful for remote administration, scripts, and troubleshooting.
-
-### Scheduled jobs
-
-```bash
-# List scheduled jobs
-hermes cron list
-```
-
-Create and manage scheduled work through the supported Hermes interface for the installed release. Verify the job's schedule, timezone, provider, permissions, and destination before enabling it.
-
-### Configuration and logs
-
-The Hermes home directory is typically:
+Hermes maintains configuration and persistent agent data. The user data directory commonly resides under:
 
 ```text
 ~/.hermes/
 ```
 
-Do not edit internal configuration files casually when the same setting is exposed in Desktop. Prefer the GUI so that validation and supported defaults are applied.
+The exact location can vary by installation scope, profile, and platform.
 
-When troubleshooting, collect:
+The Hermes home may contain:
 
-- Hermes Desktop version.
-- Gateway status.
-- Relevant Gateway log entries.
-- Provider and model name.
-- macOS version and hardware.
-- Whether the failure affects local inference, remote inference, or only a specific tool.
+- Configuration.
+- Provider credentials or credential references.
+- Sessions and conversation history.
+- Memory.
+- Skills.
+- Profiles.
+- Scheduled jobs.
+- Logs.
+- Plugin state.
+- Model/runtime metadata.
 
-Redact API keys, tokens, session identifiers, and personal data before sharing logs.
+Treat this directory as sensitive operational data.
 
-## Deployment Scenarios
+### Backup considerations
 
-### Scenario 1 — Desktop-only personal assistant
+A backup plan should account for configuration, profile state, sessions, memory, custom skills, plugin configuration, scheduled-job definitions, credential storage, and any model files that are not easily reproducible.
 
-```text
-macOS
-  |
-Hermes Desktop
-  |
-Cloud provider or local model
-```
+Do not commit API keys, tokens, private sessions, or secrets to Git. Prefer supported configuration and management interfaces rather than relying on undocumented internal database schemas or file names.
 
-Best for:
+---
 
-- Learning Hermes.
-- Interactive personal assistant use.
-- Testing models and plugins.
-- Minimal administration.
+## Release channels and updates
 
-### Scenario 2 — Always-on Mac mini
+Hermes releases, Desktop packages, plugins, and mobile beta builds can follow separate schedules.
 
-```text
-macOS
-  |
-Hermes Desktop (management)
-  |
-Hermes Gateway (persistent)
-  |
-Local model and integrations
-```
+### Core Agent
 
-Best for:
+The GitHub release page is the authoritative source for stable Agent version tags and release notes:
 
-- Scheduled research.
-- GitHub monitoring.
-- Messaging integrations.
-- Home Assistant.
-- Homelab monitoring.
+[Hermes Agent Releases](https://github.com/NousResearch/hermes-agent/releases)
 
-### Scenario 3 — Mac mini with oMLX
+### Desktop
 
-```text
-Hermes Desktop / Gateway
-          |
-          v
-OpenAI-compatible endpoint
-          |
-          v
-         oMLX
-          |
-          v
-       MLX / Metal
-          |
-          v
-    Apple Silicon GPU
-```
+Desktop distribution channels include:
 
-Best for:
+- macOS signed DMG/ZIP.
+- Windows Microsoft Store.
+- Windows standalone installer.
+- Linux installation methods.
 
-- MLX model experimentation.
-- A separately managed inference server.
-- Testing Apple Silicon inference performance.
+The release notes identify which channels receive each patch. Do not assume that a new Agent tag means every standalone Desktop package has been rebuilt.
 
-This is an advanced alternative to the managed llama.cpp runtime, not a prerequisite for Hermes.
+### Local inference runtime
 
-### Scenario 4 — Mac mini + RTX workstation
+Hermes manages pinned llama.cpp runtime components through its runtime/package management system. The Local Models interface exposes runtime installation and management.
 
-Use the Mac mini as the always-on agent/control plane and the RTX workstation as an optional inference server for larger models.
+### Mobile
 
-Best for:
+Official Hermes Mobile builds are distributed through beta channels while the app is under development. Their build numbers and release cadence are separate from the core Agent version.
 
-- Keeping agent services available at low idle power.
-- Running larger models only when required.
-- Separating automation from heavy inference.
-- Keeping inference traffic inside the LAN.
+The Hen Works Android application has its own independent Google Play version and release history.
 
-## Troubleshooting
+---
 
-| Symptom | Checks |
-|---|---|
-| Desktop opens but chat fails | Confirm provider authentication, selected model, and Gateway health |
-| Local model does not appear | Check Local Models page and runtime installation status |
-| Model download stalls | Check network, disk space, and the download job's pause/resume state |
-| Model is too large | Select a smaller model/quantization or reduce competing memory use |
-| First response is slow | Allow for model loading and prompt prefill; check memory pressure |
-| Gateway is offline | Inspect Gateway status and logs; verify background service state |
-| Scheduled jobs do not run | Confirm Gateway remains running, job schedule/timezone, and provider availability |
-| Messaging bot is unavailable | Check Gateway, bot credentials, pairing/authorization, and platform status |
-| Remote model cannot connect | Check endpoint URL, API path, authentication, DNS, and firewall rules |
-| Tool execution fails | Review tool permissions, sandbox configuration, working directory, and logs |
+## Known limitations and distinctions
 
-### Upgrade discipline
-
-Hermes releases frequently. Before upgrading an always-on host:
-
-1. Review the official release notes.
-2. Back up Hermes state and configuration.
-3. Check provider and plugin compatibility.
-4. Upgrade during a maintenance window.
-5. Verify Desktop launch and a normal chat.
-6. Verify Gateway health.
-7. Test one scheduled task and one messaging integration.
-8. Confirm local inference still works.
-
-Do not assume that the Desktop installer, CLI package, Docker image, and other distribution channels always publish at exactly the same time. Follow the update mechanism for the installation channel actually in use.
-
-## Recommended Configuration
-
-For an always-on Apple Silicon deployment:
-
-| Component | Recommendation |
-|---|---|
-| Hardware | Apple Silicon Mac mini |
-| Memory | 32 GB minimum; 48–64 GB preferred if available |
-| Storage | 1 TB recommended |
-| Network | Wired Ethernet |
-| Interface | Hermes Desktop |
-| Agent runtime | Hermes Agent |
-| Persistent backend | Hermes Gateway |
-| Gateway supervision | macOS `launchd` through the supported Hermes service workflow |
-| Initial inference | Hermes-managed local llama.cpp runtime |
-| Alternative inference | oMLX, Ollama, or another OpenAI-compatible endpoint |
-| Starting model | Choose a model marked as fitting the Mac in Local Models |
-| Larger inference | RTX Ubuntu workstation over the LAN |
-| Extensions | Skills, plugins, connectors, and MCP as required |
-| Automation | Gateway scheduled jobs |
-| Remote interaction | Supported messaging integrations |
-| Security | Least privilege, restricted tools, approval for destructive actions |
-
-### Recommended rollout
-
-1. Install Hermes Desktop.
-2. Complete onboarding and verify one working chat.
-3. Install the managed local runtime from **Settings → Providers → Local Models**.
-4. Download and select a model that fits the Mac.
-5. Test a few ordinary agent tasks.
-6. Configure the Gateway for persistent operation.
-7. Add one integration at a time.
-8. Add scheduled jobs after confirming Gateway reliability.
-9. Add remote RTX inference only when a larger model is needed.
-10. Apply least-privilege controls before granting access to Docker, shell, home automation, or external accounts.
-
-## Summary
-
-Hermes has moved beyond its earlier CLI-first identity. **Hermes Desktop is now the recommended GUI entry point**, while the Gateway supplies the persistent backend and the CLI remains available for advanced administration.
-
-For an Apple Silicon Mac mini, the simplest starting point is:
-
-- Install Hermes Desktop from the official site.
-- Configure a provider through the GUI.
-- Use the managed Local Models page for local llama.cpp inference.
-- Verify the Gateway.
-- Enable persistent operation for scheduled tasks and messaging.
-- Add skills, plugins, connectors, and tools gradually.
-- Keep privileged actions behind explicit approval.
-
-The most useful long-term architecture is to treat the Mac mini as a private AI control plane: it hosts Hermes, persistent state, scheduling, and integrations, while local or LAN-connected inference backends provide the model capacity.
+- The official Nous Research mobile application is in beta, not a general public store release as of November 10, 2026.
+- The Hen Works Android application is a third-party implementation, not the official Nous Research mobile app.
+- The official mobile beta and the Hen Works app have different architectures, local inference support, publishers, and privacy policies.
+- Hermes Desktop manages local inference with llama.cpp on supported desktop operating systems.
+- External inference servers remain optional advanced configurations.
+- Not every local model supports vision or other multimodal features.
+- Hosted providers and network-dependent tools do not become local merely because Hermes is installed locally.
+- Desktop package versions can lag behind the latest Agent patch.
+- Plugin compatibility and catalog visibility depend on the installed Hermes version and plugin requirements.
 
 ---
 
 ## References
 
-- [Hermes Desktop — official documentation](https://hermes-agent.nousresearch.com/docs/user-guide/desktop)
-- [Hermes Desktop — download page](https://hermes-agent.nousresearch.com/desktop)
-- [Hermes Agent — official GitHub repository](https://github.com/NousResearch/hermes-agent)
-- [Hermes Agent — releases](https://github.com/NousResearch/hermes-agent/releases)
-- [Local Models — official documentation](https://hermes-agent.nousresearch.com/docs/user-guide/local-models)
-- [Run Local LLMs on Mac](https://hermes-agent.nousresearch.com/docs/guides/local-llm-on-mac)
-- [Run Hermes Locally with Ollama](https://hermes-agent.nousresearch.com/docs/guides/local-ollama-setup)
-- [Platform Support](https://hermes-agent.nousresearch.com/docs/getting-started/platform-support)
-- [Messaging Gateway](https://hermes-agent.nousresearch.com/docs/user-guide/messaging)
-- [CLI Commands Reference](https://hermes-agent.nousresearch.com/docs/reference/cli-commands)
+### Official Nous Research
 
-*Version note: This guide was checked on October 30, 2026. Hermes is actively developed; verify the official documentation and release notes before applying version-specific procedures.*
+- [Hermes Agent website](https://hermes-agent.nousresearch.com/)
+- [Hermes Agent GitHub repository](https://github.com/NousResearch/hermes-agent)
+- [GitHub releases](https://github.com/NousResearch/hermes-agent/releases)
+- [Official documentation](https://hermes-agent.nousresearch.com/docs)
+- [Hermes Desktop](https://hermes-agent.nousresearch.com/docs/user-guide/desktop)
+- [Local Models](https://hermes-agent.nousresearch.com/docs/user-guide/local-models)
+- [Installation](https://hermes-agent.nousresearch.com/docs/getting-started/installation)
+- [Hermes Marketplace](https://hermes-agent.nousresearch.com/marketplace)
+- [Official Hermes Mobile beta / waitlist](https://hermes-agent.nousresearch.com/mobile)
+- [Nous Research Hermes announcements](https://hermes-ai.net/news/hermes-agent/)
+
+### Android — Hen Works third-party app
+
+- [Hermes Agent - Android on Google Play](https://play.google.com/store/apps/details?id=com.hermesagent.android&hl=en_US)
+- [Hen Works developer page](https://play.google.com/store/apps/developer?id=Hen+Works)
+
+---
+
+*This README reflects information checked on November 10, 2026. Hermes is actively developed. Verify the official release notes, Desktop documentation, Local Models documentation, mobile beta page, and the separate Google Play listing for changes after this date.*
